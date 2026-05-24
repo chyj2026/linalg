@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-05-02">
 
-<title>Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies – Linear Algebra Notes</title>
+<title>Cayley–Hamilton via Four Proof Strategies: Algebraic, Cyclic Basis, Generalised Eigenvector, Exterior Volume – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-a-pure-algebraic-recapped" id="toc-derivation-a-pure-algebraic-recapped" class="nav-link" data-scroll-target="#derivation-a-pure-algebraic-recapped">Derivation A — pure algebraic (recapped)</a></li>
+  <li><a href="#derivation-b-cyclic-basis-the-sessions-working-path" id="toc-derivation-b-cyclic-basis-the-sessions-working-path" class="nav-link" data-scroll-target="#derivation-b-cyclic-basis-the-sessions-working-path">Derivation B — cyclic basis (the session’s working path)</a></li>
+  <li><a href="#derivation-c-generalised-eigenvector-jordan-block-sketched" id="toc-derivation-c-generalised-eigenvector-jordan-block-sketched" class="nav-link" data-scroll-target="#derivation-c-generalised-eigenvector-jordan-block-sketched">Derivation C — generalised eigenvector / Jordan block (sketched)</a></li>
+  <li><a href="#derivation-d-exterior-volume-sketched" id="toc-derivation-d-exterior-volume-sketched" class="nav-link" data-scroll-target="#derivation-d-exterior-volume-sketched">Derivation D — exterior volume (sketched)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies</h1>
+<h1 class="title">Cayley–Hamilton via Four Proof Strategies: Algebraic, Cyclic Basis, Generalised Eigenvector, Exterior Volume</h1>
 </div>
 
 
@@ -190,33 +230,185 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Develops the <strong>Cayley–Hamilton theorem</strong> <span class="math inline">\(p(M) = 0\)</span> — every matrix satisfies its own characteristic polynomial — in four logically distinct ways. (1) <strong>Pure algebraic</strong> via the adjugate identity (already proved, recapped). (2) <strong>Cyclic basis</strong> (the session’s working proof): build a basis <span class="math inline">\(\mathbf{v}_1, M\mathbf{v}_1, \dots, M^{n-1}\mathbf{v}_1\)</span>, express <span class="math inline">\(M^n\mathbf{v}_1\)</span> as a linear combination — the coefficients turn out to be the characteristic-polynomial coefficients. (3) <strong>Generalised eigenvector / Jordan block</strong> (sketched, deferred). (4) <strong>Exterior volume</strong> (the teacher’s own unconventional proof, sketched). The session completes (1) and (2), and flags the <strong>existence gap</strong> in (2): not every matrix admits a cyclic basis (e.g., the identity).</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span></td>
+<td>matrix</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(\lambda) = \det(\lambda I - M)\)</span></td>
+<td>characteristic polynomial</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(p(M) = M^n - a_{n-1}M^{n-1} - \cdots - a_0 I\)</span></td>
+<td>same polynomial with <span class="math inline">\(\lambda \to M\)</span> (matrix-valued)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\operatorname{adj}(A)\)</span></td>
+<td>adjugate; <span class="math inline">\(A \cdot \operatorname{adj}(A) = \det(A) \cdot I\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{v}_k = M^{k-1}\mathbf{v}_1\)</span></td>
+<td><span class="math inline">\(k\)</span>-th cyclic basis vector</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(c_0, \dots, c_{n-1}\)</span></td>
+<td>coefficients in <span class="math inline">\(M^n\mathbf{v}_1 = \sum c_i M^i \mathbf{v}_1\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Characteristic polynomial</strong> <span class="math inline">\(p(\lambda) = \lambda^n - a_{n-1}\lambda^{n-1} - \cdots - a_0\)</span>.</li>
+<li><strong>Adjugate identity</strong> <span class="math inline">\(A \cdot \operatorname{adj}(A) = \operatorname{adj}(A) \cdot A = \det(A) \cdot I\)</span> (<a href="2026-03-07-cramer-review.html">2026-03-07 cramer-review Thm 8</a>).</li>
+<li><strong>Polynomials in one matrix commute:</strong> <span class="math inline">\(f(M) \cdot g(M) = g(M) \cdot f(M)\)</span>.</li>
+<li><strong>Linear map by basis:</strong> <span class="math inline">\(T = 0\)</span> iff <span class="math inline">\(T\mathbf{v}_i = 0\)</span> for all basis vectors.</li>
+</ol>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Cayley–Hamilton).</strong> For any <span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span>, <span class="math display">\[
+p(M) \;=\; 0. \tag{58}
+\]</span></p>
+</div>
+</section>
+<section id="derivation-a-pure-algebraic-recapped" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-pure-algebraic-recapped">Derivation A — pure algebraic (recapped)</h2>
+<p>Adjugate identity on <span class="math inline">\(A = \lambda I - M\)</span>: <span class="math display">\[
+(\lambda I - M) \cdot \operatorname{adj}(\lambda I - M) \;=\; p(\lambda) \cdot I. \tag{59}
+\]</span> <span class="math inline">\(\operatorname{adj}(\lambda I - M)\)</span> is a polynomial in <span class="math inline">\(\lambda\)</span> of degree <span class="math inline">\(n-1\)</span> with matrix-valued coefficients in <span class="math inline">\(M\)</span> alone (so they all commute with <span class="math inline">\(M\)</span>): <span class="math display">\[
+\operatorname{adj}(\lambda I - M) = \lambda^{n-1}B_{n-1} + \cdots + B_0.
+\]</span> Matching coefficients of <span class="math inline">\(\lambda^k\)</span> in (59) gives <span class="math inline">\(n+1\)</span> matrix identities. Multiplying the <span class="math inline">\(k\)</span>-th by <span class="math inline">\(M^k\)</span> and adding all — the LHS telescopes to <span class="math inline">\(p(M)\)</span>, RHS sums to <span class="math inline">\(0\)</span>. Hence <span class="math inline">\(p(M) = 0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Commutativity is load-bearing.</strong> The telescoping requires <span class="math inline">\(M\)</span> and each <span class="math inline">\(B_k\)</span> to commute. Toby’s exchange: “It’s basically the inverse?” — corrected by Emma: “Adjugate is defined whether or not the inverse exists. Verify by direct cofactor multiplication.” Also, every <span class="math inline">\(B_k\)</span> is a polynomial in <span class="math inline">\(M\)</span> alone, so commutativity is automatic.</p>
 </div>
 </div>
-<section id="lead" class="level2">
-<h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Recaps the algebraic Cayley–Hamilton proof using (λI-M)·adj(λI-M) = det(λI-M)·I, then resumes the cyclic-basis proof, identifies the existence-of-cyclic-basis gap, and previews four distinct proof strategies.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="derivation-b-cyclic-basis-the-sessions-working-path" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-cyclic-basis-the-sessions-working-path">Derivation B — cyclic basis (the session’s working path)</h2>
+<p><strong>Setup.</strong> Pick <span class="math inline">\(\mathbf{v}_1\)</span> so that <span class="math inline">\(\{\mathbf{v}_1, M\mathbf{v}_1, \dots, M^{n-1}\mathbf{v}_1\}\)</span> is a basis (the <strong>existence gap</strong> — see Fragility).</p>
+<p><strong>Step 1 — linear-dependence.</strong> <span class="math inline">\(M^n\mathbf{v}_1\)</span> is a linear combination of the basis: <span class="math display">\[
+M^n \mathbf{v}_1 \;=\; c_{n-1}M^{n-1}\mathbf{v}_1 + \cdots + c_1 M\mathbf{v}_1 + c_0 \mathbf{v}_1. \tag{60}
+\]</span></p>
+<p><strong>Step 2 — matrix of <span class="math inline">\(M\)</span> in cyclic basis.</strong> With <span class="math inline">\(\mathbf{v}_k := M^{k-1}\mathbf{v}_1\)</span>: <span class="math display">\[
+M\mathbf{v}_k = \mathbf{v}_{k+1} \;\; (k&lt;n), \quad M\mathbf{v}_n = c_{n-1}\mathbf{v}_n + \cdots + c_0\mathbf{v}_1.
+\]</span> <span class="math display">\[
+[M]_{\text{cyclic}} = \begin{pmatrix}0 &amp; 0 &amp; \cdots &amp; 0 &amp; c_0\\1 &amp; 0 &amp; \cdots &amp; 0 &amp; c_1\\0 &amp; 1 &amp; \cdots &amp; 0 &amp; c_2\\\vdots &amp; &amp; \ddots &amp; &amp; \vdots\\0 &amp; 0 &amp; \cdots &amp; 1 &amp; c_{n-1}\end{pmatrix}. \tag{61}
+\]</span></p>
+<p><strong>Step 3 — characteristic poly of companion form.</strong> Cofactor expansion of <span class="math inline">\(\det(\lambda I - [M]_{\text{cyclic}})\)</span> along the last column gives: <span class="math display">\[
+p(\lambda) = \lambda^n - c_{n-1}\lambda^{n-1} - \cdots - c_0. \tag{62}
+\]</span> Matching with <span class="math inline">\(p(\lambda) = \lambda^n - a_{n-1}\lambda^{n-1} - \cdots - a_0\)</span>: <span class="math display">\[
+c_i \;=\; a_i. \tag{63}
+\]</span></p>
+<p><strong>Step 4 — Cayley–Hamilton on seed vector.</strong> Substitute (63) into (60), rearrange: <span class="math display">\[
+p(M)\mathbf{v}_1 = M^n\mathbf{v}_1 - \sum_i a_i M^i\mathbf{v}_1 = \mathbf{0}.
+\]</span></p>
+<p><strong>Step 5 — extend to basis.</strong> For <span class="math inline">\(k \ge 2\)</span>, <span class="math inline">\(\mathbf{v}_k = M^{k-1}\mathbf{v}_1\)</span>, so <span class="math display">\[
+p(M)\mathbf{v}_k = p(M)M^{k-1}\mathbf{v}_1 = M^{k-1}p(M)\mathbf{v}_1 = \mathbf{0}.
+\]</span> <span class="math inline">\(p(M)\)</span> vanishes on a basis ⇒ <span class="math inline">\(p(M) = 0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span> <em>(modulo gap)</em></p>
+</section>
+<section id="derivation-c-generalised-eigenvector-jordan-block-sketched" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-c-generalised-eigenvector-jordan-block-sketched">Derivation C — generalised eigenvector / Jordan block (sketched)</h2>
+<p>For <span class="math inline">\(M = VJV^{-1}\)</span> with <span class="math inline">\(J\)</span> block-diagonal Jordan blocks <span class="math inline">\(J_k = \lambda_k I_{m_k} + N_k\)</span>: <span class="math inline">\(p(\lambda) = \prod_k(\lambda - \lambda_k)^{m_k}\)</span>, <span class="math inline">\(p(M) = V\,p(J)\,V^{-1}\)</span>, and <span class="math inline">\(p(J)\)</span> is block-diagonal whose <span class="math inline">\(k\)</span>-th block contains <span class="math inline">\((J_k - \lambda_k I)^{m_k} = N_k^{m_k} = 0\)</span>. So <span class="math inline">\(p(M) = 0\)</span>. <em>(Uses general Jordan canonical form — deferred.)</em></p>
+</section>
+<section id="derivation-d-exterior-volume-sketched" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-d-exterior-volume-sketched">Derivation D — exterior volume (sketched)</h2>
+<p>Uses <span class="math inline">\(a_k = \operatorname{tr}(\wedge^k M)\)</span> on the <span class="math inline">\(\binom{n}{k}\)</span>-dim representation. Then <span class="math inline">\(p(M) = 0\)</span> follows from a higher-volume vanishing identity. <em>(Teacher’s own unconventional proof; deferred.)</em></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Cayley–Hamilton: p(M) = 0 for p = char polynomial</li>
-<li>Polynomials of one matrix commute</li>
-<li>Characteristic-polynomial coefficients from cyclic-basis companion form</li>
+<li><strong><span class="math inline">\(n=1\)</span>.</strong> <span class="math inline">\(M = (m)\)</span>, <span class="math inline">\(p(M) = M - mI = 0\)</span>. ✓</li>
+<li><strong><span class="math inline">\(n=2\)</span>.</strong> <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>, <span class="math inline">\(p(\lambda) = \lambda^2 - (a+d)\lambda + (ad-bc)\)</span>. <span class="math inline">\(p(M)_{11} = a^2 + bc - (a+d)a + (ad-bc) = 0\)</span>. ✓ Other entries similarly.</li>
+<li><strong>Defective Jordan block.</strong> <span class="math inline">\(M = \begin{pmatrix}2&amp;1\\0&amp;2\end{pmatrix}\)</span>, <span class="math inline">\(p(M) = (M-2I)^2 = \begin{pmatrix}0&amp;1\\0&amp;0\end{pmatrix}^2 = 0\)</span>. ✓</li>
+<li><strong>Identity matrix.</strong> <span class="math inline">\(M = I\)</span>, <span class="math inline">\(p(M) = (I-I)^n = 0\)</span>. ✓ <em>Note:</em> cyclic-basis proof would FAIL here (<span class="math inline">\(M\mathbf{v} = \mathbf{v}\)</span> ⇒ basis collapses to span of <span class="math inline">\(\mathbf{v}\)</span>); Derivation A or C still works.</li>
+<li><strong>Dependency.</strong> A: adjugate + telescoping. B: cyclic basis + companion-matrix determinant. C: Jordan + nilpotency. No circularity; complementary.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.8/2026-05-02-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.8" target="_blank">GitHub Release v0.8</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-02-morning/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Four-proof roadmap: algebraic, cyclic basis, generalised eigenvector, exterior volume.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-02-morning/frame-18m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 18m00</strong> — Commutativity check: <span class="math inline">\(\operatorname{adj}(\lambda I - M)\)</span> is a polynomial in <span class="math inline">\(M\)</span>, hence commutes with <span class="math inline">\(M\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-02-morning/frame-32m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 32m00</strong> — Cyclic basis construction and companion-matrix form (61).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-02-morning/frame-50m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 50m00</strong> — <span class="math inline">\(c_i = a_i\)</span> identification + existence gap flagged.</figcaption>
+</figure>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Why do <span class="math inline">\(\lambda I - M\)</span> and <span class="math inline">\(\operatorname{adj}(\lambda I - M)\)</span> commute?” <br><span class="speaker">Toby:</span> “Because it’s basically the inverse?” <br><span class="speaker">Teacher:</span> “Not always — only when <span class="math inline">\(\det \ne 0\)</span>.” <br><span class="speaker">Emma:</span> “Because the adjugate is the cofactor matrix, and direct multiplication gives <span class="math inline">\(A \cdot \operatorname{adj}(A) = \operatorname{adj}(A) \cdot A = \det A \cdot I\)</span> — defining property regardless of invertibility.”</p>
+<p><em>Teaching move:</em> commutativity is <strong>load-bearing</strong> in Derivation A. Two complementary verifications (direct adjugate computation + polynomial-in-<span class="math inline">\(M\)</span> structure).</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Why isn’t the cyclic-basis proof complete?” <br><span class="speaker">Teacher (self-answers):</span> “Take <span class="math inline">\(M = I\)</span>. Every <span class="math inline">\(M^k\mathbf{v}_1 = \mathbf{v}_1\)</span> — cyclic basis collapses. The proof fails. Need different machinery for matrices without cyclic bases.”</p>
+<p><em>Teaching move:</em> explicit load-bearing assumption identification. Proof B is valid where it applies; the gap is the hypothesis.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -227,39 +419,38 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use AI to build meta-analysis notes connecting the four proofs; Helms to share his prompting workflow with the group.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Long parent-teacher meeting (in Mandarin) interrupts the second half — extensive monologue on using AI for genuine learning vs passive copying.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>AI-assisted four-proof comparison: load-bearing imports, scope, applicability.</li>
+<li>Show: <span class="math inline">\(M\)</span> admits a cyclic basis iff its minimal polynomial equals its characteristic polynomial.</li>
+<li>Verify Cayley–Hamilton for <span class="math inline">\(M = \begin{pmatrix}1 &amp; 2 &amp; 0\\0 &amp; 3 &amp; 1\\1 &amp; 0 &amp; 2\end{pmatrix}\)</span> explicitly.</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Cyclic-basis existence is not universal (<span class="math inline">\(M = I\)</span> counterexample). Derivation B is valid for matrices with cyclic basis; combined with C, gives full coverage.</li>
+<li><strong>Derivation A is the safest.</strong> Pure algebra, no basis assumption. Standard textbook proof.</li>
+<li><strong>Off-topic content.</strong> ~70% of recording is methodological meta-discussion (parent-teacher meeting on AI-assisted learning). Math content concentrated in first ~15 minutes.</li>
+<li><strong>Forward references.</strong> Full Jordan canonical form (Derivation C) is deeper; the <span class="math inline">\(2 \times 2\)</span> case is in <a href="2026-04-04-morning.html">Apr 4 morning</a>.</li>
+<li><strong>Confidence.</strong> Derivation A: high. Derivation B: high <em>modulo gap</em>. Derivations C, D: sketched only.</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursors:</strong> <a href="2026-03-07-cramer-review.html">2026-03-07 cramer-review</a> (adjugate identity); <a href="2026-04-04-morning.html">2026-04-04 morning</a> + <a href="2026-04-04-afternoon-2.html">afternoon (2)</a> (Jordan blocks); <a href="2026-02-28-eigenvalues-followup.html">2026-02-28 followup</a> (characteristic polynomial).</li>
+<li><strong>Settles forward reference</strong> from <a href="2026-04-04-morning.html">Apr 4 morning Theorem 53</a> (<span class="math inline">\((M - \lambda I)^2 = 0\)</span> for double-root Jordan blocks — the <span class="math inline">\(n=2\)</span> Cayley–Hamilton special case).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -268,7 +459,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Before we delve back, we are in the most nuanced territory in linear algebra, and I'm going to actually prove heavy comment in four ways, and two of these are rather standard, and two of these are highly unconventional. And now, using the second basis, it's one of the more standard proofs. And okay, one second. Ah, before I get everything ready, ah, I'll go with the usual.Any question, or any second take, or any personal insight that you care to share? When I pose a question, silence is not the best response. You could either just give me a verbal explicit pass, meaning no question, and then so that I know.How to move on to the next topic. So, do we have any questions from the previous session, or any additional second takes or personal insight? I don't have any questions. Okay, I take the default no from everybody else. If you guys want me to interpret silence, always at the default no, that's fine. However, it's not to your advantage. Okay, there's a fine distinction between.I'm absolutely crystal clear on everything. From I'm foggy on everything. I don't even know how to articulate my questions. To and you know I have some thoughts, but they're incoherent. And maybe other people have more important thoughts, so I'm going to wait. So there are different gradation of silences. If you don't want to communicate to me what you exactly mean by your silence, the loss is yours. All right, I'm going to actually begin by going back to the big picture.We proved that there was one complete and clean, a inherent proof in itself, without using any underlying theorem at all, except for the algebraic construction of the characteristic polynomial and the adjugate matrix or cofactor matrix. Now, and that is actually a entire proof in a nutshell, without using any logical scaffolding, and that's the pure algebraic proof. Now, in order to prove that the p of the lambda, coming back to our main.Major agenda: p of the lambda of the matrix are equal to zero. We did a purely algebraic proof by looking at the lambda i minus m multiplied by the adjugate matrix. And immediately, I want to say it's also equal to the adjugate matrix of the lambda i minus m multiplied by the matrix lambda i minus m. Now, we actually want to prove this is going to be the determinant of the lambda i.Minus n now, whether it is zero or not zero depends on the choice of the lambda value, but it's not categorically zero. And we we have gone from here instead of using this identity alone, we actually expanded out what the characteristic polynomial is, compared the coefficients, and eventually proved that using shear algebra. Now, and my following questions is for me to make sure that you are on top of the logic, you know the underlying logic. You.Know the rigor behind it. So, could somebody capture in one sentence why these two matrices are commutable? Toby, isn't it because it's the adjugate? Uh, can you?</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Fall out。 Why do we know the adjugate matrix is always commutable with the matrix itself? But it's basically the inverse. Oh, but it's not the inverse, though. It's a scaled inverse. It's not the scaled inverse, because it could be. Or if you want to say, well, the point is, if you want to say to scaled inverse, the inverse must exist. Plenty of cases, the inverse does not. Emma.So is it because that the adjugate matrix is defined as the cofactor matrix, so they are like the same scaled matrix by determinant AI, so they are equal and they can commute. Wait, yeah, Emma is saying you just explicitly work them out when you multiply the numbers. Yeah, what you're getting by explicit the simple manipulation that's the process.That we use to construct the adjugate matrices in the first place, because the adjugate matrix contains all the cofactors. So either way, it fits into the definition of this. It fits into the definition by explicit simple manipulation. That's one way to think about it. Another way to think about it: it turns out this one is a minus one degree polynomial regarding the lambda with a coefficient of the m. But the point is, this one contains only lambda and it's a polynomial. And the other matrix is also containing only.I and M now, and the polynomials of the same matrix, they are commutative, because you're not actually here. The only two matrices showing up in that entire polynomial expansion are I or M. They're commutative. They're commutative. Also, if you have an arbitrary polynomial regarding the M, and you multiply by another polynomial regarding M now, this is obviously also commutative. And the underlying logic is the commutativeness.to the m n power times the m to the k power powers of the m they commute so there's no doubt that they commute are we clear okay so this is the only complete theorem proof that we have completed so far the other proofs I'm only giving you leads I'm constructing all the other proofs use different vector bases and each one has its own advantage each one reveals a different interpretation and differentaspect of the meaning of the Kelly Hamilton. Sometimes it means volume manipulation. Later, I'll give you a fourth proof using explicit exterior volume. And some some of these are revealing the Jordan standard form, the structure underlying structure of using eigenvectors as a vector basis. Some of these are revealing the cyclical structure of the vectors, and that's actually the proof we're in the middle of doing. That's using a cyclic basis. And after weWe deal with the algebraic detail of each proof. I'm going to actually give you two integrated sessions, so the grand finale, putting everything together and compare them, and emphasizing the different interpretations and the different, I would say, different ideas behind each of the proof, different features about this polynomial matrix, and because they do reveal totally orthogonal aspect. I'm using orthogonal the word metaphorically. Okay, they're just they're independent asaspect of the same matrix. So this is one single closed proof. Now we finished completely. Now we're going to come back to the proofs where we're treating this P lambda of the M now as a verb. And for simplicity, I'll call that matrix P now. And we want to look at. So these are actually the other proofs using proofs using vector bases.</span>

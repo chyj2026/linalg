@@ -421,7 +421,8 @@
       "video_drive_id": "1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k",
       "video_embed": "https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/preview",
       "video_view":  "https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.8/2026-05-02-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2026-05-16-elaine-dotcross",

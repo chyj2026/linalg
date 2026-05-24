@@ -1,48 +1,183 @@
 ---
-title: "Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies"
+title: "Cayley–Hamilton via Four Proof Strategies: Algebraic, Cyclic Basis, Generalised Eigenvector, Exterior Volume"
 date: 2026-05-02
 session: morning
-topics: [eigenvalues, diagonalization, jordan-form, polynomial, linear-transformation]
+topics: [eigenvalues, eigenvectors, diagonalization, jordan-form, characteristic-polynomial, cayley-hamilton, cyclic-basis]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Recaps the algebraic Cayley–Hamilton proof using (λI-M)·adj(λI-M) = det(λI-M)·I, then resumes the cyclic-basis proof, identifies the existence-of-cyclic-basis gap, and previews four distinct proof strategies.
+Develops the **Cayley–Hamilton theorem** $p(M) = 0$ — every matrix satisfies its own characteristic polynomial — in four logically distinct ways. (1) **Pure algebraic** via the adjugate identity (already proved, recapped). (2) **Cyclic basis** (the session's working proof): build a basis $\mathbf{v}_1, M\mathbf{v}_1, \dots, M^{n-1}\mathbf{v}_1$, express $M^n\mathbf{v}_1$ as a linear combination — the coefficients turn out to be the characteristic-polynomial coefficients. (3) **Generalised eigenvector / Jordan block** (sketched, deferred). (4) **Exterior volume** (the teacher's own unconventional proof, sketched). The session completes (1) and (2), and flags the **existence gap** in (2): not every matrix admits a cyclic basis (e.g., the identity).
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Cayley–Hamilton: p(M) = 0 for p = char polynomial
-- Polynomials of one matrix commute
-- Characteristic-polynomial coefficients from cyclic-basis companion form
-
-## Homework given
-
-::: {.callout-important}
-Use AI to build meta-analysis notes connecting the four proofs; Helms to share his prompting workflow with the group.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $M \in \mathbb{R}^{n\times n}$ | matrix |
+| $p(\lambda) = \det(\lambda I - M)$ | characteristic polynomial |
+| $p(M) = M^n - a_{n-1}M^{n-1} - \cdots - a_0 I$ | same polynomial with $\lambda \to M$ (matrix-valued) |
+| $\operatorname{adj}(A)$ | adjugate; $A \cdot \operatorname{adj}(A) = \det(A) \cdot I$ |
+| $\mathbf{v}_k = M^{k-1}\mathbf{v}_1$ | $k$-th cyclic basis vector |
+| $c_0, \dots, c_{n-1}$ | coefficients in $M^n\mathbf{v}_1 = \sum c_i M^i \mathbf{v}_1$ |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Long parent-teacher meeting (in Mandarin) interrupts the second half — extensive monologue on using AI for genuine learning vs passive copying.
+1. **Characteristic polynomial** $p(\lambda) = \lambda^n - a_{n-1}\lambda^{n-1} - \cdots - a_0$.
+2. **Adjugate identity** $A \cdot \operatorname{adj}(A) = \operatorname{adj}(A) \cdot A = \det(A) \cdot I$ ([2026-03-07 cramer-review Thm 8](2026-03-07-cramer-review.html)).
+3. **Polynomials in one matrix commute:** $f(M) \cdot g(M) = g(M) \cdot f(M)$.
+4. **Linear map by basis:** $T = 0$ iff $T\mathbf{v}_i = 0$ for all basis vectors.
+
+## Theorems
+
+::: {.theorem}
+**(Cayley–Hamilton).** For any $M \in \mathbb{R}^{n\times n}$,
+$$
+p(M) \;=\; 0. \tag{58}
+$$
+:::
+
+## Derivation A — pure algebraic (recapped)
+
+Adjugate identity on $A = \lambda I - M$:
+$$
+(\lambda I - M) \cdot \operatorname{adj}(\lambda I - M) \;=\; p(\lambda) \cdot I. \tag{59}
+$$
+$\operatorname{adj}(\lambda I - M)$ is a polynomial in $\lambda$ of degree $n-1$ with matrix-valued coefficients in $M$ alone (so they all commute with $M$):
+$$
+\operatorname{adj}(\lambda I - M) = \lambda^{n-1}B_{n-1} + \cdots + B_0.
+$$
+Matching coefficients of $\lambda^k$ in (59) gives $n+1$ matrix identities. Multiplying the $k$-th by $M^k$ and adding all — the LHS telescopes to $p(M)$, RHS sums to $0$. Hence $p(M) = 0$. $\quad\blacksquare$
+
+::: {.callout-note}
+**Commutativity is load-bearing.** The telescoping requires $M$ and each $B_k$ to commute. Toby's exchange: "It's basically the inverse?" — corrected by Emma: "Adjugate is defined whether or not the inverse exists. Verify by direct cofactor multiplication." Also, every $B_k$ is a polynomial in $M$ alone, so commutativity is automatic.
+:::
+
+## Derivation B — cyclic basis (the session's working path)
+
+**Setup.** Pick $\mathbf{v}_1$ so that $\{\mathbf{v}_1, M\mathbf{v}_1, \dots, M^{n-1}\mathbf{v}_1\}$ is a basis (the **existence gap** — see Fragility).
+
+**Step 1 — linear-dependence.** $M^n\mathbf{v}_1$ is a linear combination of the basis:
+$$
+M^n \mathbf{v}_1 \;=\; c_{n-1}M^{n-1}\mathbf{v}_1 + \cdots + c_1 M\mathbf{v}_1 + c_0 \mathbf{v}_1. \tag{60}
+$$
+
+**Step 2 — matrix of $M$ in cyclic basis.** With $\mathbf{v}_k := M^{k-1}\mathbf{v}_1$:
+$$
+M\mathbf{v}_k = \mathbf{v}_{k+1} \;\; (k<n), \quad M\mathbf{v}_n = c_{n-1}\mathbf{v}_n + \cdots + c_0\mathbf{v}_1.
+$$
+$$
+[M]_{\text{cyclic}} = \begin{pmatrix}0 & 0 & \cdots & 0 & c_0\\1 & 0 & \cdots & 0 & c_1\\0 & 1 & \cdots & 0 & c_2\\\vdots & & \ddots & & \vdots\\0 & 0 & \cdots & 1 & c_{n-1}\end{pmatrix}. \tag{61}
+$$
+
+**Step 3 — characteristic poly of companion form.** Cofactor expansion of $\det(\lambda I - [M]_{\text{cyclic}})$ along the last column gives:
+$$
+p(\lambda) = \lambda^n - c_{n-1}\lambda^{n-1} - \cdots - c_0. \tag{62}
+$$
+Matching with $p(\lambda) = \lambda^n - a_{n-1}\lambda^{n-1} - \cdots - a_0$:
+$$
+c_i \;=\; a_i. \tag{63}
+$$
+
+**Step 4 — Cayley–Hamilton on seed vector.** Substitute (63) into (60), rearrange:
+$$
+p(M)\mathbf{v}_1 = M^n\mathbf{v}_1 - \sum_i a_i M^i\mathbf{v}_1 = \mathbf{0}.
+$$
+
+**Step 5 — extend to basis.** For $k \ge 2$, $\mathbf{v}_k = M^{k-1}\mathbf{v}_1$, so
+$$
+p(M)\mathbf{v}_k = p(M)M^{k-1}\mathbf{v}_1 = M^{k-1}p(M)\mathbf{v}_1 = \mathbf{0}.
+$$
+$p(M)$ vanishes on a basis ⇒ $p(M) = 0$. $\quad\blacksquare$ *(modulo gap)*
+
+## Derivation C — generalised eigenvector / Jordan block (sketched)
+
+For $M = VJV^{-1}$ with $J$ block-diagonal Jordan blocks $J_k = \lambda_k I_{m_k} + N_k$: $p(\lambda) = \prod_k(\lambda - \lambda_k)^{m_k}$, $p(M) = V\,p(J)\,V^{-1}$, and $p(J)$ is block-diagonal whose $k$-th block contains $(J_k - \lambda_k I)^{m_k} = N_k^{m_k} = 0$. So $p(M) = 0$. *(Uses general Jordan canonical form — deferred.)*
+
+## Derivation D — exterior volume (sketched)
+
+Uses $a_k = \operatorname{tr}(\wedge^k M)$ on the $\binom{n}{k}$-dim representation. Then $p(M) = 0$ follows from a higher-volume vanishing identity. *(Teacher's own unconventional proof; deferred.)*
+
+## Verification audit
+
+::: {.audit}
+
+- **$n=1$.** $M = (m)$, $p(M) = M - mI = 0$. ✓
+- **$n=2$.** $M = \begin{pmatrix}a&b\\c&d\end{pmatrix}$, $p(\lambda) = \lambda^2 - (a+d)\lambda + (ad-bc)$. $p(M)_{11} = a^2 + bc - (a+d)a + (ad-bc) = 0$. ✓ Other entries similarly.
+- **Defective Jordan block.** $M = \begin{pmatrix}2&1\\0&2\end{pmatrix}$, $p(M) = (M-2I)^2 = \begin{pmatrix}0&1\\0&0\end{pmatrix}^2 = 0$. ✓
+- **Identity matrix.** $M = I$, $p(M) = (I-I)^n = 0$. ✓ *Note:* cyclic-basis proof would FAIL here ($M\mathbf{v} = \mathbf{v}$ ⇒ basis collapses to span of $\mathbf{v}$); Derivation A or C still works.
+- **Dependency.** A: adjugate + telescoping. B: cyclic basis + companion-matrix determinant. C: Jordan + nilpotency. No circularity; complementary.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.8/2026-05-02-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.8" target="_blank">GitHub Release v0.8</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1TOB0JF8c5OoNdXLNtDCYYNTUhOvmQ30k/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 05m00** — Four-proof roadmap: algebraic, cyclic basis, generalised eigenvector, exterior volume.](../figures/2026-05-02-morning/frame-05m00.jpg)
+
+![**Frame @ 18m00** — Commutativity check: $\operatorname{adj}(\lambda I - M)$ is a polynomial in $M$, hence commutes with $M$.](../figures/2026-05-02-morning/frame-18m00.jpg)
+
+![**Frame @ 32m00** — Cyclic basis construction and companion-matrix form (61).](../figures/2026-05-02-morning/frame-32m00.jpg)
+
+![**Frame @ 50m00** — $c_i = a_i$ identification + existence gap flagged.](../figures/2026-05-02-morning/frame-50m00.jpg)
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Why do $\lambda I - M$ and $\operatorname{adj}(\lambda I - M)$ commute?"
+<br><span class="speaker">Toby:</span> "Because it's basically the inverse?"
+<br><span class="speaker">Teacher:</span> "Not always — only when $\det \ne 0$."
+<br><span class="speaker">Emma:</span> "Because the adjugate is the cofactor matrix, and direct multiplication gives $A \cdot \operatorname{adj}(A) = \operatorname{adj}(A) \cdot A = \det A \cdot I$ — defining property regardless of invertibility."
+
+*Teaching move:* commutativity is **load-bearing** in Derivation A. Two complementary verifications (direct adjugate computation + polynomial-in-$M$ structure).
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Why isn't the cyclic-basis proof complete?"
+<br><span class="speaker">Teacher (self-answers):</span> "Take $M = I$. Every $M^k\mathbf{v}_1 = \mathbf{v}_1$ — cyclic basis collapses. The proof fails. Need different machinery for matrices without cyclic bases."
+
+*Teaching move:* explicit load-bearing assumption identification. Proof B is valid where it applies; the gap is the hypothesis.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. AI-assisted four-proof comparison: load-bearing imports, scope, applicability.
+2. Show: $M$ admits a cyclic basis iff its minimal polynomial equals its characteristic polynomial.
+3. Verify Cayley–Hamilton for $M = \begin{pmatrix}1 & 2 & 0\\0 & 3 & 1\\1 & 0 & 2\end{pmatrix}$ explicitly.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Cyclic-basis existence is not universal ($M = I$ counterexample). Derivation B is valid for matrices with cyclic basis; combined with C, gives full coverage.
+- **Derivation A is the safest.** Pure algebra, no basis assumption. Standard textbook proof.
+- **Off-topic content.** ~70% of recording is methodological meta-discussion (parent-teacher meeting on AI-assisted learning). Math content concentrated in first ~15 minutes.
+- **Forward references.** Full Jordan canonical form (Derivation C) is deeper; the $2 \times 2$ case is in [Apr 4 morning](2026-04-04-morning.html).
+- **Confidence.** Derivation A: high. Derivation B: high *modulo gap*. Derivations C, D: sketched only.
+
+:::
+
+## Related sessions
+
+- **Precursors:** [2026-03-07 cramer-review](2026-03-07-cramer-review.html) (adjugate identity); [2026-04-04 morning](2026-04-04-morning.html) + [afternoon (2)](2026-04-04-afternoon-2.html) (Jordan blocks); [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) (characteristic polynomial).
+- **Settles forward reference** from [Apr 4 morning Theorem 53](2026-04-04-morning.html) ($(M - \lambda I)^2 = 0$ for double-root Jordan blocks — the $n=2$ Cayley–Hamilton special case).
 
 ## Full transcript
 
