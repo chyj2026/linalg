@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-11-01">
 
-<title>Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division – Linear Algebra Notes</title>
+<title>Polynomial Snaking Method; Rational Functions and Slant Asymptotes via Long Division – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</h1>
+<h1 class="title">Polynomial Snaking Method; Rational Functions and Slant Asymptotes via Long Division</h1>
 </div>
 
 
@@ -190,76 +222,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Develops the ‘snaking’ procedure for graphing polynomials with multi-root sign chart, then extends to rational functions via long division to extract slant asymptotes and analyze approach direction from remainder sign.</p>
+<p>Introduces the <strong>snaking method</strong> for graphing polynomials with multiple real roots (alternating signs in intervals between roots), then extends to <strong>rational functions</strong> via polynomial long division to extract slant asymptotes and analyze approach direction from the remainder’s leading term.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Polynomial snaking).</strong> For a polynomial <span class="math inline">\(p(x)\)</span> with distinct real roots <span class="math inline">\(r_1 &lt; r_2 &lt; \cdots &lt; r_k\)</span> (with multiplicities), the sign of <span class="math inline">\(p(x)\)</span> alternates across each odd-multiplicity root and stays the same across each even-multiplicity root. The graph crosses the <span class="math inline">\(x\)</span>-axis at odd-multiplicity roots and bounces (tangent) at even-multiplicity roots. <span class="math inline">\(\tag{83}\)</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Slant asymptote via long division).</strong> For <span class="math inline">\(R(x) = p(x)/q(x)\)</span> with <span class="math inline">\(\deg p = \deg q + 1\)</span>, long division yields <span class="math inline">\(R(x) = Q(x) + r(x)/q(x)\)</span> where <span class="math inline">\(Q\)</span> is linear and <span class="math inline">\(r(x)/q(x) \to 0\)</span> as <span class="math inline">\(|x| \to \infty\)</span>. The slant asymptote is <span class="math inline">\(y = Q(x)\)</span>; the sign of <span class="math inline">\(r(x)\)</span> for large <span class="math inline">\(|x|\)</span> tells whether the graph approaches the asymptote from above or below. <span class="math inline">\(\tag{84}\)</span></p>
+</div>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Snaking method for polynomial sign chart</li>
-<li>Slant asymptote via polynomial long division</li>
-<li>Remainder leading term controls above/below asymptote</li>
+<li><strong>Snaking on <span class="math inline">\(p(x) = x(x-2)^2(x+1)\)</span>.</strong> Roots <span class="math inline">\(-1, 0, 2\)</span> with multiplicities <span class="math inline">\(1, 1, 2\)</span>. As <span class="math inline">\(x \to \infty\)</span>: <span class="math inline">\(p &gt; 0\)</span>. Crossing at <span class="math inline">\(x = 2\)</span> → no (even multiplicity, bounces). Crossing at <span class="math inline">\(x = 0\)</span> → yes, sign flips. Crossing at <span class="math inline">\(x = -1\)</span> → yes, sign flips. So signs are <span class="math inline">\(+, -, +, +\)</span> (right to left across intervals).</li>
+<li><strong>Slant asymptote <span class="math inline">\(R(x) = (x^2 + 3x + 2)/(x - 1)\)</span>.</strong> Long-divide: <span class="math inline">\(R = (x + 4) + 6/(x-1)\)</span>. Slant <span class="math inline">\(y = x + 4\)</span>. For <span class="math inline">\(x \to +\infty\)</span>: <span class="math inline">\(6/(x-1) &gt; 0\)</span>, so graph approaches from above. For <span class="math inline">\(x \to -\infty\)</span>: <span class="math inline">\(6/(x-1) &lt; 0\)</span>, approaches from below. ✓</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Reconcile why the plotted curve appears to cross the slant asymptote where the remainder has no real root (graphing-inaccuracy investigation).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Heavy EN/ZH code-switching; long dialogue and scolding about students forgetting basic techniques. One garbled OCR stretch (repeated x²). Year 2025 inferred — verify with Drive createdTime.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.7/2025-11-01-morning.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.7" target="_blank">v1.7</a> · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view" target="_blank">Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2025-11-01-morning/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Snaking method on a polynomial with mixed multiplicity roots."> <img src="../figures/2025-11-01-morning/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Long division for slant asymptote."> <img src="../figures/2025-11-01-morning/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Remainder term sign tells approach direction."> <img src="../figures/2025-11-01-morning/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Combined graph topology."></p>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Complex roots</strong> in the denominator give no vertical asymptotes (the irreducible quadratic factor is positive everywhere or always negative).</li>
+<li><strong>Slant asymptote crossings.</strong> The graph can cross its slant asymptote at any zero of <span class="math inline">\(r(x)\)</span> — important to identify.</li>
+<li><strong>Confidence.</strong> Both theorems: high (pre-calculus standard).</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Sequels:</strong> <a href="2025-11-29-morning.html">2025-11-29 morning</a> (asymptotic principle); <a href="2025-12-06-afternoon.html">2025-12-06 afternoon</a> (complete graphing recipe).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -268,7 +285,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Better now, Bernie. Thank you. Right, let's get a whiteboard. And I am once again very pleased with most of the homework I'm seeing. And I'm going to ask you personally whether there are questions we need to address before we move on. I still want to spend two more sessions today in the morning and in the evening so that we can deal with, or rather, just practice using transformations.啊， to handle the relationship between the graphs, especially oh, sorry, want to get rid of that, ah, scale the graphs and how to write their equations. One second, okay.啊？Why do I still have this? I thought I deleted. Wow, this is actually quite a few days ago.Seven hours? One second, let me try again. I really don't want that. Ah, hold on. Thank you, Toby. Good to see you, Lucas. Ah, actually, after playing around with Desmos a bit more, like ah last time I shared about like the the vertex, the vertices of parab of ah many parabolas, they make another parabola. So I noticed that if you make likeThe turning, the like turning points of many cubics, they also look like it could be another cubic. I'm wondering, first of all, is it a cubic? And second of all, is it for any polynomial of the general form a x to the n plus? Wait, they're just x to the n plus a x to the n minus one, or at or an a and you graph all of the turning points, will it be uh like n cubics or n like n bics? II couldn't quite understand what you mean by any cubics or any. Are you talking about how do we know the power of the polynomial? No, so I'm like, I was playing around with Desmos again. Like last time, I already I said when we graph a lot of parabolas, would their their vertices make another parabola? So for cubics, when I graphed a lot of cubics, I noticed that their turning points made another cubic. So is it for an for an n degree polynomial?哦啊，哎，Hold on， it actually depends on what you mean by a lot of cubics， and it's not arbitrary a bunch of cubics here， but instead we're talking about a sequence of the cubic. They follow a certain pattern of the parameter. Forgive me， I'm gonna actually use a whiteboard from here because somehow I just cannot get rid of that cumbersome whiteboard. I have to delete it after fifteen minutes， andI mean, I have to clear it for fifteen minutes before I can delete it. So let's use it. In fact, and Lucas is actually asking, we had an observation earlier, meaning, and we had a family of polynomials, and those are actually depending dependent on the axis symmetry. In fact, they were. And Lucas, would you give us the family of the of the quadratic graphed earlier, so that the vertices for on the on the quadratic and then</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>And give me the family of the cubic zero graphing. They're not arbitrary family. They're only different by one single parameter. So the for the parabolas, I made I made them for like x squared. Apparently, Zoom doesn't. Let me let me write it down for you. We did the x squared plus ax plus ax, and that's it equals y. Yes, and this is a a family of the parabolas we graphed, and then whenWhat about the family of cubics? I'll call that the y three. I did x cubed plus a x squared. Ah, well then, and okay, let's investigate. First of all, for every single cubic, there will be two turning points. There are cubics that has no turning points at all. For this one here, and must we have turning points, or could we choose some of the a's to have no turning point? In fact, there are plenty of a's that's not going to giveus any turning point, right? For example, any a is greater than zero would be sure to give us a monotonically increasing function without any turning point. And then, first of all, what is the minimum a? Rather, what is the maximum a? Or what is that threshold a under which we would have some turning point? By the way, Lucas, I bet you have already done the graphs, right? Yeah, I've filled them. Okay, and let's actually see. Well, what is the best way?To look at what's the graph of this, we're gonna actually reveal something we did before. Elaine, could I have your video, your video, please? Or are you only here to take? Oh, beautiful! So, share my screen. I yeah, you feel free to do so. You can just ask me. Yeah, go ahead. I said I can't share screen when you're on the whiteboard. Okay, let me get rid of that.There we go. So it's like all the vertices, all the turning points. There, all the turning points will have one right here, and then they're gonna make another cubic. Ah, but notice here, there's another turning point for every single branch, though. Yeah, no, all of them are just stay, just appear at zero, zero. Okay, well then, if youAgain, show us the trace of the vertices. I don't know what the graph or the all the vertices is, but it's going to be like. But we're going to find out in a second here. Well, the point is, we do what we did earlier. But the question would be, how do we easily locate what is a vertex of a cubic? That's the question, right? And in fact, we've been treating this problem here in several guises up to this point. And first time, and I think it was actually Toby who raised the issue: how do we minimize?or maximize a cubic, we used some kind of tweak of the AMGN. But he also brought to us attention that we could also take the derivative to find out. and And by the way, I was going to show you, Lucas, your judgment that the the origins, the turning point, is wrong, except for the first one, and for later versions of the cubic here. andAnd these origins never the turning point. In fact, the two turning points are. Oh, you're saying actually for for example for that branch. Yeah, it is the turning point. Sorry, it is a turning point. It is a turning point because in my in my mind, I was visualizing this. Not plus a i squared here. So, and the quickest way to find all the turning points in the future is to take the derivative.</span>

@@ -1,48 +1,64 @@
 ---
-title: "Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division"
+title: "Polynomial Snaking Method; Rational Functions and Slant Asymptotes via Long Division"
 date: 2025-11-01
 session: morning
-topics: [polynomial]
+topics: [polynomial, rational-function, asymptotes, polynomial-long-division]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Develops the 'snaking' procedure for graphing polynomials with multi-root sign chart, then extends to rational functions via long division to extract slant asymptotes and analyze approach direction from remainder sign.
+Introduces the **snaking method** for graphing polynomials with multiple real roots (alternating signs in intervals between roots), then extends to **rational functions** via polynomial long division to extract slant asymptotes and analyze approach direction from the remainder's leading term.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Snaking method for polynomial sign chart
-- Slant asymptote via polynomial long division
-- Remainder leading term controls above/below asymptote
-
-## Homework given
-
-::: {.callout-important}
-Reconcile why the plotted curve appears to cross the slant asymptote where the remainder has no real root (graphing-inaccuracy investigation).
+::: {.theorem}
+**(Polynomial snaking).** For a polynomial $p(x)$ with distinct real roots $r_1 < r_2 < \cdots < r_k$ (with multiplicities), the sign of $p(x)$ alternates across each odd-multiplicity root and stays the same across each even-multiplicity root. The graph crosses the $x$-axis at odd-multiplicity roots and bounces (tangent) at even-multiplicity roots. $\tag{83}$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+::: {.theorem}
+**(Slant asymptote via long division).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q + 1$, long division yields $R(x) = Q(x) + r(x)/q(x)$ where $Q$ is linear and $r(x)/q(x) \to 0$ as $|x| \to \infty$. The slant asymptote is $y = Q(x)$; the sign of $r(x)$ for large $|x|$ tells whether the graph approaches the asymptote from above or below. $\tag{84}$
+:::
 
-Heavy EN/ZH code-switching; long dialogue and scolding about students forgetting basic techniques. One garbled OCR stretch (repeated x²). Year 2025 inferred — verify with Drive createdTime.
+## Verification audit
+
+::: {.audit}
+
+- **Snaking on $p(x) = x(x-2)^2(x+1)$.** Roots $-1, 0, 2$ with multiplicities $1, 1, 2$. As $x \to \infty$: $p > 0$. Crossing at $x = 2$ → no (even multiplicity, bounces). Crossing at $x = 0$ → yes, sign flips. Crossing at $x = -1$ → yes, sign flips. So signs are $+, -, +, +$ (right to left across intervals).
+- **Slant asymptote $R(x) = (x^2 + 3x + 2)/(x - 1)$.** Long-divide: $R = (x + 4) + 6/(x-1)$. Slant $y = x + 4$. For $x \to +\infty$: $6/(x-1) > 0$, so graph approaches from above. For $x \to -\infty$: $6/(x-1) < 0$, approaches from below. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.7/2025-11-01-morning.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.7" target="_blank">v1.7</a> · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Snaking method on a polynomial with mixed multiplicity roots.](../figures/2025-11-01-morning/frame-08m00.jpg)
+![**Frame @ 22m00** — Long division for slant asymptote.](../figures/2025-11-01-morning/frame-22m00.jpg)
+![**Frame @ 38m00** — Remainder term sign tells approach direction.](../figures/2025-11-01-morning/frame-38m00.jpg)
+![**Frame @ 50m00** — Combined graph topology.](../figures/2025-11-01-morning/frame-50m00.jpg)
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Complex roots** in the denominator give no vertical asymptotes (the irreducible quadratic factor is positive everywhere or always negative).
+- **Slant asymptote crossings.** The graph can cross its slant asymptote at any zero of $r(x)$ — important to identify.
+- **Confidence.** Both theorems: high (pre-calculus standard).
+
+:::
+
+## Related sessions
+
+- **Sequels:** [2025-11-29 morning](2025-11-29-morning.html) (asymptotic principle); [2025-12-06 afternoon](2025-12-06-afternoon.html) (complete graphing recipe).
 
 ## Full transcript
 

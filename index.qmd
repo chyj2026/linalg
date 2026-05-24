@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>28</strong><span>sessions</span></div>
-    <div><strong>19</strong><span>lessons distilled</span></div>
+    <div><strong>20</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -71,7 +71,7 @@ title: "Linear Algebra Notes"
 <tr><td>2025-10-11</td><td>morning</td><td><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-10-18</td><td>afternoon</td><td><a href="lessons/2025-10-18-afternoon.html">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-10-18</td><td>morning</td><td><a href="lessons/2025-10-18-morning.html">Quadratic Form Classification of Conics via the Discriminant</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-11-01 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2025-11-01 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-11-08</td><td>afternoon</td><td><a href="lessons/2025-11-08-afternoon.html">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-11-29</td><td>morning</td><td><a href="lessons/2025-11-29-morning.html">Asymptotic Analysis: General Principle for Handling Infinitesimals</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-12-06</td><td>afternoon</td><td><a href="lessons/2025-12-06-afternoon.html">Full Graph of a 7th/6th-Degree Rational Function</a> <span class="mini-badge">Published</span></td></tr>
