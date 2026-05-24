@@ -439,19 +439,19 @@
       "video_github_release": null, "status": "draft"
     },
     {
-      "id": "2026-04-04-tuesday-rerun",
-      "date": "2026-04-04", "date_confidence": "unknown", "session": "parallel rerun",
-      "title_en": "Linear Recursions via Companion-Matrix Diagonalization (parallel class)",
-      "topics": ["eigenvalues", "eigenvectors", "diagonalization", "jordan-form"],
-      "lead": "Same lesson content as Saturday 2026-04-04 morning: solving second-order recursions via companion-matrix diagonalization, introducing the Jordan-block structure for repeated roots.",
-      "key_theorems": ["Companion matrix M^n via V·Λ^n·V⁻¹", "Jordan-block treatment of repeated eigenvalues", "Generating function 1/(1-λx)² = Σ(n+1)λ^n via C(-2,k)"],
-      "homework": "Brayden to explain his generating-function partial-fraction derivation.",
-      "notes": "Closely mirrors but not byte-identical to Saturday0404morning.txt; appears to be a parallel/Tuesday-class version with new student Brayden.",
+      "id": "2026-01-24-rerun-DUPLICATE",
+      "date": "2026-01-24", "date_confidence": "unknown", "session": "rerun (duplicate)",
+      "title_en": "(Duplicate of 2026-01-24 morning)",
+      "topics": ["polynomial", "vieta-formulas", "generating-functions", "linear-recursion", "double-root"],
+      "lead": "Byte-equivalent (or near) to Saturday20260124morning.txt. Agent's earlier classification ('Apr 4 Tuesday rerun') was wrong — verified by reading the transcript opening which matches Jan 24 verbatim.",
+      "key_theorems": [],
+      "homework": null,
+      "notes": "DUPLICATE: transcript opening matches Saturday20260124morning.txt verbatim. Marked excluded from index; preserves Drive video ID in case of independent value (different recording quality or angle).",
       "transcript": "transcripts/video1426368535.txt",
       "video_drive_id": "1cHSy7X-O3sgtZ5qSQkL8951BHbp4tgMx",
       "video_embed": "https://drive.google.com/file/d/1cHSy7X-O3sgtZ5qSQkL8951BHbp4tgMx/preview",
       "video_view":  "https://drive.google.com/file/d/1cHSy7X-O3sgtZ5qSQkL8951BHbp4tgMx/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": null, "status": "excluded_duplicate"
     },
     {
       "id": "2026-02-28-eigenvalues-followup",

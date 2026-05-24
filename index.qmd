@@ -10,7 +10,7 @@ title: "Linear Algebra Notes"
     <p>Distilled lecture notes — symbol dictionaries, theorems formally stated, two independent derivations for key results, verification audits, and the full transcript preserved as appendix. Embedded video for every session.</p>
   </div>
   <div class="course-stats" aria-label="Course statistics">
-    <div><strong>29</strong><span>sessions</span></div>
+    <div><strong>28</strong><span>sessions</span></div>
     <div><strong>10</strong><span>lessons distilled</span></div>
   </div>
 </section>
@@ -87,7 +87,6 @@ title: "Linear Algebra Notes"
 <tr><td>2026-03-28</td><td>morning</td><td><a href="lessons/2026-03-28-morning.html">Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-04-04</td><td>afternoon (2)</td><td><a href="lessons/2026-04-04-afternoon-2.html">Powering Jordan Blocks: Binomial Expansion with Nilpotent N</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-04-04 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a> <span class="mini-badge">Published</span></td></tr>
-<tr><td>2026-04-04 <sup title="unknown date — inferred">⚠</sup></td><td>parallel rerun</td><td><a href="lessons/2026-04-04-tuesday-rerun.html">Linear Recursions via Companion-Matrix Diagonalization (parallel class)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-05-02 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-05-02-morning.html">Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-05-16 <sup title="unknown date — inferred">⚠</sup></td><td>individual (Elaine)</td><td><a href="lessons/2026-05-16-elaine-dotcross.html">Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
   </tbody>
