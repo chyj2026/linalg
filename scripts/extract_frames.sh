@@ -47,11 +47,25 @@ if ! command -v "$FFMPEG" >/dev/null 2>&1; then
   fi
 fi
 
-# Probe source resolution
-SRC_WIDTH=$("${FFMPEG/ffmpeg/ffprobe}" -v error -select_streams v:0 \
-  -show_entries stream=width -of csv=p=0 "$INPUT" 2>/dev/null || echo 3072)
-SRC_HEIGHT=$("${FFMPEG/ffmpeg/ffprobe}" -v error -select_streams v:0 \
-  -show_entries stream=height -of csv=p=0 "$INPUT" 2>/dev/null || echo 1372)
+# Probe source resolution. We need ffprobe, not ffmpeg.
+# `${FFMPEG/ffmpeg/ffprobe}` swaps only the FIRST occurrence of "ffmpeg",
+# which for a full WinGet path replaces the parent directory's "ffmpeg-..."
+# segment instead of the binary name. Use `${FFMPEG##*/}` then rebuild,
+# or just replace the .exe basename explicitly.
+FFMPEG_DIR="$(dirname "$FFMPEG")"
+FFPROBE="$FFMPEG_DIR/ffprobe.exe"
+[[ -x "$FFPROBE" ]] || FFPROBE="$FFMPEG_DIR/ffprobe"
+if [[ ! -x "$FFPROBE" ]]; then
+  # fall back to PATH ffprobe
+  FFPROBE="ffprobe"
+fi
+
+SRC_WIDTH=$("$FFPROBE" -v error -select_streams v:0 \
+  -show_entries stream=width -of csv=p=0 "$INPUT" 2>/dev/null | tr -d '\r')
+SRC_HEIGHT=$("$FFPROBE" -v error -select_streams v:0 \
+  -show_entries stream=height -of csv=p=0 "$INPUT" 2>/dev/null | tr -d '\r')
+[[ -n "$SRC_WIDTH"  ]] || SRC_WIDTH=3072
+[[ -n "$SRC_HEIGHT" ]] || SRC_HEIGHT=1372
 
 # Default crop: remove right 412 px (participant panel).
 # Width that survives must be even (h264 requirement after scaling).

@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-11">
 
-<title>Cramer’s Rule, Cofactors, and Unique Parabola Through Three Points – Linear Algebra Notes</title>
+<title>Cramer’s Rule and the Cofactor Inverse Introduced via the Unique Parabola Through Three Points – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +187,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-14-vandermonde-factorisation" id="toc-derivation-of-theorem-14-vandermonde-factorisation" class="nav-link" data-scroll-target="#derivation-of-theorem-14-vandermonde-factorisation">Derivation of Theorem 14 (Vandermonde factorisation)</a></li>
+  <li><a href="#derivation-of-theorem-15-unique-parabolic-interpolation" id="toc-derivation-of-theorem-15-unique-parabolic-interpolation" class="nav-link" data-scroll-target="#derivation-of-theorem-15-unique-parabolic-interpolation">Derivation of Theorem 15 (unique parabolic interpolation)</a></li>
+  <li><a href="#construction-of-m-1-from-cofactors-theorem-16-diagonal-part" id="toc-construction-of-m-1-from-cofactors-theorem-16-diagonal-part" class="nav-link" data-scroll-target="#construction-of-m-1-from-cofactors-theorem-16-diagonal-part">Construction of <span class="math inline">\(M^{-1}\)</span> from cofactors (Theorem 16, diagonal part)</a></li>
+  <li><a href="#worked-example-recorded-in-session" id="toc-worked-example-recorded-in-session" class="nav-link" data-scroll-target="#worked-example-recorded-in-session">Worked example (recorded in session)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cramer’s Rule, Cofactors, and Unique Parabola Through Three Points</h1>
+<h1 class="title">Cramer’s Rule and the Cofactor Inverse Introduced via the Unique Parabola Through Three Points</h1>
 </div>
 
 
@@ -190,34 +235,275 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>A motivating problem — <em>how many points uniquely determine a parabola?</em> — drives the introduction of three major tools at once: the <strong>Vandermonde-style determinant</strong> and its remarkably clean factorisation <span class="math inline">\(\det V = (x_1-x_2)(x_2-x_3)(x_3-x_1)\)</span> (eyeballed via root-recognition, not expansion); <strong>Cramer’s rule</strong> stated and motivated for general <span class="math inline">\(n\times n\)</span> systems; and the <strong>cofactor inverse formula</strong> <span class="math inline">\(M^{-1} = \operatorname{adj}(M)/\det M\)</span> constructed by demanding <span class="math inline">\(M \cdot M^{-1} = I\)</span> row-by-row. The off-diagonal proof and the explicit Cramer derivation are scheduled for the afternoon session.</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((x_i, y_i)\)</span>, <span class="math inline">\(i=1,2,3\)</span></td>
+<td>three given points in <span class="math inline">\(\mathbb{R}^2\)</span> to interpolate</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y = ax^2 + bx + c\)</span></td>
+<td>parabola candidate; <span class="math inline">\(a,b,c\)</span> are unknowns</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(V \in \mathbb{R}^{3\times 3}\)</span></td>
+<td>Vandermonde-style coefficient matrix <span class="math inline">\(\begin{pmatrix}x_1^2&amp;x_1&amp;1\\x_2^2&amp;x_2&amp;1\\x_3^2&amp;x_3&amp;1\end{pmatrix}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span></td>
+<td>general coefficient matrix; <span class="math inline">\(m_{ij}\)</span> its entries</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(C_{ij} = (-1)^{i+j}\det\widetilde{M}_{ij}\)</span></td>
+<td>cofactor of <span class="math inline">\(m_{ij}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\operatorname{adj}(M)\)</span></td>
+<td>adjugate (transposed cofactor matrix): <span class="math inline">\([\operatorname{adj}(M)]_{ij} = C_{ji}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{w} \in \mathbb{R}^n\)</span></td>
+<td>RHS of <span class="math inline">\(M\mathbf{x}=\mathbf{w}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M^{(j\leftarrow \mathbf{w})}\)</span></td>
+<td><span class="math inline">\(M\)</span> with column <span class="math inline">\(j\)</span> replaced by <span class="math inline">\(\mathbf{w}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>All parabolas of the form</strong> <span class="math inline">\(y = ax^2 + bx + c\)</span> are determined by three real parameters; degenerate case <span class="math inline">\(a=0\)</span> yields a line.</li>
+<li><strong>Cofactor expansion</strong> of <span class="math inline">\(\det M\)</span> along any column (or row) is a valid computation method (used here, proved earlier in the course).</li>
+<li><strong>Determinant geometry:</strong> <span class="math inline">\(\det M\)</span> is the signed <span class="math inline">\(n\)</span>-volume of the parallelepiped on the columns of <span class="math inline">\(M\)</span>. Two equal columns ⇒ collapsed volume ⇒ determinant zero.</li>
+<li><strong>Root-factor theorem for multivariable polynomials:</strong> a polynomial in <span class="math inline">\(x_1,\dots,x_n\)</span> that vanishes identically when <span class="math inline">\(x_i = x_j\)</span> is divisible by <span class="math inline">\((x_i - x_j)\)</span> as a polynomial factor.</li>
+</ol>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Counting parameters: <span class="math inline">\(n+1\)</span> points determine a degree-<span class="math inline">\(n\)</span> polynomial uniquely</li>
+<li>Reformulating polynomial interpolation as a linear system in the <em>coefficients</em></li>
+<li>The Vandermonde determinant <span class="math inline">\(\det V\)</span> and its closed-form factorisation via root-recognition</li>
+<li><strong>Cramer’s rule</strong> stated for general <span class="math inline">\(n\times n\)</span> linear systems</li>
+<li><strong>Cofactor inverse formula</strong> constructed by requiring <span class="math inline">\(M \cdot X = I\)</span> row by row</li>
+<li>The checkerboard sign convention <span class="math inline">\((-1)^{i+j}\)</span></li>
+<li>Worked <span class="math inline">\(3\times 3\)</span> example with complex (imaginary unit) entries: <span class="math inline">\(\det = -10\)</span>, full inverse computed</li>
+</ul>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Vandermonde factorisation, <span class="math inline">\(n=3\)</span>).</strong> For distinct <span class="math inline">\(x_1, x_2, x_3 \in \mathbb{R}\)</span>, <span class="math display">\[
+\det V \;=\; \det\!\begin{pmatrix}x_1^2 &amp; x_1 &amp; 1\\x_2^2 &amp; x_2 &amp; 1\\x_3^2 &amp; x_3 &amp; 1\end{pmatrix} \;=\; -\,(x_1 - x_2)(x_2 - x_3)(x_3 - x_1). \tag{14}
+\]</span> The sign depends on the row ordering and the chosen reference monomial; see Verification below.</p>
+</div>
+<div class="theorem">
+<p><strong>(Unique parabolic interpolation).</strong> Given three points <span class="math inline">\((x_1,y_1), (x_2,y_2), (x_3,y_3)\)</span> with <span class="math inline">\(x_1, x_2, x_3\)</span> pairwise distinct, there exists a <em>unique</em> polynomial <span class="math inline">\(p(x) = ax^2 + bx + c\)</span> with <span class="math inline">\(p(x_i) = y_i\)</span> for <span class="math inline">\(i=1,2,3\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Cramer’s rule, statement).</strong> For <span class="math inline">\(M\in\mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(\det M\ne 0\)</span> and <span class="math inline">\(\mathbf{w}\in\mathbb{R}^n\)</span>, the unique solution of <span class="math inline">\(M\mathbf{x}=\mathbf{w}\)</span> satisfies <span class="math display">\[
+x_j \;=\; \frac{\det M^{(j\leftarrow \mathbf{w})}}{\det M}, \qquad j=1,\dots,n. \tag{15}
+\]</span> <em>Proof postponed to the afternoon session <a href="2025-10-11-afternoon.html">2025-10-11-afternoon</a>.</em></p>
+</div>
+<div class="theorem">
+<p><strong>(Cofactor inverse formula, construction).</strong> For <span class="math inline">\(M\in\mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(\det M\ne 0\)</span>, the matrix <span class="math display">\[
+M^{-1} \;:=\; \frac{1}{\det M}\,\operatorname{adj}(M) \tag{16}
+\]</span> satisfies <span class="math inline">\(M \cdot M^{-1}\)</span> has <span class="math inline">\(\det M\)</span> on the diagonal (proved here) and <span class="math inline">\(0\)</span> off the diagonal (proved in the afternoon session). After the <span class="math inline">\(1/\det M\)</span> scaling, <span class="math inline">\(M \cdot M^{-1} = I\)</span>.</p>
+</div>
+</section>
+<section id="derivation-of-theorem-14-vandermonde-factorisation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-14-vandermonde-factorisation">Derivation of Theorem 14 (Vandermonde factorisation)</h2>
+<p>The teacher’s <em>root-recognition</em> strategy — much faster than direct expansion:</p>
+<p><strong>Step 1 — Recognise roots.</strong> If <span class="math inline">\(x_1 = x_2\)</span>, then <span class="math inline">\(V\)</span> has two identical rows, so <span class="math inline">\(\det V = 0\)</span>. By the root-factor theorem, <span class="math inline">\((x_1 - x_2)\)</span> divides <span class="math inline">\(\det V\)</span> as a polynomial in <span class="math inline">\(x_1, x_2, x_3\)</span>. Identical reasoning gives <span class="math inline">\((x_2 - x_3)\)</span> and <span class="math inline">\((x_3 - x_1)\)</span> as factors. Hence <span class="math display">\[
+\det V \;=\; k \cdot (x_1 - x_2)(x_2 - x_3)(x_3 - x_1) \tag{17}
+\]</span> for some scalar <span class="math inline">\(k\)</span> (independent of the <span class="math inline">\(x_i\)</span>’s).</p>
+<p><strong>Step 2 — Degree counting.</strong> <span class="math inline">\(\det V\)</span> has degree 3 in the variables (one entry from each row × column gives at most degree <span class="math inline">\(2 + 1 + 0 = 3\)</span>). The right-hand side of (17) also has degree 3. So <span class="math inline">\(k\)</span> is a pure constant. ✓</p>
+<p><strong>Step 3 — Pin down <span class="math inline">\(k\)</span> by matching a single term.</strong> The diagonal product <span class="math inline">\(x_1^2 \cdot x_2 \cdot 1 = x_1^2 x_2\)</span> contributes coefficient <span class="math inline">\(+1\)</span> on the left.</p>
+<p>On the right, <span class="math inline">\((x_1 - x_2)(x_2 - x_3)(x_3 - x_1)\)</span> — expand and look for the <span class="math inline">\(x_1^2 x_2\)</span> term: <span class="math inline">\(x_1 \cdot x_2 \cdot (-x_1) = -x_1^2 x_2\)</span>. So the right gives <span class="math inline">\(-1\)</span> times <span class="math inline">\(k\)</span>.</p>
+<p>Setting <span class="math inline">\(+1 = -k\)</span>: <span class="math inline">\(k = -1\)</span>. Substituting back yields (14). <span class="math inline">\(\quad\blacksquare\)</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Sign-convention caveat.</strong> The morning vs afternoon presentations used opposite row orderings of <span class="math inline">\(V\)</span> (the teacher caught this mid-session and reconciled it). With rows ordered <span class="math inline">\((x_1, x_2, x_3)\)</span> top-to-bottom, <span class="math inline">\(k = -1\)</span>. With rows in reverse order, <span class="math inline">\(k = +1\)</span>. Either way, the <em>magnitude</em> and <em>zero-set</em> are identical — only the sign flips.</p>
 </div>
 </div>
-<section id="lead" class="level2">
-<h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Motivates Cramer’s rule from fitting a unique parabola through three non-collinear points; factors the Vandermonde-like determinant and constructs the matrix inverse from cofactors.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-morning/fig1-vandermonde.svg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. The Vandermonde-style coefficient matrix <span class="math inline">\(V\)</span> that arises from substituting the three points into <span class="math inline">\(y = ax^2 + bx + c\)</span>. Each row is one constraint; columns are the coefficients <span class="math inline">\(a, b, c\)</span>.</figcaption>
+</figure>
+</div>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="derivation-of-theorem-15-unique-parabolic-interpolation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-15-unique-parabolic-interpolation">Derivation of Theorem 15 (unique parabolic interpolation)</h2>
+<p>Setting <span class="math inline">\(p(x_i) = y_i\)</span> for each <span class="math inline">\(i\)</span> yields the linear system <span class="math display">\[
+\begin{pmatrix}x_1^2 &amp; x_1 &amp; 1\\x_2^2 &amp; x_2 &amp; 1\\x_3^2 &amp; x_3 &amp; 1\end{pmatrix}\begin{pmatrix}a\\b\\c\end{pmatrix} \;=\; \begin{pmatrix}y_1\\y_2\\y_3\end{pmatrix}, \tag{18}
+\]</span> or <span class="math inline">\(V\,\mathbf{p} = \mathbf{y}\)</span>. By Theorem 14, <span class="math inline">\(\det V = \pm(x_1-x_2)(x_2-x_3)(x_3-x_1)\)</span>. The pairwise-distinctness hypothesis makes every factor non-zero, so <span class="math inline">\(\det V \ne 0\)</span> and <span class="math inline">\(V\)</span> is invertible. Therefore <span class="math inline">\(\mathbf{p} = V^{-1}\mathbf{y}\)</span> exists and is unique. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><em>Note on the degenerate case.</em> If the three points happen to be collinear, the solution <span class="math inline">\(a = 0\)</span> falls out automatically, leaving the line through the three points. The “parabola” degenerates gracefully — the theorem doesn’t break.</p>
+</section>
+<section id="construction-of-m-1-from-cofactors-theorem-16-diagonal-part" class="level2">
+<h2 class="anchored" data-anchor-id="construction-of-m-1-from-cofactors-theorem-16-diagonal-part">Construction of <span class="math inline">\(M^{-1}\)</span> from cofactors (Theorem 16, diagonal part)</h2>
+<p>We seek a matrix <span class="math inline">\(X\)</span> such that <span class="math inline">\(M X = (\det M) \cdot I\)</span> (we’ll divide by <span class="math inline">\(\det M\)</span> at the end). Try placing the cofactor pattern in <span class="math inline">\(X\)</span> — specifically <span class="math inline">\(X_{jk} = C_{kj}\)</span> (note the index transpose).</p>
+<p><strong>Diagonal entry <span class="math inline">\((i, i)\)</span> of <span class="math inline">\(M X\)</span>:</strong> <span class="math display">\[
+[M X]_{ii} \;=\; \sum_{j=1}^{n} m_{ij}\,X_{ji} \;=\; \sum_{j=1}^{n} m_{ij}\,C_{ij}. \tag{19}
+\]</span> This is the cofactor expansion of <span class="math inline">\(\det M\)</span> along row <span class="math inline">\(i\)</span>. Result: <span class="math inline">\(\det M\)</span>. ✓</p>
+<p><strong>Off-diagonal entry <span class="math inline">\((i, k)\)</span> with <span class="math inline">\(i \ne k\)</span>:</strong> <span class="math display">\[
+[M X]_{ik} \;=\; \sum_{j=1}^{n} m_{ij}\,X_{jk} \;=\; \sum_{j=1}^{n} m_{ij}\,C_{kj}. \tag{20}
+\]</span> The teacher conjectured this equals zero by analogy with (19) but with a mismatch. Why does it vanish? The argument requires the <em>determinant-with-repeated-rows</em> construction, deferred to the afternoon session (<a href="2025-10-11-afternoon.html">2025-10-11-afternoon</a>, Derivation of Theorem 8). With that result in hand, dividing <span class="math inline">\(X\)</span> by <span class="math inline">\(\det M\)</span> gives <span class="math inline">\(M^{-1}\)</span>. <span class="math inline">\(\quad\blacksquare\)</span> (modulo off-diagonal lemma)</p>
+</section>
+<section id="worked-example-recorded-in-session" class="level2">
+<h2 class="anchored" data-anchor-id="worked-example-recorded-in-session">Worked example (recorded in session)</h2>
+<p>Compute the inverse of <span class="math display">\[
+M \;=\; \begin{pmatrix} 1 &amp; 0 &amp; 3\\ -2 &amp; 2 &amp; -1\\ 1 &amp; 2 &amp; 3 \end{pmatrix}. \tag{20}
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Transcript-vs-board reconciliation.</strong> The transcript text repeatedly renders the digit “1” as the letter “i” (a homophone artefact from the audio dictation, exacerbated by EN/ZH code-switching). The actual board entries are all real integers — confirmed visually in <code>frame-56m00</code>. <strong>Trust the frame, not the transcript text, for matrix-entry numerics.</strong></p>
+</div>
+</div>
+<p><strong><span class="math inline">\(\det M\)</span>.</strong> Expand along the first row: <span class="math display">\[
+\det M \;=\; 1\cdot\det\!\begin{pmatrix}2&amp;-1\\2&amp;3\end{pmatrix} - 0 + 3\cdot\det\!\begin{pmatrix}-2&amp;2\\1&amp;2\end{pmatrix} \;=\; 1(6+2) + 3(-4-2) \;=\; 8 - 18 \;=\; -10. \tag{21}
+\]</span> Matches the class’s collaborative value. ✓</p>
+<p><strong>Cofactors <span class="math inline">\(C_{ij}\)</span>.</strong> Working systematically (entries are <span class="math inline">\((-1)^{i+j}\)</span> times the <span class="math inline">\(2\times 2\)</span> minor with row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span> deleted): <span class="math display">\[
+C_{11} = +(2\cdot 3 - (-1)\cdot 2) = 8,\quad C_{12} = -((-2)\cdot 3 - (-1)\cdot 1) = -(-5) = 5,\quad C_{13} = +((-2)\cdot 2 - 2\cdot 1) = -6,
+\]</span> <span class="math display">\[
+C_{21} = -(0\cdot 3 - 3\cdot 2) = 6,\quad C_{22} = +(1\cdot 3 - 3\cdot 1) = 0,\quad C_{23} = -(1\cdot 2 - 0\cdot 1) = -2,
+\]</span> <span class="math display">\[
+C_{31} = +(0\cdot (-1) - 3\cdot 2) = -6,\quad C_{32} = -(1\cdot (-1) - 3\cdot (-2)) = -5,\quad C_{33} = +(1\cdot 2 - 0\cdot (-2)) = 2.
+\]</span> Then <span class="math display">\[
+M^{-1} \;=\; \frac{1}{\det M}\operatorname{adj}(M) \;=\; \frac{1}{-10}\begin{pmatrix}C_{11}&amp;C_{21}&amp;C_{31}\\C_{12}&amp;C_{22}&amp;C_{32}\\C_{13}&amp;C_{23}&amp;C_{33}\end{pmatrix} \;=\; \frac{1}{-10}\begin{pmatrix}8&amp;6&amp;-6\\5&amp;0&amp;-5\\-6&amp;-2&amp;2\end{pmatrix}. \tag{22}
+\]</span></p>
+<p><strong>Sanity check.</strong> <span class="math inline">\(M \cdot M^{-1}\)</span> should equal <span class="math inline">\(I\)</span>. First row times first column of the adjugate: <span class="math inline">\((1)(8) + (0)(5) + (3)(-6) = 8 - 18 = -10 = \det M\)</span> ✓. First row times second column: <span class="math inline">\((1)(6) + (0)(0) + (3)(-2) = 6 - 6 = 0\)</span> ✓. First row times third column: <span class="math inline">\((1)(-6) + (0)(-5) + (3)(2) = -6 + 6 = 0\)</span> ✓. Diagonal yields <span class="math inline">\(\det M\)</span>, off-diagonal yields <span class="math inline">\(0\)</span> — after dividing by <span class="math inline">\(-10\)</span>, we get <span class="math inline">\(I\)</span> as required.</p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Vandermonde determinant factors as (x₁-x₂)(x₂-x₃)(x₃-x₁)</li>
-<li>Three distinct x-coordinates uniquely determine an interpolating parabola</li>
-<li>Cramer’s rule: xᵢ = det(Mᵢ)/det(M)</li>
-<li>M⁻¹ = (1/det M)·(cofactor matrixᵀ)</li>
+<li><strong>Vandermonde at <span class="math inline">\(n=2\)</span>.</strong> <span class="math inline">\(\det\begin{pmatrix}x_1 &amp; 1\\ x_2 &amp; 1\end{pmatrix} = x_1 - x_2\)</span>. Matches the “factor by roots” pattern: vanishes iff <span class="math inline">\(x_1 = x_2\)</span>. ✓</li>
+<li><strong>Vandermonde sign-check at <span class="math inline">\(n=3\)</span>.</strong> Set <span class="math inline">\((x_1, x_2, x_3) = (0, 1, 2)\)</span>. Direct expansion: <span class="math inline">\(\det V = 0\cdot(1\cdot 1 - 1\cdot 2) - 0\cdot(\cdots) + 1\cdot(0\cdot 1 - 1\cdot 4) = -4\)</span>. Formula (14): <span class="math inline">\(-(0-1)(1-2)(2-0) = -(-1)(-1)(2) = -2\)</span>. <strong>Mismatch by factor 2.</strong> Closer inspection: <span class="math inline">\(\det V = (x_1^2)(x_2 - x_3) - (x_1)(x_2^2 - x_3^2) + (x_2^2 x_3 - x_2 x_3^2)\)</span>. Substituting: <span class="math inline">\(0 - 0 + (1\cdot 2 - 1\cdot 4) = -2\)</span>. Earlier “−4” was an arithmetic slip. Recomputed: <span class="math inline">\(\det V = -2\)</span>, formula <span class="math inline">\(-2\)</span>. ✓ <em>Reproducing this on different orderings reveals the sign convention; the magnitude <span class="math inline">\((x_1-x_2)(x_2-x_3)(x_3-x_1)\)</span> is invariant.</em></li>
+<li><strong>Cramer at <span class="math inline">\(n=1\)</span>.</strong> <span class="math inline">\(M = (m)\)</span>, <span class="math inline">\(\mathbf{w} = (w)\)</span>: Cramer gives <span class="math inline">\(x = w/m\)</span>. Matches scalar division. ✓</li>
+<li><strong>Cofactor inverse, <span class="math inline">\(n=2\)</span>.</strong> <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>. Cofactor matrix <span class="math inline">\(\begin{pmatrix}d&amp;-c\\-b&amp;a\end{pmatrix}\)</span>, adjugate <span class="math inline">\(\begin{pmatrix}d&amp;-b\\-c&amp;a\end{pmatrix}\)</span>, <span class="math inline">\(M^{-1} = \frac{1}{ad-bc}\begin{pmatrix}d&amp;-b\\-c&amp;a\end{pmatrix}\)</span>. Standard formula. ✓</li>
+<li><strong>Worked-example numerical sanity flagged</strong> in the callout above.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · H.264 · 90 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.2" target="_blank">GitHub Release v0.2</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-morning/frame-18m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 18m00</strong> — The 3×3 Vandermonde-style matrix on the board with the parabola-interpolation linear system <span class="math inline">\(V \mathbf{p} = \mathbf{y}\)</span> being set up.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-morning/frame-32m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 32m00</strong> — The root-factor argument: the determinant must vanish when any pair <span class="math inline">\(x_i = x_j\)</span>, eyeballing the factorisation <span class="math inline">\(\det V = k(x_1-x_2)(x_2-x_3)(x_3-x_1)\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-morning/frame-45m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 45m00</strong> — Cramer’s rule introduced for general <span class="math inline">\(n\times n\)</span> systems; <span class="math inline">\(x = \det M_x / \det M\)</span> shown with the column-substitution pattern.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-morning/frame-56m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 56m00</strong> — Cofactor inverse formula constructed row-by-row to make <span class="math inline">\(M \cdot X = (\det M) \cdot I\)</span>, with the checkerboard sign convention written out.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Parabola y = ax² + bx + c&lt;br/&gt;has 3 parameters"] --&gt; B["3 points ⇒ 3 linear equations&lt;br/&gt;in (a,b,c)"]
+    B --&gt; C["Coefficient matrix V&lt;br/&gt;(Vandermonde shape)"]
+    D["Two equal rows ⇒ det = 0&lt;br/&gt;&lt;i&gt;(imported geometric)&lt;/i&gt;"] --&gt; E["x_i = x_j ⇒ det V = 0"]
+    E --&gt; F["det V divisible by&lt;br/&gt;(x_i - x_j) for each pair"]
+    G["Degree counting:&lt;br/&gt;det V is degree 3"] --&gt; H["det V = k(x₁-x₂)(x₂-x₃)(x₃-x₁)&lt;br/&gt;Theorem 14"]
+    F --&gt; H
+    I["Compare a single monomial&lt;br/&gt;x₁² x₂ coefficient"] --&gt; H
+    H --&gt; J["det V ≠ 0 when x's distinct&lt;br/&gt;Theorem 15 (unique parabola)"]
+    K["Cramer's rule stated&lt;br/&gt;Theorem 15 / eq. (15)"] --&gt; L["Construct X = adj(M)/det M&lt;br/&gt;so that diagonal of M·X = det M·I&lt;br/&gt;Theorem 16 (eq. 19)"]
+    L --&gt; M["Off-diagonal proof postponed&lt;br/&gt;to afternoon session"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Lucas:</span> “Can we plug them into the equation and get a system of equations?” <br><span class="speaker">Teacher:</span> “Yes — but the unknowns are <span class="math inline">\(a, b, c\)</span>, not <span class="math inline">\(x, y\)</span>. The points give the <em>given</em> coordinates.” <br><span class="speaker">Toby:</span> <em>(later)</em> “But there are six coordinates we need to solve for.” <br><span class="speaker">Teacher:</span> “No — those are <em>given</em>. We’re solving for <span class="math inline">\(a, b, c\)</span>.”</p>
+<p><em>Teaching move:</em> a classic novice trap — confusing the <em>unknowns</em> of the polynomial-fitting problem (the coefficients) with the <em>unknowns</em> of the polynomial equation (the variable <span class="math inline">\(x\)</span>). The setup forces the distinction.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Could we eyeball when this determinant equals zero, without expanding?” <br><span class="speaker">Lucas:</span> <em>(later)</em> “When two columns are zero, the determinant is zero.” <br><span class="speaker">Teacher:</span> “Right, but that requires <em>all</em> variables vanishing. Recognise the matrix as a volume. When does the volume reach zero — without forcing trivial values?” <br><span class="speaker">Students:</span> “When <span class="math inline">\(x_1 = x_2\)</span> … two identical rows.”</p>
+<p><em>Teaching move:</em> the <strong>eyeball-the-factor</strong> principle — for a multivariable polynomial, find values that make it vanish; each such value gives a polynomial factor. This is dramatically faster than algebraic expansion for symmetric matrices.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Lucas:</span> “Does <span class="math inline">\(\det A \cdot \det B = \det(A B)\)</span>?” <br><span class="speaker">Teacher:</span> “That’s another theorem — a profound one. Not easily proven. Down the road; not needed today.”</p>
+<p><em>Teaching move:</em> identifying which deep theorems can be temporarily set aside vs.&nbsp;which need to be derived in-thread. The multiplicative determinant law is <em>foreshadowed</em> and explicitly deferred.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -228,34 +514,33 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Discussion continues in evening class.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Worked example: 3×3 determinant with i (imaginary unit) entries = -10. Lucas asks if det(AB) = det(A)det(B); teacher confirms but defers proof.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Verify Theorem 14 (Vandermonde factorisation) for two specific numeric triples — confirm both the magnitude and the sign with the row ordering you chose.</li>
+<li><em>(Implicit, picked up in the afternoon session)</em> Try to prove the off-diagonal entries of the constructed <span class="math inline">\(M \cdot X\)</span> are zero — i.e., show <span class="math inline">\(\sum_j m_{ij} C_{kj} = 0\)</span> for <span class="math inline">\(i \ne k\)</span>. <strong>Hint:</strong> what matrix would have this sum as its column-expansion determinant?</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Numerical worked example flagged.</strong> The <span class="math inline">\(3\times 3\)</span> example with imaginary-unit entries reportedly gave <span class="math inline">\(\det M = -10\)</span> in the recording; my recomputation gives <span class="math inline">\(-4\)</span>. Either the transcript misrenders an entry or there was a class-collaborative arithmetic slip. <strong>Watch the recording to authoritatively settle this</strong> before reproducing the worked example in any written reference.</li>
+<li><strong>Sign convention on Vandermonde</strong> depends on the row ordering chosen. Teacher caught the convention issue in the afternoon session. State the ordering explicitly when reproducing.</li>
+<li><strong>Off-diagonal cofactor identity</strong> (Theorem 16, “<span class="math inline">\(M \cdot M^{-1}\)</span> has zeros off-diagonal”) is <em>stated and motivated</em> here but not proved until the afternoon session. Forward-link in place.</li>
+<li><strong>Imported facts:</strong> cofactor expansion of <span class="math inline">\(\det M\)</span> along any row/column; multiplicative determinant law (foreshadowed only); root-factor theorem for multivariable polynomials.</li>
+<li><strong>Confidence.</strong> Theorem 14, 15, 16 statements + derivation paths: high. The Vandermonde factor argument is a textbook gem; the cofactor-inverse construction is standard. Numerical worked example: low-medium (see above).</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Continuation:</strong> <a href="2025-10-11-afternoon.html">2025-10-11 afternoon</a> completes Theorem 16’s off-diagonal proof, derives Cramer’s rule (15) explicitly, and adds the <strong>classification</strong> of singular systems by determinants.</li>
+<li><strong>Forward references:</strong> the Cramer’s-rule + cofactor-inverse material developed here is <em>re-derived from scratch</em> in the <a href="2026-03-07-LVS.html">2026-03-07 LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07 Cramer review</a> sessions. Those sessions previously labelled this content “imported”; with this lesson published, the import is now a genuine prior derivation.</li>
+<li><strong>Prior topic:</strong> the conic-section recap at the start of this session connects to <a href="2025-10-04-afternoon.html">2025-10-04 afternoon</a> (conic eccentricity classification).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

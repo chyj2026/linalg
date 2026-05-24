@@ -32,14 +32,14 @@ The session proves **Cramer's rule** from the cofactor formula for $M^{-1}$, the
 
 1. Field is $\mathbb{R}$. Statements transfer to $\mathbb{C}$ without modification; finite fields require care (not in scope).
 2. $n\in\mathbb{N}_{\ge 1}$, finite.
-3. The cofactor formula $M^{-1}=\dfrac{1}{\det M}\operatorname{adj}(M)$ was proved in a prior session and is **imported**.
+3. The cofactor formula $M^{-1}=\dfrac{1}{\det M}\operatorname{adj}(M)$ was proved in [2025-10-11 morning](2025-10-11-morning.html) (construction) and [2025-10-11 afternoon](2025-10-11-afternoon.html) (off-diagonal closure, Theorem 21–22).
 4. The multiplicative law $\det(AB)=\det(A)\det(B)$ is **imported** (the teacher flags this explicitly during the session — proof deferred to a later lecture).
 
 ::: {.callout-note collapse="true"}
 ## Prerequisites
 
 - **Cofactor expansion** of $\det M$ along an arbitrary row/column.
-- **Right-inverse identity** $M^{-1}M=I$ — established earlier via $M^{-1} = \operatorname{adj}(M)/\det M$.
+- **Right-inverse identity** $M^{-1}M=I$ — established in [2025-10-11 afternoon](2025-10-11-afternoon.html) via the cofactor inverse formula $M^{-1} = \operatorname{adj}(M)/\det M$.
 - **Linear independence** of $n$ vectors in $\mathbb{R}^n$ via the geometric/volume picture.
 :::
 
@@ -72,7 +72,7 @@ $$
 
 ## Derivation of Theorem 1 (Cramer's rule)
 
-From the imported adjugate formula $M^{-1}=\dfrac{1}{\det M}\operatorname{adj}(M)$ and $\mathbf{x}=M^{-1}\mathbf{f}$,
+From the adjugate formula $M^{-1}=\dfrac{1}{\det M}\operatorname{adj}(M)$ ([2025-10-11 afternoon](2025-10-11-afternoon.html), Theorem 22) and $\mathbf{x}=M^{-1}\mathbf{f}$,
 
 $$
 x_i \;=\; \frac{1}{\det M}\sum_{j=1}^{n}[\operatorname{adj}(M)]_{ij}\,f_j \;=\; \frac{1}{\det M}\sum_{j=1}^{n}C_{ji}\,f_j. \tag{2}

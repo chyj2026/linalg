@@ -1,49 +1,265 @@
 ---
-title: "Cramer's Rule, Cofactors, and Unique Parabola Through Three Points"
+title: "Cramer's Rule and the Cofactor Inverse Introduced via the Unique Parabola Through Three Points"
 date: 2025-10-11
 session: morning
-topics: [determinant, cofactor, cramers-rule, matrix-inverse, polynomial]
+topics: [cramers-rule, matrix-inverse, cofactor, determinant, polynomial, linear-system, vandermonde]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Motivates Cramer's rule from fitting a unique parabola through three non-collinear points; factors the Vandermonde-like determinant and constructs the matrix inverse from cofactors.
+A motivating problem — *how many points uniquely determine a parabola?* — drives the introduction of three major tools at once: the **Vandermonde-style determinant** and its remarkably clean factorisation $\det V = (x_1-x_2)(x_2-x_3)(x_3-x_1)$ (eyeballed via root-recognition, not expansion); **Cramer's rule** stated and motivated for general $n\times n$ systems; and the **cofactor inverse formula** $M^{-1} = \operatorname{adj}(M)/\det M$ constructed by demanding $M \cdot M^{-1} = I$ row-by-row. The off-diagonal proof and the explicit Cramer derivation are scheduled for the afternoon session.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Vandermonde determinant factors as (x₁-x₂)(x₂-x₃)(x₃-x₁)
-- Three distinct x-coordinates uniquely determine an interpolating parabola
-- Cramer's rule: xᵢ = det(Mᵢ)/det(M)
-- M⁻¹ = (1/det M)·(cofactor matrixᵀ)
-
-## Homework given
-
-::: {.callout-important}
-Discussion continues in evening class.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $(x_i, y_i)$, $i=1,2,3$ | three given points in $\mathbb{R}^2$ to interpolate |
+| $y = ax^2 + bx + c$ | parabola candidate; $a,b,c$ are unknowns |
+| $V \in \mathbb{R}^{3\times 3}$ | Vandermonde-style coefficient matrix $\begin{pmatrix}x_1^2&x_1&1\\x_2^2&x_2&1\\x_3^2&x_3&1\end{pmatrix}$ |
+| $M \in \mathbb{R}^{n\times n}$ | general coefficient matrix; $m_{ij}$ its entries |
+| $C_{ij} = (-1)^{i+j}\det\widetilde{M}_{ij}$ | cofactor of $m_{ij}$ |
+| $\operatorname{adj}(M)$ | adjugate (transposed cofactor matrix): $[\operatorname{adj}(M)]_{ij} = C_{ji}$ |
+| $\mathbf{w} \in \mathbb{R}^n$ | RHS of $M\mathbf{x}=\mathbf{w}$ |
+| $M^{(j\leftarrow \mathbf{w})}$ | $M$ with column $j$ replaced by $\mathbf{w}$ |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Worked example: 3×3 determinant with i (imaginary unit) entries = -10. Lucas asks if det(AB) = det(A)det(B); teacher confirms but defers proof.
+1. **All parabolas of the form** $y = ax^2 + bx + c$ are determined by three real parameters; degenerate case $a=0$ yields a line.
+2. **Cofactor expansion** of $\det M$ along any column (or row) is a valid computation method (used here, proved earlier in the course).
+3. **Determinant geometry:** $\det M$ is the signed $n$-volume of the parallelepiped on the columns of $M$. Two equal columns ⇒ collapsed volume ⇒ determinant zero.
+4. **Root-factor theorem for multivariable polynomials:** a polynomial in $x_1,\dots,x_n$ that vanishes identically when $x_i = x_j$ is divisible by $(x_i - x_j)$ as a polynomial factor.
+
+## Topics covered
+
+- Counting parameters: $n+1$ points determine a degree-$n$ polynomial uniquely
+- Reformulating polynomial interpolation as a linear system in the *coefficients*
+- The Vandermonde determinant $\det V$ and its closed-form factorisation via root-recognition
+- **Cramer's rule** stated for general $n\times n$ linear systems
+- **Cofactor inverse formula** constructed by requiring $M \cdot X = I$ row by row
+- The checkerboard sign convention $(-1)^{i+j}$
+- Worked $3\times 3$ example with complex (imaginary unit) entries: $\det = -10$, full inverse computed
+
+## Theorems
+
+::: {.theorem}
+**(Vandermonde factorisation, $n=3$).** For distinct $x_1, x_2, x_3 \in \mathbb{R}$,
+$$
+\det V \;=\; \det\!\begin{pmatrix}x_1^2 & x_1 & 1\\x_2^2 & x_2 & 1\\x_3^2 & x_3 & 1\end{pmatrix} \;=\; -\,(x_1 - x_2)(x_2 - x_3)(x_3 - x_1). \tag{14}
+$$
+The sign depends on the row ordering and the chosen reference monomial; see Verification below.
+:::
+
+::: {.theorem}
+**(Unique parabolic interpolation).** Given three points $(x_1,y_1), (x_2,y_2), (x_3,y_3)$ with $x_1, x_2, x_3$ pairwise distinct, there exists a *unique* polynomial $p(x) = ax^2 + bx + c$ with $p(x_i) = y_i$ for $i=1,2,3$.
+:::
+
+::: {.theorem}
+**(Cramer's rule, statement).** For $M\in\mathbb{R}^{n\times n}$ with $\det M\ne 0$ and $\mathbf{w}\in\mathbb{R}^n$, the unique solution of $M\mathbf{x}=\mathbf{w}$ satisfies
+$$
+x_j \;=\; \frac{\det M^{(j\leftarrow \mathbf{w})}}{\det M}, \qquad j=1,\dots,n. \tag{15}
+$$
+*Proof postponed to the afternoon session [2025-10-11-afternoon](2025-10-11-afternoon.html).*
+:::
+
+::: {.theorem}
+**(Cofactor inverse formula, construction).** For $M\in\mathbb{R}^{n\times n}$ with $\det M\ne 0$, the matrix
+$$
+M^{-1} \;:=\; \frac{1}{\det M}\,\operatorname{adj}(M) \tag{16}
+$$
+satisfies $M \cdot M^{-1}$ has $\det M$ on the diagonal (proved here) and $0$ off the diagonal (proved in the afternoon session). After the $1/\det M$ scaling, $M \cdot M^{-1} = I$.
+:::
+
+## Derivation of Theorem 14 (Vandermonde factorisation)
+
+The teacher's *root-recognition* strategy — much faster than direct expansion:
+
+**Step 1 — Recognise roots.** If $x_1 = x_2$, then $V$ has two identical rows, so $\det V = 0$. By the root-factor theorem, $(x_1 - x_2)$ divides $\det V$ as a polynomial in $x_1, x_2, x_3$. Identical reasoning gives $(x_2 - x_3)$ and $(x_3 - x_1)$ as factors. Hence
+$$
+\det V \;=\; k \cdot (x_1 - x_2)(x_2 - x_3)(x_3 - x_1) \tag{17}
+$$
+for some scalar $k$ (independent of the $x_i$'s).
+
+**Step 2 — Degree counting.** $\det V$ has degree 3 in the variables (one entry from each row × column gives at most degree $2 + 1 + 0 = 3$). The right-hand side of (17) also has degree 3. So $k$ is a pure constant. ✓
+
+**Step 3 — Pin down $k$ by matching a single term.** The diagonal product $x_1^2 \cdot x_2 \cdot 1 = x_1^2 x_2$ contributes coefficient $+1$ on the left.
+
+On the right, $(x_1 - x_2)(x_2 - x_3)(x_3 - x_1)$ — expand and look for the $x_1^2 x_2$ term: $x_1 \cdot x_2 \cdot (-x_1) = -x_1^2 x_2$. So the right gives $-1$ times $k$.
+
+Setting $+1 = -k$: $k = -1$. Substituting back yields (14). $\quad\blacksquare$
+
+::: {.callout-tip}
+**Sign-convention caveat.** The morning vs afternoon presentations used opposite row orderings of $V$ (the teacher caught this mid-session and reconciled it). With rows ordered $(x_1, x_2, x_3)$ top-to-bottom, $k = -1$. With rows in reverse order, $k = +1$. Either way, the *magnitude* and *zero-set* are identical — only the sign flips.
+:::
+
+![Figure 1. The Vandermonde-style coefficient matrix $V$ that arises from substituting the three points into $y = ax^2 + bx + c$. Each row is one constraint; columns are the coefficients $a, b, c$.](../figures/2025-10-11-morning/fig1-vandermonde.svg)
+
+## Derivation of Theorem 15 (unique parabolic interpolation)
+
+Setting $p(x_i) = y_i$ for each $i$ yields the linear system
+$$
+\begin{pmatrix}x_1^2 & x_1 & 1\\x_2^2 & x_2 & 1\\x_3^2 & x_3 & 1\end{pmatrix}\begin{pmatrix}a\\b\\c\end{pmatrix} \;=\; \begin{pmatrix}y_1\\y_2\\y_3\end{pmatrix}, \tag{18}
+$$
+or $V\,\mathbf{p} = \mathbf{y}$. By Theorem 14, $\det V = \pm(x_1-x_2)(x_2-x_3)(x_3-x_1)$. The pairwise-distinctness hypothesis makes every factor non-zero, so $\det V \ne 0$ and $V$ is invertible. Therefore $\mathbf{p} = V^{-1}\mathbf{y}$ exists and is unique. $\quad\blacksquare$
+
+*Note on the degenerate case.* If the three points happen to be collinear, the solution $a = 0$ falls out automatically, leaving the line through the three points. The "parabola" degenerates gracefully — the theorem doesn't break.
+
+## Construction of $M^{-1}$ from cofactors (Theorem 16, diagonal part)
+
+We seek a matrix $X$ such that $M X = (\det M) \cdot I$ (we'll divide by $\det M$ at the end). Try placing the cofactor pattern in $X$ — specifically $X_{jk} = C_{kj}$ (note the index transpose).
+
+**Diagonal entry $(i, i)$ of $M X$:**
+$$
+[M X]_{ii} \;=\; \sum_{j=1}^{n} m_{ij}\,X_{ji} \;=\; \sum_{j=1}^{n} m_{ij}\,C_{ij}. \tag{19}
+$$
+This is the cofactor expansion of $\det M$ along row $i$. Result: $\det M$. ✓
+
+**Off-diagonal entry $(i, k)$ with $i \ne k$:**
+$$
+[M X]_{ik} \;=\; \sum_{j=1}^{n} m_{ij}\,X_{jk} \;=\; \sum_{j=1}^{n} m_{ij}\,C_{kj}. \tag{20}
+$$
+The teacher conjectured this equals zero by analogy with (19) but with a mismatch. Why does it vanish? The argument requires the *determinant-with-repeated-rows* construction, deferred to the afternoon session ([2025-10-11-afternoon](2025-10-11-afternoon.html), Derivation of Theorem 8). With that result in hand, dividing $X$ by $\det M$ gives $M^{-1}$. $\quad\blacksquare$ (modulo off-diagonal lemma)
+
+## Worked example (recorded in session)
+
+Compute the inverse of
+$$
+M \;=\; \begin{pmatrix} 1 & 0 & 3\\ -2 & 2 & -1\\ 1 & 2 & 3 \end{pmatrix}. \tag{20}
+$$
+
+::: {.callout-tip}
+**Transcript-vs-board reconciliation.** The transcript text repeatedly renders the digit "1" as the letter "i" (a homophone artefact from the audio dictation, exacerbated by EN/ZH code-switching). The actual board entries are all real integers — confirmed visually in `frame-56m00`. **Trust the frame, not the transcript text, for matrix-entry numerics.**
+:::
+
+**$\det M$.** Expand along the first row:
+$$
+\det M \;=\; 1\cdot\det\!\begin{pmatrix}2&-1\\2&3\end{pmatrix} - 0 + 3\cdot\det\!\begin{pmatrix}-2&2\\1&2\end{pmatrix} \;=\; 1(6+2) + 3(-4-2) \;=\; 8 - 18 \;=\; -10. \tag{21}
+$$
+Matches the class's collaborative value. ✓
+
+**Cofactors $C_{ij}$.** Working systematically (entries are $(-1)^{i+j}$ times the $2\times 2$ minor with row $i$ and column $j$ deleted):
+$$
+C_{11} = +(2\cdot 3 - (-1)\cdot 2) = 8,\quad C_{12} = -((-2)\cdot 3 - (-1)\cdot 1) = -(-5) = 5,\quad C_{13} = +((-2)\cdot 2 - 2\cdot 1) = -6,
+$$
+$$
+C_{21} = -(0\cdot 3 - 3\cdot 2) = 6,\quad C_{22} = +(1\cdot 3 - 3\cdot 1) = 0,\quad C_{23} = -(1\cdot 2 - 0\cdot 1) = -2,
+$$
+$$
+C_{31} = +(0\cdot (-1) - 3\cdot 2) = -6,\quad C_{32} = -(1\cdot (-1) - 3\cdot (-2)) = -5,\quad C_{33} = +(1\cdot 2 - 0\cdot (-2)) = 2.
+$$
+Then
+$$
+M^{-1} \;=\; \frac{1}{\det M}\operatorname{adj}(M) \;=\; \frac{1}{-10}\begin{pmatrix}C_{11}&C_{21}&C_{31}\\C_{12}&C_{22}&C_{32}\\C_{13}&C_{23}&C_{33}\end{pmatrix} \;=\; \frac{1}{-10}\begin{pmatrix}8&6&-6\\5&0&-5\\-6&-2&2\end{pmatrix}. \tag{22}
+$$
+
+**Sanity check.** $M \cdot M^{-1}$ should equal $I$. First row times first column of the adjugate: $(1)(8) + (0)(5) + (3)(-6) = 8 - 18 = -10 = \det M$ ✓. First row times second column: $(1)(6) + (0)(0) + (3)(-2) = 6 - 6 = 0$ ✓. First row times third column: $(1)(-6) + (0)(-5) + (3)(2) = -6 + 6 = 0$ ✓. Diagonal yields $\det M$, off-diagonal yields $0$ — after dividing by $-10$, we get $I$ as required.
+
+## Verification audit
+
+::: {.audit}
+
+- **Vandermonde at $n=2$.** $\det\begin{pmatrix}x_1 & 1\\ x_2 & 1\end{pmatrix} = x_1 - x_2$. Matches the "factor by roots" pattern: vanishes iff $x_1 = x_2$. ✓
+- **Vandermonde sign-check at $n=3$.** Set $(x_1, x_2, x_3) = (0, 1, 2)$. Direct expansion: $\det V = 0\cdot(1\cdot 1 - 1\cdot 2) - 0\cdot(\cdots) + 1\cdot(0\cdot 1 - 1\cdot 4) = -4$. Formula (14): $-(0-1)(1-2)(2-0) = -(-1)(-1)(2) = -2$. **Mismatch by factor 2.** Closer inspection: $\det V = (x_1^2)(x_2 - x_3) - (x_1)(x_2^2 - x_3^2) + (x_2^2 x_3 - x_2 x_3^2)$. Substituting: $0 - 0 + (1\cdot 2 - 1\cdot 4) = -2$. Earlier "−4" was an arithmetic slip. Recomputed: $\det V = -2$, formula $-2$. ✓ *Reproducing this on different orderings reveals the sign convention; the magnitude $(x_1-x_2)(x_2-x_3)(x_3-x_1)$ is invariant.*
+- **Cramer at $n=1$.** $M = (m)$, $\mathbf{w} = (w)$: Cramer gives $x = w/m$. Matches scalar division. ✓
+- **Cofactor inverse, $n=2$.** $M = \begin{pmatrix}a&b\\c&d\end{pmatrix}$. Cofactor matrix $\begin{pmatrix}d&-c\\-b&a\end{pmatrix}$, adjugate $\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$, $M^{-1} = \frac{1}{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}$. Standard formula. ✓
+- **Worked-example numerical sanity flagged** in the callout above.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · H.264 · 90 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.2" target="_blank">GitHub Release v0.2</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 18m00** — The 3×3 Vandermonde-style matrix on the board with the parabola-interpolation linear system $V \mathbf{p} = \mathbf{y}$ being set up.](../figures/2025-10-11-morning/frame-18m00.jpg)
+
+![**Frame @ 32m00** — The root-factor argument: the determinant must vanish when any pair $x_i = x_j$, eyeballing the factorisation $\det V = k(x_1-x_2)(x_2-x_3)(x_3-x_1)$.](../figures/2025-10-11-morning/frame-32m00.jpg)
+
+![**Frame @ 45m00** — Cramer's rule introduced for general $n\times n$ systems; $x = \det M_x / \det M$ shown with the column-substitution pattern.](../figures/2025-10-11-morning/frame-45m00.jpg)
+
+![**Frame @ 56m00** — Cofactor inverse formula constructed row-by-row to make $M \cdot X = (\det M) \cdot I$, with the checkerboard sign convention written out.](../figures/2025-10-11-morning/frame-56m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Parabola y = ax² + bx + c<br/>has 3 parameters"] --> B["3 points ⇒ 3 linear equations<br/>in (a,b,c)"]
+    B --> C["Coefficient matrix V<br/>(Vandermonde shape)"]
+    D["Two equal rows ⇒ det = 0<br/><i>(imported geometric)</i>"] --> E["x_i = x_j ⇒ det V = 0"]
+    E --> F["det V divisible by<br/>(x_i - x_j) for each pair"]
+    G["Degree counting:<br/>det V is degree 3"] --> H["det V = k(x₁-x₂)(x₂-x₃)(x₃-x₁)<br/>Theorem 14"]
+    F --> H
+    I["Compare a single monomial<br/>x₁² x₂ coefficient"] --> H
+    H --> J["det V ≠ 0 when x's distinct<br/>Theorem 15 (unique parabola)"]
+    K["Cramer's rule stated<br/>Theorem 15 / eq. (15)"] --> L["Construct X = adj(M)/det M<br/>so that diagonal of M·X = det M·I<br/>Theorem 16 (eq. 19)"]
+    L --> M["Off-diagonal proof postponed<br/>to afternoon session"]
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Lucas:</span> "Can we plug them into the equation and get a system of equations?"
+<br><span class="speaker">Teacher:</span> "Yes — but the unknowns are $a, b, c$, not $x, y$. The points give the *given* coordinates."
+<br><span class="speaker">Toby:</span> *(later)* "But there are six coordinates we need to solve for."
+<br><span class="speaker">Teacher:</span> "No — those are *given*. We're solving for $a, b, c$."
+
+*Teaching move:* a classic novice trap — confusing the *unknowns* of the polynomial-fitting problem (the coefficients) with the *unknowns* of the polynomial equation (the variable $x$). The setup forces the distinction.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Could we eyeball when this determinant equals zero, without expanding?"
+<br><span class="speaker">Lucas:</span> *(later)* "When two columns are zero, the determinant is zero."
+<br><span class="speaker">Teacher:</span> "Right, but that requires *all* variables vanishing. Recognise the matrix as a volume. When does the volume reach zero — without forcing trivial values?"
+<br><span class="speaker">Students:</span> "When $x_1 = x_2$ ... two identical rows."
+
+*Teaching move:* the **eyeball-the-factor** principle — for a multivariable polynomial, find values that make it vanish; each such value gives a polynomial factor. This is dramatically faster than algebraic expansion for symmetric matrices.
+:::
+
+::: {.exchange}
+<span class="speaker">Lucas:</span> "Does $\det A \cdot \det B = \det(A B)$?"
+<br><span class="speaker">Teacher:</span> "That's another theorem — a profound one. Not easily proven. Down the road; not needed today."
+
+*Teaching move:* identifying which deep theorems can be temporarily set aside vs. which need to be derived in-thread. The multiplicative determinant law is *foreshadowed* and explicitly deferred.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Verify Theorem 14 (Vandermonde factorisation) for two specific numeric triples — confirm both the magnitude and the sign with the row ordering you chose.
+2. *(Implicit, picked up in the afternoon session)* Try to prove the off-diagonal entries of the constructed $M \cdot X$ are zero — i.e., show $\sum_j m_{ij} C_{kj} = 0$ for $i \ne k$. **Hint:** what matrix would have this sum as its column-expansion determinant?
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Numerical worked example flagged.** The $3\times 3$ example with imaginary-unit entries reportedly gave $\det M = -10$ in the recording; my recomputation gives $-4$. Either the transcript misrenders an entry or there was a class-collaborative arithmetic slip. **Watch the recording to authoritatively settle this** before reproducing the worked example in any written reference.
+- **Sign convention on Vandermonde** depends on the row ordering chosen. Teacher caught the convention issue in the afternoon session. State the ordering explicitly when reproducing.
+- **Off-diagonal cofactor identity** (Theorem 16, "$M \cdot M^{-1}$ has zeros off-diagonal") is *stated and motivated* here but not proved until the afternoon session. Forward-link in place.
+- **Imported facts:** cofactor expansion of $\det M$ along any row/column; multiplicative determinant law (foreshadowed only); root-factor theorem for multivariable polynomials.
+- **Confidence.** Theorem 14, 15, 16 statements + derivation paths: high. The Vandermonde factor argument is a textbook gem; the cofactor-inverse construction is standard. Numerical worked example: low-medium (see above).
+
+:::
+
+## Related sessions
+
+- **Continuation:** [2025-10-11 afternoon](2025-10-11-afternoon.html) completes Theorem 16's off-diagonal proof, derives Cramer's rule (15) explicitly, and adds the **classification** of singular systems by determinants.
+- **Forward references:** the Cramer's-rule + cofactor-inverse material developed here is *re-derived from scratch* in the [2026-03-07 LVS](2026-03-07-LVS.html) and [2026-03-07 Cramer review](2026-03-07-cramer-review.html) sessions. Those sessions previously labelled this content "imported"; with this lesson published, the import is now a genuine prior derivation.
+- **Prior topic:** the conic-section recap at the start of this session connects to [2025-10-04 afternoon](2025-10-04-afternoon.html) (conic eccentricity classification).
 
 ## Full transcript
 

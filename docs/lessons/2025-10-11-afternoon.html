@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-11">
 
-<title>Cramer’s Rule Completed: Existence/Uniqueness Classification via Determinants – Linear Algebra Notes</title>
+<title>Cramer’s Rule Proven End-to-End; Existence and Uniqueness Classification by Determinants – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +187,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-21-off-diagonal-cofactor-identity" id="toc-derivation-of-theorem-21-off-diagonal-cofactor-identity" class="nav-link" data-scroll-target="#derivation-of-theorem-21-off-diagonal-cofactor-identity">Derivation of Theorem 21 (off-diagonal cofactor identity)</a></li>
+  <li><a href="#derivation-of-theorem-22-cofactor-inverse-formula-completed" id="toc-derivation-of-theorem-22-cofactor-inverse-formula-completed" class="nav-link" data-scroll-target="#derivation-of-theorem-22-cofactor-inverse-formula-completed">Derivation of Theorem 22 (cofactor inverse formula completed)</a></li>
+  <li><a href="#derivation-a-of-theorem-23-cramer-via-mathbfx-m-1mathbfw" id="toc-derivation-a-of-theorem-23-cramer-via-mathbfx-m-1mathbfw" class="nav-link" data-scroll-target="#derivation-a-of-theorem-23-cramer-via-mathbfx-m-1mathbfw">Derivation A of Theorem 23 (Cramer via <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w}\)</span>)</a></li>
+  <li><a href="#derivation-b-of-theorem-23-independent-direct-elimination-at-n-2-then-induction" id="toc-derivation-b-of-theorem-23-independent-direct-elimination-at-n-2-then-induction" class="nav-link" data-scroll-target="#derivation-b-of-theorem-23-independent-direct-elimination-at-n-2-then-induction">Derivation B of Theorem 23 (independent — direct elimination at <span class="math inline">\(n = 2\)</span> then induction)</a></li>
+  <li><a href="#derivation-of-theorem-24-classification" id="toc-derivation-of-theorem-24-classification" class="nav-link" data-scroll-target="#derivation-of-theorem-24-classification">Derivation of Theorem 24 (classification)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cramer’s Rule Completed: Existence/Uniqueness Classification via Determinants</h1>
+<h1 class="title">Cramer’s Rule Proven End-to-End; Existence and Uniqueness Classification by Determinants</h1>
 </div>
 
 
@@ -190,32 +236,255 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Continuation of the <a href="2025-10-11-morning.html">morning session</a>: completes the cofactor inverse formula proof by showing the <strong>off-diagonal entries of <span class="math inline">\(M \cdot \operatorname{adj}(M)\)</span> are zero</strong> via the determinant-with-repeated-columns trick, then derives <strong>Cramer’s rule explicitly</strong> by reading off <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w}\)</span> component by component. Closes by introducing the <strong>classification of linear systems</strong> by the determinant of <span class="math inline">\(M\)</span> and the numerator determinants <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})}\)</span> — unique / no / infinite solutions — and works a concrete <span class="math inline">\(3 \times 3\)</span> singular consistent example.</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<p>Same conventions as the <a href="2025-10-11-morning.html">morning session</a>; we restate only the symbols actually used below.</p>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span>, <span class="math inline">\(m_{ij}\)</span></td>
+<td>matrix and its scalar entries</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_{ij} = (-1)^{i+j}\det\widetilde{M}_{ij}\)</span></td>
+<td>cofactor of <span class="math inline">\(m_{ij}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{adj}(M)\)</span></td>
+<td>adjugate: <span class="math inline">\([\operatorname{adj}(M)]_{ij} = C_{ji}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{w} \in \mathbb{R}^n\)</span></td>
+<td>RHS of the linear system</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(M^{(j\leftarrow \mathbf{w})}\)</span>, <span class="math inline">\(M_x, M_y, M_z\)</span></td>
+<td><span class="math inline">\(M\)</span> with column <span class="math inline">\(j\)</span> (resp. <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, <span class="math inline">\(z\)</span>) replaced by <span class="math inline">\(\mathbf{w}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M^*_{(k \to i)}\)</span></td>
+<td><span class="math inline">\(M\)</span> with row <span class="math inline">\(k\)</span> replaced by row <span class="math inline">\(i\)</span> — contains <em>two identical rows</em></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{col}(M)\)</span>, <span class="math inline">\(\operatorname{rank}(M)\)</span></td>
+<td>column space and its dimension</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li>Field is <span class="math inline">\(\mathbb{R}\)</span>; <span class="math inline">\(n\)</span> finite. Statements work over <span class="math inline">\(\mathbb{C}\)</span> unchanged.</li>
+<li><strong>Cofactor expansion</strong> of <span class="math inline">\(\det M\)</span> along any row or column is valid (imported).</li>
+<li><strong>Determinant with two identical rows/columns is zero</strong> — geometrically, the parallelepiped collapses.</li>
+<li>The morning session’s diagonal-entry computation <span class="math inline">\(\sum_j m_{ij} C_{ij} = \det M\)</span> — we re-use it here.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+<span class="screen-reader-only">Note</span>Prerequisites
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
-<section id="lead" class="level2">
-<h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Completes the morning’s proof that M·adj(M) = det(M)·I by interpreting off-diagonal entries as determinants with repeated columns, then classifies M x = w solutions by (det M, det Mₓ).</p>
-</section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
 <ul>
-<li>M·adj(M) = det(M)·I</li>
-<li>Classification: det M ≠ 0 unique; det M = 0 &amp; det Mₓ ≠ 0 no solution; both zero infinite</li>
+<li>Cofactor inverse construction (morning session, eq. (16) — diagonal part proved, off-diagonal pending here)</li>
+<li>Cramer’s rule statement (morning session, eq. (15))</li>
+<li>3-plane intersection geometry as the geometric picture of three linear equations in three unknowns</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Off-diagonal proof: <span class="math inline">\(\sum_j m_{ij} C_{kj} = 0\)</span> for <span class="math inline">\(i \ne k\)</span> via the <span class="math inline">\(M^*\)</span> construction</li>
+<li>Explicit derivation of Cramer’s rule by reading <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w}\)</span> component by component</li>
+<li>Classification of <span class="math inline">\(M\mathbf{x} = \mathbf{w}\)</span> by <span class="math inline">\((\det M, \det M^{(j\leftarrow\mathbf{w})})\)</span></li>
+<li>Geometric picture: three planes in <span class="math inline">\(\mathbb{R}^3\)</span> and the configurations that produce 1, 0, or <span class="math inline">\(\infty\)</span> solutions</li>
+<li>Worked example: <span class="math inline">\(\,x - 2y + 3z = 9\)</span>, <span class="math inline">\(-3x + 6y - z = 10\)</span>, <span class="math inline">\(2x - 4y + 14z = 55\)</span> — singular, classified</li>
 </ul>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Off-diagonal cofactor identity).</strong> For any <span class="math inline">\(M\in\mathbb{R}^{n\times n}\)</span> and any <span class="math inline">\(i \ne k\)</span>, <span class="math display">\[
+\sum_{j=1}^{n} m_{ij}\,C_{kj} \;=\; 0. \tag{21}
+\]</span> Combined with the diagonal identity <span class="math inline">\(\sum_j m_{ij} C_{ij} = \det M\)</span> from the morning, this gives <span class="math inline">\(M \cdot \operatorname{adj}(M) = (\det M) \cdot I\)</span>, hence <span class="math display">\[
+M^{-1} \;=\; \frac{\operatorname{adj}(M)}{\det M}. \tag{22}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Cramer’s rule, derived).</strong> For <span class="math inline">\(M\in\mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(\det M\ne 0\)</span> and <span class="math inline">\(\mathbf{w}\in\mathbb{R}^n\)</span>, the unique solution of <span class="math inline">\(M\mathbf{x}=\mathbf{w}\)</span> satisfies <span class="math display">\[
+x_j \;=\; \frac{\det M^{(j\leftarrow\mathbf{w})}}{\det M},\qquad j=1,\dots,n. \tag{23}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Existence/uniqueness classification).</strong> Let <span class="math inline">\(M\in\mathbb{R}^{n\times n}\)</span> and <span class="math inline">\(\mathbf{w}\in\mathbb{R}^n\)</span>. The system <span class="math inline">\(M\mathbf{x} = \mathbf{w}\)</span> has:</p>
+<ul>
+<li><strong>(a) a unique solution</strong>, iff <span class="math inline">\(\det M \ne 0\)</span>;</li>
+<li><strong>(b) no solution</strong>, if <span class="math inline">\(\det M = 0\)</span> but some <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})} \ne 0\)</span>;</li>
+<li><strong>(c) infinitely many solutions</strong>, if <span class="math inline">\(\det M = 0\)</span> and <em>all</em> <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})} = 0\)</span> — <em>provided</em> the system is consistent. (The teacher gives the consistent case in class; the rank-deficient inconsistent edge case is flagged in fragility below.)</li>
+</ul>
+</div>
+</section>
+<section id="derivation-of-theorem-21-off-diagonal-cofactor-identity" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-21-off-diagonal-cofactor-identity">Derivation of Theorem 21 (off-diagonal cofactor identity)</h2>
+<p>Construct the auxiliary matrix <span class="math display">\[
+M^*_{(k \to i)} \;:=\; \text{matrix }M\text{ with row $k$ replaced by row $i$ of }M.
+\]</span> After the substitution, <span class="math inline">\(M^*\)</span> has row <span class="math inline">\(i\)</span> and row <span class="math inline">\(k\)</span> both equal to row <span class="math inline">\(i\)</span> of <span class="math inline">\(M\)</span> — two identical rows. By the determinant-with-repeated-rows lemma, <span class="math inline">\(\det M^*_{(k\to i)} = 0\)</span>.</p>
+<p>Now expand <span class="math inline">\(\det M^*_{(k\to i)}\)</span> along <em>row <span class="math inline">\(k\)</span></em>: <span class="math display">\[
+\det M^*_{(k\to i)} \;=\; \sum_{j=1}^{n}\,(\text{row $k$ entry of }M^*)_j \cdot C^*_{kj}. \tag{24}
+\]</span> The row-<span class="math inline">\(k\)</span> entries of <span class="math inline">\(M^*\)</span> are <span class="math inline">\(m_{i1}, m_{i2}, \dots, m_{in}\)</span> (we replaced row <span class="math inline">\(k\)</span> with row <span class="math inline">\(i\)</span>). The cofactors <span class="math inline">\(C^*_{kj}\)</span> are computed from <span class="math inline">\(M^*\)</span> by deleting row <span class="math inline">\(k\)</span> and column <span class="math inline">\(j\)</span> — but <strong>deleting row <span class="math inline">\(k\)</span> removes the substituted row entirely</strong>, leaving exactly the same <span class="math inline">\((n-1)\times(n-1)\)</span> submatrix as deleting row <span class="math inline">\(k\)</span> from the original <span class="math inline">\(M\)</span>. Hence <span class="math inline">\(C^*_{kj} = C_{kj}\)</span> (the original cofactor).</p>
+<p>Combining: <span class="math inline">\(\sum_j m_{ij}\,C_{kj} = \det M^*_{(k\to i)} = 0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-afternoon/fig1-repeated-row.svg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. The auxiliary matrix <span class="math inline">\(M^*_{(k\to i)}\)</span>: row <span class="math inline">\(k\)</span> replaced by row <span class="math inline">\(i\)</span>. The two identical rows force the determinant to zero — and the cofactor expansion along the replaced row equals exactly the off-diagonal sum we wanted to vanish.</figcaption>
+</figure>
+</div>
+</section>
+<section id="derivation-of-theorem-22-cofactor-inverse-formula-completed" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-22-cofactor-inverse-formula-completed">Derivation of Theorem 22 (cofactor inverse formula completed)</h2>
+<p>Diagonal entries of <span class="math inline">\(M \cdot \operatorname{adj}(M)\)</span>: <span class="math inline">\(\sum_j m_{ij} C_{ij} = \det M\)</span> (morning session). Off-diagonal entries: <span class="math inline">\(\sum_j m_{ij} C_{kj} = 0\)</span> for <span class="math inline">\(i \ne k\)</span> (Theorem 21).</p>
+<p>So <span class="math inline">\(M \cdot \operatorname{adj}(M) = (\det M) \cdot I\)</span>. Dividing by <span class="math inline">\(\det M\)</span> (non-zero by hypothesis) gives (22). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-a-of-theorem-23-cramer-via-mathbfx-m-1mathbfw" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-of-theorem-23-cramer-via-mathbfx-m-1mathbfw">Derivation A of Theorem 23 (Cramer via <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w}\)</span>)</h2>
+<p>Apply (22) to <span class="math inline">\(M\mathbf{x} = \mathbf{w}\)</span>: <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w} = \tfrac{1}{\det M}\operatorname{adj}(M)\,\mathbf{w}\)</span>. The <span class="math inline">\(j\)</span>-th component: <span class="math display">\[
+x_j \;=\; \frac{1}{\det M}\sum_{k=1}^{n}[\operatorname{adj}(M)]_{jk}\,w_k \;=\; \frac{1}{\det M}\sum_{k=1}^{n} C_{kj}\,w_k. \tag{25}
+\]</span> The sum <span class="math inline">\(\sum_k C_{kj} w_k\)</span> is the cofactor expansion along column <span class="math inline">\(j\)</span> of the matrix <span class="math inline">\(M^{(j\leftarrow\mathbf{w})}\)</span> (replace column <span class="math inline">\(j\)</span> entries by <span class="math inline">\(w_1,\dots,w_n\)</span>; cofactors along that column are unchanged from <span class="math inline">\(M\)</span> because deleting column <span class="math inline">\(j\)</span> removes the replaced column). So the sum equals <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})}\)</span>, giving (23). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-b-of-theorem-23-independent-direct-elimination-at-n-2-then-induction" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-23-independent-direct-elimination-at-n-2-then-induction">Derivation B of Theorem 23 (independent — direct elimination at <span class="math inline">\(n = 2\)</span> then induction)</h2>
+<p>For <span class="math inline">\(n = 2\)</span>: <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{w} = \begin{pmatrix}w_1\\w_2\end{pmatrix}\)</span>. Solving by elimination: <span class="math display">\[
+x_1 = \frac{w_1 d - b w_2}{ad-bc}, \qquad x_2 = \frac{a w_2 - c w_1}{ad-bc}.
+\]</span> The numerator of <span class="math inline">\(x_1\)</span> is <span class="math inline">\(\det\begin{pmatrix}w_1&amp;b\\w_2&amp;d\end{pmatrix} = \det M^{(1\leftarrow\mathbf{w})}\)</span>; numerator of <span class="math inline">\(x_2\)</span> is <span class="math inline">\(\det\begin{pmatrix}a&amp;w_1\\c&amp;w_2\end{pmatrix} = \det M^{(2\leftarrow\mathbf{w})}\)</span>; denominator is <span class="math inline">\(\det M\)</span>. (23) holds.</p>
+<p>For general <span class="math inline">\(n\)</span>: induction on <span class="math inline">\(n\)</span>, expanding <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})}\)</span> along the <span class="math inline">\(\mathbf{w}\)</span>-column and applying the inductive hypothesis to each <span class="math inline">\((n-1)\times(n-1)\)</span> minor. <em>Note on independence.</em> Derivation A imports Theorem 22 (the just-proved inverse formula); Derivation B uses only cofactor expansion and elimination. No circular dependency.</p>
+</section>
+<section id="derivation-of-theorem-24-classification" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-24-classification">Derivation of Theorem 24 (classification)</h2>
+<p><strong>Case (a) <span class="math inline">\(\det M \ne 0\)</span>:</strong> <span class="math inline">\(M^{-1}\)</span> exists by (22), so <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{w}\)</span> is the unique solution. Cramer’s rule (23) gives an explicit formula. ✓</p>
+<p><strong>Case (b) <span class="math inline">\(\det M = 0\)</span> but some <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})} \ne 0\)</span>:</strong> From the singular-dichotomy analysis (cf.&nbsp;<a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>, Theorem 10), this happens iff <span class="math inline">\(\mathbf{w} \notin \operatorname{col}(M)\)</span> and <span class="math inline">\(\operatorname{rank}(M) = n-1\)</span>. Cramer’s formula gives <span class="math inline">\(x_j = (\text{nonzero})/0\)</span>, geometrically interpreted as <span class="math inline">\(x_j = \infty\)</span> — no solution exists. ✓</p>
+<p><strong>Case (c) <span class="math inline">\(\det M = 0\)</span> and all <span class="math inline">\(\det M^{(j\leftarrow\mathbf{w})} = 0\)</span>:</strong> The teacher describes this as “<span class="math inline">\(0/0\)</span>, indeterminate” and asserts (provided the system is consistent — see fragility below) it implies infinitely many solutions. Geometrically: the three planes share a common line, or all coincide.</p>
+<p>The lesson works the example <span class="math display">\[
+\begin{cases} x - 2y + 3z = 9\\ -3x + 6y - z = 10\\ 2x - 4y + 14z = 55 \end{cases}
+\]</span> with <span class="math inline">\(\det M = 0\)</span> (verified by direct expansion). Computing <span class="math inline">\(\det M^{(1)}, \det M^{(2)}, \det M^{(3)}\)</span> all give zero, and the teacher confirms in class that the system is consistent. Conclusion: <strong>infinitely many solutions</strong>. <span class="math inline">\(\quad\blacksquare\)</span> (modulo consistency check; see fragility)</p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong><span class="math inline">\(n=2\)</span> off-diagonal check.</strong> For <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>: <span class="math inline">\(\sum_j m_{1j} C_{2j} = a \cdot (-b) + b \cdot a = 0\)</span>. ✓ Matches (21).</li>
+<li><strong>Cramer at <span class="math inline">\(n=2\)</span> unique case.</strong> <span class="math inline">\(M = \begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{w} = (5, 6)\)</span>: <span class="math inline">\(\det M = 5\)</span>, <span class="math inline">\(\det M_x = \det\begin{pmatrix}5&amp;1\\6&amp;3\end{pmatrix} = 9\)</span>, <span class="math inline">\(\det M_y = \det\begin{pmatrix}2&amp;5\\1&amp;6\end{pmatrix} = 7\)</span>. So <span class="math inline">\(x = 9/5, y = 7/5\)</span>. Substituting: <span class="math inline">\(2(9/5) + 7/5 = 25/5 = 5\)</span> ✓; <span class="math inline">\(9/5 + 3(7/5) = 30/5 = 6\)</span> ✓.</li>
+<li><strong>Classification at <span class="math inline">\(\det M = 0\)</span> inconsistent case.</strong> <span class="math inline">\(M = \begin{pmatrix}1&amp;2\\2&amp;4\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{w} = (1, 3)\)</span>: <span class="math inline">\(\det M = 0\)</span>, <span class="math inline">\(\det M_x = \det\begin{pmatrix}1&amp;2\\3&amp;4\end{pmatrix} = -2 \ne 0\)</span>. Case (b): no solution. Substitute candidate: from row 1, <span class="math inline">\(x + 2y = 1\)</span>, so <span class="math inline">\(2x + 4y = 2 \ne 3\)</span> — inconsistent. ✓</li>
+<li><strong>Classification at <span class="math inline">\(\det M = 0\)</span> consistent case.</strong> Same <span class="math inline">\(M\)</span>, <span class="math inline">\(\mathbf{w} = (1, 2)\)</span>: <span class="math inline">\(\det M = 0\)</span>, <span class="math inline">\(\det M_x = \det\begin{pmatrix}1&amp;2\\2&amp;4\end{pmatrix} = 0\)</span>, <span class="math inline">\(\det M_y = \det\begin{pmatrix}1&amp;1\\2&amp;2\end{pmatrix} = 0\)</span>. Case (c): infinitely many. Verify: <span class="math inline">\(x + 2y = 1\)</span>, <span class="math inline">\(2x + 4y = 2\)</span> — same line, <span class="math inline">\(x = 1 - 2t, y = t\)</span>. ✓</li>
+<li><strong>Dependency check.</strong> Theorem 21 uses determinant-with-repeated-rows. Theorem 22 uses 21 + morning diagonal. Theorem 23 (A) uses 22; (B) uses elimination only. Theorem 24 uses 22 and (for case b) the rank-deficiency analysis from the cramer-review session. No circularity. ✓</li>
+</ul>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-afternoon.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  60 min · H.264 3240×2160 · 102 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.2" target="_blank">GitHub Release v0.2</a>
+  · also viewable in <a href="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-afternoon/frame-08m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 08m00</strong> — Recap of the cofactor inverse formula from the morning, with Helms reading off the structure: <span class="math inline">\(M^{-1}_{jk} = (-1)^{j+k} \cdot M_{kj} / \det M\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-afternoon/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — The off-diagonal proof in progress: building the matrix with the substituted row, recognising the structure as a determinant with two identical rows.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-afternoon/frame-38m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m00</strong> — Cramer’s rule derived component by component; the column-substitution pattern <span class="math inline">\(M^{(j \leftarrow \mathbf{w})}\)</span> being constructed on the board.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2025-10-11-afternoon/frame-52m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 52m00</strong> — Three-plane geometry for the classification: unique intersection (point), parallel planes (none), shared line (infinite).</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Diagonal: Σⱼ m_ij C_ij = det M&lt;br/&gt;&lt;i&gt;(morning session)&lt;/i&gt;"] --&gt; F
+    B["Determinant with repeated rows = 0&lt;br/&gt;&lt;i&gt;(imported)&lt;/i&gt;"] --&gt; C["Construct M*(k→i):&lt;br/&gt;replace row k by row i"]
+    C --&gt; D["det M*(k→i) = 0&lt;br/&gt;(two equal rows)"]
+    C --&gt; E["Cofactor expansion along row k:&lt;br/&gt;det M*(k→i) = Σⱼ m_ij C_kj&lt;br/&gt;eq. (24)"]
+    D --&gt; G["Σⱼ m_ij C_kj = 0 for i≠k&lt;br/&gt;Theorem 21 (eq. 21)"]
+    E --&gt; G
+    G --&gt; F["M·adj(M) = det(M)·I&lt;br/&gt;⇒ M⁻¹ = adj(M)/det M&lt;br/&gt;Theorem 22 (eq. 22)"]
+    F --&gt; H["x = M⁻¹·w component-wise&lt;br/&gt;eq. (25)"]
+    H --&gt; I["Cramer's rule:&lt;br/&gt;x_j = det M^(j←w) / det M&lt;br/&gt;Theorem 23 (eq. 23)"]
+    F --&gt; J["det M ≠ 0 ⇒ unique solution&lt;br/&gt;Case (a)"]
+    K["Singular dichotomy&lt;br/&gt;&lt;i&gt;(developed Mar 7)&lt;/i&gt;"] --&gt; L["det M = 0:&lt;br/&gt;(b) some det M^(j) ≠ 0 ⇒ no solution&lt;br/&gt;(c) all det M^(j) = 0 ⇒ infinite (if consistent)"]
+    J --&gt; M["Classification Theorem 24"]
+    L --&gt; M
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Look at this sum <span class="math inline">\(b \cdot M_a - e \cdot M_d + h \cdot M_g\)</span>. Does it look like a determinant?” <br><span class="speaker">Helms:</span> “Yes, but there’s a mismatch. The <span class="math inline">\(M_a\)</span> goes with <span class="math inline">\(a\)</span>, but it’s multiplied by <span class="math inline">\(b\)</span>.” <br><span class="speaker">Teacher:</span> “Right. So <em>what matrix</em> would have this sum as its column expansion?” <br><span class="speaker">Helms:</span> <em>(after thought)</em> “The matrix with the first column replaced by <span class="math inline">\(b, e, h\)</span> — same as the second column of <span class="math inline">\(M\)</span>.” <br><span class="speaker">Teacher:</span> “Two identical columns. Hence zero. Brilliantly recovered.”</p>
+<p><em>Teaching move:</em> the “force the sum into a determinant” pattern — when an expression <em>looks</em> like a column expansion, fabricate the smallest matrix that exhibits it, then exploit a structural symmetry.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher (to Elaine):</span> “If <span class="math inline">\(\det M = 0\)</span>, when do we have infinitely many vs no solutions?” <br><span class="speaker">Elaine:</span> “If the determinant of <span class="math inline">\(M_x\)</span> is also zero, infinitely many; otherwise, no solution.” <br><span class="speaker">Teacher:</span> “Right. The dichotomy holds on a single <span class="math inline">\(M_x\)</span> — it propagates to all <span class="math inline">\(M_y, M_z, \dots\)</span> automatically.”</p>
+<p><em>Teaching move:</em> you only need to test <em>one</em> coordinate to classify the entire system. The teacher previews this as a homework theorem (proved in <a href="2026-03-07-cramer-review.html">2026-03-07 cramer-review</a>, Theorem 10).</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -226,39 +495,37 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Organize notes; next session introduces interpolation as a shortcut.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Worked example: 3×3 singular consistent system with infinite solutions. Long back-and-forth with Helms recalling the morning derivation.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Verify the <span class="math inline">\(3\times 3\)</span> worked example (the system above): independently compute <span class="math inline">\(\det M\)</span>, <span class="math inline">\(\det M_x\)</span>, <span class="math inline">\(\det M_y\)</span>, <span class="math inline">\(\det M_z\)</span> and confirm the system has infinitely many solutions.</li>
+<li><em>Implicit / preview for later:</em> prove that if <span class="math inline">\(\det M = 0\)</span>, then <span class="math inline">\(\det M_x = 0 \Leftrightarrow \det M_y = 0 \Leftrightarrow \det M_z = 0\)</span> (the “singular dichotomy” — fully addressed in <a href="2026-03-07-cramer-review.html">2026-03-07 cramer-review</a>, Theorem 10).</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step in Theorem 24.</strong> Case (c) — “<span class="math inline">\(\det M = 0\)</span> and all numerator determinants zero” — claims <em>infinitely many solutions</em>. This is true <em>only if the system is consistent</em>. The teacher silently assumes consistency in the worked example; the rank-deficient inconsistent edge case (<span class="math inline">\(\operatorname{rank} M &lt; n-1\)</span>) reports the same “all zeros” signature but has no solution. This subtlety is properly addressed in <a href="2026-03-07-cramer-review.html">2026-03-07 cramer-review</a> (Theorem 10, fragility summary).</li>
+<li><strong>Imported facts:</strong> cofactor expansion (any row/column); determinant-with-repeated-rows lemma. Both are scheduled for “determinants from scratch” later in the course.</li>
+<li><strong>Worked example consistency</strong> was checked numerically in class — teacher confirmed “<span class="math inline">\(0/0\)</span>, indeterminate, infinitely many” without separately proving consistency. Re-verify before relying on the example as a definitive case-(c) instance.</li>
+<li><strong>Confidence.</strong> Theorem 21, 22 statements + proofs: high (textbook-standard). Theorem 23 statement + proof: high. Theorem 24 cases (a) and (b): high. Case (c): medium — depends on the implicit consistency assumption.</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-10-11-morning.html">2025-10-11 morning</a> — sets up Cramer’s rule and constructs the cofactor inverse formula; the off-diagonal proof started there is <em>completed here</em>.</li>
+<li><strong>Re-derivation later in the year:</strong> <a href="2026-03-07-cramer-review.html">2026-03-07 Cramer review</a> covers the <em>same content</em> with different students (Catherine joining), making the proofs more accessible. The “singular dichotomy” (Theorem 10 in cramer-review) makes the fragility flagged here rigorous.</li>
+<li><strong>Application:</strong> the cofactor inverse formula proved here is <em>used</em> in <a href="2026-03-07-LVS.html">2026-03-07 LVS</a> to define <span class="math inline">\(M^{-1}\)</span> and prove the two-sided inverse equivalence.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -267,7 +534,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>一定，and let me send out a quick note. All right, I'm gonna continue from what we did in the morning, which is study more about solving linear system of equations.Elaine， could I have your video please? Alright, now we were in the place where we actually figured out how to take the inverse of a matrix. Let me summarize. If you're given the nine numbers a, b, c, d, e, f, g, h, i, well, to begin with, do we know how to calculate the determinants? Do we know how to write the inverse of this? Elaine, because you actually you're missing.Some vocabulary now, and have you found out how the determinants defined? It's like a scaling factor for the matrix, right? It's not a scaling factor; it's a scalar, meaning it's a single number. It is actually the volume of of the three vectors we put into a matrix. So, if that's what you mean, you're right. Yeah, I think that's what I meant.But how do we calculate it? Uh, we take the first row and the first column, and we ignore them, and we take this first two by two matrix, uh, e f and h i. Oh, you are saying we grab the number a and we multiply by what we call the cofactor, which is a smaller matrix, e f i. Oh, how do we calculate the determinant of this smaller matrix?呃，你 do e i minus h f， yeah， that's correct。 Okay， let's continue。 And then you go down to the second row。 and that would be b i minus c h。 uh huh， so we're getting this remaining little cofactor now， but it's multiplied by what？呃，d。Plus or minus。嗯，minus。And yeah, indeed, we're actually minusing the D here. All right, and then continue to the third one. And then it's G times BF minus EC. All right, now we're actually adding the G now, and with the cofactor which is B C E F. Well.Done. That's the definition of the determinant. This one gives me a convenience of finding somehow the inverse now. And Holmes, and could you quickly help me recap how do we write the inverse of this matrix now? Feel free to use the notation of cofactor. For example, this I'll just call that M a, and that whole matrix is called M now. And this I'll call that M d, the corresponding cofactor when you eliminate the occupied row and column of the d. And this is a MG， alright， so Helms， how do we end up writing the inverse of that matrix？ Um， do we have like， um， it's a two by two matrix？</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>And it's M A and then negative M E M I negative M B M F negative M J and then F. You're saying, please don't just copy it. In fact, it's made up of these cofactors, right? And on that corner, just M itself. But what about the second one, negative M E?Negative M which, I mean M D, ah M dog. In fact, we're talking about in the position of the B, but actually, we're not doing M B. We're talking about it's transposed the location. If you go down the row, eventually the column would be matched with the row. So you actually rather go for the column. Brilliant, that's very good. And you have a negative M D. And then the next one would be the M G. I heard what you read here, they're all correct. This is a negative M B, and we're just alternating.And between the positive and negatives, adding in a negative in this checkerboard location, right? And that's a positive ME and negative MH, and this is the positive MC and negative MF, and the positive and negative. Oh, sorry, positive MI. Correct. So fundamentally, we know how to write the inverse. Then, in fact, we have solved a linear system of equations. Why? Because the system of equations can be written if I started off by saying.the a x and the plus the b y plus the c equal to the f one, and the d x plus the e y plus the f oh sorry that's z uh oh shoot maybe I shouldn't call that f one I'll call that I I'll call that the w one okay oh equal to the w two and then the g x plus the h y plus the i z equal to a w three we understand it in matrix form we're really just multiplying the matrix M now byThis xyz to achieve a set of numbers on the right-hand side equation, which is w one, w two, w three. And in order to isolate my all the solutions here, instead of dividing, we can't divide by matrix. Instead, we multiply by the inverse. Oh, hold on, there's a major, major detail, Holmes. Did you give me the entire solution though? Would this actually be the inverse of the M? Or there's some detail you forgot? This matrix.Yes, that's not exactly the inverse yet. Oh, um, times A B just times the original matrix. 啊，What do you mean? We're looking for just the inverse. Is this actually the inverse? Meaning, when you multiply by the original matrix here, would you get identity? Yeah.哼，really? Try it. If I'm going to write my a b c and d e f here and g h i, we just even try out the first element now. If you match them in such a manner, are you going to get one? No, divided by um m. Good. Well, we have to divide by the determinant of m, not divide by m. M refers to the matrix itself, and when you add the two bars, it means the determinant. That's what we have to divide, isn't it?Yeah. Okay, very good. So this is determinant matrix, and that's actually the inverse, including that denominator. All right, then we can actually multiply both sides by the inverse now, and they cancel. Now remember that must be multiplied onto the inverse now, and voila, you have your solution. Let's do it. I actually want you to recognize what those numbers are. So if I write out my solution x, y, z, I'm using this determinant matrix now.</span>

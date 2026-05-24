@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>29</strong><span>sessions</span></div>
-    <div><strong>2</strong><span>lessons distilled</span></div>
+    <div><strong>4</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -41,6 +41,16 @@ title: "Linear Algebra Notes"
   <h3><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a></h3>
   <p>Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.</p>
 </article>
+<article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>2025-10-11 — morning</span><span>Published</span></div>
+  <h3><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a></h3>
+  <p>Motivates Cramer's rule from fitting a unique parabola through three non-collinear points; factors the Vandermonde-like determinant and constructs the matrix inverse from cofactors.</p>
+</article>
+<article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>2025-10-11 — afternoon</span><span>Published</span></div>
+  <h3><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a></h3>
+  <p>Completes the morning's proof that M·adj(M) = det(M)·I by interpreting off-diagonal entries as determinants with repeated columns, then classifies M x = w solutions by (det M, det Mₓ).</p>
+</article>
 </div>
 ```
 
@@ -57,8 +67,8 @@ title: "Linear Algebra Notes"
 <tr><td>2025-09-27</td><td>morning</td><td><a href="lessons/2025-09-27-morning.html">Solving cos θ = a and sin θ = a via Complex Exponentials</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-10-04</td><td>afternoon</td><td><a href="lessons/2025-10-04-afternoon.html">Eccentricity Definition of Conics; Parabola as the Borderline Case</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-10-04</td><td>morning</td><td><a href="lessons/2025-10-04-morning.html">Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-10-11</td><td>afternoon</td><td><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-10-11</td><td>morning</td><td><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2025-10-11</td><td>afternoon</td><td><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a> <span class="mini-badge">Published</span></td></tr>
+<tr><td>2025-10-11</td><td>morning</td><td><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-10-18</td><td>afternoon</td><td><a href="lessons/2025-10-18-afternoon.html">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-10-18</td><td>morning</td><td><a href="lessons/2025-10-18-morning.html">Quadratic Form Classification of Conics via the Discriminant</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-11-01 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>

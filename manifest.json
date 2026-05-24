@@ -112,7 +112,8 @@
       "video_drive_id": "1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF",
       "video_embed": "https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/preview",
       "video_view":  "https://drive.google.com/file/d/1bWh-GWUfanH9_gB6L8aDL_aLb-Hs_hLF/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2025-10-11-afternoon",
@@ -127,7 +128,8 @@
       "video_drive_id": "161t2BKBd9ehRYbzvu6zTEBtruROP45KB",
       "video_embed": "https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/preview",
       "video_view":  "https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-afternoon.mp4",
+      "status": "published"
     },
     {
       "id": "2025-10-18-morning",

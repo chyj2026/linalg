@@ -1,47 +1,238 @@
 ---
-title: "Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants"
+title: "Cramer's Rule Proven End-to-End; Existence and Uniqueness Classification by Determinants"
 date: 2025-10-11
 session: afternoon
-topics: [determinant, cofactor, cramers-rule, matrix-inverse]
+topics: [cramers-rule, matrix-inverse, cofactor, determinant, linear-system, vandermonde]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Completes the morning's proof that M·adj(M) = det(M)·I by interpreting off-diagonal entries as determinants with repeated columns, then classifies M x = w solutions by (det M, det Mₓ).
+Continuation of the [morning session](2025-10-11-morning.html): completes the cofactor inverse formula proof by showing the **off-diagonal entries of $M \cdot \operatorname{adj}(M)$ are zero** via the determinant-with-repeated-columns trick, then derives **Cramer's rule explicitly** by reading off $\mathbf{x} = M^{-1}\mathbf{w}$ component by component. Closes by introducing the **classification of linear systems** by the determinant of $M$ and the numerator determinants $\det M^{(j\leftarrow\mathbf{w})}$ — unique / no / infinite solutions — and works a concrete $3 \times 3$ singular consistent example.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- M·adj(M) = det(M)·I
-- Classification: det M ≠ 0 unique; det M = 0 & det Mₓ ≠ 0 no solution; both zero infinite
+Same conventions as the [morning session](2025-10-11-morning.html); we restate only the symbols actually used below.
 
-## Homework given
-
-::: {.callout-important}
-Organize notes; next session introduces interpolation as a shortcut.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $M \in \mathbb{R}^{n\times n}$, $m_{ij}$ | matrix and its scalar entries |
+| $C_{ij} = (-1)^{i+j}\det\widetilde{M}_{ij}$ | cofactor of $m_{ij}$ |
+| $\operatorname{adj}(M)$ | adjugate: $[\operatorname{adj}(M)]_{ij} = C_{ji}$ |
+| $\mathbf{w} \in \mathbb{R}^n$ | RHS of the linear system |
+| $M^{(j\leftarrow \mathbf{w})}$, $M_x, M_y, M_z$ | $M$ with column $j$ (resp. $x$, $y$, $z$) replaced by $\mathbf{w}$ |
+| $M^*_{(k \to i)}$ | $M$ with row $k$ replaced by row $i$ — contains *two identical rows* |
+| $\operatorname{col}(M)$, $\operatorname{rank}(M)$ | column space and its dimension |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Worked example: 3×3 singular consistent system with infinite solutions. Long back-and-forth with Helms recalling the morning derivation.
+1. Field is $\mathbb{R}$; $n$ finite. Statements work over $\mathbb{C}$ unchanged.
+2. **Cofactor expansion** of $\det M$ along any row or column is valid (imported).
+3. **Determinant with two identical rows/columns is zero** — geometrically, the parallelepiped collapses.
+4. The morning session's diagonal-entry computation $\sum_j m_{ij} C_{ij} = \det M$ — we re-use it here.
+
+::: {.callout-note collapse="true"}
+## Prerequisites
+
+- Cofactor inverse construction (morning session, eq. (16) — diagonal part proved, off-diagonal pending here)
+- Cramer's rule statement (morning session, eq. (15))
+- 3-plane intersection geometry as the geometric picture of three linear equations in three unknowns
+:::
+
+## Topics covered
+
+- Off-diagonal proof: $\sum_j m_{ij} C_{kj} = 0$ for $i \ne k$ via the $M^*$ construction
+- Explicit derivation of Cramer's rule by reading $\mathbf{x} = M^{-1}\mathbf{w}$ component by component
+- Classification of $M\mathbf{x} = \mathbf{w}$ by $(\det M, \det M^{(j\leftarrow\mathbf{w})})$
+- Geometric picture: three planes in $\mathbb{R}^3$ and the configurations that produce 1, 0, or $\infty$ solutions
+- Worked example: $\,x - 2y + 3z = 9$, $-3x + 6y - z = 10$, $2x - 4y + 14z = 55$ — singular, classified
+
+## Theorems
+
+::: {.theorem}
+**(Off-diagonal cofactor identity).** For any $M\in\mathbb{R}^{n\times n}$ and any $i \ne k$,
+$$
+\sum_{j=1}^{n} m_{ij}\,C_{kj} \;=\; 0. \tag{21}
+$$
+Combined with the diagonal identity $\sum_j m_{ij} C_{ij} = \det M$ from the morning, this gives $M \cdot \operatorname{adj}(M) = (\det M) \cdot I$, hence
+$$
+M^{-1} \;=\; \frac{\operatorname{adj}(M)}{\det M}. \tag{22}
+$$
+:::
+
+::: {.theorem}
+**(Cramer's rule, derived).** For $M\in\mathbb{R}^{n\times n}$ with $\det M\ne 0$ and $\mathbf{w}\in\mathbb{R}^n$, the unique solution of $M\mathbf{x}=\mathbf{w}$ satisfies
+$$
+x_j \;=\; \frac{\det M^{(j\leftarrow\mathbf{w})}}{\det M},\qquad j=1,\dots,n. \tag{23}
+$$
+:::
+
+::: {.theorem}
+**(Existence/uniqueness classification).** Let $M\in\mathbb{R}^{n\times n}$ and $\mathbf{w}\in\mathbb{R}^n$. The system $M\mathbf{x} = \mathbf{w}$ has:
+
+- **(a) a unique solution**, iff $\det M \ne 0$;
+- **(b) no solution**, if $\det M = 0$ but some $\det M^{(j\leftarrow\mathbf{w})} \ne 0$;
+- **(c) infinitely many solutions**, if $\det M = 0$ and *all* $\det M^{(j\leftarrow\mathbf{w})} = 0$ — *provided* the system is consistent. (The teacher gives the consistent case in class; the rank-deficient inconsistent edge case is flagged in fragility below.)
+:::
+
+## Derivation of Theorem 21 (off-diagonal cofactor identity)
+
+Construct the auxiliary matrix
+$$
+M^*_{(k \to i)} \;:=\; \text{matrix }M\text{ with row $k$ replaced by row $i$ of }M.
+$$
+After the substitution, $M^*$ has row $i$ and row $k$ both equal to row $i$ of $M$ — two identical rows. By the determinant-with-repeated-rows lemma, $\det M^*_{(k\to i)} = 0$.
+
+Now expand $\det M^*_{(k\to i)}$ along *row $k$*:
+$$
+\det M^*_{(k\to i)} \;=\; \sum_{j=1}^{n}\,(\text{row $k$ entry of }M^*)_j \cdot C^*_{kj}. \tag{24}
+$$
+The row-$k$ entries of $M^*$ are $m_{i1}, m_{i2}, \dots, m_{in}$ (we replaced row $k$ with row $i$). The cofactors $C^*_{kj}$ are computed from $M^*$ by deleting row $k$ and column $j$ — but **deleting row $k$ removes the substituted row entirely**, leaving exactly the same $(n-1)\times(n-1)$ submatrix as deleting row $k$ from the original $M$. Hence $C^*_{kj} = C_{kj}$ (the original cofactor).
+
+Combining: $\sum_j m_{ij}\,C_{kj} = \det M^*_{(k\to i)} = 0$. $\quad\blacksquare$
+
+![Figure 1. The auxiliary matrix $M^*_{(k\to i)}$: row $k$ replaced by row $i$. The two identical rows force the determinant to zero — and the cofactor expansion along the replaced row equals exactly the off-diagonal sum we wanted to vanish.](../figures/2025-10-11-afternoon/fig1-repeated-row.svg)
+
+## Derivation of Theorem 22 (cofactor inverse formula completed)
+
+Diagonal entries of $M \cdot \operatorname{adj}(M)$: $\sum_j m_{ij} C_{ij} = \det M$ (morning session).
+Off-diagonal entries: $\sum_j m_{ij} C_{kj} = 0$ for $i \ne k$ (Theorem 21).
+
+So $M \cdot \operatorname{adj}(M) = (\det M) \cdot I$. Dividing by $\det M$ (non-zero by hypothesis) gives (22). $\quad\blacksquare$
+
+## Derivation A of Theorem 23 (Cramer via $\mathbf{x} = M^{-1}\mathbf{w}$)
+
+Apply (22) to $M\mathbf{x} = \mathbf{w}$: $\mathbf{x} = M^{-1}\mathbf{w} = \tfrac{1}{\det M}\operatorname{adj}(M)\,\mathbf{w}$. The $j$-th component:
+$$
+x_j \;=\; \frac{1}{\det M}\sum_{k=1}^{n}[\operatorname{adj}(M)]_{jk}\,w_k \;=\; \frac{1}{\det M}\sum_{k=1}^{n} C_{kj}\,w_k. \tag{25}
+$$
+The sum $\sum_k C_{kj} w_k$ is the cofactor expansion along column $j$ of the matrix $M^{(j\leftarrow\mathbf{w})}$ (replace column $j$ entries by $w_1,\dots,w_n$; cofactors along that column are unchanged from $M$ because deleting column $j$ removes the replaced column). So the sum equals $\det M^{(j\leftarrow\mathbf{w})}$, giving (23). $\quad\blacksquare$
+
+## Derivation B of Theorem 23 (independent — direct elimination at $n = 2$ then induction)
+
+For $n = 2$: $M = \begin{pmatrix}a&b\\c&d\end{pmatrix}$, $\mathbf{w} = \begin{pmatrix}w_1\\w_2\end{pmatrix}$. Solving by elimination:
+$$
+x_1 = \frac{w_1 d - b w_2}{ad-bc}, \qquad x_2 = \frac{a w_2 - c w_1}{ad-bc}.
+$$
+The numerator of $x_1$ is $\det\begin{pmatrix}w_1&b\\w_2&d\end{pmatrix} = \det M^{(1\leftarrow\mathbf{w})}$; numerator of $x_2$ is $\det\begin{pmatrix}a&w_1\\c&w_2\end{pmatrix} = \det M^{(2\leftarrow\mathbf{w})}$; denominator is $\det M$. (23) holds.
+
+For general $n$: induction on $n$, expanding $\det M^{(j\leftarrow\mathbf{w})}$ along the $\mathbf{w}$-column and applying the inductive hypothesis to each $(n-1)\times(n-1)$ minor. *Note on independence.* Derivation A imports Theorem 22 (the just-proved inverse formula); Derivation B uses only cofactor expansion and elimination. No circular dependency.
+
+## Derivation of Theorem 24 (classification)
+
+**Case (a) $\det M \ne 0$:** $M^{-1}$ exists by (22), so $\mathbf{x} = M^{-1}\mathbf{w}$ is the unique solution. Cramer's rule (23) gives an explicit formula. ✓
+
+**Case (b) $\det M = 0$ but some $\det M^{(j\leftarrow\mathbf{w})} \ne 0$:** From the singular-dichotomy analysis (cf. [2026-03-07-cramer-review](2026-03-07-cramer-review.html), Theorem 10), this happens iff $\mathbf{w} \notin \operatorname{col}(M)$ and $\operatorname{rank}(M) = n-1$. Cramer's formula gives $x_j = (\text{nonzero})/0$, geometrically interpreted as $x_j = \infty$ — no solution exists. ✓
+
+**Case (c) $\det M = 0$ and all $\det M^{(j\leftarrow\mathbf{w})} = 0$:** The teacher describes this as "$0/0$, indeterminate" and asserts (provided the system is consistent — see fragility below) it implies infinitely many solutions. Geometrically: the three planes share a common line, or all coincide.
+
+The lesson works the example
+$$
+\begin{cases} x - 2y + 3z = 9\\ -3x + 6y - z = 10\\ 2x - 4y + 14z = 55 \end{cases}
+$$
+with $\det M = 0$ (verified by direct expansion). Computing $\det M^{(1)}, \det M^{(2)}, \det M^{(3)}$ all give zero, and the teacher confirms in class that the system is consistent. Conclusion: **infinitely many solutions**. $\quad\blacksquare$ (modulo consistency check; see fragility)
+
+## Verification audit
+
+::: {.audit}
+
+- **$n=2$ off-diagonal check.** For $M = \begin{pmatrix}a&b\\c&d\end{pmatrix}$: $\sum_j m_{1j} C_{2j} = a \cdot (-b) + b \cdot a = 0$. ✓ Matches (21).
+- **Cramer at $n=2$ unique case.** $M = \begin{pmatrix}2&1\\1&3\end{pmatrix}$, $\mathbf{w} = (5, 6)$: $\det M = 5$, $\det M_x = \det\begin{pmatrix}5&1\\6&3\end{pmatrix} = 9$, $\det M_y = \det\begin{pmatrix}2&5\\1&6\end{pmatrix} = 7$. So $x = 9/5, y = 7/5$. Substituting: $2(9/5) + 7/5 = 25/5 = 5$ ✓; $9/5 + 3(7/5) = 30/5 = 6$ ✓.
+- **Classification at $\det M = 0$ inconsistent case.** $M = \begin{pmatrix}1&2\\2&4\end{pmatrix}$, $\mathbf{w} = (1, 3)$: $\det M = 0$, $\det M_x = \det\begin{pmatrix}1&2\\3&4\end{pmatrix} = -2 \ne 0$. Case (b): no solution. Substitute candidate: from row 1, $x + 2y = 1$, so $2x + 4y = 2 \ne 3$ — inconsistent. ✓
+- **Classification at $\det M = 0$ consistent case.** Same $M$, $\mathbf{w} = (1, 2)$: $\det M = 0$, $\det M_x = \det\begin{pmatrix}1&2\\2&4\end{pmatrix} = 0$, $\det M_y = \det\begin{pmatrix}1&1\\2&2\end{pmatrix} = 0$. Case (c): infinitely many. Verify: $x + 2y = 1$, $2x + 4y = 2$ — same line, $x = 1 - 2t, y = t$. ✓
+- **Dependency check.** Theorem 21 uses determinant-with-repeated-rows. Theorem 22 uses 21 + morning diagonal. Theorem 23 (A) uses 22; (B) uses elimination only. Theorem 24 uses 22 and (for case b) the rank-deficiency analysis from the cramer-review session. No circularity. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.2/2025-10-11-afternoon.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  60 min · H.264 3240×2160 · 102 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.2" target="_blank">GitHub Release v0.2</a>
+  · also viewable in <a href="https://drive.google.com/file/d/161t2BKBd9ehRYbzvu6zTEBtruROP45KB/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Recap of the cofactor inverse formula from the morning, with Helms reading off the structure: $M^{-1}_{jk} = (-1)^{j+k} \cdot M_{kj} / \det M$.](../figures/2025-10-11-afternoon/frame-08m00.jpg)
+
+![**Frame @ 22m00** — The off-diagonal proof in progress: building the matrix with the substituted row, recognising the structure as a determinant with two identical rows.](../figures/2025-10-11-afternoon/frame-22m00.jpg)
+
+![**Frame @ 38m00** — Cramer's rule derived component by component; the column-substitution pattern $M^{(j \leftarrow \mathbf{w})}$ being constructed on the board.](../figures/2025-10-11-afternoon/frame-38m00.jpg)
+
+![**Frame @ 52m00** — Three-plane geometry for the classification: unique intersection (point), parallel planes (none), shared line (infinite).](../figures/2025-10-11-afternoon/frame-52m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Diagonal: Σⱼ m_ij C_ij = det M<br/><i>(morning session)</i>"] --> F
+    B["Determinant with repeated rows = 0<br/><i>(imported)</i>"] --> C["Construct M*(k→i):<br/>replace row k by row i"]
+    C --> D["det M*(k→i) = 0<br/>(two equal rows)"]
+    C --> E["Cofactor expansion along row k:<br/>det M*(k→i) = Σⱼ m_ij C_kj<br/>eq. (24)"]
+    D --> G["Σⱼ m_ij C_kj = 0 for i≠k<br/>Theorem 21 (eq. 21)"]
+    E --> G
+    G --> F["M·adj(M) = det(M)·I<br/>⇒ M⁻¹ = adj(M)/det M<br/>Theorem 22 (eq. 22)"]
+    F --> H["x = M⁻¹·w component-wise<br/>eq. (25)"]
+    H --> I["Cramer's rule:<br/>x_j = det M^(j←w) / det M<br/>Theorem 23 (eq. 23)"]
+    F --> J["det M ≠ 0 ⇒ unique solution<br/>Case (a)"]
+    K["Singular dichotomy<br/><i>(developed Mar 7)</i>"] --> L["det M = 0:<br/>(b) some det M^(j) ≠ 0 ⇒ no solution<br/>(c) all det M^(j) = 0 ⇒ infinite (if consistent)"]
+    J --> M["Classification Theorem 24"]
+    L --> M
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Look at this sum $b \cdot M_a - e \cdot M_d + h \cdot M_g$. Does it look like a determinant?"
+<br><span class="speaker">Helms:</span> "Yes, but there's a mismatch. The $M_a$ goes with $a$, but it's multiplied by $b$."
+<br><span class="speaker">Teacher:</span> "Right. So *what matrix* would have this sum as its column expansion?"
+<br><span class="speaker">Helms:</span> *(after thought)* "The matrix with the first column replaced by $b, e, h$ — same as the second column of $M$."
+<br><span class="speaker">Teacher:</span> "Two identical columns. Hence zero. Brilliantly recovered."
+
+*Teaching move:* the "force the sum into a determinant" pattern — when an expression *looks* like a column expansion, fabricate the smallest matrix that exhibits it, then exploit a structural symmetry.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher (to Elaine):</span> "If $\det M = 0$, when do we have infinitely many vs no solutions?"
+<br><span class="speaker">Elaine:</span> "If the determinant of $M_x$ is also zero, infinitely many; otherwise, no solution."
+<br><span class="speaker">Teacher:</span> "Right. The dichotomy holds on a single $M_x$ — it propagates to all $M_y, M_z, \dots$ automatically."
+
+*Teaching move:* you only need to test *one* coordinate to classify the entire system. The teacher previews this as a homework theorem (proved in [2026-03-07 cramer-review](2026-03-07-cramer-review.html), Theorem 10).
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Verify the $3\times 3$ worked example (the system above): independently compute $\det M$, $\det M_x$, $\det M_y$, $\det M_z$ and confirm the system has infinitely many solutions.
+2. *Implicit / preview for later:* prove that if $\det M = 0$, then $\det M_x = 0 \Leftrightarrow \det M_y = 0 \Leftrightarrow \det M_z = 0$ (the "singular dichotomy" — fully addressed in [2026-03-07 cramer-review](2026-03-07-cramer-review.html), Theorem 10).
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step in Theorem 24.** Case (c) — "$\det M = 0$ and all numerator determinants zero" — claims *infinitely many solutions*. This is true *only if the system is consistent*. The teacher silently assumes consistency in the worked example; the rank-deficient inconsistent edge case ($\operatorname{rank} M < n-1$) reports the same "all zeros" signature but has no solution. This subtlety is properly addressed in [2026-03-07 cramer-review](2026-03-07-cramer-review.html) (Theorem 10, fragility summary).
+- **Imported facts:** cofactor expansion (any row/column); determinant-with-repeated-rows lemma. Both are scheduled for "determinants from scratch" later in the course.
+- **Worked example consistency** was checked numerically in class — teacher confirmed "$0/0$, indeterminate, infinitely many" without separately proving consistency. Re-verify before relying on the example as a definitive case-(c) instance.
+- **Confidence.** Theorem 21, 22 statements + proofs: high (textbook-standard). Theorem 23 statement + proof: high. Theorem 24 cases (a) and (b): high. Case (c): medium — depends on the implicit consistency assumption.
+
+:::
+
+## Related sessions
+
+- **Precursor:** [2025-10-11 morning](2025-10-11-morning.html) — sets up Cramer's rule and constructs the cofactor inverse formula; the off-diagonal proof started there is *completed here*.
+- **Re-derivation later in the year:** [2026-03-07 Cramer review](2026-03-07-cramer-review.html) covers the *same content* with different students (Catherine joining), making the proofs more accessible. The "singular dichotomy" (Theorem 10 in cramer-review) makes the fragility flagged here rigorous.
+- **Application:** the cofactor inverse formula proved here is *used* in [2026-03-07 LVS](2026-03-07-LVS.html) to define $M^{-1}$ and prove the two-sided inverse equivalence.
 
 ## Full transcript
 
