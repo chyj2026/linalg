@@ -1,48 +1,205 @@
 ---
-title: "Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro"
+title: "Linear Recursions as Matrix Recursions: Companion Matrix Diagonalization + Jordan-Block Setup for Repeated Eigenvalues"
 date: 2026-04-04
 session: morning
-topics: [eigenvalues, eigenvectors, diagonalization, jordan-form]
+topics: [eigenvalues, eigenvectors, diagonalization, jordan-form, linear-recursion, companion-matrix, nilpotent, generalized-eigenvector]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Reformulates a second-order linear recursion as first-order vector recursion aₙ₊₁ = M·aₙ, solves by diagonalizing the companion matrix, and introduces the nilpotent block for repeated eigenvalue.
+A profound reframing of linear recursions: stack $k$ adjacent terms as a vector $\mathbf{a}_n$ and the order-$k$ scalar recursion becomes a **first-order vector recursion** $\mathbf{a}_{n+1} = M\mathbf{a}_n$ via the **companion matrix** $M$. The closed-form solution is $\mathbf{a}_n = M^n \mathbf{a}_0$, with $M^n = V\Lambda^n V^{-1}$ trivially when $M$ is diagonalisable — the closed form recovers $A\lambda_1^n + B\lambda_2^n$ for distinct roots. When the characteristic polynomial has a **repeated root**, $M$ has fewer eigenvectors than eigenvalues (one short for a double root), so diagonalisation fails. The repair: find a **generalised eigenvector** $\mathbf{v}_2$ with $(M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1$, then $M = V(\lambda I + N)V^{-1}$ where $N$ is **nilpotent**. This is the **Jordan-block** form; its powers compute via binomial expansion, recovering the $(A + Bn)\lambda^n$ formula derived telescopically in [2026-01-24 morning](2026-01-24-morning.html).
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Companion matrix of linear recursion
-- M^n via V·Λ^n·V⁻¹
-- Repeated eigenvalue: generalized eigenvector v₂ with (M-λI)v₂ = v₁ → Jordan block λI+N
-
-## Homework given
-
-::: {.callout-important}
-Raise (λI+N)^n via binomial expansion and verify it reproduces (A+Bn)λ^n.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $\{a_n\}_{n\ge 0}$ | scalar sequence satisfying $a_{n+1} = p\,a_n - q\,a_{n-1}$ |
+| $\mathbf{a}_n := \begin{pmatrix}a_{n+1}\\a_n\end{pmatrix}$ | vector of two adjacent terms |
+| $M = \begin{pmatrix}p & -q\\1 & 0\end{pmatrix}$ | **companion matrix** of the recursion |
+| $\lambda_1, \lambda_2$ | eigenvalues of $M$ (roots of $\lambda^2 - p\lambda + q$) |
+| $\mathbf{v}_1, \mathbf{v}_2$ | eigenvectors (distinct-root case); or eigenvector + generalised eigenvector (repeated-root case) |
+| $V = [\mathbf{v}_1\;\mathbf{v}_2]$ | eigenvector matrix |
+| $N$ | **nilpotent** matrix: zero everywhere except one on the subdiagonal; $N^k = 0$ for $k\ge\text{size}$ |
+| $J = \lambda I + N$ | **Jordan block** with eigenvalue $\lambda$ |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Long meta-talk on monthly Overleaf note submissions as accountability mechanism. NOTE: byte-identical to `Saturday04062026afternoon1.txt` — duplicate upload; this is the canonical entry.
+1. **Distinct-root recursion** ([Jan 10 + earlier sessions](2026-01-10-morning.html)): if $\lambda_1 \ne \lambda_2$, general solution $a_n = A\lambda_1^n + B\lambda_2^n$.
+2. **Double-root recursion** ([2026-01-24 morning, Theorem 27](2026-01-24-morning.html)): general solution $a_n = (A + Bn)\lambda^n$. Re-derived here via matrices.
+3. **Eigenvalue/eigenvector theory** ([2026-02-28 followup](2026-02-28-eigenvalues-followup.html)): $(M - \lambda I)\mathbf{v} = \mathbf{0}$, $\det(M - \lambda I) = 0$.
+4. **Matrix-power diagonalisation:** if $M = V\Lambda V^{-1}$, then $M^n = V\Lambda^n V^{-1}$.
+
+## Theorems
+
+::: {.theorem}
+**(Companion matrix reformulation).** The scalar recursion $a_{n+1} = p\,a_n - q\,a_{n-1}$ is equivalent to
+$$
+\mathbf{a}_{n+1} \;=\; M\,\mathbf{a}_n, \qquad M = \begin{pmatrix}p & -q\\1 & 0\end{pmatrix}, \quad \mathbf{a}_n = M^n \mathbf{a}_0. \tag{51}
+$$
+:::
+
+::: {.theorem}
+**(Diagonalisable case — distinct roots).** If $\lambda_1 \ne \lambda_2$, $M = V\Lambda V^{-1}$ and
+$$
+M^n = V\Lambda^n V^{-1}, \tag{52}
+$$
+recovering $a_n = A\lambda_1^n + B\lambda_2^n$.
+:::
+
+::: {.theorem}
+**(Jordan-block decomposition — double root).** If the char poly has a double root $\lambda$, $M$ has only one independent eigenvector $\mathbf{v}_1$. Choose generalised $\mathbf{v}_2$ with $(M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1$. Then with $V = [\mathbf{v}_1\;\mathbf{v}_2]$,
+$$
+M = V(\lambda I + N)V^{-1}, \qquad N = \begin{pmatrix}0&0\\1&0\end{pmatrix}, \quad N^2 = 0. \tag{53}
+$$
+:::
+
+::: {.theorem}
+**(Power of Jordan block).** For $2\times 2$ Jordan block with $N^2 = 0$:
+$$
+(\lambda I + N)^n = \lambda^n I + n\lambda^{n-1} N = \begin{pmatrix}\lambda^n & 0\\ n\lambda^{n-1} & \lambda^n\end{pmatrix}. \tag{54}
+$$
+Substituting gives $a_n = (A + Bn)\lambda^n$, **recovering** [Jan 24 Theorem 27](2026-01-24-morning.html).
+:::
+
+## Derivation of Theorem 51 (companion reformulation)
+
+Define $\mathbf{a}_n = (a_{n+1}, a_n)^T$. Compute
+$$
+M\mathbf{a}_n = \begin{pmatrix}p & -q\\1 & 0\end{pmatrix}\begin{pmatrix}a_{n+1}\\a_n\end{pmatrix} = \begin{pmatrix}p\,a_{n+1} - q\,a_n\\a_{n+1}\end{pmatrix} = \begin{pmatrix}a_{n+2}\\a_{n+1}\end{pmatrix} = \mathbf{a}_{n+1}.
+$$
+First row uses the scalar recursion. Iterating: $\mathbf{a}_n = M^n \mathbf{a}_0$. $\quad\blacksquare$
+
+## Derivation of Theorem 52 (distinct-root closed form)
+
+$M^n = (V\Lambda V^{-1})^n = V\Lambda^n V^{-1}$ by telescoping $V^{-1}V = I$ in the middle. $\quad\blacksquare$
+
+## Derivation A of Theorem 53 (Jordan block, double root)
+
+The eigenspace $\ker(M - \lambda I)$ is 1-dimensional (verified directly for the worked example below). Find $\mathbf{v}_2$ with $(M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1$ — a **generalised eigenvector**.
+
+**Existence.** By Cayley–Hamilton (forward-referenced to [May 2](2026-05-02-morning.html)), $M^2 - 2\lambda M + \lambda^2 I = 0$, i.e. $(M - \lambda I)^2 = 0$. So $(M - \lambda I)$ maps everything into $\ker(M - \lambda I) = \operatorname{span}(\mathbf{v}_1)$. Pick any $\mathbf{v}_2 \notin \ker(M - \lambda I)$; then $(M - \lambda I)\mathbf{v}_2$ is a nonzero multiple of $\mathbf{v}_1$. Scale $\mathbf{v}_2$ so the multiple is 1.
+
+**Matrix form.** $M\mathbf{v}_1 = \lambda\mathbf{v}_1$ and $M\mathbf{v}_2 = \mathbf{v}_1 + \lambda\mathbf{v}_2$ bundle as
+$$
+M[\mathbf{v}_1\;\mathbf{v}_2] = [\mathbf{v}_1\;\mathbf{v}_2]\begin{pmatrix}\lambda & 1\\0 & \lambda\end{pmatrix} = V(\lambda I + N).
+$$
+Right-multiply by $V^{-1}$. $\quad\blacksquare$
+
+## Derivation of Theorem 54 (Jordan block power)
+
+Binomial: $(\lambda I + N)^n = \sum_k \binom{n}{k}\lambda^{n-k} N^k$. Since $N^2 = 0$, only $k = 0, 1$ survive: $\lambda^n I + n\lambda^{n-1} N$. $\quad\blacksquare$
+
+**Recovery of $(A + Bn)\lambda^n$.** $\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0$. Reading the first component back as $a_n$: a linear combination $A\lambda^n + Bn\lambda^{n-1} = (A' + B'n)\lambda^n$ (absorbing $\lambda^{-1}$ into $B'$). Matches [Jan 24 Theorem 27](2026-01-24-morning.html). $\quad\blacksquare$
+
+## Worked example (transcript)
+
+**Distinct-root:** $a_{n+1} = a_n + 6 a_{n-1}$, $a_0 = a_1 = 1$. Companion $M = \begin{pmatrix}1&6\\1&0\end{pmatrix}$. Char poly $\lambda^2 - \lambda - 6 = (\lambda-3)(\lambda+2)$. Eigenvalues $3, -2$; eigenvectors $(3,1)^T, (-2,1)^T$. Closed form $a_n = \tfrac{3}{5}\cdot 3^n + \tfrac{2}{5}\cdot(-2)^n$.
+
+**Repeated-root:** $a_{n+1} = 6a_n - 9a_{n-1}$. Companion $M = \begin{pmatrix}6 & -9\\1 & 0\end{pmatrix}$. Char poly $(\lambda - 3)^2$. Eigenvector $\mathbf{v}_1 = (3,1)^T$. Generalised: $(M-3I)\mathbf{v}_2 = \mathbf{v}_1$ — pick $\mathbf{v}_2 = (1, 0)^T$. Then $M = V(3I + N)V^{-1}$, $a_n = (A + Bn)\cdot 3^n$.
+
+## Verification audit
+
+::: {.audit}
+
+- **Companion for $a_{n+1} = 4a_n - 4a_{n-1}$.** $M = \begin{pmatrix}4&-4\\1&0\end{pmatrix}$. Char poly $(\lambda-2)^2$. Eigenvector $\mathbf{v}_1 = (2,1)^T$ from $\begin{pmatrix}2&-4\\1&-2\end{pmatrix}\mathbf{v} = 0$. Generalised $\mathbf{v}_2 = (1,0)^T$ from $x - 2y = 1$. ✓
+- **$N$ nilpotent.** $N^2 = \begin{pmatrix}0&0\\1&0\end{pmatrix}^2 = 0$. ✓
+- **Jordan power at $n=2$.** $(\lambda I + N)^2 = \lambda^2 I + 2\lambda N + N^2 = \begin{pmatrix}\lambda^2&0\\2\lambda&\lambda^2\end{pmatrix}$. Matches (54). ✓
+- **Matches Jan 24.** For double root $\lambda$, both telescoping and matrix-Jordan give $a_n = (A+Bn)\lambda^n$. ✓
+- **Sanity at $\lambda=0$.** $M = N$, $M^k = 0$ for $k \ge 2$. Eventually-zero solutions. ✓
+- **Dependency check.** Thm 51, 52, 54: clean. Thm 53: forward-references Cayley–Hamilton. ✓ noted.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.6/2026-04-04-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.6" target="_blank">GitHub Release v0.6</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Stacking adjacent terms as a vector; scalar recursion becomes matrix recursion $\mathbf{a}_{n+1} = M\mathbf{a}_n$ with companion matrix $M = \begin{pmatrix}1&6\\1&0\end{pmatrix}$.](../figures/2026-04-04-morning/frame-08m00.jpg)
+
+![**Frame @ 22m00** — Diagonalisation for distinct roots: $M = V\Lambda V^{-1}$, $M^n = V\Lambda^n V^{-1}$. Closed form $a_n = (3/5)\cdot 3^n + (2/5)\cdot(-2)^n$.](../figures/2026-04-04-morning/frame-22m00.jpg)
+
+![**Frame @ 38m00** — Double-root case $a_{n+1} = 6a_n - 9a_{n-1}$: only one eigenvector $(3,1)^T$. The "missing degree of freedom" from Jan 24 reappears.](../figures/2026-04-04-morning/frame-38m00.jpg)
+
+![**Frame @ 52m00** — Generalised eigenvector + Jordan block: $M = V(\lambda I + N)V^{-1}$ with $N$ nilpotent.](../figures/2026-04-04-morning/frame-52m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Scalar recursion<br/>a_{n+1} = p·a_n - q·a_{n-1}"] --> B["Stack a_n = (a_{n+1}, a_n)^T"]
+    B --> C["Companion matrix M<br/>a_{n+1} = M·a_n · Thm 51"]
+    C --> D["a_n = M^n · a_0"]
+    E["Distinct roots λ_1 ≠ λ_2"] --> F["Diagonalise M = VΛV⁻¹<br/>M^n = VΛ^n V⁻¹ · Thm 52"]
+    F --> G["a_n = A·λ_1^n + B·λ_2^n"]
+    H["Double root (λ-λ_0)²"] --> I["Only 1 eigenvector v_1"]
+    I --> J["Generalised v_2:<br/>(M-λI)v_2 = v_1"]
+    K["Cayley-Hamilton<br/>(forward ref May 2)"] -.-> J
+    J --> L["M = V(λI + N)V⁻¹<br/>Jordan block · Thm 53"]
+    M["N nilpotent: N² = 0"] --> N["(λI+N)^n binomial truncates<br/>= λ^n I + nλ^(n-1) N · Thm 54"]
+    L --> N
+    N --> O["a_n = (A + Bn)·λ^n<br/>matches Jan 24 Thm 27"]
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "What's the companion matrix?"
+<br><span class="speaker">Toby:</span> "$\begin{pmatrix}1&6\\1&0\end{pmatrix}$"
+<br><span class="speaker">Brayden (explaining):</span> "Multiply it out: top row gives $a_{n+1} = a_n + 6a_{n-1}$, bottom row gives $a_n = a_n$ — recursion automatically encoded."
+
+*Teaching move:* the **stacking trick** is purely notational, but it transforms an order-$k$ scalar problem into an order-1 vector problem — opening the entire matrix-diagonalisation toolkit.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Double root: what fails?"
+<br><span class="speaker">Toby:</span> "We'd be one short in the eigenvector count."
+<br><span class="speaker">Teacher:</span> "Right. Go for the **second-best**: $\mathbf{v}_2$ that's *not* quite an eigenvector but satisfies $(M-\lambda I)\mathbf{v}_2 = \mathbf{v}_1$. Then $M\mathbf{v}_2 = \lambda\mathbf{v}_2 + \mathbf{v}_1$ — the eigenvalue plus a *kick* into the eigenspace."
+
+*Teaching move:* when the naive structure fails, find the most useful replacement that's adjacent to it. Generalised eigenvectors behave *almost* like eigenvectors, with a corrective $\mathbf{v}_1$ kick.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Verify $(\lambda I + N)^n = \begin{pmatrix}\lambda^n & 0\\n\lambda^{n-1} & \lambda^n\end{pmatrix}$ via direct multiplication for $n = 2, 3$.
+2. Recover $(A + Bn)\lambda^n$ explicitly from $\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0$ for $a_{n+1} = 6a_n - 9a_{n-1}, a_0 = a_1 = 1$.
+3. Generalise to $k$-fold roots: write $(λI + N)^n$ for a $k \times k$ Jordan block and show $a_n$ is a polynomial in $n$ of degree at most $k-1$ times $\lambda^n$.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Theorem 53's existence argument forward-references Cayley–Hamilton ([May 2](2026-05-02-morning.html)). Worked around for $2 \times 2$ by direct verification.
+- **Imported facts.** Eigenvalue framework ([Feb 28](2026-02-28-eigenvalues-followup.html)); $(A + Bn)\lambda^n$ formula ([Jan 24](2026-01-24-morning.html)); binomial expansion.
+- **Geometric vs algebraic multiplicity.** Lesson handles geometric-multiplicity-1, algebraic-multiplicity-2 case. Full Jordan canonical form for general matrices is much deeper.
+- **Numerical stability.** Diagonalisation ill-conditioned for near-equal eigenvalues. Production code uses Schur decomposition.
+- **Confidence.** Theorems 51, 52, 54: high. Theorem 53: high for $2\times 2$; general case forward-references.
+
+:::
+
+## Related sessions
+
+- **Precursors:** [2026-01-10 morning](2026-01-10-morning.html) (stub) — recursion introduction; [2026-01-24 morning](2026-01-24-morning.html) — telescoping $(A+Bn)\lambda^n$ derivation; [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework.
+- **Sequels:**
+  - [2026-04-04 afternoon (2)](2026-04-04-afternoon-2.html) (stub) — $k \times k$ Jordan block powers via binomial expansion.
+  - [2026-05-02 morning](2026-05-02-morning.html) (stub) — Cayley–Hamilton, settling the Theorem 53 forward reference.
+- **Tuesday-class rerun:** [2026-04-04 tuesday-rerun](2026-04-04-tuesday-rerun.html) (stub) — parallel session.
 
 ## Full transcript
 

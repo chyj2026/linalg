@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>29</strong><span>sessions</span></div>
-    <div><strong>8</strong><span>lessons distilled</span></div>
+    <div><strong>9</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -32,6 +32,11 @@ title: "Linear Algebra Notes"
 ```{=html}
 <div class="lesson-grid">
 <article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>2026-04-04 — morning</span><span>Published</span></div>
+  <h3><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a></h3>
+  <p>Reformulates a second-order linear recursion as first-order vector recursion aₙ₊₁ = M·aₙ, solves by diagonalizing the companion matrix, and introduces the nilpotent block for repeated eigenvalue.</p>
+</article>
+<article class="lesson-card is-new">
   <div class="lesson-card-meta"><span>2026-03-28 — morning</span><span>Published</span></div>
   <h3><a href="lessons/2026-03-28-morning.html">Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse</a></h3>
   <p>Uses Gram matrix VᵀV to test linear independence in high-dimensional space (sub-determinants for partial ranks), derives Toby's triangle-inequality constraints on off-diagonal cosines, and teaches Gauss-Jordan row reduction for inverse computation.</p>
@@ -45,11 +50,6 @@ title: "Linear Algebra Notes"
   <div class="lesson-card-meta"><span>2026-03-07 — after — Cramer review</span><span>Published</span></div>
   <h3><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a></h3>
   <p>Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.</p>
-</article>
-<article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2026-02-28 — individual followup</span><span>Published</span></div>
-  <h3><a href="lessons/2026-02-28-eigenvalues-followup.html">Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial</a></h3>
-  <p>Formally derives (M-λI)v = 0 as the per-vector eigenvalue equation; det(M-λI) = 0 is the characteristic polynomial; Vieta gives Σλ=tr(M) and Πλ=det(M) for general n×n; the λ=0 trick gives the determinant identity in one line.</p>
 </article>
 </div>
 ```
@@ -86,7 +86,7 @@ title: "Linear Algebra Notes"
 <tr><td>2026-03-07</td><td>LVS</td><td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-28</td><td>morning</td><td><a href="lessons/2026-03-28-morning.html">Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-04-04</td><td>afternoon (2)</td><td><a href="lessons/2026-04-04-afternoon-2.html">Powering Jordan Blocks: Binomial Expansion with Nilpotent N</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2026-04-04 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2026-04-04 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-04-04 <sup title="unknown date — inferred">⚠</sup></td><td>parallel rerun</td><td><a href="lessons/2026-04-04-tuesday-rerun.html">Linear Recursions via Companion-Matrix Diagonalization (parallel class)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-05-02 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-05-02-morning.html">Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-05-16 <sup title="unknown date — inferred">⚠</sup></td><td>individual (Elaine)</td><td><a href="lessons/2026-05-16-elaine-dotcross.html">Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>

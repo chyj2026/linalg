@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-04-04">
 
-<title>Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro – Linear Algebra Notes</title>
+<title>Linear Recursions as Matrix Recursions: Companion Matrix Diagonalization + Jordan-Block Setup for Repeated Eigenvalues – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +187,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-51-companion-reformulation" id="toc-derivation-of-theorem-51-companion-reformulation" class="nav-link" data-scroll-target="#derivation-of-theorem-51-companion-reformulation">Derivation of Theorem 51 (companion reformulation)</a></li>
+  <li><a href="#derivation-of-theorem-52-distinct-root-closed-form" id="toc-derivation-of-theorem-52-distinct-root-closed-form" class="nav-link" data-scroll-target="#derivation-of-theorem-52-distinct-root-closed-form">Derivation of Theorem 52 (distinct-root closed form)</a></li>
+  <li><a href="#derivation-a-of-theorem-53-jordan-block-double-root" id="toc-derivation-a-of-theorem-53-jordan-block-double-root" class="nav-link" data-scroll-target="#derivation-a-of-theorem-53-jordan-block-double-root">Derivation A of Theorem 53 (Jordan block, double root)</a></li>
+  <li><a href="#derivation-of-theorem-54-jordan-block-power" id="toc-derivation-of-theorem-54-jordan-block-power" class="nav-link" data-scroll-target="#derivation-of-theorem-54-jordan-block-power">Derivation of Theorem 54 (Jordan block power)</a></li>
+  <li><a href="#worked-example-transcript" id="toc-worked-example-transcript" class="nav-link" data-scroll-target="#worked-example-transcript">Worked example (transcript)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</h1>
+<h1 class="title">Linear Recursions as Matrix Recursions: Companion Matrix Diagonalization + Jordan-Block Setup for Repeated Eigenvalues</h1>
 </div>
 
 
@@ -190,33 +235,212 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Reformulates a second-order linear recursion as first-order vector recursion aₙ₊₁ = M·aₙ, solves by diagonalizing the companion matrix, and introduces the nilpotent block for repeated eigenvalue.</p>
+<p>A profound reframing of linear recursions: stack <span class="math inline">\(k\)</span> adjacent terms as a vector <span class="math inline">\(\mathbf{a}_n\)</span> and the order-<span class="math inline">\(k\)</span> scalar recursion becomes a <strong>first-order vector recursion</strong> <span class="math inline">\(\mathbf{a}_{n+1} = M\mathbf{a}_n\)</span> via the <strong>companion matrix</strong> <span class="math inline">\(M\)</span>. The closed-form solution is <span class="math inline">\(\mathbf{a}_n = M^n \mathbf{a}_0\)</span>, with <span class="math inline">\(M^n = V\Lambda^n V^{-1}\)</span> trivially when <span class="math inline">\(M\)</span> is diagonalisable — the closed form recovers <span class="math inline">\(A\lambda_1^n + B\lambda_2^n\)</span> for distinct roots. When the characteristic polynomial has a <strong>repeated root</strong>, <span class="math inline">\(M\)</span> has fewer eigenvectors than eigenvalues (one short for a double root), so diagonalisation fails. The repair: find a <strong>generalised eigenvector</strong> <span class="math inline">\(\mathbf{v}_2\)</span> with <span class="math inline">\((M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1\)</span>, then <span class="math inline">\(M = V(\lambda I + N)V^{-1}\)</span> where <span class="math inline">\(N\)</span> is <strong>nilpotent</strong>. This is the <strong>Jordan-block</strong> form; its powers compute via binomial expansion, recovering the <span class="math inline">\((A + Bn)\lambda^n\)</span> formula derived telescopically in <a href="2026-01-24-morning.html">2026-01-24 morning</a>.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\{a_n\}_{n\ge 0}\)</span></td>
+<td>scalar sequence satisfying <span class="math inline">\(a_{n+1} = p\,a_n - q\,a_{n-1}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{a}_n := \begin{pmatrix}a_{n+1}\\a_n\end{pmatrix}\)</span></td>
+<td>vector of two adjacent terms</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(M = \begin{pmatrix}p &amp; -q\\1 &amp; 0\end{pmatrix}\)</span></td>
+<td><strong>companion matrix</strong> of the recursion</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lambda_1, \lambda_2\)</span></td>
+<td>eigenvalues of <span class="math inline">\(M\)</span> (roots of <span class="math inline">\(\lambda^2 - p\lambda + q\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{v}_1, \mathbf{v}_2\)</span></td>
+<td>eigenvectors (distinct-root case); or eigenvector + generalised eigenvector (repeated-root case)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(V = [\mathbf{v}_1\;\mathbf{v}_2]\)</span></td>
+<td>eigenvector matrix</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(N\)</span></td>
+<td><strong>nilpotent</strong> matrix: zero everywhere except one on the subdiagonal; <span class="math inline">\(N^k = 0\)</span> for <span class="math inline">\(k\ge\text{size}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(J = \lambda I + N\)</span></td>
+<td><strong>Jordan block</strong> with eigenvalue <span class="math inline">\(\lambda\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Distinct-root recursion</strong> (<a href="2026-01-10-morning.html">Jan 10 + earlier sessions</a>): if <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span>, general solution <span class="math inline">\(a_n = A\lambda_1^n + B\lambda_2^n\)</span>.</li>
+<li><strong>Double-root recursion</strong> (<a href="2026-01-24-morning.html">2026-01-24 morning, Theorem 27</a>): general solution <span class="math inline">\(a_n = (A + Bn)\lambda^n\)</span>. Re-derived here via matrices.</li>
+<li><strong>Eigenvalue/eigenvector theory</strong> (<a href="2026-02-28-eigenvalues-followup.html">2026-02-28 followup</a>): <span class="math inline">\((M - \lambda I)\mathbf{v} = \mathbf{0}\)</span>, <span class="math inline">\(\det(M - \lambda I) = 0\)</span>.</li>
+<li><strong>Matrix-power diagonalisation:</strong> if <span class="math inline">\(M = V\Lambda V^{-1}\)</span>, then <span class="math inline">\(M^n = V\Lambda^n V^{-1}\)</span>.</li>
+</ol>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Companion matrix reformulation).</strong> The scalar recursion <span class="math inline">\(a_{n+1} = p\,a_n - q\,a_{n-1}\)</span> is equivalent to <span class="math display">\[
+\mathbf{a}_{n+1} \;=\; M\,\mathbf{a}_n, \qquad M = \begin{pmatrix}p &amp; -q\\1 &amp; 0\end{pmatrix}, \quad \mathbf{a}_n = M^n \mathbf{a}_0. \tag{51}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Diagonalisable case — distinct roots).</strong> If <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span>, <span class="math inline">\(M = V\Lambda V^{-1}\)</span> and <span class="math display">\[
+M^n = V\Lambda^n V^{-1}, \tag{52}
+\]</span> recovering <span class="math inline">\(a_n = A\lambda_1^n + B\lambda_2^n\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Jordan-block decomposition — double root).</strong> If the char poly has a double root <span class="math inline">\(\lambda\)</span>, <span class="math inline">\(M\)</span> has only one independent eigenvector <span class="math inline">\(\mathbf{v}_1\)</span>. Choose generalised <span class="math inline">\(\mathbf{v}_2\)</span> with <span class="math inline">\((M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1\)</span>. Then with <span class="math inline">\(V = [\mathbf{v}_1\;\mathbf{v}_2]\)</span>, <span class="math display">\[
+M = V(\lambda I + N)V^{-1}, \qquad N = \begin{pmatrix}0&amp;0\\1&amp;0\end{pmatrix}, \quad N^2 = 0. \tag{53}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Power of Jordan block).</strong> For <span class="math inline">\(2\times 2\)</span> Jordan block with <span class="math inline">\(N^2 = 0\)</span>: <span class="math display">\[
+(\lambda I + N)^n = \lambda^n I + n\lambda^{n-1} N = \begin{pmatrix}\lambda^n &amp; 0\\ n\lambda^{n-1} &amp; \lambda^n\end{pmatrix}. \tag{54}
+\]</span> Substituting gives <span class="math inline">\(a_n = (A + Bn)\lambda^n\)</span>, <strong>recovering</strong> <a href="2026-01-24-morning.html">Jan 24 Theorem 27</a>.</p>
+</div>
+</section>
+<section id="derivation-of-theorem-51-companion-reformulation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-51-companion-reformulation">Derivation of Theorem 51 (companion reformulation)</h2>
+<p>Define <span class="math inline">\(\mathbf{a}_n = (a_{n+1}, a_n)^T\)</span>. Compute <span class="math display">\[
+M\mathbf{a}_n = \begin{pmatrix}p &amp; -q\\1 &amp; 0\end{pmatrix}\begin{pmatrix}a_{n+1}\\a_n\end{pmatrix} = \begin{pmatrix}p\,a_{n+1} - q\,a_n\\a_{n+1}\end{pmatrix} = \begin{pmatrix}a_{n+2}\\a_{n+1}\end{pmatrix} = \mathbf{a}_{n+1}.
+\]</span> First row uses the scalar recursion. Iterating: <span class="math inline">\(\mathbf{a}_n = M^n \mathbf{a}_0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-52-distinct-root-closed-form" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-52-distinct-root-closed-form">Derivation of Theorem 52 (distinct-root closed form)</h2>
+<p><span class="math inline">\(M^n = (V\Lambda V^{-1})^n = V\Lambda^n V^{-1}\)</span> by telescoping <span class="math inline">\(V^{-1}V = I\)</span> in the middle. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-a-of-theorem-53-jordan-block-double-root" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-of-theorem-53-jordan-block-double-root">Derivation A of Theorem 53 (Jordan block, double root)</h2>
+<p>The eigenspace <span class="math inline">\(\ker(M - \lambda I)\)</span> is 1-dimensional (verified directly for the worked example below). Find <span class="math inline">\(\mathbf{v}_2\)</span> with <span class="math inline">\((M - \lambda I)\mathbf{v}_2 = \mathbf{v}_1\)</span> — a <strong>generalised eigenvector</strong>.</p>
+<p><strong>Existence.</strong> By Cayley–Hamilton (forward-referenced to <a href="2026-05-02-morning.html">May 2</a>), <span class="math inline">\(M^2 - 2\lambda M + \lambda^2 I = 0\)</span>, i.e.&nbsp;<span class="math inline">\((M - \lambda I)^2 = 0\)</span>. So <span class="math inline">\((M - \lambda I)\)</span> maps everything into <span class="math inline">\(\ker(M - \lambda I) = \operatorname{span}(\mathbf{v}_1)\)</span>. Pick any <span class="math inline">\(\mathbf{v}_2 \notin \ker(M - \lambda I)\)</span>; then <span class="math inline">\((M - \lambda I)\mathbf{v}_2\)</span> is a nonzero multiple of <span class="math inline">\(\mathbf{v}_1\)</span>. Scale <span class="math inline">\(\mathbf{v}_2\)</span> so the multiple is 1.</p>
+<p><strong>Matrix form.</strong> <span class="math inline">\(M\mathbf{v}_1 = \lambda\mathbf{v}_1\)</span> and <span class="math inline">\(M\mathbf{v}_2 = \mathbf{v}_1 + \lambda\mathbf{v}_2\)</span> bundle as <span class="math display">\[
+M[\mathbf{v}_1\;\mathbf{v}_2] = [\mathbf{v}_1\;\mathbf{v}_2]\begin{pmatrix}\lambda &amp; 1\\0 &amp; \lambda\end{pmatrix} = V(\lambda I + N).
+\]</span> Right-multiply by <span class="math inline">\(V^{-1}\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-54-jordan-block-power" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-54-jordan-block-power">Derivation of Theorem 54 (Jordan block power)</h2>
+<p>Binomial: <span class="math inline">\((\lambda I + N)^n = \sum_k \binom{n}{k}\lambda^{n-k} N^k\)</span>. Since <span class="math inline">\(N^2 = 0\)</span>, only <span class="math inline">\(k = 0, 1\)</span> survive: <span class="math inline">\(\lambda^n I + n\lambda^{n-1} N\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Recovery of <span class="math inline">\((A + Bn)\lambda^n\)</span>.</strong> <span class="math inline">\(\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0\)</span>. Reading the first component back as <span class="math inline">\(a_n\)</span>: a linear combination <span class="math inline">\(A\lambda^n + Bn\lambda^{n-1} = (A' + B'n)\lambda^n\)</span> (absorbing <span class="math inline">\(\lambda^{-1}\)</span> into <span class="math inline">\(B'\)</span>). Matches <a href="2026-01-24-morning.html">Jan 24 Theorem 27</a>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="worked-example-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="worked-example-transcript">Worked example (transcript)</h2>
+<p><strong>Distinct-root:</strong> <span class="math inline">\(a_{n+1} = a_n + 6 a_{n-1}\)</span>, <span class="math inline">\(a_0 = a_1 = 1\)</span>. Companion <span class="math inline">\(M = \begin{pmatrix}1&amp;6\\1&amp;0\end{pmatrix}\)</span>. Char poly <span class="math inline">\(\lambda^2 - \lambda - 6 = (\lambda-3)(\lambda+2)\)</span>. Eigenvalues <span class="math inline">\(3, -2\)</span>; eigenvectors <span class="math inline">\((3,1)^T, (-2,1)^T\)</span>. Closed form <span class="math inline">\(a_n = \tfrac{3}{5}\cdot 3^n + \tfrac{2}{5}\cdot(-2)^n\)</span>.</p>
+<p><strong>Repeated-root:</strong> <span class="math inline">\(a_{n+1} = 6a_n - 9a_{n-1}\)</span>. Companion <span class="math inline">\(M = \begin{pmatrix}6 &amp; -9\\1 &amp; 0\end{pmatrix}\)</span>. Char poly <span class="math inline">\((\lambda - 3)^2\)</span>. Eigenvector <span class="math inline">\(\mathbf{v}_1 = (3,1)^T\)</span>. Generalised: <span class="math inline">\((M-3I)\mathbf{v}_2 = \mathbf{v}_1\)</span> — pick <span class="math inline">\(\mathbf{v}_2 = (1, 0)^T\)</span>. Then <span class="math inline">\(M = V(3I + N)V^{-1}\)</span>, <span class="math inline">\(a_n = (A + Bn)\cdot 3^n\)</span>.</p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Companion matrix of linear recursion</li>
-<li>M^n via V·Λ^n·V⁻¹</li>
-<li>Repeated eigenvalue: generalized eigenvector v₂ with (M-λI)v₂ = v₁ → Jordan block λI+N</li>
+<li><strong>Companion for <span class="math inline">\(a_{n+1} = 4a_n - 4a_{n-1}\)</span>.</strong> <span class="math inline">\(M = \begin{pmatrix}4&amp;-4\\1&amp;0\end{pmatrix}\)</span>. Char poly <span class="math inline">\((\lambda-2)^2\)</span>. Eigenvector <span class="math inline">\(\mathbf{v}_1 = (2,1)^T\)</span> from <span class="math inline">\(\begin{pmatrix}2&amp;-4\\1&amp;-2\end{pmatrix}\mathbf{v} = 0\)</span>. Generalised <span class="math inline">\(\mathbf{v}_2 = (1,0)^T\)</span> from <span class="math inline">\(x - 2y = 1\)</span>. ✓</li>
+<li><strong><span class="math inline">\(N\)</span> nilpotent.</strong> <span class="math inline">\(N^2 = \begin{pmatrix}0&amp;0\\1&amp;0\end{pmatrix}^2 = 0\)</span>. ✓</li>
+<li><strong>Jordan power at <span class="math inline">\(n=2\)</span>.</strong> <span class="math inline">\((\lambda I + N)^2 = \lambda^2 I + 2\lambda N + N^2 = \begin{pmatrix}\lambda^2&amp;0\\2\lambda&amp;\lambda^2\end{pmatrix}\)</span>. Matches (54). ✓</li>
+<li><strong>Matches Jan 24.</strong> For double root <span class="math inline">\(\lambda\)</span>, both telescoping and matrix-Jordan give <span class="math inline">\(a_n = (A+Bn)\lambda^n\)</span>. ✓</li>
+<li><strong>Sanity at <span class="math inline">\(\lambda=0\)</span>.</strong> <span class="math inline">\(M = N\)</span>, <span class="math inline">\(M^k = 0\)</span> for <span class="math inline">\(k \ge 2\)</span>. Eventually-zero solutions. ✓</li>
+<li><strong>Dependency check.</strong> Thm 51, 52, 54: clean. Thm 53: forward-references Cayley–Hamilton. ✓ noted.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.6/2026-04-04-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.6" target="_blank">GitHub Release v0.6</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-morning/frame-08m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 08m00</strong> — Stacking adjacent terms as a vector; scalar recursion becomes matrix recursion <span class="math inline">\(\mathbf{a}_{n+1} = M\mathbf{a}_n\)</span> with companion matrix <span class="math inline">\(M = \begin{pmatrix}1&amp;6\\1&amp;0\end{pmatrix}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-morning/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — Diagonalisation for distinct roots: <span class="math inline">\(M = V\Lambda V^{-1}\)</span>, <span class="math inline">\(M^n = V\Lambda^n V^{-1}\)</span>. Closed form <span class="math inline">\(a_n = (3/5)\cdot 3^n + (2/5)\cdot(-2)^n\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-morning/frame-38m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m00</strong> — Double-root case <span class="math inline">\(a_{n+1} = 6a_n - 9a_{n-1}\)</span>: only one eigenvector <span class="math inline">\((3,1)^T\)</span>. The “missing degree of freedom” from Jan 24 reappears.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-morning/frame-52m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 52m00</strong> — Generalised eigenvector + Jordan block: <span class="math inline">\(M = V(\lambda I + N)V^{-1}\)</span> with <span class="math inline">\(N\)</span> nilpotent.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Scalar recursion&lt;br/&gt;a_{n+1} = p·a_n - q·a_{n-1}"] --&gt; B["Stack a_n = (a_{n+1}, a_n)^T"]
+    B --&gt; C["Companion matrix M&lt;br/&gt;a_{n+1} = M·a_n · Thm 51"]
+    C --&gt; D["a_n = M^n · a_0"]
+    E["Distinct roots λ_1 ≠ λ_2"] --&gt; F["Diagonalise M = VΛV⁻¹&lt;br/&gt;M^n = VΛ^n V⁻¹ · Thm 52"]
+    F --&gt; G["a_n = A·λ_1^n + B·λ_2^n"]
+    H["Double root (λ-λ_0)²"] --&gt; I["Only 1 eigenvector v_1"]
+    I --&gt; J["Generalised v_2:&lt;br/&gt;(M-λI)v_2 = v_1"]
+    K["Cayley-Hamilton&lt;br/&gt;(forward ref May 2)"] -.-&gt; J
+    J --&gt; L["M = V(λI + N)V⁻¹&lt;br/&gt;Jordan block · Thm 53"]
+    M["N nilpotent: N² = 0"] --&gt; N["(λI+N)^n binomial truncates&lt;br/&gt;= λ^n I + nλ^(n-1) N · Thm 54"]
+    L --&gt; N
+    N --&gt; O["a_n = (A + Bn)·λ^n&lt;br/&gt;matches Jan 24 Thm 27"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “What’s the companion matrix?” <br><span class="speaker">Toby:</span> “<span class="math inline">\(\begin{pmatrix}1&amp;6\\1&amp;0\end{pmatrix}\)</span>” <br><span class="speaker">Brayden (explaining):</span> “Multiply it out: top row gives <span class="math inline">\(a_{n+1} = a_n + 6a_{n-1}\)</span>, bottom row gives <span class="math inline">\(a_n = a_n\)</span> — recursion automatically encoded.”</p>
+<p><em>Teaching move:</em> the <strong>stacking trick</strong> is purely notational, but it transforms an order-<span class="math inline">\(k\)</span> scalar problem into an order-1 vector problem — opening the entire matrix-diagonalisation toolkit.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Double root: what fails?” <br><span class="speaker">Toby:</span> “We’d be one short in the eigenvector count.” <br><span class="speaker">Teacher:</span> “Right. Go for the <strong>second-best</strong>: <span class="math inline">\(\mathbf{v}_2\)</span> that’s <em>not</em> quite an eigenvector but satisfies <span class="math inline">\((M-\lambda I)\mathbf{v}_2 = \mathbf{v}_1\)</span>. Then <span class="math inline">\(M\mathbf{v}_2 = \lambda\mathbf{v}_2 + \mathbf{v}_1\)</span> — the eigenvalue plus a <em>kick</em> into the eigenspace.”</p>
+<p><em>Teaching move:</em> when the naive structure fails, find the most useful replacement that’s adjacent to it. Generalised eigenvectors behave <em>almost</em> like eigenvectors, with a corrective <span class="math inline">\(\mathbf{v}_1\)</span> kick.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -227,39 +451,43 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Raise (λI+N)^n via binomial expansion and verify it reproduces (A+Bn)λ^n.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Long meta-talk on monthly Overleaf note submissions as accountability mechanism. NOTE: byte-identical to <code>Saturday04062026afternoon1.txt</code> — duplicate upload; this is the canonical entry.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Verify <span class="math inline">\((\lambda I + N)^n = \begin{pmatrix}\lambda^n &amp; 0\\n\lambda^{n-1} &amp; \lambda^n\end{pmatrix}\)</span> via direct multiplication for <span class="math inline">\(n = 2, 3\)</span>.</li>
+<li>Recover <span class="math inline">\((A + Bn)\lambda^n\)</span> explicitly from <span class="math inline">\(\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0\)</span> for <span class="math inline">\(a_{n+1} = 6a_n - 9a_{n-1}, a_0 = a_1 = 1\)</span>.</li>
+<li>Generalise to <span class="math inline">\(k\)</span>-fold roots: write <span class="math inline">\((λI + N)^n\)</span> for a <span class="math inline">\(k \times k\)</span> Jordan block and show <span class="math inline">\(a_n\)</span> is a polynomial in <span class="math inline">\(n\)</span> of degree at most <span class="math inline">\(k-1\)</span> times <span class="math inline">\(\lambda^n\)</span>.</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Theorem 53’s existence argument forward-references Cayley–Hamilton (<a href="2026-05-02-morning.html">May 2</a>). Worked around for <span class="math inline">\(2 \times 2\)</span> by direct verification.</li>
+<li><strong>Imported facts.</strong> Eigenvalue framework (<a href="2026-02-28-eigenvalues-followup.html">Feb 28</a>); <span class="math inline">\((A + Bn)\lambda^n\)</span> formula (<a href="2026-01-24-morning.html">Jan 24</a>); binomial expansion.</li>
+<li><strong>Geometric vs algebraic multiplicity.</strong> Lesson handles geometric-multiplicity-1, algebraic-multiplicity-2 case. Full Jordan canonical form for general matrices is much deeper.</li>
+<li><strong>Numerical stability.</strong> Diagonalisation ill-conditioned for near-equal eigenvalues. Production code uses Schur decomposition.</li>
+<li><strong>Confidence.</strong> Theorems 51, 52, 54: high. Theorem 53: high for <span class="math inline">\(2\times 2\)</span>; general case forward-references.</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursors:</strong> <a href="2026-01-10-morning.html">2026-01-10 morning</a> (stub) — recursion introduction; <a href="2026-01-24-morning.html">2026-01-24 morning</a> — telescoping <span class="math inline">\((A+Bn)\lambda^n\)</span> derivation; <a href="2026-02-28-eigenvalues-followup.html">2026-02-28 followup</a> — eigenvalue framework.</li>
+<li><strong>Sequels:</strong>
+<ul>
+<li><a href="2026-04-04-afternoon-2.html">2026-04-04 afternoon (2)</a> (stub) — <span class="math inline">\(k \times k\)</span> Jordan block powers via binomial expansion.</li>
+<li><a href="2026-05-02-morning.html">2026-05-02 morning</a> (stub) — Cayley–Hamilton, settling the Theorem 53 forward reference.</li>
+</ul></li>
+<li><strong>Tuesday-class rerun:</strong> <a href="2026-04-04-tuesday-rerun.html">2026-04-04 tuesday-rerun</a> (stub) — parallel session.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -268,7 +496,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>What happened in the morning? And I want to quickly pick up where we left off in the previous session. But as I'm getting us a whiteboard, why don't you tell me any questions you guys had? I don't believe I received the homework except for from Lucas. Could I have all of your video, please? And any questions?Please be eager to talk. Well, if nothing at all, really, just say it, tell me so, so that we'll move on. Otherwise, I keep waiting. I don't have any questions. Okay, we're.We're comfortable with how to diagonalize a matrix. The key lies in finding a set of eigenvector basis and their eigenvalues. Now, in fact, we do know if we do have a full rank of the eigenvectors, if we could use them as a basis, now then immediately problem solved. However, are all the matrices diagonalizable? Are there certain matrices where you just cannot find a full set of eigenvectors? Well, the answer is yes. There are actuallyPlenty of such matrices. Somehow, I'm actually seeing seven participants here. Oh, shoot! Hey, Lucas, I kept waiting for you, but somehow my Zoom doesn't tell me how many people are in the waiting room anymore. This room is is is behaving quite weirdly. There's so many things; those are new, and I don't know how to I don't know how to manipulate them yet. But sorry, Lucas.呃，我们没有说任何东西，除了问问题。可以看视频吗？嘿，托比，你来。如何对角化矩阵？我们已经做了。在过去的几个会议中，我们如何对角化矩阵？我们实际上发现，我们可以找到特征值。例如，M 这里是一个矩阵，它将是 n 乘 n。我们发现，在开始时，所有的特征值。假设它们是 λ 一。到到到到到到到到到dimension of the n now, meaning you have n independent eigenvectors, full rank of eigenvectors. And then, how do I end up diagonalizing the M? Please, Emma, you quickly recap for Toby.Emma，呃，we would呃呃，build the matrices of like a equals to like the</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>the lambda m equals to the lambda wait no wait m equals to the eigenvectors as columns, and we will multiply that by the lambdas, and then multiply that by the vector the eigenvectors as negative one. What do you mean as negative one?Say it again. To the negative first power. What does that mean? What's the meaning of v to the negative first power? Because you can't divide by matrix. The matrix, uh, inverse. Yeah, it's the inverse. So this is how we diagonalize it. Toby, uh, does it come back to you why this can be done?Does it come back to you? Uh, what's that symbol? This is a lambda matrix, Toby. If you don't reveal and you if you do not do homework, and then you're wasting class time asking me checking what is the meaning of the fundamental symbol, it's not that I'm not willing to tell you. I'm always willing to tell you, but it's a waste of time. That lambda has been our fundamental vocabulary. It's made up of the lambda one, lambda two. That's that's veryVery diagonal matrix, making up made up of all the eigenvalues. Toby, do you get prepared by going over the recording and clean up your notes and reorganize them, and doing homework? Can I request that you do so? Can you give me a promise? Okay.Okay, so are we on the same page? Before we move on to the non-diagonalizable matrix here, and I can give you a very simple matrix, which is two, one, two, zero, and this is two by two matrix. It means a linear transform. You can quickly find out what are the eigenvalues, what are the eigenvectors, and you shall find out in this case it's impossible to have a full rank of the eigenvectors. But before we even do that, I want toShow you example what this is for. Why we could actually solve for many things which don't even remotely sound like the matrices. They could be in different category. They could be they could be algebra problem, combinatorics problem, everything. But then the language of matrix is very powerful. Remember we could diagonalize it. Now let me actually bring your mind back to something we did before, which is solving second order linear recursion. So why don't I actually giveThe following, you're given a sequence a zero equal to one, a one equal to one, and we're defining a second-order recursion a n plus one just equal to, for example, twice of the a n and plus three times of the no. Let me actually go for a n plus six of the n minus one.Alright， and you guys know how to solve that. Could somebody help me quickly recover what's the general formula for the an? It's a very typical second order linear recursion. You put it all on one side， and then like use the quadratic formula.</span>

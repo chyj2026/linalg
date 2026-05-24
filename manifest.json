@@ -374,7 +374,8 @@
       "video_drive_id": "1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-",
       "video_embed": "https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/preview",
       "video_view":  "https://drive.google.com/file/d/1FXO-6hrh3BuY0IgAwCkLK2sum6eVY0o-/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.6/2026-04-04-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2026-04-04-afternoon-2",
