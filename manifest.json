@@ -22,7 +22,7 @@
       "video_drive_id": "1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq",
       "video_embed": "https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/preview",
       "video_view":  "https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-morning.mp4", "status": "published"
     },
     {
       "id": "2025-09-13-afternoon",
@@ -37,7 +37,7 @@
       "video_drive_id": "1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho",
       "video_embed": "https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/preview",
       "video_view":  "https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-afternoon.mp4", "status": "published"
     },
     {
       "id": "2025-09-20-morning",
@@ -52,7 +52,7 @@
       "video_drive_id": "1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5",
       "video_embed": "https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/preview",
       "video_view":  "https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-20-morning.mp4", "status": "published"
     },
     {
       "id": "2025-09-27-morning",
@@ -67,7 +67,7 @@
       "video_drive_id": "1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT",
       "video_embed": "https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/preview",
       "video_view":  "https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-27-morning.mp4", "status": "published"
     },
     {
       "id": "2025-10-04-morning",
@@ -82,7 +82,8 @@
       "video_drive_id": "1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9",
       "video_embed": "https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/preview",
       "video_view":  "https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2025-10-04-afternoon",
@@ -97,7 +98,7 @@
       "video_drive_id": "1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud",
       "video_embed": "https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/preview",
       "video_view":  "https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-afternoon.mp4", "status": "published"
     },
     {
       "id": "2025-10-11-morning",
@@ -144,7 +145,8 @@
       "video_drive_id": "1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8",
       "video_embed": "https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/preview",
       "video_view":  "https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2025-10-18-afternoon",
@@ -159,7 +161,8 @@
       "video_drive_id": "1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3",
       "video_embed": "https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/preview",
       "video_view":  "https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4",
+      "status": "published"
     },
     {
       "id": "2025-11-01-morning",

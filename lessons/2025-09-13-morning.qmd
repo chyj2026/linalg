@@ -1,49 +1,58 @@
 ---
-title: "Fermat's Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic"
+title: "Fermat's Little Theorem and Euler Totient: Cyclicity in Modular Arithmetic"
 date: 2025-09-13
 session: morning
-topics: [modular-arithmetic, complex-numbers, roots-of-unity]
+topics: [modular-arithmetic, fermat-little, euler-totient, roots-of-unity, complex-numbers, chinese-remainder]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Proves Fermat's little theorem and Euler's totient theorem by tracking how multiplication by a permutes the reduced-residue set, then applies the φ-cyclicity to compute the last two digits of 7^2025 via Chinese Remainder Theorem.
+Proves Fermat's little theorem ($a^{p-1} \equiv 1 \pmod p$) and generalises to Euler's theorem ($a^{\varphi(n)} \equiv 1 \pmod n$ for $\gcd(a, n) = 1$) by tracking how multiplication permutes the reduced-residue set. Applies to compute the last two digits of $7^{2025}$ via Chinese Remainder Theorem.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Fermat's little: a^(p-1) ≡ 1 (mod p)
-- Euler's theorem: a^φ(n) ≡ 1 (mod n) when gcd(a,n)=1
-- φ multiplicative formula via prime factors
-- Chinese Remainder Theorem
-
-## Homework given
-
-::: {.callout-important}
-Compute last three digits of 3^2025; prove that the n-th roots of unity sum to zero by symmetry (one-line proof).
+::: {.theorem}
+**(Fermat's little).** For prime $p$ and $\gcd(a, p) = 1$:
+$$
+a^{p-1} \equiv 1 \pmod p. \tag{93}
+$$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Heavy EN/ZH code-switching including long disciplinary monologue with parents about students not engaging with the 'why' of homework. One garbled OCR stretch (repeated 五的十次方).
+::: {.theorem}
+**(Euler's theorem).** For $\gcd(a, n) = 1$:
+$$
+a^{\varphi(n)} \equiv 1 \pmod n. \tag{94}
+$$
 :::
+
+::: {.theorem}
+**(Euler totient formula).** $\varphi(n) = n \prod_{p \mid n}(1 - 1/p)$. $\tag{95}$
+:::
+
+::: {.theorem}
+**(Chinese Remainder Theorem).** For pairwise-coprime $m_1, m_2$, the system $x \equiv a_i \pmod{m_i}$ has a unique solution $\pmod{m_1 m_2}$.
+:::
+
+## Derivation
+
+**Fermat:** the map $x \mapsto ax \pmod p$ permutes $\{1, 2, \dots, p-1\}$. Hence $\prod_x ax \equiv \prod_x x \pmod p$, i.e. $a^{p-1} (p-1)! \equiv (p-1)! \pmod p$. Cancel $(p-1)!$ (invertible mod prime): $a^{p-1} \equiv 1$. $\quad\blacksquare$
+
+**Euler:** same argument with $\{x : \gcd(x, n) = 1, 1 \le x \le n\}$ (size $\varphi(n)$); multiplication by $a$ permutes this set when $\gcd(a, n) = 1$. $\quad\blacksquare$
+
+## Verification audit
+
+- $2^{6} = 64 = 9 \cdot 7 + 1 \equiv 1 \pmod 7$ ✓ (Fermat $p=7$).
+- $3^{4} = 81 \equiv 1 \pmod 5$ ✓ ($\varphi(5) = 4$).
+- $7^{20} \equiv 1 \pmod{25}$ since $\varphi(25) = 20$. $7^{2025} = 7^{2020} \cdot 7^5 \equiv 7^5 \pmod{25}$. $7^2 = 49 \equiv -1$, $7^4 \equiv 1$, $7^5 \equiv 7$. So $7^{2025} \equiv 7 \pmod{25}$. Combined with $\pmod 4$: $7 \equiv -1$, $(-1)^{2025} = -1 \equiv 3 \pmod 4$. CRT: find $x$ with $x \equiv 7 \pmod{25}$, $x \equiv 3 \pmod 4$. $x = 7$: $7 \pmod 4 = 3$ ✓. So last two digits of $7^{2025}$ are $07$.
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/view">Drive</a></p>
 ```
+
+## Related: [Sep 13 afternoon](2025-09-13-afternoon.html)
 
 ## Full transcript
 

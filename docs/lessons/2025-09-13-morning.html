@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-13">
 
-<title>Fermat’s Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic – Linear Algebra Notes</title>
+<title>Fermat’s Little Theorem and Euler Totient: Cyclicity in Modular Arithmetic – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#related-sep-13-afternoon" id="toc-related-sep-13-afternoon" class="nav-link" data-scroll-target="#related-sep-13-afternoon">Related: Sep 13 afternoon</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fermat’s Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic</h1>
+<h1 class="title">Fermat’s Little Theorem and Euler Totient: Cyclicity in Modular Arithmetic</h1>
 </div>
 
 
@@ -190,77 +221,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Proves Fermat’s little theorem and Euler’s totient theorem by tracking how multiplication by a permutes the reduced-residue set, then applies the φ-cyclicity to compute the last two digits of 7^2025 via Chinese Remainder Theorem.</p>
+<p>Proves Fermat’s little theorem (<span class="math inline">\(a^{p-1} \equiv 1 \pmod p\)</span>) and generalises to Euler’s theorem (<span class="math inline">\(a^{\varphi(n)} \equiv 1 \pmod n\)</span> for <span class="math inline">\(\gcd(a, n) = 1\)</span>) by tracking how multiplication permutes the reduced-residue set. Applies to compute the last two digits of <span class="math inline">\(7^{2025}\)</span> via Chinese Remainder Theorem.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Fermat’s little).</strong> For prime <span class="math inline">\(p\)</span> and <span class="math inline">\(\gcd(a, p) = 1\)</span>: <span class="math display">\[
+a^{p-1} \equiv 1 \pmod p. \tag{93}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Euler’s theorem).</strong> For <span class="math inline">\(\gcd(a, n) = 1\)</span>: <span class="math display">\[
+a^{\varphi(n)} \equiv 1 \pmod n. \tag{94}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Euler totient formula).</strong> <span class="math inline">\(\varphi(n) = n \prod_{p \mid n}(1 - 1/p)\)</span>. <span class="math inline">\(\tag{95}\)</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Chinese Remainder Theorem).</strong> For pairwise-coprime <span class="math inline">\(m_1, m_2\)</span>, the system <span class="math inline">\(x \equiv a_i \pmod{m_i}\)</span> has a unique solution <span class="math inline">\(\pmod{m_1 m_2}\)</span>.</p>
+</div>
+</section>
+<section id="derivation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
+<p><strong>Fermat:</strong> the map <span class="math inline">\(x \mapsto ax \pmod p\)</span> permutes <span class="math inline">\(\{1, 2, \dots, p-1\}\)</span>. Hence <span class="math inline">\(\prod_x ax \equiv \prod_x x \pmod p\)</span>, i.e.&nbsp;<span class="math inline">\(a^{p-1} (p-1)! \equiv (p-1)! \pmod p\)</span>. Cancel <span class="math inline">\((p-1)!\)</span> (invertible mod prime): <span class="math inline">\(a^{p-1} \equiv 1\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Euler:</strong> same argument with <span class="math inline">\(\{x : \gcd(x, n) = 1, 1 \le x \le n\}\)</span> (size <span class="math inline">\(\varphi(n)\)</span>); multiplication by <span class="math inline">\(a\)</span> permutes this set when <span class="math inline">\(\gcd(a, n) = 1\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
 <ul>
-<li>Fermat’s little: a^(p-1) ≡ 1 (mod p)</li>
-<li>Euler’s theorem: a^φ(n) ≡ 1 (mod n) when gcd(a,n)=1</li>
-<li>φ multiplicative formula via prime factors</li>
-<li>Chinese Remainder Theorem</li>
+<li><span class="math inline">\(2^{6} = 64 = 9 \cdot 7 + 1 \equiv 1 \pmod 7\)</span> ✓ (Fermat <span class="math inline">\(p=7\)</span>).</li>
+<li><span class="math inline">\(3^{4} = 81 \equiv 1 \pmod 5\)</span> ✓ (<span class="math inline">\(\varphi(5) = 4\)</span>).</li>
+<li><span class="math inline">\(7^{20} \equiv 1 \pmod{25}\)</span> since <span class="math inline">\(\varphi(25) = 20\)</span>. <span class="math inline">\(7^{2025} = 7^{2020} \cdot 7^5 \equiv 7^5 \pmod{25}\)</span>. <span class="math inline">\(7^2 = 49 \equiv -1\)</span>, <span class="math inline">\(7^4 \equiv 1\)</span>, <span class="math inline">\(7^5 \equiv 7\)</span>. So <span class="math inline">\(7^{2025} \equiv 7 \pmod{25}\)</span>. Combined with <span class="math inline">\(\pmod 4\)</span>: <span class="math inline">\(7 \equiv -1\)</span>, <span class="math inline">\((-1)^{2025} = -1 \equiv 3 \pmod 4\)</span>. CRT: find <span class="math inline">\(x\)</span> with <span class="math inline">\(x \equiv 7 \pmod{25}\)</span>, <span class="math inline">\(x \equiv 3 \pmod 4\)</span>. <span class="math inline">\(x = 7\)</span>: <span class="math inline">\(7 \pmod 4 = 3\)</span> ✓. So last two digits of <span class="math inline">\(7^{2025}\)</span> are <span class="math inline">\(07\)</span>.</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Compute last three digits of 3^2025; prove that the n-th roots of unity sum to zero by symmetry (one-line proof).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Heavy EN/ZH code-switching including long disciplinary monologue with parents about students not engaging with the ‘why’ of homework. One garbled OCR stretch (repeated 五的十次方).</p>
-</div>
-</div>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1EijZsBBjkLH2aypCIpCD-z9ybBm_1nXq/view">Drive</a></p>
+</section>
+<section id="related-sep-13-afternoon" class="level2">
+<h2 class="anchored" data-anchor-id="related-sep-13-afternoon">Related: <a href="2025-09-13-afternoon.html">Sep 13 afternoon</a></h2>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -269,7 +277,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Nobody actually got the point, and if this continues to be the case for this very brilliant class here, I should be very disappointed. Catherine, do you remember what I emphatically said is the purpose of homework? I'm asking you because you have the best hope of knowing what the homework is about, as you can.Mean, can you get your parents here, please? I'm gonna limit my conversation with them under three minutes. But this is actually about homework, and if I am strict, I would have to say nobody actually did homework. Please, act quickly, Catherine. You don't have to. In in case your parents are still sleeping, I know this is early in the morning.No, it's ten p.m. for me. Oh, right. Sorry, sorry. No, I don't want that. Thank you. When your parents come, please just show, so that I know that I can talk to them. This is about proof. Thank you.呃，家长们在这儿了吗？好，那我要说啊，Helms，Where's your parents?Karen， she's coming. Okay. And Toby, where's your mom or dad? And Lucas, where's your mom? She's coming soon. Okay. 是这样的，我我一再对不起，我要找大家谈谈了，因为这个跟孩子讲不通，所以我就只能请在他们这个年龄阶段，我必须得请你们帮助我，hold them accountable。这一次没有任何人等于做了作业，我一再强调，作业的目的不是为了你代入几个数算。一通，他们所有的人都是我们已经得到公式，代入数算了一通。我讲课上讲的非常清楚。这一次我不告诉你们，你们孩子为什么做作业做的不对，但是所有这些作业都得重做。你回得回去看录像，然后要听我在讲述作业的时候，我强调这个作业的目的是什么。我可以跟家长说一句，我要让他们做的永远、永远、永远，我说了三遍。如果以后仍然给我孩子交上来作业，就是代入数过算了一遍的话，那么我不知道我没有 leverage，我没有办法承。惩戒他们，但是这样的孩子，老实说就是不可教。嗯，我我的作业的目的都是让他们知道为什么。我们在课上讲的是一个这个呃质数的情况，就是说我给他们demonstrate的在圆周上，如果你有这样五个，就是这个是一的五个根，对吧？它就等于是说，或者有七个吧，这样完全均匀分布的七个向量。然后当你把它升一次方、两次方、三次方，你会绕着这个圆周完整的走。一遍，这是为什么加起来都为零。但是当这个数不是一个质数的时候，it's a com complex number。For example, I give them twelve。我明确的说，你们必须要检查一下，拿拿这个每一个向量在图像上给我演示，它绕着圆周怎么走了一遍，为什么加起来还是零？没有任何孩子做了这件事，我并不生气，我只是为了讲的快，所以我讲的声音很大。家长以后请你们作业的时候就问家这孩子一句：Did you care about why? Did you find something new in the homework?我，did you just plug in and do a exercise and never assign homework which is just plug in in？那样的话，我纯粹就浪费了孩子们时间。现在呢，我已经跟孩子有了一段相处时间了，我的要求不能仅仅停留在啊你们每个人做完作业，而这次作业我一个人都根本没有评，我生气了，根本不值得我评，没没有人知道作业是什么，所以必须重做。在这个你下一次上课之前，而且我这次要求，因为是重做的，请大家在四十八小时之前交上来。</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>这就意味着你要回去看回路，然后你要知道我的作业的目的是什么。好，辛苦家长了。如果我是孩子的家长，我一定会每一次的时候，我不需要去检查他们的作业到底做了什么。我，但是我这已经说了好多遍，请他给我讲一讲你这周学到什么新的思想。我的作业，我再说三遍，永远、永远、永远都是让他们开拓一下，就是问一问为什么，然后和我课上讲的是稍稍有一点不同的，他们自己得去发现一点新的东西的。如果没有，你就。就照着套数，这永远都是错误的。我说清楚了没，刘老师？哎，咱们上次是两个作业，所以这次要redo这个第二个作业，这个圆的这个。对对对对对，就仅仅是redo，就是最近的这一次作业。然后关键的是，我又把大家叫叫来，请大家以后养成这种习惯，因为我实在是不能够在他们的身边为他们做，我非常想做这件事儿。就如果在他们身边，我会不时的说：“你近现。”现在学习有什么感受了？Did you encounter any new idea？你发现什么东西？哎，你是觉得老师其实没有讲透的？我肯定是有些没讲透的东西，留待他们自己去发问的。好，我就说这么多了，辛苦各位家长，非常感谢你们！谢谢刘老师。可以吗？能做到吗？能做到吗？能做到？清楚吗？清楚。清楚是什么？这个是什么？应该把把这个微度一点。你知道为什么这个上次不合格需要redo吗？哦，可以。我上次。就连Catherine的也不合格，这让我非常非常惊讶，所以我就谁也没评。哦，抱歉，刘老师，我我是Catherine妈妈。我知道，我当然知道了，我认识你，但是你不用抱歉。这这是因为他已经是我每一次都觉得，要是别人都没有配单身，要是别人都get the point，she will，这样我就可以说please refer to Catherine's work。你去检，你去看一下，你有比较，我就不用说了。哎，但是这一次，这一次我不是想跟您说，因为一会儿下课就十一点了，他明天。还要早起下上另外一节课，所以可能要明天那节课之后，也就是他星期天的下午补这个作业，没问题的。我给了四十八小时，对你们因为时差的问题，七十二小时也可以，没有问题。谢谢，谢谢，好多谢家长了。So let's actually go forward. Now, guys, we actually covered from a little theorem generalizes onto Euler tangent, and in fact, I'm going to record the journey. ItThese sort of analogies to the journey I'm taking you on, in terms of the complex numbers, you should pay good attention to why they're related at all. Remember how we proved Fermat Little Theorem? One of the very elegant proofs I'm going to get you started is manipulating the set. At the moment here, we're looking at p. You know, I am teaching you how to do homework, so please pay attention. If you're actually looking at p, which is a prime number, let's say it's a seven, and we used to be investigating integers.And you're gonna list all the seven numbers in the prime set in the mod seven universe. They are zero, which we're keeping out, okay? Because zero, when you multiply by something, would return to zero. Although you you don't really have to, you can keep it in. And the seven numbers are zero, one, two, all the way to six. I would say your mental picture would be mapping them onto the seven unit roots of one. You you just draw seven vectors equally spread out on the unit.Circle. Okay, then when we prove the Fermat Little Theorem, we're going to say we want to prove with arbitrary number a here. When you raise it to the seventh power, it's getting back to the a. This is what we're trying to prove now. And what we do? You got the seven numbers, and you want to get to the seventh a to the seventh power. So you multiply every every single number by a. What do you have? You really have a zero, and then this is a that's a squared that that all the way to the a six, and well.</span>

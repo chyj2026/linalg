@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>28</strong><span>sessions</span></div>
-    <div><strong>20</strong><span>lessons distilled</span></div>
+    <div><strong>28</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -61,16 +61,16 @@ title: "Linear Algebra Notes"
 <table class="lesson-index-table">
   <thead><tr><th>Date</th><th>Session</th><th>Topic</th></tr></thead>
   <tbody>
-<tr><td>2025-09-13</td><td>afternoon</td><td><a href="lessons/2025-09-13-afternoon.html">Modular Arithmetic, Roots of Unity, and Symmetry Counts</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-09-13</td><td>morning</td><td><a href="lessons/2025-09-13-morning.html">Fermat's Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-09-20</td><td>morning</td><td><a href="lessons/2025-09-20-morning.html">Proof of Euler's Formula via Additive and Multiplicative Functional Equations</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-09-27</td><td>morning</td><td><a href="lessons/2025-09-27-morning.html">Solving cos θ = a and sin θ = a via Complex Exponentials</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-10-04</td><td>afternoon</td><td><a href="lessons/2025-10-04-afternoon.html">Eccentricity Definition of Conics; Parabola as the Borderline Case</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-10-04</td><td>morning</td><td><a href="lessons/2025-10-04-morning.html">Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2025-09-13</td><td>afternoon</td><td><a href="lessons/2025-09-13-afternoon.html">Modular Arithmetic, Roots of Unity, and Symmetry Counts</a></td></tr>
+<tr><td>2025-09-13</td><td>morning</td><td><a href="lessons/2025-09-13-morning.html">Fermat's Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic</a></td></tr>
+<tr><td>2025-09-20</td><td>morning</td><td><a href="lessons/2025-09-20-morning.html">Proof of Euler's Formula via Additive and Multiplicative Functional Equations</a></td></tr>
+<tr><td>2025-09-27</td><td>morning</td><td><a href="lessons/2025-09-27-morning.html">Solving cos θ = a and sin θ = a via Complex Exponentials</a></td></tr>
+<tr><td>2025-10-04</td><td>afternoon</td><td><a href="lessons/2025-10-04-afternoon.html">Eccentricity Definition of Conics; Parabola as the Borderline Case</a></td></tr>
+<tr><td>2025-10-04</td><td>morning</td><td><a href="lessons/2025-10-04-morning.html">Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²</a></td></tr>
 <tr><td>2025-10-11</td><td>afternoon</td><td><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-10-11</td><td>morning</td><td><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a> <span class="mini-badge">Published</span></td></tr>
-<tr><td>2025-10-18</td><td>afternoon</td><td><a href="lessons/2025-10-18-afternoon.html">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-10-18</td><td>morning</td><td><a href="lessons/2025-10-18-morning.html">Quadratic Form Classification of Conics via the Discriminant</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2025-10-18</td><td>afternoon</td><td><a href="lessons/2025-10-18-afternoon.html">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</a></td></tr>
+<tr><td>2025-10-18</td><td>morning</td><td><a href="lessons/2025-10-18-morning.html">Quadratic Form Classification of Conics via the Discriminant</a></td></tr>
 <tr><td>2025-11-01 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-11-08</td><td>afternoon</td><td><a href="lessons/2025-11-08-afternoon.html">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-11-29</td><td>morning</td><td><a href="lessons/2025-11-29-morning.html">Asymptotic Analysis: General Principle for Handling Infinitesimals</a> <span class="mini-badge">Published</span></td></tr>

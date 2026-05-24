@@ -2,46 +2,45 @@
 title: "Modular Arithmetic, Roots of Unity, and Symmetry Counts"
 date: 2025-09-13
 session: afternoon
-topics: [complex-numbers, modular-arithmetic, roots-of-unity]
+topics: [modular-arithmetic, roots-of-unity, complex-numbers, polynomials, factoring]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Reviews 7^2025 mod 1000 via binomial expansion + CRT, connects modular cyclicity to geometry of n-th roots of unity, and counts the symmetry orders of a square (8) and cube (48).
+The $n$ solutions of $z^n = 1$ in $\mathbb C$ are the $n$-th roots of unity $\omega^k = e^{2\pi i k/n}$, $k = 0, \dots, n-1$. They form a cyclic group under multiplication isomorphic to $\mathbb Z/n\mathbb Z$.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Σ(n-th roots of unity) = 0 by rotational symmetry
-- order of group element divides φ(n)
-
-## Homework given
-
-::: {.callout-important}
-Review AoPS Precalculus Ch 7 (roots-of-unity filter); no new problems assigned.
+::: {.theorem}
+**(Roots of unity).** $z^n - 1 = \prod_{k=0}^{n-1}(z - \omega^k)$ where $\omega = e^{2\pi i/n}$. $\tag{96}$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Continuation of morning session. Heavy EN/ZH code-switching.
+::: {.theorem}
+**(Sum of roots).** $\sum_{k=0}^{n-1} \omega^k = 0$ for $n \ge 2$. $\tag{97}$
 :::
+
+::: {.theorem}
+**(Cyclotomic).** $z^n - 1 = \prod_{d \mid n} \Phi_d(z)$ where $\Phi_d$ is the $d$-th cyclotomic polynomial of degree $\varphi(d)$.
+:::
+
+## Derivation
+
+Geometric sum: $\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n - 1}{\omega - 1} = \frac{0}{\omega-1} = 0$ since $\omega \ne 1$.
+
+## Verification audit
+
+- $n=4$: roots $1, i, -1, -i$; sum $= 0$ ✓.
+- $z^3 - 1 = (z-1)(z^2 + z + 1)$, so $\Phi_3 = z^2 + z + 1$ with roots $\omega, \omega^2 = e^{\pm 2\pi i/3}$.
+- $|z|^n = 1 \Rightarrow |z| = 1$ ✓ (real-positive cube root).
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/view">Drive</a></p>
 ```
+
+## Related: [Sep 13 morning](2025-09-13-morning.html), [Sep 20 morning](2025-09-20-morning.html)
 
 ## Full transcript
 

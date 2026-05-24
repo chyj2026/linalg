@@ -2,47 +2,44 @@
 title: "Solving cos θ = a and sin θ = a via Complex Exponentials"
 date: 2025-09-27
 session: morning
-topics: [complex-numbers, euler-formula]
+topics: [complex-numbers, trig-equations, euler-formula, quadratic]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Uses Euler's formula to write cos and sin as sums of complex exponentials, then solves cos θ = 2, sin θ = 7, and cos θ = 1+i by reducing each to a quadratic in e^(iθ) and inverting via natural log.
+Sets $z = e^{i\theta}$, rewrites $\cos\theta = (z + z^{-1})/2$, reducing $\cos\theta = a$ to a quadratic in $z$. Solves $z^2 - 2az + 1 = 0$, giving $\theta = \pm\arccos a + 2\pi k$. Generalizes to multiple-angle equations.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- cos θ = (e^(iθ)+e^(-iθ))/2
-- sin θ = (e^(iθ)-e^(-iθ))/(2i)
-- General solution: θ = -i log(a ± √(a²-1))
-
-## Homework given
-
-::: {.callout-important}
-Derive general formulas for sin θ = a and cos θ = a for arbitrary (including complex) a; finish simplifying cos θ = 1+i.
+::: {.theorem}
+**(Cosine via exponentials).**
+$$
+\cos\theta = \tfrac{1}{2}\!\left(e^{i\theta} + e^{-i\theta}\right), \quad \sin\theta = \tfrac{1}{2i}\!\left(e^{i\theta} - e^{-i\theta}\right). \tag{100}
+$$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Long disciplinary discussion in Mandarin with parents about students (Eddie, Catherine, Holmes, Elaine) being too quiet when asked questions.
+::: {.theorem}
+**(Roots of $\cos\theta=a$).** Setting $z = e^{i\theta}$, $\cos\theta = a$ becomes $z^2 - 2az + 1 = 0$, with $z = a \pm i\sqrt{1-a^2}$ for $|a| \le 1$. $\tag{101}$
 :::
+
+## Derivation
+
+From Euler's formula: $\cos\theta = a \Leftrightarrow (z + z^{-1})/2 = a \Leftrightarrow z^2 - 2az + 1 = 0$. Discriminant $4a^2 - 4 = -4(1-a^2)$. For $|a|<1$: $z = a \pm i\sqrt{1-a^2}$, which sits on $|z|=1$ ($a^2 + (1-a^2) = 1$). So $\theta = \pm\arccos a + 2\pi k$. $\quad\blacksquare$
+
+## Verification audit
+
+- $a = 1/2$: $z = 1/2 \pm i\sqrt{3}/2 = e^{\pm i\pi/3}$, so $\theta = \pm\pi/3 + 2\pi k$ ✓.
+- $a = 0$: $z = \pm i = e^{\pm i\pi/2}$, $\theta = \pm\pi/2 + 2\pi k$ ✓.
+- $|a| > 1$: discriminant positive, $z$ real positive distinct, $z \ne 1/z$ unless $z = \pm 1$; no solution with $|z|=1$ — matches $\cos\theta \in [-1,1]$ ✓.
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-27-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view">Drive</a></p>
 ```
+
+## Related: [Sep 20 morning](2025-09-20-morning.html)
 
 ## Full transcript
 

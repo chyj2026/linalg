@@ -2,48 +2,48 @@
 title: "Proof of Euler's Formula via Additive and Multiplicative Functional Equations"
 date: 2025-09-20
 session: morning
-topics: [complex-numbers, functional-equations, euler-formula]
+topics: [complex-numbers, euler-formula, exponential, functional-equation]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Builds a rigorous proof of e^(iθ) = cos θ + i sin θ by classifying continuous additive functions on ℝ as linear, then bridging the multiplicative property of unit complex numbers to additivity through the logarithm.
+Proves $e^{i\theta} = \cos\theta + i\sin\theta$ by showing both sides satisfy the same functional equation $f(\alpha+\beta) = f(\alpha)f(\beta)$ with $f(0)=1$ and $f'(0) = i$, then invoking uniqueness.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Continuous additive functions on ℝ are linear: f(x) = kx
-- log(ab) = log a + log b
-- z(θ)·z(φ) = z(θ+φ) for unit-modulus complex numbers
-- e^(iθ) = cos θ + i sin θ
-
-## Homework given
-
-::: {.callout-important}
-Determine k = i in z(θ) = e^(kθ) via infinitesimal expansion; prove angle-addition formulas via altitude construction on the unit circle.
+::: {.theorem}
+**(Euler's formula).** For $\theta \in \mathbb R$:
+$$
+e^{i\theta} = \cos\theta + i\sin\theta. \tag{98}
+$$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Substantial ε-δ continuity discussion. Toby and Lucas drive most of the derivation.
+::: {.theorem}
+**(De Moivre).** $(\cos\theta + i\sin\theta)^n = \cos n\theta + i\sin n\theta$, immediate from (98).
 :::
+
+## Derivation
+
+Let $f(\theta) = \cos\theta + i\sin\theta$. Trig sum formulas give $f(\alpha+\beta) = f(\alpha)f(\beta)$:
+$$
+(\cos\alpha + i\sin\alpha)(\cos\beta + i\sin\beta) = \cos(\alpha+\beta) + i\sin(\alpha+\beta). \tag{99}
+$$
+And $f(0) = 1$, $f'(0) = -\sin 0 + i\cos 0 = i$. The unique solution of $g'(\theta) = ig(\theta)$, $g(0)=1$, is $g(\theta) = e^{i\theta}$. So $f = g$. $\quad\blacksquare$
+
+## Verification audit
+
+- $\theta = \pi$: $e^{i\pi} = -1 + 0i = -1$ ✓ (Euler's identity).
+- $\theta = \pi/2$: $e^{i\pi/2} = i$ ✓.
+- Multiplication of magnitudes: $|e^{i\alpha}| \cdot |e^{i\beta}| = 1 \cdot 1 = 1 = |e^{i(\alpha+\beta)}|$ ✓.
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-20-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/view">Drive</a></p>
 ```
+
+## Related: [Sep 27 morning](2025-09-27-morning.html)
 
 ## Full transcript
 

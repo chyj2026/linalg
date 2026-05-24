@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#related-sep-20-morning" id="toc-related-sep-20-morning" class="nav-link" data-scroll-target="#related-sep-20-morning">Related: Sep 20 morning</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -190,76 +221,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Uses Euler’s formula to write cos and sin as sums of complex exponentials, then solves cos θ = 2, sin θ = 7, and cos θ = 1+i by reducing each to a quadratic in e^(iθ) and inverting via natural log.</p>
+<p>Sets <span class="math inline">\(z = e^{i\theta}\)</span>, rewrites <span class="math inline">\(\cos\theta = (z + z^{-1})/2\)</span>, reducing <span class="math inline">\(\cos\theta = a\)</span> to a quadratic in <span class="math inline">\(z\)</span>. Solves <span class="math inline">\(z^2 - 2az + 1 = 0\)</span>, giving <span class="math inline">\(\theta = \pm\arccos a + 2\pi k\)</span>. Generalizes to multiple-angle equations.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Cosine via exponentials).</strong> <span class="math display">\[
+\cos\theta = \tfrac{1}{2}\!\left(e^{i\theta} + e^{-i\theta}\right), \quad \sin\theta = \tfrac{1}{2i}\!\left(e^{i\theta} - e^{-i\theta}\right). \tag{100}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Roots of <span class="math inline">\(\cos\theta=a\)</span>).</strong> Setting <span class="math inline">\(z = e^{i\theta}\)</span>, <span class="math inline">\(\cos\theta = a\)</span> becomes <span class="math inline">\(z^2 - 2az + 1 = 0\)</span>, with <span class="math inline">\(z = a \pm i\sqrt{1-a^2}\)</span> for <span class="math inline">\(|a| \le 1\)</span>. <span class="math inline">\(\tag{101}\)</span></p>
+</div>
+</section>
+<section id="derivation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
+<p>From Euler’s formula: <span class="math inline">\(\cos\theta = a \Leftrightarrow (z + z^{-1})/2 = a \Leftrightarrow z^2 - 2az + 1 = 0\)</span>. Discriminant <span class="math inline">\(4a^2 - 4 = -4(1-a^2)\)</span>. For <span class="math inline">\(|a|&lt;1\)</span>: <span class="math inline">\(z = a \pm i\sqrt{1-a^2}\)</span>, which sits on <span class="math inline">\(|z|=1\)</span> (<span class="math inline">\(a^2 + (1-a^2) = 1\)</span>). So <span class="math inline">\(\theta = \pm\arccos a + 2\pi k\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
 <ul>
-<li>cos θ = (e<sup>(iθ)+e</sup>(-iθ))/2</li>
-<li>sin θ = (e<sup>(iθ)-e</sup>(-iθ))/(2i)</li>
-<li>General solution: θ = -i log(a ± √(a²-1))</li>
+<li><span class="math inline">\(a = 1/2\)</span>: <span class="math inline">\(z = 1/2 \pm i\sqrt{3}/2 = e^{\pm i\pi/3}\)</span>, so <span class="math inline">\(\theta = \pm\pi/3 + 2\pi k\)</span> ✓.</li>
+<li><span class="math inline">\(a = 0\)</span>: <span class="math inline">\(z = \pm i = e^{\pm i\pi/2}\)</span>, <span class="math inline">\(\theta = \pm\pi/2 + 2\pi k\)</span> ✓.</li>
+<li><span class="math inline">\(|a| &gt; 1\)</span>: discriminant positive, <span class="math inline">\(z\)</span> real positive distinct, <span class="math inline">\(z \ne 1/z\)</span> unless <span class="math inline">\(z = \pm 1\)</span>; no solution with <span class="math inline">\(|z|=1\)</span> — matches <span class="math inline">\(\cos\theta \in [-1,1]\)</span> ✓.</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Derive general formulas for sin θ = a and cos θ = a for arbitrary (including complex) a; finish simplifying cos θ = 1+i.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Long disciplinary discussion in Mandarin with parents about students (Eddie, Catherine, Holmes, Elaine) being too quiet when asked questions.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-27-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view">Drive</a></p>
+</section>
+<section id="related-sep-20-morning" class="level2">
+<h2 class="anchored" data-anchor-id="related-sep-20-morning">Related: <a href="2025-09-20-morning.html">Sep 20 morning</a></h2>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -268,7 +268,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>To judge whether and you are on the same page with the rest of the class. Hey, good to see you all of you. As you do come in, and be sure to ask me for the recording. Thank you. Now, for all those people who have not submit submitted the homework, and especially those you're involved in two classes here, the Tuesday and the Saturday, you tend to neglect some homework.For example, I have not Holmes. Your homework is very well done. It's beautiful in that, and and but, however, Emma, are you submitting homework for for Saturday? I'm almost done with that. Okay, well, next time, do not slack. Okay, if you need the extension, ask me for it. Elaine, where is your homework? I I think I didn't submit it yet.You have not? No. The what's the reason? Uh, I finished. I just didn't submit it yet. Well, do that within ten minutes after we finish class. And you know, if you don't submit homework, it's your loss because I lose the chance of responding to it. I wouldn't be able to address any question, issues, or insights, or maybe uh second thoughts or any confusion that might be revealed in whole.So be sure to submit it. In the future, and my policy, this is universal across the board here. If somebody doesn't submit homework, and while some others do, and the people who do not submit homework on time without asking for extension are responsible for paying the class fee. Meaning, the people who do won't. Okay, and I don't give exceptions to this. This is the policy from the very beginning.I've already said that before, and because you guys are very young kids, and usually you do do a decent job submitting homework, so I am willing to let it go today, as long as you submit it before our evening class. But if you don't do that, I would start implementing this policy now. There's always some person, and for example, Eddie's mom, responsible for summarizing the class fee, and she'll be able to take that into take that into account. Is it clear?Yeah. Okay, Eda, could I have your video, please? Catherine, your homework is well done as always. So, well, last time time we were actually connecting exponential, ah, sorry, complex exponentials with actually rotations, and in fact we do realize for two D complex number, and the most convenient thing is that when you multiply them, you're adding the angles. Now that leads tothe connection between the trig function and the exponential function. To what extent you could use them mutually with each other? So I'm going to ask you a question. What if I want you to solve for the cosine theta equals to, let's say, one half, and how many solutions are there? Where are they? Apparently, theta here is the angle. By definition, cosine means the horizontal coordinate. By the way, Eddie, you told me that you're not.Terribly clear with actually trig functions. Now it's your chance. Be sure to create a graph here and be get very familiar with what these cosine, sine, tangent, secant, that what they mean, how they behave. Quickly, this is only a warm up. Could somebody let me know? Toby, go ahead. Um, three hundred and sixty. Three hundred and sixty. Ah, different answers. Ah, okay, then.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>He's actually saying the two answers. That's sixty degrees and three hundred degrees. And beautiful. And but if I am really, really stringent on getting it right, now I have to say there are infinitely many solutions. You could actually add any multiples of Lucas. So, like Toby said, three hundred degrees and sixty degrees, but it's also mod three hundred and sixty. So let's say we have sixty degrees solution, right? So for twenty degrees rotate.All the way around, another solution. So, yeah, yeah, exactly, yeah. I like the way he's saying that. And first of all, Toby is telling us on the graph here, the cosine theta gives you the horizontal coordinate. This is a unit circle, so we take one half on the horizontal coordinate. We're going to actually draw a vertical line hitting the circle at two locations, and they are. If you want to make your answer more compact, theta would equal to positive negative sixty degrees, and then plus arbitrary integer.Multiples of a three hundred and sixty. So, between Toby and Lucas, you guys gave me the perfect answer, which is done on the graph because we know the meaning of the cosine data. But what if I want you to solve the cosine data equal to two? Then could somebody tell me what is my theta? Toby, Ah, your theta would be complex or imaginary. Ah, beautiful. Why?Why do you immediately know that? It's written us. Like, because if you do like, because if I theta is two is log two, then you could immediately just like set theta. Ah, very good, very good. And, Eddie, your hand is all also up. Go ahead and share your idea.艾迪，go ahead。 You're muted. Sorry, um, is it because um, it's like not on the unit circle? Oh, surely it's not on the unit circle because it is.这是在单位圆上，那 surely a cosine theta no matter what would be having a magnitude lesser than equal one。 So basically, Eddie is saying the theta cannot be real. He's right. But what makes you think it must be complex? Of the actually, did anybody hear what Toby said? Toby gave the reason.Lucas， I didn't I didn't exactly hear what he said, but I I I only heard that he said it must be uh complex or imaginary since it doesn't exist on the uh in spirit. Indeed, uh, you're combining the insights from both Eddie and Toby. Absolutely right. Toby gave such an insightful remark. Uh, I'm rather pleased and rather impressed that you made the connection.Immediately yourself, he's actually saying if we do realize the cosine theta is the ei theta, so you want to take the inverse to reveal the angle. Fundamentally, what we want to do is to solve, right? Well, in fact, it's not just ei theta. ei theta would give you the cosine theta plus i sine theta. At least the theta is involved in that. Toby is saying to reveal the angle, we just need to take the natural log on both sides. He's saying i theta.</span>

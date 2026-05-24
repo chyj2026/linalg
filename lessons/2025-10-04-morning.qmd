@@ -1,49 +1,42 @@
 ---
-title: "Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²"
+title: "Hyperbola Geometry: Foci, Asymptotes, and c² = a² + b²"
 date: 2025-10-04
 session: morning
-topics: [conic-sections, hyperbola, ellipse]
+topics: [conic-sections, hyperbola, ellipse, asymptotes]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Derives the focal-point relation c² = a² + b² for hyperbolas by multiple methods, including an asymptotic-limit argument that constructs a small similar triangle at infinity.
+Derives focal relation $c^2 = a^2 + b^2$ for hyperbola by multiple methods.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Hyperbola focal property: |d₁-d₂| = 2a
-- Hyperbola relation: c² = a²+b²
-- Asymptotes y = ±(b/a)x
-- Latus rectum coordinate b²/a
-
-## Homework given
-
-::: {.callout-important}
-Set up the parabola as the borderline between hyperbola and ellipse: locus of points equidistant from a focus and a directrix line.
+::: {.theorem}
+**(Hyperbola).** $x^2/a^2 - y^2/b^2 = 1$, foci $(\pm c, 0)$:
+$||PF_1| - |PF_2|| = 2a$, $c^2 = a^2 + b^2$. $\tag{89}$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Toby suggests an elegant b → ib substitution turning the hyperbola equation into the ellipse equation — anticipates the next session.
+::: {.theorem}
+**(Asymptotes).** $y = \pm (b/a)x$. **(Latus rectum).** $y = b^2/a$.
 :::
+
+## Derivation
+
+$x^2/a^2 - y^2/b^2 = 1$; $|x|\to\infty$: $y \approx \pm(b/a)x$. Focal property: $|F_1V - F_2V| = 2a$ giving $c^2 = a^2+b^2$ via asymptote triangle. $\quad\blacksquare$
+
+## Verification audit
+
+- **$a=b=1$.** $c=\sqrt 2$, asymptotes $y=\pm x$. ✓
+- **Toby's $b\to ib$ converts hyperbola to ellipse.** Anticipates [Feb 21 afternoon](2026-02-21-afternoon.html).
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view">Drive</a></p>
 ```
+
+## Related: [Oct 4 afternoon](2025-10-04-afternoon.html), [Oct 18 morning](2025-10-18-morning.html)
 
 ## Full transcript
 

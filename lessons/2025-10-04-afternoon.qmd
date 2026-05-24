@@ -1,47 +1,38 @@
 ---
-title: "Eccentricity Definition of Conics; Parabola as the Borderline Case"
+title: "Eccentricity Definition of Conics; Parabola as Borderline Case"
 date: 2025-10-04
 session: afternoon
-topics: [conic-sections, ellipse, hyperbola, parabola]
+topics: [conic-sections, eccentricity, ellipse, hyperbola, parabola, directrix]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Establishes the third equivalent definition of conics via ε = (distance to focus)/(distance to directrix), proving ε<1 ⇒ ellipse, ε>1 ⇒ hyperbola, ε=1 ⇒ parabola.
+Third equivalent definition: $\varepsilon = $ (dist to focus)/(dist to directrix). $\varepsilon<1$ ellipse, $\varepsilon=1$ parabola, $\varepsilon>1$ hyperbola.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Ellipse focus-directrix ratio: PF/PL = c/a = ε < 1
-- Standard parabola from focus-directrix: x² = 4cy
-- All parabolas are similar
-
-## Homework given
-
-::: {.callout-important}
-Prove the focus-directrix ratio for hyperbolas; prove all parabolas are similar; show that not all cubic curves are similar.
+::: {.theorem}
+**(Eccentricity).** Ellipse: $PF/PL = c/a = \varepsilon < 1$. $\tag{90}$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
-
-Repeated 'zero squared' OCR artifact. Heavy algebraic simplification involving |a - cx₀/a|.
+::: {.theorem}
+**(Parabola focus-directrix).** $x^2 = 4cy$ with focus $(0,c)$, directrix $y=-c$. $\tag{91}$
 :::
+
+::: {.theorem}
+**(All parabolas similar).** Any two are similar via scaling.
+:::
+
+## Verification
+
+- $x^2 = 4y$: focus $(0,1)$, dir $y=-1$. $(2,1)$: $PF = 2, PL = 2$. ✓
+- All parabolas similar: $y = ax^2$ → $x \to x/\sqrt a$ gives $y = x^2$.
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view" target="_blank">Open in Drive ↗</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view">Drive</a></p>
 ```
 
 ## Full transcript

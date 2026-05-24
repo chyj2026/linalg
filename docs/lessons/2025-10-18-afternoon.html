@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-18">
 
-<title>Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes – Linear Algebra Notes</title>
+<title>Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,8 +184,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -166,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</h1>
+<h1 class="title">Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes</h1>
 </div>
 
 
@@ -189,59 +220,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Factors the general conic’s quadratic part as a(x - λ₁y + A)(x - λ₂y + B) and reduces the shift terms to a 2×2 linear system for A, B.</p>
+<p>For hyperbolic conic (<span class="math inline">\(\Delta &gt; 0\)</span>), factors <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> as <span class="math inline">\(a(y - k_1 x)(y - k_2 x)\)</span> where <span class="math inline">\(k_1, k_2\)</span> are slopes of asymptotes. Reduces shift terms <span class="math inline">\(dx + ey\)</span> to <span class="math inline">\(2\times 2\)</span> system.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Factoring quadratic form).</strong> For <span class="math inline">\(\Delta = b^2 - ac &gt; 0\)</span>, slopes <span class="math inline">\(k_{1,2}\)</span> are roots of <span class="math inline">\(ck^2 + 2bk + a = 0\)</span>: <span class="math display">\[
+k_{1,2} = \frac{-b \pm \sqrt{b^2 - ac}}{c}. \tag{88}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Asymptote shift system).</strong> For full conic, factored as $a(x - _1 y + A)(x - _2 y + B) = $ const, the shifts <span class="math inline">\(A, B\)</span> satisfy <span class="math inline">\(A + B = d/a\)</span>, <span class="math inline">\(\lambda_2 A + \lambda_1 B = -e/a\)</span>.</p>
+</div>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>ax² + bxy + cy² = a(x - λ₁y)(x - λ₂y) with λᵢ from the quadratic formula</li>
-<li>A + B = d, -(Bλ₁ + Aλ₂) = e/f reduce to 2×2 linear system</li>
+<li><strong><span class="math inline">\(x^2 - y^2 = 1\)</span>.</strong> <span class="math inline">\(a=1,b=0,c=-1\)</span>: <span class="math inline">\(-k^2 + 1 = 0\)</span>, <span class="math inline">\(k = \pm 1\)</span>. Asymptotes <span class="math inline">\(y = \pm x\)</span>. ✓</li>
+<li><strong>Shifted hyperbola</strong> <span class="math inline">\((x-2)^2 - (y-3)^2 = 1\)</span>: asymptotes <span class="math inline">\(y = x+1, y = -x+5\)</span>. ✓</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Short transcript (~10 KB), ends mid-discussion when the 2×2 linear system for A, B has no solution.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Drive</a>
 </p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-10-18-morning.html">2025-10-18 morning</a> (discriminant classification).</li>
+<li><strong>Forward:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> + <a href="2026-02-21-afternoon.html">afternoon</a> (eigenvalue diagonalization).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -250,7 +272,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Start sharing to get rid of that mark. So this is where we were. I gave you the ax squared and then plus the by plus bx y, sorry, plus cz squared and then plus the d x plus the f y plus the g equal to zero. We want to do a quick job of telling what is going to be the type of a conic by using taking advantage of the fact that the asymptotes are very nice.If we have asymptotes, necessarily it's hyperbolas. But asymptotes could be identified by trying to factor it down. But factoring only depends on these three numbers here. So having recorded what we did to factor down a one single variable quadratic equation, could somebody? I'm pretty sure you have been doing some reviewing now, at least in your mind. So how do we get started factoring this down, involving two variables?C supposed to be Y。 Oh yes, absolutely. Thank you. That was an intentional bullshit. You know, occasionally I think I'm senile. I don't know what that why I wrote Z instead of Y.Well, first, and maybe we should think about how do we factor the a x squared plus the b x plus c now.Remember, to factor is to solve, is to find what are the roots. But we have already reviewed the quadratic formula. We take factor a out first. 嗯哼，good idea.And then we complete the square. Indeed. Um, but once we do know the quadratic formula, we don't have to rederive it. It's just equal to a negative b plus or negative of the b squared minus fourac and over the twoa. Then, knowing that, can we directly write it in factored form?嗯。Elen，What's your idea?</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>We're trying to simplify it further, right? We're trying to factor it. Usually, that's not called simplifying. Simplifying means combining the terms.Oh, I bet you guys know it. If I give you concrete numbers, let's suppose if I have two roots now, one is seven, the other is four. Can you tell me what is the factored form? Keep the leading coefficient of a. What seven?And what's four? Those are the two roots. Oh. So, can we like write the equation as um a times x minus seven times x minus four equals zero? Brilliant! That's exactly right. You just put in the two roots here. Those are the two factors. I know these two roots are a lot more complicated. You're you you just don't want to put at the end, however.However, that's how you put it in. You have the factored form. What's more important is that you know you can do it. You can factor it out. Maybe if you don't really like, I know it's very complicated. But if you want to write it, you have to do this now. Plus b minus the b minus the four ac over the two a, and that's one factor. The other factor is simply going to be this. Do you guys agree with me? And please double check the sign very carefully.This is a factor form, correct? But if you are disinclined to really carry this great ball here, well, then maybe you can simply just write down that one and call that x one and x two. And no, these are really two real numbers as long as the b squared minus fourac would be strictly greater than zero. They're not going to be real numbers. Also, they they do not.Equal to each other. These are the two distinct roots. We're going to discuss the case, the second type now, where it's strictly zero, and then the two have actually the same linear combination between x and y now. So that's something special, okay? And then we're going to treat the case where the third one that's strictly less than zero, and that just means you can't factor it. And then what do we do now if you can't factor it? Okay, now let's come back. How do we map it back?Onto the two-variable case, so our goal is to factor these three terms. Can we get some inspiration from the bottom one? Well, if I have the x one x two, I don't need to carry that whole bundle. I can just write whatever this, if I erase the y now, would equal to the a of the x minus x one and the x minus x two. For the time being, the conceptual point that they do exist is all we care about. So let's not carry this bundle.So a very complicated number. So definitely, without the y, that's how you factor it out. What do we do it to? What do we do though in the two-variable case? Factor a l again. Okay, good move. And inside, what do we have?</span>

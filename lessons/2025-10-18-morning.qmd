@@ -1,48 +1,67 @@
 ---
-title: "Quadratic Form Classification of Conics via the Discriminant"
+title: "Quadratic Form Classification of Conics via the Discriminant $b^2 - ac$"
 date: 2025-10-18
 session: morning
-topics: [conic-sections, quadratic-form, polynomial]
+topics: [conic-sections, quadratic-form, discriminant, polynomial]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Reviews completing the square and the quadratic formula, then classifies ax² + bxy + cy² + dx + ey + g = 0 by b² - 4ac to distinguish ellipse, parabola, hyperbola.
+Reviews completing the square and the quadratic formula, then classifies the general conic $ax^2 + 2bxy + cy^2 + dx + ey + g = 0$ by the discriminant $\Delta = b^2 - ac$: $\Delta < 0$ ellipse, $\Delta = 0$ parabola, $\Delta > 0$ hyperbola.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Quadratic formula via completing the square
-- Vertex of y = ax²+bx+c at x = -b/(2a)
-- Discriminant test: b²-4ac < 0 ellipse, = 0 parabola, > 0 hyperbola
-
-## Homework given
-
-::: {.callout-important}
-Build an electronically searchable index of notes; prepare for monthly review-discussion class on AMC-style problems.
+::: {.theorem}
+**(Quadratic formula via completing the square).** For $ax^2 + bx + c = 0$:
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \tag{85}
+$$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+::: {.theorem}
+**(Vertex of parabola).** $y = ax^2 + bx + c$ has vertex at $x = -b/(2a)$. $\tag{86}$
+:::
 
-Very long Mandarin discussion (~half the transcript) addressing parents about study habits, memory retention, and proposing monthly discussion sessions / Discord-style peer collaboration.
+::: {.theorem}
+**(Discriminant classification of conics).** $ax^2 + 2bxy + cy^2 + \cdots = 0$ describes:
+$$
+\Delta = b^2 - ac \begin{cases} < 0 & \text{ellipse}\\ = 0 & \text{parabola}\\ > 0 & \text{hyperbola}\end{cases}. \tag{87}
+$$
+:::
+
+## Derivation of Theorem 85
+
+$ax^2 + bx + c = a(x^2 + bx/a) + c = a(x + b/(2a))^2 - b^2/(4a) + c = 0$. Solve: $(x + b/(2a))^2 = (b^2 - 4ac)/(4a^2)$, so $x = -b/(2a) \pm \sqrt{b^2 - 4ac}/(2a)$. $\quad\blacksquare$
+
+## Derivation of Theorem 87
+
+The discriminant determines whether the quadratic form $ax^2 + 2bxy + cy^2$ factors over $\mathbb{R}$: if $\Delta > 0$ it factors into two real linear factors (asymptote pair → hyperbola); if $\Delta = 0$ it's a perfect square (degenerate parabola direction); if $\Delta < 0$ it's irreducible (ellipse, no real asymptotes). $\quad\blacksquare$
+
+## Verification audit
+
+::: {.audit}
+
+- **Unit circle.** $x^2 + y^2 - 1 = 0$: $a=1, b=0, c=1$, $\Delta = -1 < 0$ → ellipse (degenerate to circle). ✓
+- **Unit hyperbola.** $x^2 - y^2 = 1$: $a=1, b=0, c=-1$, $\Delta = 1 > 0$ → hyperbola. ✓
+- **Parabola.** $y - x^2 = 0$: $a=1, b=0, c=0$, $\Delta = 0$ → parabola. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Related sessions
+
+- **Sequel:** [2025-10-18 afternoon](2025-10-18-afternoon.html) (asymptote factoring).
+- **Forward application:** [2026-02-21 morning](2026-02-21-morning.html) (diagonalization via eigenvalues).
 
 ## Full transcript
 

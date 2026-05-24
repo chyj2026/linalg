@@ -1,42 +1,51 @@
 ---
-title: "Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes"
+title: "Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes"
 date: 2025-10-18
 session: afternoon
-topics: [conic-sections, quadratic-form]
+topics: [conic-sections, quadratic-form, asymptotes, polynomial, vieta-formulas]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Factors the general conic's quadratic part as a(x - λ₁y + A)(x - λ₂y + B) and reduces the shift terms to a 2×2 linear system for A, B.
+For hyperbolic conic ($\Delta > 0$), factors $ax^2 + 2bxy + cy^2$ as $a(y - k_1 x)(y - k_2 x)$ where $k_1, k_2$ are slopes of asymptotes. Reduces shift terms $dx + ey$ to $2\times 2$ system.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- ax² + bxy + cy² = a(x - λ₁y)(x - λ₂y) with λᵢ from the quadratic formula
-- A + B = d, -(Bλ₁ + Aλ₂) = e/f reduce to 2×2 linear system
+::: {.theorem}
+**(Factoring quadratic form).** For $\Delta = b^2 - ac > 0$, slopes $k_{1,2}$ are roots of $ck^2 + 2bk + a = 0$:
+$$
+k_{1,2} = \frac{-b \pm \sqrt{b^2 - ac}}{c}. \tag{88}
+$$
+:::
 
+::: {.theorem}
+**(Asymptote shift system).** For full conic, factored as $a(x - \lambda_1 y + A)(x - \lambda_2 y + B) = $ const, the shifts $A, B$ satisfy $A + B = d/a$, $\lambda_2 A + \lambda_1 B = -e/a$.
+:::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Verification audit
 
-Short transcript (~10 KB), ends mid-discussion when the 2×2 linear system for A, B has no solution.
+::: {.audit}
+
+- **$x^2 - y^2 = 1$.** $a=1,b=0,c=-1$: $-k^2 + 1 = 0$, $k = \pm 1$. Asymptotes $y = \pm x$. ✓
+- **Shifted hyperbola** $(x-2)^2 - (y-3)^2 = 1$: asymptotes $y = x+1, y = -x+5$. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Related sessions
+
+- **Precursor:** [2025-10-18 morning](2025-10-18-morning.html) (discriminant classification).
+- **Forward:** [2026-02-21 morning](2026-02-21-morning.html) + [afternoon](2026-02-21-afternoon.html) (eigenvalue diagonalization).
 
 ## Full transcript
 
