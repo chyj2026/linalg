@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>29</strong><span>sessions</span></div>
-    <div><strong>4</strong><span>lessons distilled</span></div>
+    <div><strong>6</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -42,14 +42,14 @@ title: "Linear Algebra Notes"
   <p>Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.</p>
 </article>
 <article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2025-10-11 — morning</span><span>Published</span></div>
-  <h3><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a></h3>
-  <p>Motivates Cramer's rule from fitting a unique parabola through three non-collinear points; factors the Vandermonde-like determinant and constructs the matrix inverse from cofactors.</p>
+  <div class="lesson-card-meta"><span>2026-02-21 — morning</span><span>Published</span></div>
+  <h3><a href="lessons/2026-02-21-morning.html">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</a></h3>
+  <p>Trace and determinant invariance under rotation proved by direct algebra (declining det(AB)=det(A)det(B)); eigenvalues recovered via Vieta on (λ₁+λ₂, λ₁λ₂) without finding θ; columns of R(θ) reinterpreted as eigenvectors yielding the matrix eigenvalue equation M·E = E·Λ.</p>
 </article>
 <article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2025-10-11 — afternoon</span><span>Published</span></div>
-  <h3><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a></h3>
-  <p>Completes the morning's proof that M·adj(M) = det(M)·I by interpreting off-diagonal entries as determinants with repeated columns, then classifies M x = w solutions by (det M, det Mₓ).</p>
+  <div class="lesson-card-meta"><span>2026-01-24 — morning</span><span>Published</span></div>
+  <h3><a href="lessons/2026-01-24-morning.html">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</a></h3>
+  <p>Completes the double-root linear recursion: telescoping gives general solution f_n = (A+Bn)λⁿ; second derivation via generating functions proves 1/(1-u)² = Σ(n+1)uⁿ using the negative-power binomial.</p>
 </article>
 </div>
 ```
@@ -78,9 +78,9 @@ title: "Linear Algebra Notes"
 <tr><td>2025-12-13</td><td>unspecified</td><td><a href="lessons/2025-12-13.html">Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-01-03</td><td>morning</td><td><a href="lessons/2026-01-03-morning.html">Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-01-10</td><td>morning</td><td><a href="lessons/2026-01-10-morning.html">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2026-01-24</td><td>morning</td><td><a href="lessons/2026-01-24-morning.html">Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2026-01-24</td><td>morning</td><td><a href="lessons/2026-01-24-morning.html">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-02-21</td><td>afternoon</td><td><a href="lessons/2026-02-21-afternoon.html">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2026-02-21 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-02-21-morning.html">Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2026-02-21 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-02-21-morning.html">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-02-28 <sup title="unknown date — inferred">⚠</sup></td><td>individual</td><td><a href="lessons/2026-02-28-eigenvalues-followup.html">Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-03-07</td><td>after — Cramer review</td><td><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-07</td><td>LVS</td><td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td></tr>

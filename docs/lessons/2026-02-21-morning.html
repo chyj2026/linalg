@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-02-21">
 
-<title>Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial – Linear Algebra Notes</title>
+<title>Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,8 +187,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-37a-trace-invariance" id="toc-derivation-of-theorem-37a-trace-invariance" class="nav-link" data-scroll-target="#derivation-of-theorem-37a-trace-invariance">Derivation of Theorem 37a (trace invariance)</a></li>
+  <li><a href="#derivation-of-theorem-37b-determinant-invariance-direct" id="toc-derivation-of-theorem-37b-determinant-invariance-direct" class="nav-link" data-scroll-target="#derivation-of-theorem-37b-determinant-invariance-direct">Derivation of Theorem 37b (determinant invariance — direct)</a></li>
+  <li><a href="#derivation-b-of-theorem-37b-independent-via-detab-detadetb" id="toc-derivation-b-of-theorem-37b-independent-via-detab-detadetb" class="nav-link" data-scroll-target="#derivation-b-of-theorem-37b-independent-via-detab-detadetb">Derivation B of Theorem 37b <em>(independent — via <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span>)</em></a></li>
+  <li><a href="#derivation-of-theorem-38-eigenvalues-from-trace-and-determinant" id="toc-derivation-of-theorem-38-eigenvalues-from-trace-and-determinant" class="nav-link" data-scroll-target="#derivation-of-theorem-38-eigenvalues-from-trace-and-determinant">Derivation of Theorem 38 (eigenvalues from trace and determinant)</a></li>
+  <li><a href="#derivation-of-theorem-orthogonal-matrix-self-inverse" id="toc-derivation-of-theorem-orthogonal-matrix-self-inverse" class="nav-link" data-scroll-target="#derivation-of-theorem-orthogonal-matrix-self-inverse">Derivation of Theorem (orthogonal matrix self-inverse)</a></li>
+  <li><a href="#derivation-of-theorem-39-eigenvalue-equation-matrix-form" id="toc-derivation-of-theorem-39-eigenvalue-equation-matrix-form" class="nav-link" data-scroll-target="#derivation-of-theorem-39-eigenvalue-equation-matrix-form">Derivation of Theorem 39 (eigenvalue equation, matrix form)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -166,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial</h1>
+<h1 class="title">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</h1>
 </div>
 
 
@@ -189,6 +237,187 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Manifest correction.</strong> The earlier metadata for this lesson described it as the “Eigenvalue Equation <span class="math inline">\(\det(M-\lambda I)=0\)</span>” session — that’s a <em>later</em> lesson (likely <a href="2026-02-28-eigenvalues-followup.html">2026-02-28 eigenvalues follow-up</a>). This session <strong>introduces</strong> the eigenvalue problem via <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span> but explicitly <em>defers</em> the <span class="math inline">\((M-\lambda I)v = 0\)</span> formulation to the next class.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Returns to the <strong>conic-section diagonalization</strong> problem (<span class="math inline">\(M\mathbf{x}\)</span> quadratic form with metric <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\b&amp;c\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{x} = (x, y)^T\)</span>) and proves <em>without first finding the rotation angle <span class="math inline">\(\theta\)</span></em> that the eigenvalues <span class="math inline">\(\lambda_1, \lambda_2\)</span> satisfy: <span class="math display">\[
+\lambda_1 + \lambda_2 = \operatorname{tr}(M) = a + c, \qquad \lambda_1 \lambda_2 = \det(M) = ac - b^2.
+\]</span> The proof exploits <strong>trace and determinant invariance</strong> under rotation <span class="math inline">\(R(-\theta)\,M\,R(\theta)\)</span>. The columns of <span class="math inline">\(R(\theta)\)</span> — orthonormal basis vectors <span class="math inline">\(\varepsilon_1, \varepsilon_2\)</span> — are then re-interpreted as the <em>eigenvectors</em> of <span class="math inline">\(M\)</span>; the rotation matrix <span class="math inline">\(E = [\varepsilon_1 \; \varepsilon_2]\)</span> satisfies <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span> where <span class="math inline">\(\Lambda = \operatorname{diag}(\lambda_1, \lambda_2)\)</span>. This is the <strong>eigenvalue equation in matrix form</strong> — the leap from one matrix at a time to <em>families</em> of eigen-pairs simultaneously. Closes by establishing <span class="math inline">\(O^T O = I\)</span> and <span class="math inline">\(O^{-1} = O^T\)</span> for orthogonal matrices, and sets homework to expand <span class="math inline">\(M E = E \Lambda\)</span> column-by-column to recover the per-vector eigenvalue equations.</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(M = \begin{pmatrix}a&amp;b\\b&amp;c\end{pmatrix}\)</span></td>
+<td>symmetric (“metric tensor”) <span class="math inline">\(2\times 2\)</span> matrix</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R(\theta) = \begin{pmatrix}\cos\theta &amp; -\sin\theta\\\sin\theta &amp; \cos\theta\end{pmatrix}\)</span></td>
+<td>rotation matrix by angle <span class="math inline">\(\theta\)</span> (counter-clockwise on column vectors)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Lambda = \operatorname{diag}(\lambda_1, \lambda_2)\)</span></td>
+<td>diagonal matrix of eigenvalues</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\varepsilon_1, \varepsilon_2 \in \mathbb{R}^2\)</span></td>
+<td>columns of <span class="math inline">\(R(\theta)\)</span>, <span class="math inline">\(\varepsilon_1 = (\cos\theta, \sin\theta)^T\)</span>, <span class="math inline">\(\varepsilon_2 = (-\sin\theta, \cos\theta)^T\)</span> — eigenvectors of <span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(E = [\varepsilon_1\;\varepsilon_2] = R(\theta)\)</span></td>
+<td>“eigenvector matrix”</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\operatorname{tr}(M) = a + c\)</span></td>
+<td>trace of <span class="math inline">\(M\)</span> (sum of diagonal entries)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\det(M) = ac - b^2\)</span></td>
+<td>determinant of <span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(O\)</span></td>
+<td>orthogonal matrix: columns are orthonormal, <span class="math inline">\(O^T O = I\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\delta_{ij}\)</span></td>
+<td>Kronecker delta: <span class="math inline">\(1\)</span> if <span class="math inline">\(i=j\)</span>, else <span class="math inline">\(0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Symmetric <span class="math inline">\(2\times 2\)</span> matrix <span class="math inline">\(M\)</span></strong> can be diagonalized by an orthogonal rotation. <em>(Proved by direct calculation in <a href="2026-01-24-morning.html">2026-01-24 morning</a> for the conic context — but note: that lesson is actually about recursions; this lemma was developed earlier in the conic-section arc.)</em></li>
+<li><strong>Multiplicative determinant law</strong> <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span> is the <em>natural</em> fact to use, but the teacher explicitly <strong>declines to import it</strong> here and instead verifies <span class="math inline">\(\det\)</span>-invariance by direct multiplication — preserving rigor without the deeper theorem.</li>
+<li>The <strong>rotation matrix</strong> <span class="math inline">\(R(\theta)\)</span> has <span class="math inline">\(\det R = 1\)</span> (computed directly: <span class="math inline">\(\cos^2\theta + \sin^2\theta = 1\)</span>).</li>
+<li><strong>Cofactor / determinant expansion</strong> as the algorithmic computation method.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Prerequisites
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Existence of the conic-diagonalization rotation <span class="math inline">\(\tan(2\theta) = 2b/(a-c)\)</span> derived in earlier sessions.</li>
+<li>The expanded form <span class="math inline">\(R(-\theta) M R(\theta) = \begin{pmatrix}\lambda_1 \cos^2\theta + \lambda_2 \sin^2\theta &amp; (\lambda_1 - \lambda_2)\sin\theta\cos\theta\\ \dots\end{pmatrix}\)</span> that links to <span class="math inline">\(a, b, c\)</span> — known from earlier conic work.</li>
+<li>Matrix multiplication interpreted as <strong>row × column</strong> dot products.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Trace invariance: <span class="math inline">\(\operatorname{tr}(R^{-1} M R) = \operatorname{tr}(M)\)</span></li>
+<li>Determinant invariance: <span class="math inline">\(\det(R^{-1} M R) = \det(M)\)</span> (proved by direct expansion, deferring <span class="math inline">\(\det(AB)=\det(A)\det(B)\)</span>)</li>
+<li>Recovery of eigenvalues via Vieta on <span class="math inline">\((λ_1 + λ_2, λ_1 λ_2)\)</span> — no <span class="math inline">\(\theta\)</span> needed</li>
+<li>Orthogonal matrix definition <span class="math inline">\(O^T O = I\)</span>, equivalently <span class="math inline">\(O^{-1} = O^T\)</span></li>
+<li>Interpretation of <span class="math inline">\(R(\theta)\)</span> columns as <strong>eigenvectors</strong> <span class="math inline">\(\varepsilon_1, \varepsilon_2\)</span> — orthonormal basis</li>
+<li>The compact eigenvalue equation in matrix form: <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span></li>
+<li><em>Preview / homework:</em> per-column expansion yields <span class="math inline">\(M \varepsilon_i = \lambda_i \varepsilon_i\)</span> — the per-vector eigenvalue equation</li>
+</ul>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Trace and determinant invariance under rotation).</strong> For any rotation <span class="math inline">\(R(\theta) \in \operatorname{SO}(2)\)</span> and any matrix <span class="math inline">\(M \in \mathbb{R}^{2\times 2}\)</span>, <span class="math display">\[
+\operatorname{tr}\bigl(R(-\theta)\,M\,R(\theta)\bigr) \;=\; \operatorname{tr}(M), \tag{37a}
+\]</span> <span class="math display">\[
+\det\bigl(R(-\theta)\,M\,R(\theta)\bigr) \;=\; \det(M). \tag{37b}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Eigenvalues from trace and determinant).</strong> If <span class="math inline">\(M\)</span> is similar to <span class="math inline">\(\operatorname{diag}(\lambda_1, \lambda_2)\)</span> via a rotation, then <span class="math display">\[
+\lambda_1 + \lambda_2 = a + c, \qquad \lambda_1\lambda_2 = ac - b^2. \tag{38}
+\]</span> The eigenvalues are recovered by Vieta on the polynomial <span class="math inline">\(\lambda^2 - (a+c)\lambda + (ac-b^2) = 0\)</span>, <em>without</em> computing <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Orthogonal matrix self-inverse).</strong> If <span class="math inline">\(O \in \mathbb{R}^{n\times n}\)</span> has <span class="math inline">\(O^T O = I\)</span> (columns orthonormal), then also <span class="math inline">\(O\,O^T = I\)</span>, hence <span class="math inline">\(O^{-1} = O^T\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Eigenvalue equation, matrix form).</strong> For the rotation <span class="math inline">\(E = R(\theta) = [\varepsilon_1\;\varepsilon_2]\)</span> that diagonalizes <span class="math inline">\(M\)</span>, <span class="math display">\[
+M \cdot E \;=\; E \cdot \Lambda, \qquad \Lambda = \operatorname{diag}(\lambda_1, \lambda_2). \tag{39}
+\]</span> Reading (39) column by column gives <span class="math inline">\(M \varepsilon_j = \lambda_j \varepsilon_j\)</span> — the per-vector eigen-equation. <em>(Promoted to formal status in <a href="2026-02-28-eigenvalues-followup.html">2026-02-28 follow-up</a>.)</em></p>
+</div>
+</section>
+<section id="derivation-of-theorem-37a-trace-invariance" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-37a-trace-invariance">Derivation of Theorem 37a (trace invariance)</h2>
+<p>By direct expansion, $R(-) M R() = $ <span class="math display">\[
+\begin{pmatrix}\cos\theta &amp; \sin\theta\\-\sin\theta &amp; \cos\theta\end{pmatrix}
+\begin{pmatrix}a &amp; b\\b &amp; c\end{pmatrix}
+\begin{pmatrix}\cos\theta &amp; -\sin\theta\\\sin\theta &amp; \cos\theta\end{pmatrix}.
+\]</span> Multiplying out the (1,1) and (2,2) entries: <span class="math display">\[
+[\cdot]_{11} = a\cos^2\theta + 2b\sin\theta\cos\theta + c\sin^2\theta, \qquad
+[\cdot]_{22} = a\sin^2\theta - 2b\sin\theta\cos\theta + c\cos^2\theta.
+\]</span> Sum: <span class="math inline">\([\cdot]_{11} + [\cdot]_{22} = a(\cos^2\theta + \sin^2\theta) + c(\sin^2\theta + \cos^2\theta) + 0 = a + c = \operatorname{tr}(M)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-37b-determinant-invariance-direct" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-37b-determinant-invariance-direct">Derivation of Theorem 37b (determinant invariance — direct)</h2>
+<p>Following the teacher’s path (without using <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span>, which is imported but <em>unproved</em> in-thread). Let <span class="math inline">\(S := R(-\theta) M R(\theta)\)</span>. By the same expansion as above plus the off-diagonal entries, <span class="math display">\[
+S = \begin{pmatrix}\lambda_1\cos^2\theta + \lambda_2\sin^2\theta &amp; (\lambda_2 - \lambda_1)\sin\theta\cos\theta\\(\lambda_2 - \lambda_1)\sin\theta\cos\theta &amp; \lambda_1\sin^2\theta + \lambda_2\cos^2\theta\end{pmatrix}
+\]</span> when <span class="math inline">\(M\)</span> already has the diagonal form <span class="math inline">\(\operatorname{diag}(\lambda_1, \lambda_2)\)</span> pre-substituted (the lesson works this case to confirm the angle-free conclusion).</p>
+<p>Compute <span class="math inline">\(\det S\)</span>: <span class="math display">\[
+\det S = (\lambda_1\cos^2\theta + \lambda_2\sin^2\theta)(\lambda_1\sin^2\theta + \lambda_2\cos^2\theta) - [(\lambda_2 - \lambda_1)\sin\theta\cos\theta]^2.
+\]</span> Expand: <span class="math display">\[
+= \lambda_1^2\sin^2\theta\cos^2\theta + \lambda_1\lambda_2(\sin^4\theta + \cos^4\theta) + \lambda_2^2 \sin^2\theta\cos^2\theta - (\lambda_2 - \lambda_1)^2\sin^2\theta\cos^2\theta.
+\]</span> Expand <span class="math inline">\((\lambda_2 - \lambda_1)^2 = \lambda_1^2 - 2\lambda_1\lambda_2 + \lambda_2^2\)</span>, so the subtracted term is <span class="math inline">\((\lambda_1^2 + \lambda_2^2 - 2\lambda_1\lambda_2)\sin^2\theta\cos^2\theta\)</span>. Combining: <span class="math display">\[
+\det S = \lambda_1\lambda_2(\sin^4\theta + \cos^4\theta) + 2\lambda_1\lambda_2\sin^2\theta\cos^2\theta = \lambda_1\lambda_2(\sin^2\theta + \cos^2\theta)^2 = \lambda_1\lambda_2.
+\]</span> And <span class="math inline">\(\det(\operatorname{diag}(\lambda_1, \lambda_2)) = \lambda_1\lambda_2\)</span>. So <span class="math inline">\(\det S = \det M\)</span>, independent of <span class="math inline">\(\theta\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-b-of-theorem-37b-independent-via-detab-detadetb" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-37b-independent-via-detab-detadetb">Derivation B of Theorem 37b <em>(independent — via <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span>)</em></h2>
+<p>If we <em>allow</em> the multiplicative determinant law (deferred to a later session), then <span class="math display">\[
+\det(R^{-1} M R) = \det(R^{-1}) \cdot \det(M) \cdot \det(R) = \det(R)^{-1}\det(M)\det(R) = \det(M).
+\]</span> Since <span class="math inline">\(\det R = \cos^2\theta + \sin^2\theta = 1\)</span>, this is also <span class="math inline">\(\det M\)</span> directly. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><em>Note on independence.</em> Derivation A uses only the <span class="math inline">\(\sin^2 + \cos^2 = 1\)</span> identity. Derivation B uses the (deferred-proof) multiplicative determinant law. A is “honest”; B is shorter but imports more.</p>
+</section>
+<section id="derivation-of-theorem-38-eigenvalues-from-trace-and-determinant" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-38-eigenvalues-from-trace-and-determinant">Derivation of Theorem 38 (eigenvalues from trace and determinant)</h2>
+<p>From Theorem 37: <span class="math inline">\(\operatorname{tr}(R^{-1}MR) = \lambda_1 + \lambda_2\)</span> (since the conjugated matrix is <span class="math inline">\(\operatorname{diag}(\lambda_1,\lambda_2)\)</span>) and <span class="math inline">\(= \operatorname{tr}(M) = a+c\)</span>. Similarly, <span class="math inline">\(\det(R^{-1}MR) = \lambda_1\lambda_2 = \det(M) = ac - b^2\)</span>. These two Vieta relations make <span class="math inline">\(\lambda_1, \lambda_2\)</span> the roots of <span class="math display">\[
+\lambda^2 - (a+c)\lambda + (ac - b^2) = 0. \tag{40}
+\]</span> The quadratic formula gives <span class="math display">\[
+\lambda_{1,2} = \frac{(a+c) \pm \sqrt{(a-c)^2 + 4b^2}}{2}. \tag{41}
+\]</span> Note the discriminant <span class="math inline">\((a-c)^2 + 4b^2 \ge 0\)</span> always — symmetric <span class="math inline">\(2\times 2\)</span> matrices always have real eigenvalues. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-orthogonal-matrix-self-inverse" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-orthogonal-matrix-self-inverse">Derivation of Theorem (orthogonal matrix self-inverse)</h2>
+<p>Direct computation for <span class="math inline">\(n=2\)</span> with <span class="math inline">\(O = R(\theta)\)</span>: <span class="math inline">\(O^T O = \begin{pmatrix}\cos\theta&amp;\sin\theta\\-\sin\theta&amp;\cos\theta\end{pmatrix}\begin{pmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{pmatrix} = \begin{pmatrix}1&amp;0\\0&amp;1\end{pmatrix} = I\)</span>.</p>
+<p>For general <span class="math inline">\(n\)</span>: <span class="math inline">\([O^T O]_{ij} = \sum_k O_{ki} O_{kj} = \varepsilon_i \cdot \varepsilon_j = \delta_{ij}\)</span> (orthonormality). So <span class="math inline">\(O^T O = I\)</span>. The reverse identity <span class="math inline">\(O O^T = I\)</span> follows from the fact that for square matrices, a left inverse is also a right inverse — established in <a href="2026-03-07-LVS.html">2026-03-07 LVS</a> (Theorem 2). For the rotation <span class="math inline">\(R(\theta)\)</span>, one can also check <span class="math inline">\(O O^T = I\)</span> by direct expansion. <span class="math inline">\(\quad\blacksquare\)</span></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -199,50 +428,164 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Forward-reference flag.</strong> The “left-inverse-implies-right-inverse” used here is <em>itself</em> proved later in the course (Mar 7 LVS, Theorem 2). The teacher in this session works around the issue by verifying <span class="math inline">\(O O^T = I\)</span> directly for the rotation case. For <span class="math inline">\(n &gt; 2\)</span> symmetric orthogonal proofs, prefer the geometric argument: orthonormal columns ⇒ <span class="math inline">\(O\)</span> preserves all inner products ⇒ <span class="math inline">\(O\)</span> is invertible ⇒ <span class="math inline">\(O^{-1} = O^T\)</span>.</p>
 </div>
 </div>
-<section id="lead" class="level2">
-<h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Sets up (M-λI)v = 0 and the requirement det(M-λI) = 0, then proves via Vieta on the characteristic polynomial that Σλᵢ = trace M and Πλᵢ = det M.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="derivation-of-theorem-39-eigenvalue-equation-matrix-form" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-39-eigenvalue-equation-matrix-form">Derivation of Theorem 39 (eigenvalue equation, matrix form)</h2>
+<p>Start from the diagonalization <span class="math inline">\(R(-\theta) M R(\theta) = \Lambda\)</span>. Multiply both sides on the <em>left</em> by <span class="math inline">\(R(\theta)\)</span>, using <span class="math inline">\(R(\theta) R(-\theta) = I\)</span>: <span class="math display">\[
+M \cdot R(\theta) \;=\; R(\theta) \cdot \Lambda.
+\]</span> Setting <span class="math inline">\(E := R(\theta) = [\varepsilon_1\;\varepsilon_2]\)</span> recovers (39). Reading off the <span class="math inline">\(j\)</span>-th column: <span class="math display">\[
+M \cdot \varepsilon_j \;=\; \varepsilon_j \cdot \lambda_j \;=\; \lambda_j \varepsilon_j,
+\]</span> which is the <strong>per-vector eigenvalue equation</strong>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Eigen-equation: det(M-λI) = 0</li>
-<li>Sum of eigenvalues = trace (from λ^(n-1) coefficient)</li>
-<li>Product of eigenvalues = det M (constant term, λ=0)</li>
+<li><strong>Trace at <span class="math inline">\(\theta = 0\)</span>.</strong> <span class="math inline">\(R(0) = I\)</span>, so <span class="math inline">\(R^{-1} M R = M\)</span> trivially; trace unchanged. ✓</li>
+<li><strong>Trace at <span class="math inline">\(\theta = \pi/2\)</span>.</strong> <span class="math inline">\(R(\pi/2) = \begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span>. <span class="math inline">\(R^{-1} M R = \begin{pmatrix}c&amp;-b\\-b&amp;a\end{pmatrix}\)</span>. Trace = <span class="math inline">\(c + a = a + c\)</span>. ✓</li>
+<li><strong>Determinant invariance at <span class="math inline">\(M = \begin{pmatrix}3&amp;1\\1&amp;5\end{pmatrix}\)</span>, <span class="math inline">\(\theta = \pi/4\)</span>.</strong> <span class="math inline">\(\det M = 15 - 1 = 14\)</span>. Direct computation of <span class="math inline">\(R^{-1} M R\)</span>: <span class="math inline">\(R^{-1} = \begin{pmatrix}\frac{1}{\sqrt 2}&amp;\frac{1}{\sqrt 2}\\-\frac{1}{\sqrt 2}&amp;\frac{1}{\sqrt 2}\end{pmatrix}\)</span>, and the resulting <span class="math inline">\(S\)</span> has <span class="math inline">\(\det = 14\)</span>. ✓ (computed; details elided)</li>
+<li><strong>Eigenvalues from trace/det.</strong> Same <span class="math inline">\(M\)</span>: <span class="math inline">\(\lambda_{1,2} = (8 \pm \sqrt{4 + 4})/2 = (8 \pm 2\sqrt 2)/2 = 4 \pm \sqrt 2\)</span>. Trace check: <span class="math inline">\((4+\sqrt 2) + (4 - \sqrt 2) = 8 = a+c\)</span> ✓. Determinant check: <span class="math inline">\((4+\sqrt 2)(4-\sqrt 2) = 16 - 2 = 14\)</span> ✓.</li>
+<li><strong>Special case <span class="math inline">\(M\)</span> already diagonal.</strong> <span class="math inline">\(b = 0 \Rightarrow\)</span> characteristic polynomial <span class="math inline">\(\lambda^2 - (a+c)\lambda + ac = (\lambda - a)(\lambda - c)\)</span>. <span class="math inline">\(\lambda_{1,2} = a, c\)</span>. ✓</li>
+<li><strong>Symmetry-required.</strong> For non-symmetric <span class="math inline">\(M = \begin{pmatrix}0&amp;1\\-1&amp;0\end{pmatrix}\)</span> (a 90° rotation itself), eigenvalues are <span class="math inline">\(\pm i\)</span> — complex. Trace + det formula still gives the correct quadratic <span class="math inline">\(\lambda^2 + 1 = 0\)</span>, but the diagonalization is over <span class="math inline">\(\mathbb{C}\)</span>, not over <span class="math inline">\(\mathbb{R}\)</span>. <strong>Symmetry of <span class="math inline">\(M\)</span> is essential for real eigenvalues.</strong> ✓ (Spectral theorem foreshadowed.)</li>
+<li><strong>Orthogonal matrix sanity.</strong> <span class="math inline">\(\det R(\theta) = \cos^2\theta + \sin^2\theta = 1\)</span>. So <span class="math inline">\(R \in \operatorname{SO}(2)\)</span> (special orthogonal group: orthogonal + det = +1). Reflection matrices (det <span class="math inline">\(= -1\)</span>) also satisfy <span class="math inline">\(O^T O = I\)</span> but are not in <span class="math inline">\(\operatorname{SO}(n)\)</span>. The eigenvalue conclusion holds for both, since <span class="math inline">\(\det R = \pm 1\)</span> contributes <span class="math inline">\(\det(R)^{-1}\det(R) = 1\)</span> either way. ✓</li>
+<li><strong>Dependency check.</strong> Theorem 37a: <span class="math inline">\(\sin^2 + \cos^2 = 1\)</span> only. Theorem 37b Derivation A: same identity. Derivation B imports <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span>. Theorem 38: Theorem 37 + Vieta. Theorem 39: Theorem 38 + left-multiplication by <span class="math inline">\(R(\theta)\)</span>. Orthogonal-matrix theorem: dot-product computation + (forward reference) left-inverse-is-right-inverse. No circular dependency.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Small individual session with Elaine and Catherine. Filename has a typo (<code>Saturday202602021morning</code> has an extra digit); content places it 2026-02-21, not 2026-02-02.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.3/2026-02-21-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.3" target="_blank">GitHub Release v0.3</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/view" target="_blank">Google Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-21-morning/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Recap of the conic metric matrix <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\b&amp;c\end{pmatrix}\)</span> diagonalized as <span class="math inline">\(R(-\theta) M R(\theta) = \operatorname{diag}(\lambda_1, \lambda_2)\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-21-morning/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — Trace and determinant invariance under rotation: the algebraic verification that the rotation angle cancels out, leaving <span class="math inline">\(a + c = \lambda_1 + \lambda_2\)</span> and <span class="math inline">\(ac - b^2 = \lambda_1 \lambda_2\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-21-morning/frame-40m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 40m00</strong> — Orthogonal-matrix definition <span class="math inline">\(O^T O = I\)</span> via dot products of columns; introduction of the Kronecker <span class="math inline">\(\delta_{ij}\)</span> notation.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-21-morning/frame-55m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 55m00</strong> — The eigenvalue equation <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span> written in matrix form; per-column reading <span class="math inline">\(M \varepsilon_j = \lambda_j \varepsilon_j\)</span> set as homework.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Symmetric M = [a,b;b,c]&lt;br/&gt;conic metric tensor"] --&gt; B["Diagonalization R(-θ)·M·R(θ) = Λ&lt;br/&gt;&lt;i&gt;(imported from earlier conic work)&lt;/i&gt;"]
+    C["sin²θ + cos²θ = 1&lt;br/&gt;(Pythagorean)"] --&gt; D["Trace invariance:&lt;br/&gt;tr(R⁻¹MR) = a + c&lt;br/&gt;Theorem 37a"]
+    C --&gt; E["Determinant invariance (direct):&lt;br/&gt;det(R⁻¹MR) = ac - b²&lt;br/&gt;Theorem 37b (Derivation A)"]
+    F["det(AB) = det(A)·det(B)&lt;br/&gt;&lt;i&gt;(deferred)&lt;/i&gt;"] --&gt; G["Theorem 37b (Derivation B)"]
+    D --&gt; H["λ₁ + λ₂ = a + c&lt;br/&gt;λ₁·λ₂ = ac - b²&lt;br/&gt;Theorem 38 (eq. 38)"]
+    E --&gt; H
+    H --&gt; I["Vieta on λ² - (a+c)λ + (ac-b²) = 0&lt;br/&gt;⇒ λ₁,₂ formula (eq. 41)&lt;br/&gt;real eigenvalues guaranteed by symmetry"]
+    B --&gt; J["Columns ε₁, ε₂ of R(θ):&lt;br/&gt;orthonormal basis"]
+    J --&gt; K["O^T O = I&lt;br/&gt;Orthogonal matrix theorem"]
+    K --&gt; L["O⁻¹ = O^T"]
+    B --&gt; M["M·E = E·Λ&lt;br/&gt;matrix eigenvalue equation&lt;br/&gt;Theorem 39 (eq. 39)"]
+    M --&gt; N["Per-column: M·εⱼ = λⱼ·εⱼ&lt;br/&gt;(homework)"]
+    N -.-&gt; O["(M - λI)v = 0&lt;br/&gt;characteristic polynomial&lt;br/&gt;&lt;i&gt;(next session: 2026-02-28)&lt;/i&gt;"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “<span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span> — Emma is assuming this. It’s true, but it’s a deep theorem I can’t even prove yet. Let’s not use it. Instead, multiply out the determinant directly.” <br><span class="speaker">Class:</span> <em>(reluctant, tedious algebra ensues)</em> <br><span class="speaker">Teacher:</span> “Right — angles cancel via <span class="math inline">\(\sin^2 + \cos^2 = 1\)</span>. Now you’ve <strong>proven</strong> what Emma assumed, without importing anything heavy.”</p>
+<p><em>Teaching move:</em> <strong>rigor without imports</strong> — when a clean abstract proof relies on a theorem you haven’t yet established, do the algebraic grind directly. It costs labour but it’s honest. (And it gives the rigor protocol a worked example of “import-free derivations.”)</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Look at this matrix <span class="math inline">\(E = [\varepsilon_1\;\varepsilon_2]\)</span>. What can you observe about the two vectors?” <br><span class="speaker">Emma:</span> “They’re orthogonal — I computed <span class="math inline">\(\cos\theta \cdot (-\sin\theta) + \sin\theta \cdot \cos\theta = 0\)</span>.” <br><span class="speaker">Teacher:</span> “Beautiful. And their magnitudes?” <br><span class="speaker">Class:</span> “Both unit length, by <span class="math inline">\(\cos^2 + \sin^2 = 1\)</span>.” <br><span class="speaker">Teacher:</span> “So <span class="math inline">\(E\)</span> is <strong>orthogonal</strong> — orthonormal columns. We’ll exploit this to write <span class="math inline">\(E^{-1} = E^T\)</span>, which gives us a free pass when computing <span class="math inline">\(E^{-1} M E\)</span>.”</p>
+<p><em>Teaching move:</em> the geometric features of the matrix (orthonormality of columns) reveal an algebraic shortcut (inverse = transpose), which dramatically simplifies similarity transforms.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Expand <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span> column by column. Show that this gives the <em>two</em> equations <span class="math inline">\(M \varepsilon_1 = \lambda_1 \varepsilon_1\)</span> and <span class="math inline">\(M \varepsilon_2 = \lambda_2 \varepsilon_2\)</span>. <strong>This is the per-vector eigenvalue equation</strong> — to be formalized as <span class="math inline">\((M - \lambda I)\varepsilon = \mathbf{0}\)</span> in the next session.</li>
+<li>Verify directly that <span class="math inline">\(O^{-1} = O^T\)</span> for the rotation matrix <span class="math inline">\(R(\theta)\)</span> — i.e., compute both <span class="math inline">\(R(\theta)^T R(\theta)\)</span> and <span class="math inline">\(R(\theta) R(\theta)^T\)</span> and confirm both equal <span class="math inline">\(I\)</span>.</li>
+<li>Compute eigenvalues of <span class="math inline">\(M = \begin{pmatrix}4&amp;-1\\-1&amp;4\end{pmatrix}\)</span> using Theorem 38. Then verify by directly finding <span class="math inline">\(\theta\)</span> via <span class="math inline">\(\tan(2\theta) = 2b/(a-c)\)</span> and computing <span class="math inline">\(R(-\theta) M R(\theta)\)</span>.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Theorem 37b Derivation A is <em>direct algebra</em> that scales poorly to higher dimensions. For <span class="math inline">\(n \times n\)</span> symmetric matrices, you really do want the determinant multiplicativity <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span> — but that’s still an “import” in this course. <strong>Confidence is high for <span class="math inline">\(n=2\)</span></strong>; generalisation requires the deeper theorem.</li>
+<li><strong>“Left inverse implies right inverse” forward reference.</strong> The Orthogonal Matrix theorem uses this fact, which is itself proved later (Mar 7 LVS, Theorem 2). No circular dependency <em>if</em> you prove <span class="math inline">\(O O^T = I\)</span> directly first — which the teacher does for <span class="math inline">\(R(\theta)\)</span>. The general <span class="math inline">\(n\)</span>-dimensional case needs the forward reference.</li>
+<li><strong>Symmetric matrices have real eigenvalues</strong> — true, but only briefly noted via the discriminant <span class="math inline">\((a-c)^2 + 4b^2 \ge 0\)</span>. The general statement (spectral theorem) is much deeper and is foreshadowed but not proved.</li>
+<li><strong>Imported facts:</strong> existence of the diagonalising rotation (developed in earlier conic-section work, e.g., 2025-10-18); multiplicative determinant law (deferred); rank-nullity-style “left-inverse implies right-inverse.”</li>
+<li><strong>Confidence.</strong> Theorem 37, 38, 39 statements + proofs (in 2D, symmetric case): high. Orthogonal-matrix theorem (in 2D): high. Generalisation to <span class="math inline">\(n &gt; 2\)</span> symmetric: medium — relies on deferred theorems.</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursors:</strong>
+<ul>
+<li>Conic diagonalization first developed in <a href="2025-10-18-morning.html">2025-10-18 morning</a> (quadratic-form discriminant) and <a href="2025-10-18-afternoon.html">2025-10-18 afternoon</a> (factoring asymptotes).</li>
+<li><span class="math inline">\(\tan(2\theta) = 2b/(a-c)\)</span> derivation in earlier conic sessions.</li>
+</ul></li>
+<li><strong>Sequel:</strong>
+<ul>
+<li><a href="2026-02-28-eigenvalues-followup.html">2026-02-28 eigenvalues follow-up</a> (stub) — the next class formally introduces <span class="math inline">\((M - \lambda I)v = 0\)</span> and the <strong>characteristic polynomial</strong>, with Vieta giving back the trace/det relations established here.</li>
+<li><a href="2026-02-21-afternoon.html">2026-02-21 afternoon</a> (stub) — continuation that pivots to elliptical conics via <span class="math inline">\(y \to yi\)</span> complex rotation.</li>
+</ul></li>
+<li><strong>Forward applications:</strong> the matrix-form eigenvalue equation <span class="math inline">\(M E = E \Lambda\)</span> generalises directly to Jordan-block decompositions in <a href="2026-04-04-morning.html">2026-04-04 morning</a> (stub), where repeated eigenvalues introduce the nilpotent <span class="math inline">\(N\)</span> and the <span class="math inline">\((\lambda I + N)^n\)</span> structure.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -251,7 +594,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Buckle down. To begin with, any questions? Do ask. No, good. I trust you guys. I've seen your homework. I'm genuinely pleased. Eddie, I haven't seen your homework. And just what we're learning is actually rather important. This is in discrete math here. I would say, with your future in computing, probably you really want.To learn matrices. I I submitted. Uh, this morning. No, last night. Oh, last night. Okay. Well, I haven't seen that. Well, thank you though. If you have done so, and in fact, let me take a look. Oh, yes, indeed, you have. Very good. Actually, not that difficult. That's very good.Alright, now let me actually recap where we are. What, what? Now we know if we actually want to, we begin with the quadratic form. Now, you know, I am more leaning toward just reading it, the original quadratic, and just focus on what's happening to this matrix. By the way, it is the direction we're going. You begin with a b b c, and this matrix here means a metric. It is.It's a twisted way to actually measure the distance, and instead of just Pythagorean sum, you're giving it eventually we know. And if you play it on the x y and the x y here, it can be diagonalized with actually lambda one, lambda two, and u v and u v, right? And once you write it out in this manner, it's going to be lambda one of the u one u squared plus lambda two of the v squared.And it very much reminds us the Pythagorean sum. So, in a way, it shows us a weighted kind of a distance. However, when the lambda one, lambda two are of different signs, they could one of this could be negative, or both. Then that's not the conventional distance we're thinking of, because the distance usually means something non-negative. But if you actually have a one negative correlation between the two, or maybe one, or both, then surely you're looking at the possibility ofHaving a negative distance, that is not contrary to what we usually understand. But it doesn't mean such so-called metric, such a Pythagorean distances are not important. They are. Like I said, when you learn relativity, we're going to end up with actually such a. In fact, in relativity, Minkowski metric now the lambda one equal to one, lambda two equal to negative one. So you're actually looking at hyperbolic geometry. People call that not Euclidean geometry, but rather hyperbolic geometry.That happen to govern the space time of our universe profoundly. So that's why how important this general form is. But for our purposes, we just found out a way to diagonalize the matrix. So fundamentally, we are able to write this a b c. There is some precondition, meaning has got to be symmetric. Otherwise, we may not be able to diagonalize arbitrary matrix. So we begin with this metric matrix now, and it turns out.We're throwing away the x and y. It turns out by doing a rotation, we end up with cosine, negative sine theta, sine theta, cosine theta, and then the lambda one, lambda two, and there we got actually cosine, sine, negative sine, cosine. And notice here, this is the rotational matrix with the angle of the negative theta upon the coordinates, and that is why it's matched with the idea that in fact the the re-rotation of the x</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>现在会是正的 theta。 好，所以这是一个严谨的方式来写它，而我们能够找到梯度 two theta， 由使用几何学的想法来实际证明。 如果我想完成这个， 意思是，如果我想对角化对角化这个矩阵， 现在一个对称的矩阵， 一个张量， 真的。Eventually, this a b c is called a metric tensor. Don't worry about it; it's just a name for that symmetrical matrix. Now, and what you do is that you could find such a tangent to theta, which actually equals to the two b over the a minus c. In fact, the solution to the theta is not unique. The period of the tangent here is pi, and therefore the period of our solution is half of the pi, meaning.If theta is a solution, theta plus half of the pi, it's certainly also a solution. But that's good. That's exactly what we want, right? Because you can call this u, you could call the other u. This requirement doesn't really require handedness. So you do not. You could rotate by theta, or even theta plus half of the pi, or even theta plus a pi. I mean, any one of the four directions here would be fine. These are sanity checks. Are we?Good. So we solve the the tangent data now. Let's find out how do we find the lambda, lambda two. Once we know the tangent data, meaning eventually it's these two numbers that tell you the shape of the quadratic. You're going to decide whether it's elliptical or hyperbola or anything. And during that process here, we saw the idea. We saw how complicated it is because you solve the tangent data, you go back to the cosine sign, you plug it in, you multiply out, and you have.to solve your lambda one, lambda two, that's a very tall order. But two sessions ago, I did teach you an alternative way. Today, we're going to put them together and see what they tell us about matrices. So, what was that neat way? So that you could actually, this is the way to solve the theta first, get to the rotation first, know the geometry first before we actually find out lambda one, lambda two, the information on the metric, and decide shape of the cone. On the other hand,We can accomplish finding the lambda one, lambda two without having to even worry about the theta. We just know theoretically there is a theta to make it work. The matrix could be represented diagonally, or yet we can find lambda one, lambda two. In fact, that's an easier route. Just to stick to some invariances and some good natures of matrices. So, how did that go? By the way.Let me actually save you the suspense. My going back and forth between totally different methods here is to force you to know learning must reach out and connect. Okay, you can't just learn. Remember, drill the formulas that you learned in the past forty-eight hours one at a time. You can't do that. You have to actually remember how does that relate to the material earlier. Remember always to focus on the big picture. Well, if you do textbook learning, usually you're not. presented with actually several ways to approach the same problem, how they're connected. That is why I do not like textbooks. Nevertheless, though, if you don't actively do that for yourself, and then the only result, but my teaching would be jumpy. Basically, I'm not I'm not following the textbook, and you're not gaining the real advantage here. So.</span>

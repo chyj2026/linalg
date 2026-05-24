@@ -1,49 +1,268 @@
 ---
-title: "Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro"
+title: "Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ"
 date: 2026-01-24
 session: morning
-topics: [quadratic-form, conic-sections, determinant, eigenvalues, eigenvectors, orthogonality]
+topics: [polynomial, vieta-formulas, generating-functions, linear-recursion, double-root]
 ---
 
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
+::: {.callout-tip}
+**Manifest correction.** Earlier metadata mistitled this lesson "Diagonalizing the Conic Metric Tensor" — that's the actual content of [2026-02-21 morning](2026-02-21-morning.html), not this one. The lesson here continues the recursion arc from [2026-01-10 morning](2026-01-10-morning.html).
 :::
 
 ## Lead
 
-Proves rotation-diagonalization of the symmetric 2×2 matrix [[a,b],[b,c]] preserves trace and determinant, identifies cos/sin columns as orthonormal basis, and seeds the eigenvalue/eigenvector definition via M·E = E·Λ.
+Completes the **double-root linear recursion** derivation: when the characteristic polynomial has a repeated root $\lambda$, the general solution $f_n = A\lambda^n$ has only **one** degree of freedom, insufficient to fit two initial conditions. The session derives the missing term explicitly by telescoping a chain of equations $g_k = 2g_{k-1}$ where $g_k := f_{k+1} - \lambda f_k$, yielding $f_n = (A + Bn)\lambda^n$. Then re-derives the same conclusion via **generating functions**, proving the identity $1/(1-\lambda x)^2 = \sum_{n=0}^{\infty}(n+1)\lambda^n x^n$ by expanding $(1-u)^{-2}$ via the negative-power binomial coefficient $\binom{-2}{k} = (-1)^k(k+1)$.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Trace invariance: a+c = λ₁+λ₂
-- Determinant invariance: ac-b² = λ₁λ₂
-- Orthogonal matrix: O⁻¹ = Oᵀ
-- Kronecker delta: εᵢ·εⱼ = δᵢⱼ
-
-## Homework given
-
-::: {.callout-important}
-Multiply out M[ε₁ ε₂] = [ε₁ ε₂]Λ on both sides and read off the two defining equations.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $f_n$ | the linear-recursion sequence, $n=0,1,2,\dots$ |
+| $\lambda$ | (double) root of the characteristic polynomial $x^2 - 4x + 4 = 0$, i.e. $\lambda = 2$ |
+| $g_n := f_{n+1} - \lambda f_n$ | derived first-order sequence (geometric in $\lambda$ if $\lambda$ is a double root) |
+| $g_0 = f_1 - \lambda f_0$ | initial value of $g$ |
+| $A, B \in \mathbb{R}$ | the two free constants in the general solution |
+| $G(x) := \sum_{n\ge 0} f_n x^n$ | generating function for the sequence $\{f_n\}$ |
+| $\binom{-r}{k}$ | generalized binomial coefficient $= \frac{(-r)(-r-1)\cdots(-r-k+1)}{k!}$ |
+| $u = \lambda x$ | dummy substitution used inside the generating-function expansion |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Bridges conic-section diagonalization to the general linear-algebra framework. References upcoming Minkowski/hyperbolic geometry.
+1. **Linear recursion theory** for a quadratic characteristic polynomial $x^2 - px + q = 0$ with **distinct** roots $\lambda_1, \lambda_2$: general solution $f_n = A\lambda_1^n + B\lambda_2^n$, with $A, B$ determined by two initial conditions. *(Imported from earlier in the course.)*
+2. **Geometric-sequence sum:** $1 + r + r^2 + \cdots = 1/(1-r)$ for $|r| < 1$.
+3. **Negative-power binomial expansion** $(1+t)^{-r} = \sum_{k\ge 0} \binom{-r}{k} t^k$, valid for $|t|<1$, with $\binom{-r}{k} = (-r)(-r-1)\cdots(-r-k+1)/k!$. *(Imported.)*
+4. The **degree-of-freedom principle**: an order-$d$ linear recursion requires $d$ independent parameters in its general solution to accommodate $d$ initial conditions.
+
+::: {.callout-note collapse="true"}
+## Prerequisites
+
+- Distinct-root case of linear recursions (general solution $A\lambda_1^n + B\lambda_2^n$).
+- Telescoping sums (the "write the same equation at lower indices and add" technique used here).
+- Generating-function manipulation: products correspond to convolutions; closed forms recover via Taylor series.
+:::
+
+## Topics covered
+
+- The "missing degree of freedom" diagnostic for double roots
+- Telescoping derivation of the $(A + Bn)\lambda^n$ general solution
+- Negative-power binomial expansion $(1-u)^{-2}$
+- Recovery of $\binom{-2}{k} = (-1)^k(k+1)$ by direct computation
+- Generating-function form: $\sum (n+1) u^n = 1/(1-u)^2$
+- Connection to Pascal's triangle for higher powers $(1-u)^{-r}$ (Lucas's observation)
+- AI-collaboration meta-discussion (prompting for step-by-step rigor)
+
+## Theorems
+
+::: {.theorem}
+**(Double-root general solution).** Let $\{f_n\}_{n\ge 0}$ satisfy the second-order linear recursion
+$$
+f_{n+1} \;=\; p\,f_n - q\,f_{n-1} \qquad (n\ge 1), \tag{26}
+$$
+where the characteristic polynomial $x^2 - px + q$ has a **double root** $\lambda$ (i.e. $p = 2\lambda$, $q = \lambda^2$). Then
+$$
+f_n \;=\; (A + Bn)\,\lambda^n \tag{27}
+$$
+for unique scalars $A, B \in \mathbb{R}$ determined by $f_0$ and $f_1$. Explicitly $A = f_0$ and $B = (f_1 - \lambda f_0)/\lambda = g_0/\lambda$ (with $g_0 := f_1 - \lambda f_0$).
+:::
+
+::: {.theorem}
+**(Generating-function identity).** For $|u| < 1$,
+$$
+\frac{1}{(1-u)^2} \;=\; \sum_{n=0}^{\infty} (n+1)\,u^n. \tag{28}
+$$
+Equivalently, with $u = \lambda x$:
+$$
+\frac{1}{(1-\lambda x)^2} \;=\; \sum_{n=0}^{\infty}(n+1)\,\lambda^n\,x^n. \tag{29}
+$$
+:::
+
+## Derivation A of Theorem 27 — telescoping (the transcript's path)
+
+Take $\lambda = 2$ (so $p = 4$, $q = 4$ as in the worked example $f_{n+1} = 4f_n - 4f_{n-1}$); the argument generalises immediately.
+
+**Step 1 — define the auxiliary $g_n$.** Set
+$$
+g_n \;:=\; f_{n+1} - \lambda f_n. \tag{30}
+$$
+Substitute (26) into (30): $g_n = (p f_n - q f_{n-1}) - \lambda f_n = (p - \lambda) f_n - q f_{n-1}$. With $p = 2\lambda$, $q = \lambda^2$: $g_n = \lambda f_n - \lambda^2 f_{n-1} = \lambda(f_n - \lambda f_{n-1}) = \lambda\,g_{n-1}$. Hence $g$ is **geometric** with ratio $\lambda$:
+$$
+g_n \;=\; \lambda^n\,g_0, \qquad g_0 = f_1 - \lambda f_0. \tag{31}
+$$
+
+**Step 2 — telescope the chain $f_{n+1} = \lambda f_n + g_n$.** Rewriting (30): $f_{k+1} = \lambda f_k + g_k$. Now write this for $k = n, n-1, \dots, 0$, and multiply the $k$-th equation by $\lambda^{n-k}$:
+$$
+\begin{aligned}
+f_{n+1} &= \lambda f_n + g_n,\\
+\lambda f_n &= \lambda^2 f_{n-1} + \lambda g_{n-1},\\
+\lambda^2 f_{n-1} &= \lambda^3 f_{n-2} + \lambda^2 g_{n-2},\\
+&\vdots\\
+\lambda^n f_1 &= \lambda^{n+1} f_0 + \lambda^n g_0.
+\end{aligned}
+$$
+Adding all $n+1$ equations, every intermediate term $\lambda^j f_{n+1-j}$ appears once on the left and once on the right; they all cancel except $f_{n+1}$ (LHS-only) and $\lambda^{n+1}f_0$ (RHS-only):
+$$
+f_{n+1} \;=\; \lambda^{n+1} f_0 + \sum_{k=0}^{n} \lambda^{n-k}\, g_k. \tag{32}
+$$
+Substituting $g_k = \lambda^k g_0$ from (31), the sum collapses to $g_0 \sum_{k=0}^{n} \lambda^{n-k}\cdot\lambda^k = g_0 \cdot (n+1)\lambda^n$:
+$$
+f_{n+1} \;=\; \lambda^{n+1} f_0 + (n+1)\lambda^n\, g_0 \;=\; \lambda^{n+1}\left[\,f_0 + \frac{n+1}{\lambda}\,g_0\,\right]. \tag{33}
+$$
+Shifting index to $n$ and setting $A = f_0$, $B = g_0/\lambda = (f_1 - \lambda f_0)/\lambda$:
+$$
+f_n \;=\; \lambda^n\,(A + Bn). \qquad\blacksquare
+$$
+
+## Derivation B of Theorem 27 — generating-function route *(independent)*
+
+Define $G(x) = \sum_{n\ge 0} f_n x^n$. Multiplying recursion (26) by $x^{n+1}$ and summing $n \ge 1$:
+$$
+\sum_{n\ge 1} f_{n+1} x^{n+1} = p x \sum_{n\ge 1} f_n x^n - q x^2 \sum_{n\ge 1} f_{n-1} x^{n-1}.
+$$
+LHS = $G(x) - f_0 - f_1 x$. First sum on RHS = $px(G(x) - f_0)$. Second sum = $qx^2 G(x)$. Solving:
+$$
+G(x) \,(1 - p x + q x^2) \;=\; f_0 + (f_1 - p f_0)\,x.
+$$
+With $p = 2\lambda$, $q = \lambda^2$: $1 - px + qx^2 = (1 - \lambda x)^2$, so
+$$
+G(x) \;=\; \frac{f_0 + (f_1 - 2\lambda f_0)\,x}{(1 - \lambda x)^2}. \tag{34}
+$$
+Expanding the RHS using Theorem 28 (proved next):
+$$
+\frac{1}{(1-\lambda x)^2} = \sum_{n\ge 0}(n+1)\lambda^n x^n,\qquad \frac{x}{(1-\lambda x)^2} = \sum_{n\ge 0}(n+1)\lambda^n x^{n+1} = \sum_{m\ge 1} m\, \lambda^{m-1} x^m,
+$$
+so the $x^n$ coefficient of $G(x)$ is
+$$
+f_n = f_0\,(n+1)\lambda^n + (f_1 - 2\lambda f_0)\,n\,\lambda^{n-1} = \lambda^n\left[f_0(n+1) + (f_1 - 2\lambda f_0)\,\tfrac{n}{\lambda}\right].
+$$
+Collecting in $A = f_0$, $B = (f_1 - \lambda f_0)/\lambda$, this simplifies to $f_n = \lambda^n(A + Bn)$. $\quad\blacksquare$
+
+*Note on independence.* Derivation A uses only arithmetic on the recursion. Derivation B uses the generating-function machinery + Theorem 28. The two arguments are logically disjoint and corroborate each other.
+
+## Derivation of Theorem 28 — negative-power binomial expansion
+
+Apply the generalised binomial $(1+t)^{-r} = \sum_{k\ge 0}\binom{-r}{k} t^k$ with $r=2$, $t = -u$:
+$$
+(1-u)^{-2} \;=\; \sum_{k\ge 0}\binom{-2}{k}(-u)^k. \tag{35}
+$$
+Compute the coefficient:
+$$
+\binom{-2}{k} \;=\; \frac{(-2)(-3)(-4)\cdots(-2-k+1)}{k!} \;=\; \frac{(-1)^k\,(2)(3)\cdots(k+1)}{k!} \;=\; (-1)^k\,(k+1). \tag{36}
+$$
+Substituting back:
+$$
+(1-u)^{-2} = \sum_{k\ge 0}(-1)^k(k+1)\,(-u)^k = \sum_{k\ge 0}(-1)^k(k+1)\,(-1)^k\,u^k = \sum_{k\ge 0}(k+1)\,u^k. \qquad\blacksquare
+$$
+
+## Verification audit
+
+::: {.audit}
+
+- **$n=0$ in (27).** $f_0 = (A + 0)\lambda^0 = A$. ✓ Matches initial condition $A = f_0$.
+- **$n=1$ in (27).** $f_1 = (A + B)\lambda$. Solving $B = f_1/\lambda - A = (f_1 - \lambda f_0)/\lambda = g_0/\lambda$. ✓ Matches derivation.
+- **Worked example.** $\lambda = 2$, $f_0 = 0$, $f_1 = 1$ (the classic 1-2-3-... lookalike): $A = 0$, $g_0 = 1$, $B = 1/2$. So $f_n = n \cdot 2^{n-1}$. Check $f_2$: $(0 + 1)\cdot 2 = 2$; direct from recursion $f_2 = 4 f_1 - 4 f_0 = 4$ — **mismatch**. Recompute: with $A = f_0 = 0$, $B = g_0/\lambda = 1/2$, $f_n = (0 + n/2)\cdot 2^n = n \cdot 2^{n-1}$. $f_2 = 2 \cdot 2 = 4$. ✓ (Arithmetic slip in the "f_n = n · 2^(n-1)" check above — actually $f_2 = 2 \cdot 2^1 = 4$, matches.) Confidence restored.
+- **$(1-u)^{-2}$ at $u = 0$.** LHS $= 1$, RHS $= 0 + 1\cdot 0^0 = 1$. ✓ (taking $0^0 = 1$ by convention)
+- **First-order Taylor check.** $\dfrac{d}{du}\bigl[(1-u)^{-1}\bigr] = (1-u)^{-2}$. The series $\sum u^n$ differentiated termwise is $\sum n\,u^{n-1} = \sum_{m\ge 0}(m+1)u^m$ — exactly Theorem 28. ✓ This is in fact an **independent third derivation**: just differentiate the geometric series.
+- **Sanity at $u = 1/3$ (Toby's worked example).** $\sum_{n\ge 0}(n+1)(1/3)^n$ should equal $1/(1-1/3)^2 = 1/(2/3)^2 = 9/4$. Direct partial sum: $1 + 2/3 + 3/9 + 4/27 + 5/81 + \dots \approx 1 + 0.667 + 0.333 + 0.148 + 0.062 + 0.025 + \cdots \to 9/4 = 2.25$. ✓
+- **Dependency check.** Theorem 27 Derivation A uses no generating-function machinery; Derivation B uses Theorem 28. Theorem 28 uses only the negative-power binomial expansion (imported). The derivative-based "third derivation" sketched in the audit uses only termwise differentiation of geometric series. No circular dependency. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.3/2026-01-24-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · 236 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.3" target="_blank">GitHub Release v0.3</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 05m00** — Recap of the characteristic-polynomial method on the example $f_{n+1} = 4f_n - 4f_{n-1}$, with the double root $\lambda = 2$ identified.](../figures/2026-01-24-morning/frame-05m00.jpg)
+
+![**Frame @ 18m00** — The telescoping chain in progress: $g_n = \lambda g_{n-1}$ established as geometric, then the per-row multiplication by $\lambda^{n-k}$ that makes the chain add cleanly.](../figures/2026-01-24-morning/frame-18m00.jpg)
+
+![**Frame @ 35m00** — The generating-function identity $1/(1-u)^2 = \Sigma(n+1)u^n$ via negative-power binomial; the coefficient computation $\binom{-2}{k} = (-1)^k(k+1)$.](../figures/2026-01-24-morning/frame-35m00.jpg)
+
+![**Frame @ 50m00** — Toby's worked verification at $u = 1/3$: $\sum(n+1)(1/3)^n = 9/4$. Lucas's hypothesis that $1/(1-u)^3$ recovers triangular numbers via $\binom{n+2}{2}$ — Pascal's-triangle slant connection.](../figures/2026-01-24-morning/frame-50m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Characteristic polynomial:<br/>x² - 4x + 4 = 0, double root λ = 2"] --> B["General solution f_n = A·λⁿ<br/>(only 1 degree of freedom — wrong)"]
+    B --> C["Degree-of-freedom argument:<br/>need 2 parameters for 2 initial conditions"]
+    D["Define g_n = f_{n+1} - λ·f_n"] --> E["Recursion ⇒ g_n = λ·g_{n-1}<br/>geometric in λ"]
+    E --> F["g_n = λⁿ·g_0"]
+    F --> G["Telescope: f_{n+1} = λ·f_n + g_n<br/>multiply by λ^(n-k), sum k=0..n"]
+    G --> H["f_n = (A + Bn)·λⁿ<br/>Theorem 27 (Derivation A)"]
+    I["Generating function G(x) = Σ f_n·xⁿ"] --> J["(1 - λx)²·G(x) = polynomial<br/>eq. (34)"]
+    K["Negative-power binomial<br/>(1-u)⁻² expansion"] --> L["C(-2,k) = (-1)ᵏ(k+1)<br/>eq. (36)"]
+    L --> M["1/(1-u)² = Σ(n+1)uⁿ<br/>Theorem 28 (eq. 28)"]
+    J --> H
+    M --> H
+    M --> N["Differentiate geometric series ⇒<br/>same identity (third proof)"]
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher (to Elaine):</span> "What do I mean by 'make up for the missing $B$'?"
+<br><span class="speaker">Toby:</span> "Then there's no point in having $f_0$ and $f_1$. If we only needed $A$, then $f_1$ would be determined by $f_0$."
+<br><span class="speaker">Teacher:</span> "Right — one degree of freedom isn't enough to fit two initial conditions. The order of the recursion equals the number of independent parameters required in the general solution."
+
+*Teaching move:* the **degree-of-freedom diagnostic** — count what your solution can fit, count what your problem demands. A mismatch means an undiscovered term is hiding.
+:::
+
+::: {.exchange}
+<span class="speaker">Toby:</span> "If we do $(1-u)^{-3}$, we'd get triangular numbers — like the slanted column of Pascal's triangle."
+<br><span class="speaker">Teacher:</span> "Brilliantly on target. $\binom{-r}{k}$ gives a Pascal-triangle slant for each $r$. The result is $\sum \binom{n+r-1}{r-1} u^n$."
+
+*Teaching move:* extrapolate immediately from one worked case ($r=2$) to a family ($r=3,4,\dots$). The pattern is *latent* in the binomial coefficient; spotting it is faster than re-deriving each instance.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher (about Brayden's homework):</span> "You wrote $1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n$ as a single step. Where did that come from?"
+<br><span class="speaker">Brayden:</span> *(after pressing)* "From ChatGPT."
+<br><span class="speaker">Teacher:</span> "Use it freely — but **own the derivation**. Tell your AI to spell every step. Otherwise you're copying without learning."
+
+*Teaching move:* AI-collaboration etiquette as part of the rigor protocol — labeled equations, every step justified, no silent jumps. The lesson explicitly demonstrates this on the $\binom{-2}{k}$ computation.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Re-derive Theorem 28 by **differentiating** the geometric series $1/(1-u) = \sum u^n$ termwise. Confirm the result matches the binomial-coefficient route.
+2. Generalise: prove $1/(1-u)^r = \sum \binom{n+r-1}{r-1} u^n$ for integer $r \ge 1$ (Lucas's conjecture). *Hint:* same negative-power binomial with $\binom{-r}{k} = (-1)^k\binom{r+k-1}{k}$.
+3. Configure your AI tool (ChatGPT/Grok/Gemini paid version) with permanent instructions for stepwise rigorous derivations. Share your prompt template with the group.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** The telescoping reduction in Derivation A relies on the *exact* cancellation pattern that requires $\lambda$ to be a **true** double root. If the characteristic polynomial has roots $\lambda_1 \neq \lambda_2$ very close numerically, the algebra still works but with $A\lambda_1^n + B\lambda_2^n$; the "$(A + Bn)\lambda^n$" form emerges only in the strict equality limit. Numerical applications should test for genuine vs near-degenerate roots.
+- **Imported facts.** Negative-power binomial expansion $(1+t)^{-r} = \sum\binom{-r}{k}t^k$ — accepted on faith from earlier in the course. Convergence for $|t| < 1$ is a standard fact about formal power series; rigorous proof goes via the ratio test or analytic continuation.
+- **Generalisation to triple roots.** The natural conjecture $f_n = (A + Bn + Cn^2)\lambda^n$ for a triple root follows by the same telescoping pattern; explicit verification is left to homework (#2 above as the generating-function route).
+- **AI-collaboration meta-content.** Roughly the last 25% of the recording is methodological discussion of using ChatGPT for stepwise derivations rather than mathematical content. Worth viewing for the workflow advice; skip the mathematical excerpt sections at $\sim 45$ min onward.
+- **Confidence.** Theorem 27, 28 statements + both derivations: high. Pascal's-triangle generalisation: high (verified by Lucas's $r=3$ case; full inductive proof is straightforward).
+
+:::
+
+## Related sessions
+
+- **Precursor:** [2026-01-10 morning](2026-01-10-morning.html) (stub) — introduced the recursion problem and identified the double-root anomaly.
+- **Sequel:** [2026-04-04 morning](2026-04-04-morning.html) (stub) — recasts linear recursions as $a_{n+1} = M \cdot a_n$ via the **companion matrix**, recovering $(A + Bn)\lambda^n$ from the **Jordan-block** structure $(\lambda I + N)^n$. The double-root result derived here re-emerges as a matrix-power identity.
+- **Adjacent topic:** generating-function identity (28) is the formal twin of the geometric-series sum, and underlies countless combinatorial identities (counting paths in trees, partitions, etc.).
 
 ## Full transcript
 

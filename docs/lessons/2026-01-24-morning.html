@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-24">
 
-<title>Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro – Linear Algebra Notes</title>
+<title>Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +187,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-a-of-theorem-27-telescoping-the-transcripts-path" id="toc-derivation-a-of-theorem-27-telescoping-the-transcripts-path" class="nav-link" data-scroll-target="#derivation-a-of-theorem-27-telescoping-the-transcripts-path">Derivation A of Theorem 27 — telescoping (the transcript’s path)</a></li>
+  <li><a href="#derivation-b-of-theorem-27-generating-function-route-independent" id="toc-derivation-b-of-theorem-27-generating-function-route-independent" class="nav-link" data-scroll-target="#derivation-b-of-theorem-27-generating-function-route-independent">Derivation B of Theorem 27 — generating-function route <em>(independent)</em></a></li>
+  <li><a href="#derivation-of-theorem-28-negative-power-binomial-expansion" id="toc-derivation-of-theorem-28-negative-power-binomial-expansion" class="nav-link" data-scroll-target="#derivation-of-theorem-28-negative-power-binomial-expansion">Derivation of Theorem 28 — negative-power binomial expansion</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro</h1>
+<h1 class="title">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</h1>
 </div>
 
 
@@ -190,34 +234,278 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Manifest correction.</strong> Earlier metadata mistitled this lesson “Diagonalizing the Conic Metric Tensor” — that’s the actual content of <a href="2026-02-21-morning.html">2026-02-21 morning</a>, not this one. The lesson here continues the recursion arc from <a href="2026-01-10-morning.html">2026-01-10 morning</a>.</p>
 </div>
 </div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Proves rotation-diagonalization of the symmetric 2×2 matrix [[a,b],[b,c]] preserves trace and determinant, identifies cos/sin columns as orthonormal basis, and seeds the eigenvalue/eigenvector definition via M·E = E·Λ.</p>
+<p>Completes the <strong>double-root linear recursion</strong> derivation: when the characteristic polynomial has a repeated root <span class="math inline">\(\lambda\)</span>, the general solution <span class="math inline">\(f_n = A\lambda^n\)</span> has only <strong>one</strong> degree of freedom, insufficient to fit two initial conditions. The session derives the missing term explicitly by telescoping a chain of equations <span class="math inline">\(g_k = 2g_{k-1}\)</span> where <span class="math inline">\(g_k := f_{k+1} - \lambda f_k\)</span>, yielding <span class="math inline">\(f_n = (A + Bn)\lambda^n\)</span>. Then re-derives the same conclusion via <strong>generating functions</strong>, proving the identity <span class="math inline">\(1/(1-\lambda x)^2 = \sum_{n=0}^{\infty}(n+1)\lambda^n x^n\)</span> by expanding <span class="math inline">\((1-u)^{-2}\)</span> via the negative-power binomial coefficient <span class="math inline">\(\binom{-2}{k} = (-1)^k(k+1)\)</span>.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f_n\)</span></td>
+<td>the linear-recursion sequence, <span class="math inline">\(n=0,1,2,\dots\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>(double) root of the characteristic polynomial <span class="math inline">\(x^2 - 4x + 4 = 0\)</span>, i.e.&nbsp;<span class="math inline">\(\lambda = 2\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(g_n := f_{n+1} - \lambda f_n\)</span></td>
+<td>derived first-order sequence (geometric in <span class="math inline">\(\lambda\)</span> if <span class="math inline">\(\lambda\)</span> is a double root)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(g_0 = f_1 - \lambda f_0\)</span></td>
+<td>initial value of <span class="math inline">\(g\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(A, B \in \mathbb{R}\)</span></td>
+<td>the two free constants in the general solution</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G(x) := \sum_{n\ge 0} f_n x^n\)</span></td>
+<td>generating function for the sequence <span class="math inline">\(\{f_n\}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\binom{-r}{k}\)</span></td>
+<td>generalized binomial coefficient <span class="math inline">\(= \frac{(-r)(-r-1)\cdots(-r-k+1)}{k!}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(u = \lambda x\)</span></td>
+<td>dummy substitution used inside the generating-function expansion</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Linear recursion theory</strong> for a quadratic characteristic polynomial <span class="math inline">\(x^2 - px + q = 0\)</span> with <strong>distinct</strong> roots <span class="math inline">\(\lambda_1, \lambda_2\)</span>: general solution <span class="math inline">\(f_n = A\lambda_1^n + B\lambda_2^n\)</span>, with <span class="math inline">\(A, B\)</span> determined by two initial conditions. <em>(Imported from earlier in the course.)</em></li>
+<li><strong>Geometric-sequence sum:</strong> <span class="math inline">\(1 + r + r^2 + \cdots = 1/(1-r)\)</span> for <span class="math inline">\(|r| &lt; 1\)</span>.</li>
+<li><strong>Negative-power binomial expansion</strong> <span class="math inline">\((1+t)^{-r} = \sum_{k\ge 0} \binom{-r}{k} t^k\)</span>, valid for <span class="math inline">\(|t|&lt;1\)</span>, with <span class="math inline">\(\binom{-r}{k} = (-r)(-r-1)\cdots(-r-k+1)/k!\)</span>. <em>(Imported.)</em></li>
+<li>The <strong>degree-of-freedom principle</strong>: an order-<span class="math inline">\(d\)</span> linear recursion requires <span class="math inline">\(d\)</span> independent parameters in its general solution to accommodate <span class="math inline">\(d\)</span> initial conditions.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Prerequisites
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <ul>
-<li>Trace invariance: a+c = λ₁+λ₂</li>
-<li>Determinant invariance: ac-b² = λ₁λ₂</li>
-<li>Orthogonal matrix: O⁻¹ = Oᵀ</li>
-<li>Kronecker delta: εᵢ·εⱼ = δᵢⱼ</li>
+<li>Distinct-root case of linear recursions (general solution <span class="math inline">\(A\lambda_1^n + B\lambda_2^n\)</span>).</li>
+<li>Telescoping sums (the “write the same equation at lower indices and add” technique used here).</li>
+<li>Generating-function manipulation: products correspond to convolutions; closed forms recover via Taylor series.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>The “missing degree of freedom” diagnostic for double roots</li>
+<li>Telescoping derivation of the <span class="math inline">\((A + Bn)\lambda^n\)</span> general solution</li>
+<li>Negative-power binomial expansion <span class="math inline">\((1-u)^{-2}\)</span></li>
+<li>Recovery of <span class="math inline">\(\binom{-2}{k} = (-1)^k(k+1)\)</span> by direct computation</li>
+<li>Generating-function form: <span class="math inline">\(\sum (n+1) u^n = 1/(1-u)^2\)</span></li>
+<li>Connection to Pascal’s triangle for higher powers <span class="math inline">\((1-u)^{-r}\)</span> (Lucas’s observation)</li>
+<li>AI-collaboration meta-discussion (prompting for step-by-step rigor)</li>
 </ul>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Double-root general solution).</strong> Let <span class="math inline">\(\{f_n\}_{n\ge 0}\)</span> satisfy the second-order linear recursion <span class="math display">\[
+f_{n+1} \;=\; p\,f_n - q\,f_{n-1} \qquad (n\ge 1), \tag{26}
+\]</span> where the characteristic polynomial <span class="math inline">\(x^2 - px + q\)</span> has a <strong>double root</strong> <span class="math inline">\(\lambda\)</span> (i.e.&nbsp;<span class="math inline">\(p = 2\lambda\)</span>, <span class="math inline">\(q = \lambda^2\)</span>). Then <span class="math display">\[
+f_n \;=\; (A + Bn)\,\lambda^n \tag{27}
+\]</span> for unique scalars <span class="math inline">\(A, B \in \mathbb{R}\)</span> determined by <span class="math inline">\(f_0\)</span> and <span class="math inline">\(f_1\)</span>. Explicitly <span class="math inline">\(A = f_0\)</span> and <span class="math inline">\(B = (f_1 - \lambda f_0)/\lambda = g_0/\lambda\)</span> (with <span class="math inline">\(g_0 := f_1 - \lambda f_0\)</span>).</p>
+</div>
+<div class="theorem">
+<p><strong>(Generating-function identity).</strong> For <span class="math inline">\(|u| &lt; 1\)</span>, <span class="math display">\[
+\frac{1}{(1-u)^2} \;=\; \sum_{n=0}^{\infty} (n+1)\,u^n. \tag{28}
+\]</span> Equivalently, with <span class="math inline">\(u = \lambda x\)</span>: <span class="math display">\[
+\frac{1}{(1-\lambda x)^2} \;=\; \sum_{n=0}^{\infty}(n+1)\,\lambda^n\,x^n. \tag{29}
+\]</span></p>
+</div>
+</section>
+<section id="derivation-a-of-theorem-27-telescoping-the-transcripts-path" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-of-theorem-27-telescoping-the-transcripts-path">Derivation A of Theorem 27 — telescoping (the transcript’s path)</h2>
+<p>Take <span class="math inline">\(\lambda = 2\)</span> (so <span class="math inline">\(p = 4\)</span>, <span class="math inline">\(q = 4\)</span> as in the worked example <span class="math inline">\(f_{n+1} = 4f_n - 4f_{n-1}\)</span>); the argument generalises immediately.</p>
+<p><strong>Step 1 — define the auxiliary <span class="math inline">\(g_n\)</span>.</strong> Set <span class="math display">\[
+g_n \;:=\; f_{n+1} - \lambda f_n. \tag{30}
+\]</span> Substitute (26) into (30): <span class="math inline">\(g_n = (p f_n - q f_{n-1}) - \lambda f_n = (p - \lambda) f_n - q f_{n-1}\)</span>. With <span class="math inline">\(p = 2\lambda\)</span>, <span class="math inline">\(q = \lambda^2\)</span>: <span class="math inline">\(g_n = \lambda f_n - \lambda^2 f_{n-1} = \lambda(f_n - \lambda f_{n-1}) = \lambda\,g_{n-1}\)</span>. Hence <span class="math inline">\(g\)</span> is <strong>geometric</strong> with ratio <span class="math inline">\(\lambda\)</span>: <span class="math display">\[
+g_n \;=\; \lambda^n\,g_0, \qquad g_0 = f_1 - \lambda f_0. \tag{31}
+\]</span></p>
+<p><strong>Step 2 — telescope the chain <span class="math inline">\(f_{n+1} = \lambda f_n + g_n\)</span>.</strong> Rewriting (30): <span class="math inline">\(f_{k+1} = \lambda f_k + g_k\)</span>. Now write this for <span class="math inline">\(k = n, n-1, \dots, 0\)</span>, and multiply the <span class="math inline">\(k\)</span>-th equation by <span class="math inline">\(\lambda^{n-k}\)</span>: <span class="math display">\[
+\begin{aligned}
+f_{n+1} &amp;= \lambda f_n + g_n,\\
+\lambda f_n &amp;= \lambda^2 f_{n-1} + \lambda g_{n-1},\\
+\lambda^2 f_{n-1} &amp;= \lambda^3 f_{n-2} + \lambda^2 g_{n-2},\\
+&amp;\vdots\\
+\lambda^n f_1 &amp;= \lambda^{n+1} f_0 + \lambda^n g_0.
+\end{aligned}
+\]</span> Adding all <span class="math inline">\(n+1\)</span> equations, every intermediate term <span class="math inline">\(\lambda^j f_{n+1-j}\)</span> appears once on the left and once on the right; they all cancel except <span class="math inline">\(f_{n+1}\)</span> (LHS-only) and <span class="math inline">\(\lambda^{n+1}f_0\)</span> (RHS-only): <span class="math display">\[
+f_{n+1} \;=\; \lambda^{n+1} f_0 + \sum_{k=0}^{n} \lambda^{n-k}\, g_k. \tag{32}
+\]</span> Substituting <span class="math inline">\(g_k = \lambda^k g_0\)</span> from (31), the sum collapses to <span class="math inline">\(g_0 \sum_{k=0}^{n} \lambda^{n-k}\cdot\lambda^k = g_0 \cdot (n+1)\lambda^n\)</span>: <span class="math display">\[
+f_{n+1} \;=\; \lambda^{n+1} f_0 + (n+1)\lambda^n\, g_0 \;=\; \lambda^{n+1}\left[\,f_0 + \frac{n+1}{\lambda}\,g_0\,\right]. \tag{33}
+\]</span> Shifting index to <span class="math inline">\(n\)</span> and setting <span class="math inline">\(A = f_0\)</span>, <span class="math inline">\(B = g_0/\lambda = (f_1 - \lambda f_0)/\lambda\)</span>: <span class="math display">\[
+f_n \;=\; \lambda^n\,(A + Bn). \qquad\blacksquare
+\]</span></p>
+</section>
+<section id="derivation-b-of-theorem-27-generating-function-route-independent" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-27-generating-function-route-independent">Derivation B of Theorem 27 — generating-function route <em>(independent)</em></h2>
+<p>Define <span class="math inline">\(G(x) = \sum_{n\ge 0} f_n x^n\)</span>. Multiplying recursion (26) by <span class="math inline">\(x^{n+1}\)</span> and summing <span class="math inline">\(n \ge 1\)</span>: <span class="math display">\[
+\sum_{n\ge 1} f_{n+1} x^{n+1} = p x \sum_{n\ge 1} f_n x^n - q x^2 \sum_{n\ge 1} f_{n-1} x^{n-1}.
+\]</span> LHS = <span class="math inline">\(G(x) - f_0 - f_1 x\)</span>. First sum on RHS = <span class="math inline">\(px(G(x) - f_0)\)</span>. Second sum = <span class="math inline">\(qx^2 G(x)\)</span>. Solving: <span class="math display">\[
+G(x) \,(1 - p x + q x^2) \;=\; f_0 + (f_1 - p f_0)\,x.
+\]</span> With <span class="math inline">\(p = 2\lambda\)</span>, <span class="math inline">\(q = \lambda^2\)</span>: <span class="math inline">\(1 - px + qx^2 = (1 - \lambda x)^2\)</span>, so <span class="math display">\[
+G(x) \;=\; \frac{f_0 + (f_1 - 2\lambda f_0)\,x}{(1 - \lambda x)^2}. \tag{34}
+\]</span> Expanding the RHS using Theorem 28 (proved next): <span class="math display">\[
+\frac{1}{(1-\lambda x)^2} = \sum_{n\ge 0}(n+1)\lambda^n x^n,\qquad \frac{x}{(1-\lambda x)^2} = \sum_{n\ge 0}(n+1)\lambda^n x^{n+1} = \sum_{m\ge 1} m\, \lambda^{m-1} x^m,
+\]</span> so the <span class="math inline">\(x^n\)</span> coefficient of <span class="math inline">\(G(x)\)</span> is <span class="math display">\[
+f_n = f_0\,(n+1)\lambda^n + (f_1 - 2\lambda f_0)\,n\,\lambda^{n-1} = \lambda^n\left[f_0(n+1) + (f_1 - 2\lambda f_0)\,\tfrac{n}{\lambda}\right].
+\]</span> Collecting in <span class="math inline">\(A = f_0\)</span>, <span class="math inline">\(B = (f_1 - \lambda f_0)/\lambda\)</span>, this simplifies to <span class="math inline">\(f_n = \lambda^n(A + Bn)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><em>Note on independence.</em> Derivation A uses only arithmetic on the recursion. Derivation B uses the generating-function machinery + Theorem 28. The two arguments are logically disjoint and corroborate each other.</p>
+</section>
+<section id="derivation-of-theorem-28-negative-power-binomial-expansion" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-28-negative-power-binomial-expansion">Derivation of Theorem 28 — negative-power binomial expansion</h2>
+<p>Apply the generalised binomial <span class="math inline">\((1+t)^{-r} = \sum_{k\ge 0}\binom{-r}{k} t^k\)</span> with <span class="math inline">\(r=2\)</span>, <span class="math inline">\(t = -u\)</span>: <span class="math display">\[
+(1-u)^{-2} \;=\; \sum_{k\ge 0}\binom{-2}{k}(-u)^k. \tag{35}
+\]</span> Compute the coefficient: <span class="math display">\[
+\binom{-2}{k} \;=\; \frac{(-2)(-3)(-4)\cdots(-2-k+1)}{k!} \;=\; \frac{(-1)^k\,(2)(3)\cdots(k+1)}{k!} \;=\; (-1)^k\,(k+1). \tag{36}
+\]</span> Substituting back: <span class="math display">\[
+(1-u)^{-2} = \sum_{k\ge 0}(-1)^k(k+1)\,(-u)^k = \sum_{k\ge 0}(-1)^k(k+1)\,(-1)^k\,u^k = \sum_{k\ge 0}(k+1)\,u^k. \qquad\blacksquare
+\]</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong><span class="math inline">\(n=0\)</span> in (27).</strong> <span class="math inline">\(f_0 = (A + 0)\lambda^0 = A\)</span>. ✓ Matches initial condition <span class="math inline">\(A = f_0\)</span>.</li>
+<li><strong><span class="math inline">\(n=1\)</span> in (27).</strong> <span class="math inline">\(f_1 = (A + B)\lambda\)</span>. Solving <span class="math inline">\(B = f_1/\lambda - A = (f_1 - \lambda f_0)/\lambda = g_0/\lambda\)</span>. ✓ Matches derivation.</li>
+<li><strong>Worked example.</strong> <span class="math inline">\(\lambda = 2\)</span>, <span class="math inline">\(f_0 = 0\)</span>, <span class="math inline">\(f_1 = 1\)</span> (the classic 1-2-3-… lookalike): <span class="math inline">\(A = 0\)</span>, <span class="math inline">\(g_0 = 1\)</span>, <span class="math inline">\(B = 1/2\)</span>. So <span class="math inline">\(f_n = n \cdot 2^{n-1}\)</span>. Check <span class="math inline">\(f_2\)</span>: <span class="math inline">\((0 + 1)\cdot 2 = 2\)</span>; direct from recursion <span class="math inline">\(f_2 = 4 f_1 - 4 f_0 = 4\)</span> — <strong>mismatch</strong>. Recompute: with <span class="math inline">\(A = f_0 = 0\)</span>, <span class="math inline">\(B = g_0/\lambda = 1/2\)</span>, <span class="math inline">\(f_n = (0 + n/2)\cdot 2^n = n \cdot 2^{n-1}\)</span>. <span class="math inline">\(f_2 = 2 \cdot 2 = 4\)</span>. ✓ (Arithmetic slip in the “f_n = n · 2^(n-1)” check above — actually <span class="math inline">\(f_2 = 2 \cdot 2^1 = 4\)</span>, matches.) Confidence restored.</li>
+<li><strong><span class="math inline">\((1-u)^{-2}\)</span> at <span class="math inline">\(u = 0\)</span>.</strong> LHS <span class="math inline">\(= 1\)</span>, RHS <span class="math inline">\(= 0 + 1\cdot 0^0 = 1\)</span>. ✓ (taking <span class="math inline">\(0^0 = 1\)</span> by convention)</li>
+<li><strong>First-order Taylor check.</strong> <span class="math inline">\(\dfrac{d}{du}\bigl[(1-u)^{-1}\bigr] = (1-u)^{-2}\)</span>. The series <span class="math inline">\(\sum u^n\)</span> differentiated termwise is <span class="math inline">\(\sum n\,u^{n-1} = \sum_{m\ge 0}(m+1)u^m\)</span> — exactly Theorem 28. ✓ This is in fact an <strong>independent third derivation</strong>: just differentiate the geometric series.</li>
+<li><strong>Sanity at <span class="math inline">\(u = 1/3\)</span> (Toby’s worked example).</strong> <span class="math inline">\(\sum_{n\ge 0}(n+1)(1/3)^n\)</span> should equal <span class="math inline">\(1/(1-1/3)^2 = 1/(2/3)^2 = 9/4\)</span>. Direct partial sum: <span class="math inline">\(1 + 2/3 + 3/9 + 4/27 + 5/81 + \dots \approx 1 + 0.667 + 0.333 + 0.148 + 0.062 + 0.025 + \cdots \to 9/4 = 2.25\)</span>. ✓</li>
+<li><strong>Dependency check.</strong> Theorem 27 Derivation A uses no generating-function machinery; Derivation B uses Theorem 28. Theorem 28 uses only the negative-power binomial expansion (imported). The derivative-based “third derivation” sketched in the audit uses only termwise differentiation of geometric series. No circular dependency. ✓</li>
+</ul>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.3/2026-01-24-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · 236 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.3" target="_blank">GitHub Release v0.3</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-01-24-morning/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Recap of the characteristic-polynomial method on the example <span class="math inline">\(f_{n+1} = 4f_n - 4f_{n-1}\)</span>, with the double root <span class="math inline">\(\lambda = 2\)</span> identified.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-01-24-morning/frame-18m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 18m00</strong> — The telescoping chain in progress: <span class="math inline">\(g_n = \lambda g_{n-1}\)</span> established as geometric, then the per-row multiplication by <span class="math inline">\(\lambda^{n-k}\)</span> that makes the chain add cleanly.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-01-24-morning/frame-35m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 35m00</strong> — The generating-function identity <span class="math inline">\(1/(1-u)^2 = \Sigma(n+1)u^n\)</span> via negative-power binomial; the coefficient computation <span class="math inline">\(\binom{-2}{k} = (-1)^k(k+1)\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-01-24-morning/frame-50m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 50m00</strong> — Toby’s worked verification at <span class="math inline">\(u = 1/3\)</span>: <span class="math inline">\(\sum(n+1)(1/3)^n = 9/4\)</span>. Lucas’s hypothesis that <span class="math inline">\(1/(1-u)^3\)</span> recovers triangular numbers via <span class="math inline">\(\binom{n+2}{2}\)</span> — Pascal’s-triangle slant connection.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Characteristic polynomial:&lt;br/&gt;x² - 4x + 4 = 0, double root λ = 2"] --&gt; B["General solution f_n = A·λⁿ&lt;br/&gt;(only 1 degree of freedom — wrong)"]
+    B --&gt; C["Degree-of-freedom argument:&lt;br/&gt;need 2 parameters for 2 initial conditions"]
+    D["Define g_n = f_{n+1} - λ·f_n"] --&gt; E["Recursion ⇒ g_n = λ·g_{n-1}&lt;br/&gt;geometric in λ"]
+    E --&gt; F["g_n = λⁿ·g_0"]
+    F --&gt; G["Telescope: f_{n+1} = λ·f_n + g_n&lt;br/&gt;multiply by λ^(n-k), sum k=0..n"]
+    G --&gt; H["f_n = (A + Bn)·λⁿ&lt;br/&gt;Theorem 27 (Derivation A)"]
+    I["Generating function G(x) = Σ f_n·xⁿ"] --&gt; J["(1 - λx)²·G(x) = polynomial&lt;br/&gt;eq. (34)"]
+    K["Negative-power binomial&lt;br/&gt;(1-u)⁻² expansion"] --&gt; L["C(-2,k) = (-1)ᵏ(k+1)&lt;br/&gt;eq. (36)"]
+    L --&gt; M["1/(1-u)² = Σ(n+1)uⁿ&lt;br/&gt;Theorem 28 (eq. 28)"]
+    J --&gt; H
+    M --&gt; H
+    M --&gt; N["Differentiate geometric series ⇒&lt;br/&gt;same identity (third proof)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher (to Elaine):</span> “What do I mean by ‘make up for the missing <span class="math inline">\(B\)</span>’?” <br><span class="speaker">Toby:</span> “Then there’s no point in having <span class="math inline">\(f_0\)</span> and <span class="math inline">\(f_1\)</span>. If we only needed <span class="math inline">\(A\)</span>, then <span class="math inline">\(f_1\)</span> would be determined by <span class="math inline">\(f_0\)</span>.” <br><span class="speaker">Teacher:</span> “Right — one degree of freedom isn’t enough to fit two initial conditions. The order of the recursion equals the number of independent parameters required in the general solution.”</p>
+<p><em>Teaching move:</em> the <strong>degree-of-freedom diagnostic</strong> — count what your solution can fit, count what your problem demands. A mismatch means an undiscovered term is hiding.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Toby:</span> “If we do <span class="math inline">\((1-u)^{-3}\)</span>, we’d get triangular numbers — like the slanted column of Pascal’s triangle.” <br><span class="speaker">Teacher:</span> “Brilliantly on target. <span class="math inline">\(\binom{-r}{k}\)</span> gives a Pascal-triangle slant for each <span class="math inline">\(r\)</span>. The result is <span class="math inline">\(\sum \binom{n+r-1}{r-1} u^n\)</span>.”</p>
+<p><em>Teaching move:</em> extrapolate immediately from one worked case (<span class="math inline">\(r=2\)</span>) to a family (<span class="math inline">\(r=3,4,\dots\)</span>). The pattern is <em>latent</em> in the binomial coefficient; spotting it is faster than re-deriving each instance.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher (about Brayden’s homework):</span> “You wrote <span class="math inline">\(1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n\)</span> as a single step. Where did that come from?” <br><span class="speaker">Brayden:</span> <em>(after pressing)</em> “From ChatGPT.” <br><span class="speaker">Teacher:</span> “Use it freely — but <strong>own the derivation</strong>. Tell your AI to spell every step. Otherwise you’re copying without learning.”</p>
+<p><em>Teaching move:</em> AI-collaboration etiquette as part of the rigor protocol — labeled equations, every step justified, no silent jumps. The lesson explicitly demonstrates this on the <span class="math inline">\(\binom{-2}{k}\)</span> computation.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -228,34 +516,34 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Multiply out M[ε₁ ε₂] = [ε₁ ε₂]Λ on both sides and read off the two defining equations.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Bridges conic-section diagonalization to the general linear-algebra framework. References upcoming Minkowski/hyperbolic geometry.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Re-derive Theorem 28 by <strong>differentiating</strong> the geometric series <span class="math inline">\(1/(1-u) = \sum u^n\)</span> termwise. Confirm the result matches the binomial-coefficient route.</li>
+<li>Generalise: prove <span class="math inline">\(1/(1-u)^r = \sum \binom{n+r-1}{r-1} u^n\)</span> for integer <span class="math inline">\(r \ge 1\)</span> (Lucas’s conjecture). <em>Hint:</em> same negative-power binomial with <span class="math inline">\(\binom{-r}{k} = (-1)^k\binom{r+k-1}{k}\)</span>.</li>
+<li>Configure your AI tool (ChatGPT/Grok/Gemini paid version) with permanent instructions for stepwise rigorous derivations. Share your prompt template with the group.</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> The telescoping reduction in Derivation A relies on the <em>exact</em> cancellation pattern that requires <span class="math inline">\(\lambda\)</span> to be a <strong>true</strong> double root. If the characteristic polynomial has roots <span class="math inline">\(\lambda_1 \neq \lambda_2\)</span> very close numerically, the algebra still works but with <span class="math inline">\(A\lambda_1^n + B\lambda_2^n\)</span>; the “<span class="math inline">\((A + Bn)\lambda^n\)</span>” form emerges only in the strict equality limit. Numerical applications should test for genuine vs near-degenerate roots.</li>
+<li><strong>Imported facts.</strong> Negative-power binomial expansion <span class="math inline">\((1+t)^{-r} = \sum\binom{-r}{k}t^k\)</span> — accepted on faith from earlier in the course. Convergence for <span class="math inline">\(|t| &lt; 1\)</span> is a standard fact about formal power series; rigorous proof goes via the ratio test or analytic continuation.</li>
+<li><strong>Generalisation to triple roots.</strong> The natural conjecture <span class="math inline">\(f_n = (A + Bn + Cn^2)\lambda^n\)</span> for a triple root follows by the same telescoping pattern; explicit verification is left to homework (#2 above as the generating-function route).</li>
+<li><strong>AI-collaboration meta-content.</strong> Roughly the last 25% of the recording is methodological discussion of using ChatGPT for stepwise derivations rather than mathematical content. Worth viewing for the workflow advice; skip the mathematical excerpt sections at <span class="math inline">\(\sim 45\)</span> min onward.</li>
+<li><strong>Confidence.</strong> Theorem 27, 28 statements + both derivations: high. Pascal’s-triangle generalisation: high (verified by Lucas’s <span class="math inline">\(r=3\)</span> case; full inductive proof is straightforward).</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1OanXuBWGjGrqy3NnxH_xca6ajNFNk0or/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2026-01-10-morning.html">2026-01-10 morning</a> (stub) — introduced the recursion problem and identified the double-root anomaly.</li>
+<li><strong>Sequel:</strong> <a href="2026-04-04-morning.html">2026-04-04 morning</a> (stub) — recasts linear recursions as <span class="math inline">\(a_{n+1} = M \cdot a_n\)</span> via the <strong>companion matrix</strong>, recovering <span class="math inline">\((A + Bn)\lambda^n\)</span> from the <strong>Jordan-block</strong> structure <span class="math inline">\((\lambda I + N)^n\)</span>. The double-root result derived here re-emerges as a matrix-power identity.</li>
+<li><strong>Adjacent topic:</strong> generating-function identity (28) is the formal twin of the geometric-series sum, and underlies countless combinatorial identities (counting paths in trees, partitions, etc.).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

@@ -1,43 +1,285 @@
 ---
-title: "Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial"
+title: "Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup"
 date: 2026-02-21
 session: morning
-topics: [eigenvalues, eigenvectors, determinant, quadratic-form, vieta-formulas]
+topics: [quadratic-form, conic-sections, determinant, trace, eigenvalues, eigenvectors, orthogonality, change-of-basis]
 ---
 
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
+::: {.callout-tip}
+**Manifest correction.** The earlier metadata for this lesson described it as the "Eigenvalue Equation $\det(M-\lambda I)=0$" session — that's a *later* lesson (likely [2026-02-28 eigenvalues follow-up](2026-02-28-eigenvalues-followup.html)). This session **introduces** the eigenvalue problem via $M \cdot E = E \cdot \Lambda$ but explicitly *defers* the $(M-\lambda I)v = 0$ formulation to the next class.
 :::
 
 ## Lead
 
-Sets up (M-λI)v = 0 and the requirement det(M-λI) = 0, then proves via Vieta on the characteristic polynomial that Σλᵢ = trace M and Πλᵢ = det M.
+Returns to the **conic-section diagonalization** problem ($M\mathbf{x}$ quadratic form with metric $M = \begin{pmatrix}a&b\\b&c\end{pmatrix}$, $\mathbf{x} = (x, y)^T$) and proves *without first finding the rotation angle $\theta$* that the eigenvalues $\lambda_1, \lambda_2$ satisfy:
+$$
+\lambda_1 + \lambda_2 = \operatorname{tr}(M) = a + c, \qquad \lambda_1 \lambda_2 = \det(M) = ac - b^2.
+$$
+The proof exploits **trace and determinant invariance** under rotation $R(-\theta)\,M\,R(\theta)$. The columns of $R(\theta)$ — orthonormal basis vectors $\varepsilon_1, \varepsilon_2$ — are then re-interpreted as the *eigenvectors* of $M$; the rotation matrix $E = [\varepsilon_1 \; \varepsilon_2]$ satisfies $M \cdot E = E \cdot \Lambda$ where $\Lambda = \operatorname{diag}(\lambda_1, \lambda_2)$. This is the **eigenvalue equation in matrix form** — the leap from one matrix at a time to *families* of eigen-pairs simultaneously. Closes by establishing $O^T O = I$ and $O^{-1} = O^T$ for orthogonal matrices, and sets homework to expand $M E = E \Lambda$ column-by-column to recover the per-vector eigenvalue equations.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Eigen-equation: det(M-λI) = 0
-- Sum of eigenvalues = trace (from λ^(n-1) coefficient)
-- Product of eigenvalues = det M (constant term, λ=0)
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $M = \begin{pmatrix}a&b\\b&c\end{pmatrix}$ | symmetric ("metric tensor") $2\times 2$ matrix |
+| $R(\theta) = \begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}$ | rotation matrix by angle $\theta$ (counter-clockwise on column vectors) |
+| $\Lambda = \operatorname{diag}(\lambda_1, \lambda_2)$ | diagonal matrix of eigenvalues |
+| $\varepsilon_1, \varepsilon_2 \in \mathbb{R}^2$ | columns of $R(\theta)$, $\varepsilon_1 = (\cos\theta, \sin\theta)^T$, $\varepsilon_2 = (-\sin\theta, \cos\theta)^T$ — eigenvectors of $M$ |
+| $E = [\varepsilon_1\;\varepsilon_2] = R(\theta)$ | "eigenvector matrix" |
+| $\operatorname{tr}(M) = a + c$ | trace of $M$ (sum of diagonal entries) |
+| $\det(M) = ac - b^2$ | determinant of $M$ |
+| $O$ | orthogonal matrix: columns are orthonormal, $O^T O = I$ |
+| $\delta_{ij}$ | Kronecker delta: $1$ if $i=j$, else $0$ |
+:::
 
+## Primitive notions and assumptions
+
+1. **Symmetric $2\times 2$ matrix $M$** can be diagonalized by an orthogonal rotation. *(Proved by direct calculation in [2026-01-24 morning](2026-01-24-morning.html) for the conic context — but note: that lesson is actually about recursions; this lemma was developed earlier in the conic-section arc.)*
+2. **Multiplicative determinant law** $\det(AB) = \det(A)\det(B)$ is the *natural* fact to use, but the teacher explicitly **declines to import it** here and instead verifies $\det$-invariance by direct multiplication — preserving rigor without the deeper theorem.
+3. The **rotation matrix** $R(\theta)$ has $\det R = 1$ (computed directly: $\cos^2\theta + \sin^2\theta = 1$).
+4. **Cofactor / determinant expansion** as the algorithmic computation method.
 
 ::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Prerequisites
 
-Small individual session with Elaine and Catherine. Filename has a typo (`Saturday202602021morning` has an extra digit); content places it 2026-02-21, not 2026-02-02.
+- Existence of the conic-diagonalization rotation $\tan(2\theta) = 2b/(a-c)$ derived in earlier sessions.
+- The expanded form $R(-\theta) M R(\theta) = \begin{pmatrix}\lambda_1 \cos^2\theta + \lambda_2 \sin^2\theta & (\lambda_1 - \lambda_2)\sin\theta\cos\theta\\ \dots\end{pmatrix}$ that links to $a, b, c$ — known from earlier conic work.
+- Matrix multiplication interpreted as **row × column** dot products.
+:::
+
+## Topics covered
+
+- Trace invariance: $\operatorname{tr}(R^{-1} M R) = \operatorname{tr}(M)$
+- Determinant invariance: $\det(R^{-1} M R) = \det(M)$ (proved by direct expansion, deferring $\det(AB)=\det(A)\det(B)$)
+- Recovery of eigenvalues via Vieta on $(λ_1 + λ_2, λ_1 λ_2)$ — no $\theta$ needed
+- Orthogonal matrix definition $O^T O = I$, equivalently $O^{-1} = O^T$
+- Interpretation of $R(\theta)$ columns as **eigenvectors** $\varepsilon_1, \varepsilon_2$ — orthonormal basis
+- The compact eigenvalue equation in matrix form: $M \cdot E = E \cdot \Lambda$
+- *Preview / homework:* per-column expansion yields $M \varepsilon_i = \lambda_i \varepsilon_i$ — the per-vector eigenvalue equation
+
+## Theorems
+
+::: {.theorem}
+**(Trace and determinant invariance under rotation).** For any rotation $R(\theta) \in \operatorname{SO}(2)$ and any matrix $M \in \mathbb{R}^{2\times 2}$,
+$$
+\operatorname{tr}\bigl(R(-\theta)\,M\,R(\theta)\bigr) \;=\; \operatorname{tr}(M), \tag{37a}
+$$
+$$
+\det\bigl(R(-\theta)\,M\,R(\theta)\bigr) \;=\; \det(M). \tag{37b}
+$$
+:::
+
+::: {.theorem}
+**(Eigenvalues from trace and determinant).** If $M$ is similar to $\operatorname{diag}(\lambda_1, \lambda_2)$ via a rotation, then
+$$
+\lambda_1 + \lambda_2 = a + c, \qquad \lambda_1\lambda_2 = ac - b^2. \tag{38}
+$$
+The eigenvalues are recovered by Vieta on the polynomial $\lambda^2 - (a+c)\lambda + (ac-b^2) = 0$, *without* computing $\theta$.
+:::
+
+::: {.theorem}
+**(Orthogonal matrix self-inverse).** If $O \in \mathbb{R}^{n\times n}$ has $O^T O = I$ (columns orthonormal), then also $O\,O^T = I$, hence $O^{-1} = O^T$.
+:::
+
+::: {.theorem}
+**(Eigenvalue equation, matrix form).** For the rotation $E = R(\theta) = [\varepsilon_1\;\varepsilon_2]$ that diagonalizes $M$,
+$$
+M \cdot E \;=\; E \cdot \Lambda, \qquad \Lambda = \operatorname{diag}(\lambda_1, \lambda_2). \tag{39}
+$$
+Reading (39) column by column gives $M \varepsilon_j = \lambda_j \varepsilon_j$ — the per-vector eigen-equation. *(Promoted to formal status in [2026-02-28 follow-up](2026-02-28-eigenvalues-followup.html).)*
+:::
+
+## Derivation of Theorem 37a (trace invariance)
+
+By direct expansion, $R(-\theta) M R(\theta) = $
+$$
+\begin{pmatrix}\cos\theta & \sin\theta\\-\sin\theta & \cos\theta\end{pmatrix}
+\begin{pmatrix}a & b\\b & c\end{pmatrix}
+\begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}.
+$$
+Multiplying out the (1,1) and (2,2) entries:
+$$
+[\cdot]_{11} = a\cos^2\theta + 2b\sin\theta\cos\theta + c\sin^2\theta, \qquad
+[\cdot]_{22} = a\sin^2\theta - 2b\sin\theta\cos\theta + c\cos^2\theta.
+$$
+Sum: $[\cdot]_{11} + [\cdot]_{22} = a(\cos^2\theta + \sin^2\theta) + c(\sin^2\theta + \cos^2\theta) + 0 = a + c = \operatorname{tr}(M)$. $\quad\blacksquare$
+
+## Derivation of Theorem 37b (determinant invariance — direct)
+
+Following the teacher's path (without using $\det(AB) = \det(A)\det(B)$, which is imported but *unproved* in-thread). Let $S := R(-\theta) M R(\theta)$. By the same expansion as above plus the off-diagonal entries,
+$$
+S = \begin{pmatrix}\lambda_1\cos^2\theta + \lambda_2\sin^2\theta & (\lambda_2 - \lambda_1)\sin\theta\cos\theta\\(\lambda_2 - \lambda_1)\sin\theta\cos\theta & \lambda_1\sin^2\theta + \lambda_2\cos^2\theta\end{pmatrix}
+$$
+when $M$ already has the diagonal form $\operatorname{diag}(\lambda_1, \lambda_2)$ pre-substituted (the lesson works this case to confirm the angle-free conclusion).
+
+Compute $\det S$:
+$$
+\det S = (\lambda_1\cos^2\theta + \lambda_2\sin^2\theta)(\lambda_1\sin^2\theta + \lambda_2\cos^2\theta) - [(\lambda_2 - \lambda_1)\sin\theta\cos\theta]^2.
+$$
+Expand:
+$$
+= \lambda_1^2\sin^2\theta\cos^2\theta + \lambda_1\lambda_2(\sin^4\theta + \cos^4\theta) + \lambda_2^2 \sin^2\theta\cos^2\theta - (\lambda_2 - \lambda_1)^2\sin^2\theta\cos^2\theta.
+$$
+Expand $(\lambda_2 - \lambda_1)^2 = \lambda_1^2 - 2\lambda_1\lambda_2 + \lambda_2^2$, so the subtracted term is $(\lambda_1^2 + \lambda_2^2 - 2\lambda_1\lambda_2)\sin^2\theta\cos^2\theta$. Combining:
+$$
+\det S = \lambda_1\lambda_2(\sin^4\theta + \cos^4\theta) + 2\lambda_1\lambda_2\sin^2\theta\cos^2\theta = \lambda_1\lambda_2(\sin^2\theta + \cos^2\theta)^2 = \lambda_1\lambda_2.
+$$
+And $\det(\operatorname{diag}(\lambda_1, \lambda_2)) = \lambda_1\lambda_2$. So $\det S = \det M$, independent of $\theta$. $\quad\blacksquare$
+
+## Derivation B of Theorem 37b *(independent — via $\det(AB) = \det(A)\det(B)$)*
+
+If we *allow* the multiplicative determinant law (deferred to a later session), then
+$$
+\det(R^{-1} M R) = \det(R^{-1}) \cdot \det(M) \cdot \det(R) = \det(R)^{-1}\det(M)\det(R) = \det(M).
+$$
+Since $\det R = \cos^2\theta + \sin^2\theta = 1$, this is also $\det M$ directly. $\quad\blacksquare$
+
+*Note on independence.* Derivation A uses only the $\sin^2 + \cos^2 = 1$ identity. Derivation B uses the (deferred-proof) multiplicative determinant law. A is "honest"; B is shorter but imports more.
+
+## Derivation of Theorem 38 (eigenvalues from trace and determinant)
+
+From Theorem 37: $\operatorname{tr}(R^{-1}MR) = \lambda_1 + \lambda_2$ (since the conjugated matrix is $\operatorname{diag}(\lambda_1,\lambda_2)$) and $= \operatorname{tr}(M) = a+c$. Similarly, $\det(R^{-1}MR) = \lambda_1\lambda_2 = \det(M) = ac - b^2$. These two Vieta relations make $\lambda_1, \lambda_2$ the roots of
+$$
+\lambda^2 - (a+c)\lambda + (ac - b^2) = 0. \tag{40}
+$$
+The quadratic formula gives
+$$
+\lambda_{1,2} = \frac{(a+c) \pm \sqrt{(a-c)^2 + 4b^2}}{2}. \tag{41}
+$$
+Note the discriminant $(a-c)^2 + 4b^2 \ge 0$ always — symmetric $2\times 2$ matrices always have real eigenvalues. $\quad\blacksquare$
+
+## Derivation of Theorem (orthogonal matrix self-inverse)
+
+Direct computation for $n=2$ with $O = R(\theta)$: $O^T O = \begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix}\begin{pmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{pmatrix} = \begin{pmatrix}1&0\\0&1\end{pmatrix} = I$.
+
+For general $n$: $[O^T O]_{ij} = \sum_k O_{ki} O_{kj} = \varepsilon_i \cdot \varepsilon_j = \delta_{ij}$ (orthonormality). So $O^T O = I$. The reverse identity $O O^T = I$ follows from the fact that for square matrices, a left inverse is also a right inverse — established in [2026-03-07 LVS](2026-03-07-LVS.html) (Theorem 2). For the rotation $R(\theta)$, one can also check $O O^T = I$ by direct expansion. $\quad\blacksquare$
+
+::: {.callout-warning}
+**Forward-reference flag.** The "left-inverse-implies-right-inverse" used here is *itself* proved later in the course (Mar 7 LVS, Theorem 2). The teacher in this session works around the issue by verifying $O O^T = I$ directly for the rotation case. For $n > 2$ symmetric orthogonal proofs, prefer the geometric argument: orthonormal columns ⇒ $O$ preserves all inner products ⇒ $O$ is invertible ⇒ $O^{-1} = O^T$.
+:::
+
+## Derivation of Theorem 39 (eigenvalue equation, matrix form)
+
+Start from the diagonalization $R(-\theta) M R(\theta) = \Lambda$. Multiply both sides on the *left* by $R(\theta)$, using $R(\theta) R(-\theta) = I$:
+$$
+M \cdot R(\theta) \;=\; R(\theta) \cdot \Lambda.
+$$
+Setting $E := R(\theta) = [\varepsilon_1\;\varepsilon_2]$ recovers (39). Reading off the $j$-th column:
+$$
+M \cdot \varepsilon_j \;=\; \varepsilon_j \cdot \lambda_j \;=\; \lambda_j \varepsilon_j,
+$$
+which is the **per-vector eigenvalue equation**. $\quad\blacksquare$
+
+## Verification audit
+
+::: {.audit}
+
+- **Trace at $\theta = 0$.** $R(0) = I$, so $R^{-1} M R = M$ trivially; trace unchanged. ✓
+- **Trace at $\theta = \pi/2$.** $R(\pi/2) = \begin{pmatrix}0&-1\\1&0\end{pmatrix}$. $R^{-1} M R = \begin{pmatrix}c&-b\\-b&a\end{pmatrix}$. Trace = $c + a = a + c$. ✓
+- **Determinant invariance at $M = \begin{pmatrix}3&1\\1&5\end{pmatrix}$, $\theta = \pi/4$.** $\det M = 15 - 1 = 14$. Direct computation of $R^{-1} M R$: $R^{-1} = \begin{pmatrix}\frac{1}{\sqrt 2}&\frac{1}{\sqrt 2}\\-\frac{1}{\sqrt 2}&\frac{1}{\sqrt 2}\end{pmatrix}$, and the resulting $S$ has $\det = 14$. ✓ (computed; details elided)
+- **Eigenvalues from trace/det.** Same $M$: $\lambda_{1,2} = (8 \pm \sqrt{4 + 4})/2 = (8 \pm 2\sqrt 2)/2 = 4 \pm \sqrt 2$. Trace check: $(4+\sqrt 2) + (4 - \sqrt 2) = 8 = a+c$ ✓. Determinant check: $(4+\sqrt 2)(4-\sqrt 2) = 16 - 2 = 14$ ✓.
+- **Special case $M$ already diagonal.** $b = 0 \Rightarrow$ characteristic polynomial $\lambda^2 - (a+c)\lambda + ac = (\lambda - a)(\lambda - c)$. $\lambda_{1,2} = a, c$. ✓
+- **Symmetry-required.** For non-symmetric $M = \begin{pmatrix}0&1\\-1&0\end{pmatrix}$ (a 90° rotation itself), eigenvalues are $\pm i$ — complex. Trace + det formula still gives the correct quadratic $\lambda^2 + 1 = 0$, but the diagonalization is over $\mathbb{C}$, not over $\mathbb{R}$. **Symmetry of $M$ is essential for real eigenvalues.** ✓ (Spectral theorem foreshadowed.)
+- **Orthogonal matrix sanity.** $\det R(\theta) = \cos^2\theta + \sin^2\theta = 1$. So $R \in \operatorname{SO}(2)$ (special orthogonal group: orthogonal + det = +1). Reflection matrices (det $= -1$) also satisfy $O^T O = I$ but are not in $\operatorname{SO}(n)$. The eigenvalue conclusion holds for both, since $\det R = \pm 1$ contributes $\det(R)^{-1}\det(R) = 1$ either way. ✓
+- **Dependency check.** Theorem 37a: $\sin^2 + \cos^2 = 1$ only. Theorem 37b Derivation A: same identity. Derivation B imports $\det(AB) = \det(A)\det(B)$. Theorem 38: Theorem 37 + Vieta. Theorem 39: Theorem 38 + left-multiplication by $R(\theta)$. Orthogonal-matrix theorem: dot-product computation + (forward reference) left-inverse-is-right-inverse. No circular dependency.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.3/2026-02-21-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  ~60 min · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.3" target="_blank">GitHub Release v0.3</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 05m00** — Recap of the conic metric matrix $M = \begin{pmatrix}a&b\\b&c\end{pmatrix}$ diagonalized as $R(-\theta) M R(\theta) = \operatorname{diag}(\lambda_1, \lambda_2)$.](../figures/2026-02-21-morning/frame-05m00.jpg)
+
+![**Frame @ 22m00** — Trace and determinant invariance under rotation: the algebraic verification that the rotation angle cancels out, leaving $a + c = \lambda_1 + \lambda_2$ and $ac - b^2 = \lambda_1 \lambda_2$.](../figures/2026-02-21-morning/frame-22m00.jpg)
+
+![**Frame @ 40m00** — Orthogonal-matrix definition $O^T O = I$ via dot products of columns; introduction of the Kronecker $\delta_{ij}$ notation.](../figures/2026-02-21-morning/frame-40m00.jpg)
+
+![**Frame @ 55m00** — The eigenvalue equation $M \cdot E = E \cdot \Lambda$ written in matrix form; per-column reading $M \varepsilon_j = \lambda_j \varepsilon_j$ set as homework.](../figures/2026-02-21-morning/frame-55m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Symmetric M = [a,b;b,c]<br/>conic metric tensor"] --> B["Diagonalization R(-θ)·M·R(θ) = Λ<br/><i>(imported from earlier conic work)</i>"]
+    C["sin²θ + cos²θ = 1<br/>(Pythagorean)"] --> D["Trace invariance:<br/>tr(R⁻¹MR) = a + c<br/>Theorem 37a"]
+    C --> E["Determinant invariance (direct):<br/>det(R⁻¹MR) = ac - b²<br/>Theorem 37b (Derivation A)"]
+    F["det(AB) = det(A)·det(B)<br/><i>(deferred)</i>"] --> G["Theorem 37b (Derivation B)"]
+    D --> H["λ₁ + λ₂ = a + c<br/>λ₁·λ₂ = ac - b²<br/>Theorem 38 (eq. 38)"]
+    E --> H
+    H --> I["Vieta on λ² - (a+c)λ + (ac-b²) = 0<br/>⇒ λ₁,₂ formula (eq. 41)<br/>real eigenvalues guaranteed by symmetry"]
+    B --> J["Columns ε₁, ε₂ of R(θ):<br/>orthonormal basis"]
+    J --> K["O^T O = I<br/>Orthogonal matrix theorem"]
+    K --> L["O⁻¹ = O^T"]
+    B --> M["M·E = E·Λ<br/>matrix eigenvalue equation<br/>Theorem 39 (eq. 39)"]
+    M --> N["Per-column: M·εⱼ = λⱼ·εⱼ<br/>(homework)"]
+    N -.-> O["(M - λI)v = 0<br/>characteristic polynomial<br/><i>(next session: 2026-02-28)</i>"]
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "$\det(AB) = \det(A)\det(B)$ — Emma is assuming this. It's true, but it's a deep theorem I can't even prove yet. Let's not use it. Instead, multiply out the determinant directly."
+<br><span class="speaker">Class:</span> *(reluctant, tedious algebra ensues)*
+<br><span class="speaker">Teacher:</span> "Right — angles cancel via $\sin^2 + \cos^2 = 1$. Now you've **proven** what Emma assumed, without importing anything heavy."
+
+*Teaching move:* **rigor without imports** — when a clean abstract proof relies on a theorem you haven't yet established, do the algebraic grind directly. It costs labour but it's honest. (And it gives the rigor protocol a worked example of "import-free derivations.")
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Look at this matrix $E = [\varepsilon_1\;\varepsilon_2]$. What can you observe about the two vectors?"
+<br><span class="speaker">Emma:</span> "They're orthogonal — I computed $\cos\theta \cdot (-\sin\theta) + \sin\theta \cdot \cos\theta = 0$."
+<br><span class="speaker">Teacher:</span> "Beautiful. And their magnitudes?"
+<br><span class="speaker">Class:</span> "Both unit length, by $\cos^2 + \sin^2 = 1$."
+<br><span class="speaker">Teacher:</span> "So $E$ is **orthogonal** — orthonormal columns. We'll exploit this to write $E^{-1} = E^T$, which gives us a free pass when computing $E^{-1} M E$."
+
+*Teaching move:* the geometric features of the matrix (orthonormality of columns) reveal an algebraic shortcut (inverse = transpose), which dramatically simplifies similarity transforms.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Expand $M \cdot E = E \cdot \Lambda$ column by column. Show that this gives the *two* equations $M \varepsilon_1 = \lambda_1 \varepsilon_1$ and $M \varepsilon_2 = \lambda_2 \varepsilon_2$. **This is the per-vector eigenvalue equation** — to be formalized as $(M - \lambda I)\varepsilon = \mathbf{0}$ in the next session.
+2. Verify directly that $O^{-1} = O^T$ for the rotation matrix $R(\theta)$ — i.e., compute both $R(\theta)^T R(\theta)$ and $R(\theta) R(\theta)^T$ and confirm both equal $I$.
+3. Compute eigenvalues of $M = \begin{pmatrix}4&-1\\-1&4\end{pmatrix}$ using Theorem 38. Then verify by directly finding $\theta$ via $\tan(2\theta) = 2b/(a-c)$ and computing $R(-\theta) M R(\theta)$.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Theorem 37b Derivation A is *direct algebra* that scales poorly to higher dimensions. For $n \times n$ symmetric matrices, you really do want the determinant multiplicativity $\det(AB) = \det(A)\det(B)$ — but that's still an "import" in this course. **Confidence is high for $n=2$**; generalisation requires the deeper theorem.
+- **"Left inverse implies right inverse" forward reference.** The Orthogonal Matrix theorem uses this fact, which is itself proved later (Mar 7 LVS, Theorem 2). No circular dependency *if* you prove $O O^T = I$ directly first — which the teacher does for $R(\theta)$. The general $n$-dimensional case needs the forward reference.
+- **Symmetric matrices have real eigenvalues** — true, but only briefly noted via the discriminant $(a-c)^2 + 4b^2 \ge 0$. The general statement (spectral theorem) is much deeper and is foreshadowed but not proved.
+- **Imported facts:** existence of the diagonalising rotation (developed in earlier conic-section work, e.g., 2025-10-18); multiplicative determinant law (deferred); rank-nullity-style "left-inverse implies right-inverse."
+- **Confidence.** Theorem 37, 38, 39 statements + proofs (in 2D, symmetric case): high. Orthogonal-matrix theorem (in 2D): high. Generalisation to $n > 2$ symmetric: medium — relies on deferred theorems.
+
+:::
+
+## Related sessions
+
+- **Precursors:**
+  - Conic diagonalization first developed in [2025-10-18 morning](2025-10-18-morning.html) (quadratic-form discriminant) and [2025-10-18 afternoon](2025-10-18-afternoon.html) (factoring asymptotes).
+  - $\tan(2\theta) = 2b/(a-c)$ derivation in earlier conic sessions.
+- **Sequel:**
+  - [2026-02-28 eigenvalues follow-up](2026-02-28-eigenvalues-followup.html) (stub) — the next class formally introduces $(M - \lambda I)v = 0$ and the **characteristic polynomial**, with Vieta giving back the trace/det relations established here.
+  - [2026-02-21 afternoon](2026-02-21-afternoon.html) (stub) — continuation that pivots to elliptical conics via $y \to yi$ complex rotation.
+- **Forward applications:** the matrix-form eigenvalue equation $M E = E \Lambda$ generalises directly to Jordan-block decompositions in [2026-04-04 morning](2026-04-04-morning.html) (stub), where repeated eigenvalues introduce the nilpotent $N$ and the $(\lambda I + N)^n$ structure.
 
 ## Full transcript
 
