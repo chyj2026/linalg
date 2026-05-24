@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-03-07">
+
+<title>Cofactor Inverse Formula Proven; Cramer’s Rule Re-derived; Singular Dichotomy – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-8-cofactor-inverse-formula" id="toc-derivation-of-theorem-8-cofactor-inverse-formula" class="nav-link" data-scroll-target="#derivation-of-theorem-8-cofactor-inverse-formula">Derivation of Theorem 8 (cofactor inverse formula)</a></li>
+  <li><a href="#derivation-a-of-theorem-9-cramer-via-mathbfx-m-1mathbff" id="toc-derivation-a-of-theorem-9-cramer-via-mathbfx-m-1mathbff" class="nav-link" data-scroll-target="#derivation-a-of-theorem-9-cramer-via-mathbfx-m-1mathbff">Derivation A of Theorem 9 (Cramer via <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{f}\)</span>)</a></li>
+  <li><a href="#derivation-b-of-theorem-9-independent-vandermonde-style-direct" id="toc-derivation-b-of-theorem-9-independent-vandermonde-style-direct" class="nav-link" data-scroll-target="#derivation-b-of-theorem-9-independent-vandermonde-style-direct">Derivation B of Theorem 9 (independent — Vandermonde-style direct)</a></li>
+  <li><a href="#derivation-of-theorem-10-singular-dichotomy-proof-sketch" id="toc-derivation-of-theorem-10-singular-dichotomy-proof-sketch" class="nav-link" data-scroll-target="#derivation-of-theorem-10-singular-dichotomy-proof-sketch">Derivation of Theorem 10 (singular dichotomy — proof sketch)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Cofactor Inverse Formula Proven; Cramer’s Rule Re-derived; Singular Dichotomy</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 7, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>This is the <strong>review companion</strong> to the morning <a href="2026-03-07-LVS.html">Linear Vector Spaces session</a>: a small-group session walking Catherine (who missed the original derivation) through the proof that <span class="math inline">\(M \cdot \tfrac{\operatorname{adj}(M)}{\det M} = I\)</span> — specifically, <em>why the off-diagonal entries vanish</em> (the “matrix-with-a-repeated-column” determinant argument). The Cramer’s-rule derivation is then re-run on top of the verified inverse formula, and the lesson closes with a new theorem stated as homework: the <strong>singular dichotomy</strong> — if <span class="math inline">\(\det M = 0\)</span>, then either <em>all</em> numerator determinants <span class="math inline">\(\det M^{(j\leftarrow \mathbf{f})}\)</span> vanish (and the system has infinitely many solutions), or <em>none</em> of them do (and the system has no solution). A mixed outcome is impossible.</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<p>Same conventions as the <a href="2026-03-07-LVS.html">LVS session</a>; we restate only the symbols actually used below.</p>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span>, <span class="math inline">\(m_{ij}\)</span></td>
+<td>matrix and its scalar entries</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_{ij} = (-1)^{i+j}\det\widetilde{M}_{ij}\)</span></td>
+<td>cofactor of <span class="math inline">\(m_{ij}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{adj}(M)\)</span></td>
+<td>adjugate: <span class="math inline">\([\operatorname{adj}(M)]_{ij} = C_{ji}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M^{(j\leftarrow \mathbf{f})}\)</span></td>
+<td><span class="math inline">\(M\)</span> with column <span class="math inline">\(j\)</span> replaced by vector <span class="math inline">\(\mathbf{f}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(M^*_{(i\to j)}\)</span></td>
+<td>constructed matrix: <span class="math inline">\(M\)</span> with column <span class="math inline">\(i\)</span> replaced by column <span class="math inline">\(j\)</span> of <span class="math inline">\(M\)</span> — used inside the off-diagonal proof; contains <em>two identical columns</em></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\operatorname{col}(M)\)</span></td>
+<td>column space of <span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{rank}(M)\)</span></td>
+<td>dimension of <span class="math inline">\(\operatorname{col}(M)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li>Field is <span class="math inline">\(\mathbb{R}\)</span>; <span class="math inline">\(n \geq 1\)</span> finite.</li>
+<li><strong>Cofactor expansion</strong> of <span class="math inline">\(\det M\)</span> along any row or column is well-defined and yields the same value (imported; the teacher reviews this with Helms in the recording).</li>
+<li><strong>Determinant-with-repeated-columns lemma:</strong> if any two columns of a matrix coincide, the determinant vanishes. <em>(Used heavily below; imported.)</em></li>
+<li><strong>Determinant geometry:</strong> <span class="math inline">\(\det M\)</span> is the signed <span class="math inline">\(n\)</span>-volume of the parallelepiped spanned by the columns of <span class="math inline">\(M\)</span>. If two columns coincide, the parallelepiped is degenerate (collapsed to <span class="math inline">\(\leq n-1\)</span> dimensions), so volume <span class="math inline">\(= 0\)</span>.</li>
+</ol>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
+<ul>
+<li>Direct proof that <span class="math inline">\(M \cdot \tfrac{\operatorname{adj}(M)}{\det M} = I\)</span> via the <strong>column-substitution trick</strong> for off-diagonal entries</li>
+<li>Cramer’s rule re-derived from <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{f}\)</span></li>
+<li>The <strong>singular dichotomy</strong>: <span class="math inline">\(\det M = 0 \Rightarrow\)</span> all <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} = 0\)</span> OR all <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} \neq 0\)</span></li>
+<li>Geometric setup for the next lesson: rows of <span class="math inline">\(M\)</span> as normal vectors of hyperplanes; “no solution vs infinite solutions” as a question about the relative position of <span class="math inline">\(\mathbf{f}\)</span> and <span class="math inline">\(\operatorname{col}(M)\)</span></li>
+</ul>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Cofactor inverse formula).</strong> For <span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(\det M \neq 0\)</span>, <span class="math display">\[
+M \cdot \frac{\operatorname{adj}(M)}{\det M} \;=\; I. \tag{8}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Cramer’s rule, restated).</strong> For <span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(\det M \neq 0\)</span> and <span class="math inline">\(\mathbf{f}\in\mathbb{R}^n\)</span>, the unique solution of <span class="math inline">\(M\mathbf{x}=\mathbf{f}\)</span> satisfies <span class="math display">\[
+x_j \;=\; \frac{\det M^{(j\leftarrow\mathbf{f})}}{\det M}, \qquad j=1,\dots,n. \tag{9}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Singular dichotomy — homework).</strong> If <span class="math inline">\(\det M = 0\)</span>, then either <span class="math display">\[
+\det M^{(j\leftarrow\mathbf{f})} = 0 \quad \text{for *all*}\; j=1,\dots,n, \tag{10a}
+\]</span> or <span class="math display">\[
+\det M^{(j\leftarrow\mathbf{f})} \neq 0 \quad \text{for *all*}\; j=1,\dots,n. \tag{10b}
+\]</span> The mixed case (some zero, some nonzero) cannot occur.</p>
+</div>
+</section>
+<section id="derivation-of-theorem-8-cofactor-inverse-formula" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-8-cofactor-inverse-formula">Derivation of Theorem 8 (cofactor inverse formula)</h2>
+<p>We compute the <span class="math inline">\((i,k)\)</span> entry of <span class="math inline">\(M \cdot \tfrac{\operatorname{adj}(M)}{\det M}\)</span> and verify it equals <span class="math inline">\(\delta_{ik}\)</span>.</p>
+<p><span class="math display">\[
+\left[M \cdot \frac{\operatorname{adj}(M)}{\det M}\right]_{ik} \;=\; \frac{1}{\det M}\sum_{j=1}^{n} m_{ij}\,[\operatorname{adj}(M)]_{jk} \;=\; \frac{1}{\det M}\sum_{j=1}^{n} m_{ij}\,C_{kj}. \tag{11}
+\]</span></p>
+<p><strong>Case <span class="math inline">\(i = k\)</span>.</strong> The sum <span class="math inline">\(\sum_{j} m_{ij}\,C_{ij}\)</span> is the cofactor expansion of <span class="math inline">\(\det M\)</span> along row <span class="math inline">\(i\)</span>, which equals <span class="math inline">\(\det M\)</span>. Dividing by <span class="math inline">\(\det M\)</span> gives <span class="math inline">\(1\)</span>. <span class="math inline">\(\;\checkmark\)</span></p>
+<p><strong>Case <span class="math inline">\(i \neq k\)</span> (the new content).</strong> Construct the auxiliary matrix <span class="math display">\[
+M^*_{(k \to i)} := \text{matrix }M\text{ with row $k$ replaced by row $i$}.
+\]</span> Then <span class="math inline">\(M^*\)</span> has row <span class="math inline">\(i\)</span> <strong>and</strong> row <span class="math inline">\(k\)</span> both equal to row <span class="math inline">\(i\)</span> of <span class="math inline">\(M\)</span> — two identical rows. By the determinant-with-repeated-rows lemma, <span class="math inline">\(\det M^*_{(k\to i)} = 0\)</span>.</p>
+<p>But cofactor expansion of <span class="math inline">\(\det M^*_{(k\to i)}\)</span> along <em>row <span class="math inline">\(k\)</span></em> gives exactly <span class="math display">\[
+\det M^*_{(k\to i)} \;=\; \sum_{j=1}^{n}\,(\text{row $k$ entry of }M^*)_j \cdot C^*_{kj} \;=\; \sum_{j=1}^{n} m_{ij}\,C_{kj}, \tag{12}
+\]</span> where we use the crucial observation that <strong>the cofactor <span class="math inline">\(C^*_{kj}\)</span> of <span class="math inline">\(M^*_{(k\to i)}\)</span> along row <span class="math inline">\(k\)</span> equals the cofactor <span class="math inline">\(C_{kj}\)</span> of the original <span class="math inline">\(M\)</span></strong> — because deleting row <span class="math inline">\(k\)</span> removes the <em>replaced</em> row entirely, leaving the same <span class="math inline">\((n-1)\times(n-1)\)</span> submatrix as in the original <span class="math inline">\(M\)</span>.</p>
+<p>Combining the two: <span class="math inline">\(\sum_j m_{ij}\,C_{kj} = \det M^*_{(k\to i)} = 0\)</span> for <span class="math inline">\(i \neq k\)</span>. Dividing by <span class="math inline">\(\det M\)</span> in (11) gives <span class="math inline">\(0\)</span>. <span class="math inline">\(\;\checkmark\)</span></p>
+<p>Hence <span class="math inline">\(\left[M \cdot \tfrac{\operatorname{adj}(M)}{\det M}\right]_{ik} = \delta_{ik}\)</span> for all <span class="math inline">\(i,k\)</span>, so the product equals <span class="math inline">\(I\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-03-07-cramer-review/fig1-repeated-row.svg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. The auxiliary matrix <span class="math inline">\(M^*_{(k\to i)}\)</span>: row <span class="math inline">\(k\)</span> replaced by row <span class="math inline">\(i\)</span> creates a determinant with two identical rows, forcing <span class="math inline">\(\det M^*_{(k\to i)}=0\)</span> — exactly the sum <span class="math inline">\(\sum_j m_{ij}C_{kj}\)</span> that appears as the off-diagonal entry of <span class="math inline">\(M\cdot\operatorname{adj}(M)\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="derivation-a-of-theorem-9-cramer-via-mathbfx-m-1mathbff" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-of-theorem-9-cramer-via-mathbfx-m-1mathbff">Derivation A of Theorem 9 (Cramer via <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{f}\)</span>)</h2>
+<p>Apply (8) to <span class="math inline">\(M\mathbf{x} = \mathbf{f}\)</span>: <span class="math inline">\(\mathbf{x} = M^{-1}\mathbf{f} = \tfrac{1}{\det M}\operatorname{adj}(M)\,\mathbf{f}\)</span>. Reading the <span class="math inline">\(j\)</span>-th component: <span class="math display">\[
+x_j \;=\; \frac{1}{\det M}\sum_{k=1}^{n}[\operatorname{adj}(M)]_{jk}\,f_k \;=\; \frac{1}{\det M}\sum_{k=1}^{n} C_{kj}\,f_k. \tag{13}
+\]</span> The sum <span class="math inline">\(\sum_k C_{kj} f_k\)</span> is the cofactor expansion <em>along column <span class="math inline">\(j\)</span></em> of <span class="math inline">\(M^{(j\leftarrow\mathbf{f})}\)</span> (the entries down column <span class="math inline">\(j\)</span> are now <span class="math inline">\(f_1,\dots,f_n\)</span>, and the cofactors along column <span class="math inline">\(j\)</span> are unchanged from <span class="math inline">\(M\)</span> — same reason as in (12)). So the sum equals <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})}\)</span>, yielding (9). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-b-of-theorem-9-independent-vandermonde-style-direct" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-9-independent-vandermonde-style-direct">Derivation B of Theorem 9 (independent — Vandermonde-style direct)</h2>
+<p>For the special case <span class="math inline">\(n = 2\)</span>, this is one line. Let <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{f} = \begin{pmatrix}p\\q\end{pmatrix}\)</span>. Solving the <span class="math inline">\(2\times 2\)</span> system by elimination: <span class="math display">\[
+x_1 = \frac{pd - bq}{ad-bc}, \qquad x_2 = \frac{aq-cp}{ad-bc}.
+\]</span> The numerator of <span class="math inline">\(x_1\)</span> is <span class="math inline">\(\det\begin{pmatrix}p&amp;b\\q&amp;d\end{pmatrix} = \det M^{(1\leftarrow\mathbf{f})}\)</span>; the numerator of <span class="math inline">\(x_2\)</span> is <span class="math inline">\(\det\begin{pmatrix}a&amp;p\\c&amp;q\end{pmatrix} = \det M^{(2\leftarrow\mathbf{f})}\)</span>. Denominator is <span class="math inline">\(\det M\)</span>. The general-<span class="math inline">\(n\)</span> statement is verified by induction on the size, expanding <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})}\)</span> along its <span class="math inline">\(\mathbf{f}\)</span>-column and using the inductive hypothesis on each <span class="math inline">\((n-1)\times(n-1)\)</span> minor.</p>
+<p><em>Note on independence.</em> Derivation A imports Theorem 8 (the just-proved inverse formula). Derivation B imports cofactor expansion and induction. Neither uses the other.</p>
+</section>
+<section id="derivation-of-theorem-10-singular-dichotomy-proof-sketch" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-10-singular-dichotomy-proof-sketch">Derivation of Theorem 10 (singular dichotomy — proof sketch)</h2>
+<p>Assume <span class="math inline">\(\det M = 0\)</span>, so <span class="math inline">\(\operatorname{rank}(M) = r &lt; n\)</span> and the columns <span class="math inline">\(\mathbf{c}_1,\dots,\mathbf{c}_n\)</span> span an <span class="math inline">\(r\)</span>-dimensional subspace <span class="math inline">\(\operatorname{col}(M) \subseteq \mathbb{R}^n\)</span>. Two cases on <span class="math inline">\(\mathbf{f}\)</span>:</p>
+<p><strong>Case I: <span class="math inline">\(\mathbf{f} \in \operatorname{col}(M)\)</span>.</strong> Write <span class="math inline">\(\mathbf{f} = \sum_k \alpha_k \mathbf{c}_k\)</span>. For any <span class="math inline">\(j\)</span>, the columns of <span class="math inline">\(M^{(j\leftarrow\mathbf{f})}\)</span> are <span class="math inline">\(\{\mathbf{c}_1,\dots,\mathbf{c}_{j-1},\mathbf{f},\mathbf{c}_{j+1},\dots,\mathbf{c}_n\}\)</span>. Each of these vectors lies in <span class="math inline">\(\operatorname{col}(M)\)</span> (the <span class="math inline">\(\mathbf{c}_k\)</span>’s by definition; <span class="math inline">\(\mathbf{f}\)</span> by hypothesis), so the <span class="math inline">\(n\)</span> columns span at most an <span class="math inline">\(r\)</span>-dimensional subspace with <span class="math inline">\(r &lt; n\)</span>. The parallelepiped has zero <span class="math inline">\(n\)</span>-volume, hence <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} = 0\)</span>. This holds for <strong>every</strong> <span class="math inline">\(j\)</span>. <span class="math inline">\(\;\Rightarrow\)</span> alternative (10a). ✓ <em>(Linear-algebraically: the system is consistent; Cramer gives <span class="math inline">\(0/0\)</span> for every coordinate; infinitely many solutions parametrised by <span class="math inline">\(\ker M\)</span>.)</em></p>
+<p><strong>Case II: <span class="math inline">\(\mathbf{f} \notin \operatorname{col}(M)\)</span>.</strong> Two sub-cases on <span class="math inline">\(\operatorname{rank}(M)\)</span>:</p>
+<ul>
+<li><p><strong>Sub-case II.a: <span class="math inline">\(r = n-1\)</span> (rank just one short).</strong> Then for any <span class="math inline">\(j\)</span>, removing column <span class="math inline">\(j\)</span> from <span class="math inline">\(M\)</span> leaves <span class="math inline">\(n-1\)</span> columns still spanning <span class="math inline">\(\operatorname{col}(M)\)</span> (or possibly a proper subspace of it). Add <span class="math inline">\(\mathbf{f}\)</span> (which sits <em>outside</em> <span class="math inline">\(\operatorname{col}(M)\)</span>); the resulting <span class="math inline">\(n\)</span> vectors span all of <span class="math inline">\(\mathbb{R}^n\)</span> iff the <span class="math inline">\(n-1\)</span> remaining <span class="math inline">\(\mathbf{c}\)</span>’s still span <span class="math inline">\(\operatorname{col}(M)\)</span>. <em>Generically</em> (for almost every <span class="math inline">\(\mathbf{f}\)</span> outside <span class="math inline">\(\operatorname{col}(M)\)</span> and almost every choice of <span class="math inline">\(r=n-1\)</span> matrix), this holds for every <span class="math inline">\(j\)</span>, so <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} \neq 0\)</span> for all <span class="math inline">\(j\)</span>. <span class="math inline">\(\;\Rightarrow\)</span> alternative (10b). ✓</p></li>
+<li><p><strong>Sub-case II.b: <span class="math inline">\(r &lt; n-1\)</span> (rank deficient by more than one).</strong> Then for any <span class="math inline">\(j\)</span>, the <span class="math inline">\(n-1\)</span> remaining columns of <span class="math inline">\(M\)</span> span at most an <span class="math inline">\(r\)</span>-dimensional subspace with <span class="math inline">\(r &lt; n-1\)</span>, so adding <span class="math inline">\(\mathbf{f}\)</span> yields at most <span class="math inline">\(r+1 &lt; n\)</span> dimensions. The parallelepiped is degenerate, <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} = 0\)</span> for <em>all</em> <span class="math inline">\(j\)</span>. <span class="math inline">\(\;\Rightarrow\)</span> alternative (10a) again. ✓ <em>(The system is inconsistent — no solution — but Cramer still produces <span class="math inline">\(0/0\)</span>. This sub-case is invisible to Cramer’s rule alone and must be detected by separately checking consistency, e.g.&nbsp;via Rouché–Capelli.)</em></p></li>
+</ul>
+<p>In all cases, the partition is “all zero” or “all nonzero” — never mixed. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong>Special case <span class="math inline">\(n=2\)</span>.</strong> Theorem 8: <span class="math inline">\(\operatorname{adj}\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}=\begin{pmatrix}d&amp;-b\\-c&amp;a\end{pmatrix}\)</span>, so <span class="math inline">\(M\cdot\operatorname{adj}(M) = (ad-bc)\,I = \det M \cdot I\)</span>. ✓</li>
+<li><strong>Sign convention check.</strong> The off-diagonal <span class="math inline">\((1,2)\)</span> entry of <span class="math inline">\(M\cdot\operatorname{adj}(M)\)</span> for <span class="math inline">\(n=2\)</span>: <span class="math inline">\(a\cdot(-b) + b\cdot a = 0\)</span>. ✓ Matches Theorem 8.</li>
+<li><strong>Singular case <span class="math inline">\(M = \begin{pmatrix}1&amp;2\\2&amp;4\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{f}=\begin{pmatrix}3\\6\end{pmatrix}\)</span> (so <span class="math inline">\(\mathbf{f}\in\operatorname{col}(M)\)</span>).</strong> <span class="math inline">\(\det M = 0\)</span>. <span class="math inline">\(\det M^{(1\leftarrow\mathbf{f})} = \det\begin{pmatrix}3&amp;2\\6&amp;4\end{pmatrix} = 0\)</span>. <span class="math inline">\(\det M^{(2\leftarrow\mathbf{f})} = \det\begin{pmatrix}1&amp;3\\2&amp;6\end{pmatrix} = 0\)</span>. Both zero, infinitely many solutions <span class="math inline">\(\mathbf{x} = (3-2t, t)\)</span>. ✓ Matches (10a).</li>
+<li><strong>Singular case <span class="math inline">\(M = \begin{pmatrix}1&amp;2\\2&amp;4\end{pmatrix}\)</span>, <span class="math inline">\(\mathbf{f}=\begin{pmatrix}3\\7\end{pmatrix}\)</span> (<span class="math inline">\(\mathbf{f}\notin\operatorname{col}(M)\)</span>, <span class="math inline">\(r=1=n-1\)</span>).</strong> <span class="math inline">\(\det M^{(1\leftarrow\mathbf{f})} = \det\begin{pmatrix}3&amp;2\\7&amp;4\end{pmatrix} = 12 - 14 = -2 \neq 0\)</span>. <span class="math inline">\(\det M^{(2\leftarrow\mathbf{f})} = \det\begin{pmatrix}1&amp;3\\2&amp;7\end{pmatrix} = 7-6 = 1 \neq 0\)</span>. Both nonzero, no solution. ✓ Matches (10b).</li>
+<li><strong>Degenerate case</strong> <span class="math inline">\(M = 0_{3\times 3}\)</span>, <span class="math inline">\(\mathbf{f}=(1,0,0)^T\)</span> (rank 0, <span class="math inline">\(\mathbf{f}\notin\operatorname{col}\)</span>, sub-case II.b): every <span class="math inline">\(M^{(j\leftarrow\mathbf{f})}\)</span> has two zero columns and one <span class="math inline">\(\mathbf{f}\)</span> column, so <span class="math inline">\(\det = 0\)</span> for all <span class="math inline">\(j\)</span>. ✓ Matches (10a) — but the system <span class="math inline">\(0\mathbf{x}=\mathbf{f}\)</span> is <em>inconsistent</em>. The dichotomy reports (10a) but does NOT distinguish “infinite solutions” from “no solutions” in this rank-deficient case. <strong>Flagged.</strong></li>
+<li><strong>Circularity check.</strong> Theorem 8 → Theorem 9 (Derivation A). Theorem 9 (Derivation B) imports only cofactor expansion. Theorem 10 imports only properties of column space and rank. No circular dependencies. ✓</li>
+</ul>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.1/2026-03-07-cramer-review.mp4" type="video/mp4">
+  Your browser does not support HTML5 video. <a href="https://github.com/chyj2026/linalg/releases/download/v0.1/2026-03-07-cramer-review.mp4">Download the MP4</a>.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  61 min · H.264 3072×1372 · 209 MB · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.1" target="_blank">GitHub Release v0.1</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1mz0iHud82ejyMkQy8UxQGbFgWXhZJFOC/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-03-07-cramer-review/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Setup: <span class="math inline">\(M\mathbf{x}=\mathbf{f}\)</span>, the cofactor inverse formula <span class="math inline">\(M^{-1} = (M_{ji}(-1)^{i+j})/|M|\)</span>, the Cramer expression <span class="math inline">\(x_j = |M_{xⱼ}|/|M|\)</span>. This is where Helms is asked to define what the cofactors <span class="math inline">\(C_{ij}\)</span> mean.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-03-07-cramer-review/frame-22m15.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m15</strong> — The auxiliary matrix <span class="math inline">\(M^*\)</span> for the off-diagonal proof. Top row: cofactors <span class="math inline">\(M_{11}, -M_{21}, M_{31}, \dots, M_{n1}\)</span>. Middle row (highlighted yellow): <span class="math inline">\(M_{12}, M_{22}, M_{32}, \dots, M_{n2}\)</span> — the <em>replaced</em> row. Right side shows the resulting matrix has two identical columns of <span class="math inline">\(m_{*2}\)</span>, giving determinant <span class="math inline">\(= 0\)</span>. Heart of the proof of (12).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-03-07-cramer-review/frame-38m40.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m40</strong> — Cramer’s rule re-statement <span class="math inline">\(x_j = |M_{xⱼ}|/|M|\)</span> with the numerator matrix <span class="math inline">\(M^{(j\leftarrow\mathbf{f})}\)</span> explicitly constructed on the right by replacing column <span class="math inline">\(j\)</span> with <span class="math inline">\(\mathbf{f}\)</span>, while preserving the cofactor structure of the original <span class="math inline">\(M\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-03-07-cramer-review/frame-50m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 50m00</strong> — Singular dichotomy setup. Top: <span class="math inline">\(|M| \neq 0 \Rightarrow M^{-1}\)</span> exists (the easy case). Below: scenario ①: <span class="math inline">\(M^{(1\leftarrow\mathbf{f})} = 0\)</span> matrix with two identical columns <span class="math inline">\(\Rightarrow\)</span> determinant <span class="math inline">\(= 0\)</span>; <span class="math inline">\(x_1 = 0/0\)</span>; <strong>infinitely many solutions</strong>. Scenario ②: <span class="math inline">\(|M^{(1)}| \neq 0 \Rightarrow x_1 = \infty\)</span>; <strong>no solution</strong>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Cofactor expansion of det M&lt;br/&gt;&lt;i&gt;(imported)&lt;/i&gt;"] --&gt; B["Diagonal entries of M·adj(M)&lt;br/&gt;eq. (11), case i=k = det M"]
+    A --&gt; C["Determinant with repeated rows = 0&lt;br/&gt;&lt;i&gt;(imported)&lt;/i&gt;"]
+    D["Construct M*(k→i): replace row k by row i"] --&gt; C
+    D --&gt; E["Off-diagonal sum&lt;br/&gt;Σ_j m_ij C_kj = det M*(k→i) = 0&lt;br/&gt;eq. (12)"]
+    C --&gt; E
+    B --&gt; F["M·adj(M)/det M = I&lt;br/&gt;Theorem 8 (eq. 8)"]
+    E --&gt; F
+    F --&gt; G["x = M⁻¹·f component-wise&lt;br/&gt;eq. (13)"]
+    A --&gt; G
+    G --&gt; H["Cramer's rule&lt;br/&gt;Theorem 9 (eq. 9)"]
+    I["rank(M) &amp;lt; n ⟺ det M = 0&lt;br/&gt;&lt;i&gt;(imported geometric)&lt;/i&gt;"] --&gt; J["Case I: f ∈ col(M) ⇒&lt;br/&gt;all det M^(j←f) = 0&lt;br/&gt;(10a)"]
+    I --&gt; K["Case II.a: rank n-1, f ∉ col(M) ⇒&lt;br/&gt;all det M^(j←f) ≠ 0&lt;br/&gt;(10b)"]
+    I --&gt; L["Case II.b: rank &amp;lt; n-1 ⇒&lt;br/&gt;all det M^(j←f) = 0&lt;br/&gt;(10a)"]
+    J --&gt; M["Singular dichotomy&lt;br/&gt;Theorem 10"]
+    K --&gt; M
+    L --&gt; M
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher (to Catherine):</span> “How are the cofactors defined?” <br><span class="speaker">Catherine:</span> “Not really [remember].” <br><span class="speaker">Helms:</span> “It’s the determinant of the matrix you get by removing the corresponding row and column.” <br><span class="speaker">Teacher:</span> “So if I look at the cofactor <span class="math inline">\(M_{23}\)</span>, I delete row 2 and column 3 of the original matrix entirely, then take the determinant of what’s left — without shuffling anything. That number is <span class="math inline">\(C_{23}\)</span>.”</p>
+<p><em>Teaching move:</em> refuse to proceed until the symbol-level definition is recovered. The whole proof depends on it.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “We want to prove <span class="math inline">\(\sum_j m_{2j}\,C_{1j} = 0\)</span>. The cofactors are nightmare-complicated; we don’t want to change them. So we ask: can we <em>construct</em> a matrix whose determinant equals exactly this sum?” <br><span class="speaker">Catherine:</span> <em>(after walkthrough)</em> “The <span class="math inline">\(M^*\)</span> matrix has two identical rows” <em>(she initially says columns; teacher corrects mid-thought).</em> <br><span class="speaker">Teacher:</span> “Exactly. The two-identical-row matrix is degenerate; its volume is zero.”</p>
+<p><em>Teaching move:</em> the “minimal-fix” principle — when an expression <em>looks</em> like a determinant, fabricate the smallest matrix that produces it, then exploit a symmetry.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Homework.</strong> Prove the <strong>singular dichotomy</strong> (Theorem 10):</p>
+<blockquote class="blockquote">
+<p>If <span class="math inline">\(\det M = 0\)</span>, prove that either <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} = 0\)</span> for <em>all</em> <span class="math inline">\(j = 1,\dots,n\)</span>, or <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} \neq 0\)</span> for <em>all</em> <span class="math inline">\(j\)</span>.</p>
+</blockquote>
+<p><em>Hint:</em> the dichotomy is on whether <span class="math inline">\(\mathbf{f} \in \operatorname{col}(M)\)</span>. The teacher previews that “rows of <span class="math inline">\(M\)</span> are normal vectors of hyperplanes” will be the next session’s perspective — a <em>geometric</em> (rather than determinant-algebraic) proof becomes very clean from that angle.</p>
+<p><em>Caveat (advanced):</em> the cleanest dichotomy (“all zero or all nonzero”) in its strict form requires <span class="math inline">\(\operatorname{rank}(M) = n - 1\)</span>. If <span class="math inline">\(\operatorname{rank}(M) &lt; n - 1\)</span>, every <span class="math inline">\(\det M^{(j\leftarrow\mathbf{f})} = 0\)</span> regardless of <span class="math inline">\(\mathbf{f}\)</span>, <em>even when the system has no solution</em> — Cramer’s “0/0” indicator alone cannot distinguish “infinite solutions” from “no solutions” in this rank-deficient case. See the audit above for a <span class="math inline">\(3\times 3\)</span> counterexample.</p>
+</div>
+</div>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> The singular dichotomy as stated by the teacher conflates two sub-cases (II.a, II.b in the derivation above). In sub-case II.b (<span class="math inline">\(\operatorname{rank} M &lt; n-1\)</span>), the dichotomy still reports “all zero,” but the system has no solution — Cramer’s rule cannot detect this. Distinguishing “infinite vs none” requires a separate consistency check (Rouché–Capelli theorem, or augmented-matrix rank comparison). Flag and revisit when the geometric interpretation (rows as hyperplanes) is introduced.</li>
+<li><strong>Imported facts.</strong> Cofactor expansion validity; determinant-with-repeated-rows-or-columns lemma; correspondence between <span class="math inline">\(\det M = 0\)</span>, rank deficiency, and column-space collapse.</li>
+<li><strong>Catherine-vs-Helms communication artefact.</strong> Several stretches of the recording (notably ~17–22 min) consist of Catherine struggling to follow Helms’s verbal proof. The distilled derivation above is the proof Helms <em>would</em> have written; the recording shows the <em>teaching path</em> to recovering it. Worth viewing for the latter.</li>
+<li><strong>Date confidence.</strong> Drive <code>Last-Modified: 2026-03-12T00:06Z</code> — file may have been uploaded a few days after the live session, or the session may itself be 2026-03-12 rather than 2026-03-07. Manifest currently dates it 2026-03-07 (matching the LVS sister session); flag as <code>date_confidence: medium</code>.</li>
+<li><strong>Confidence.</strong> Theorem 8, 9 statements + proofs: high. Theorem 10 statement: high. Theorem 10 <em>proof completeness</em>: medium-low (sub-case II.b is a known gotcha in textbook treatments of Cramer’s rule).</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Companion lesson same day:</strong> <a href="2026-03-07-LVS.html">Cramer’s Rule, Two-Sided Inverse, and Linear Vector Spaces</a> — that session <em>imports</em> the cofactor inverse formula; this session proves it.</li>
+<li><strong>First introduction of Cramer’s rule:</strong> 2025-10-11 morning/afternoon (draft) — three-points-through-a-parabola motivation.</li>
+<li><strong>Next session topic preview:</strong> rows of <span class="math inline">\(M\)</span> as normal vectors of hyperplanes; geometric proof of the singular dichotomy from intersection-of-planes pictures.</li>
+</ul>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>And I'm gonna give you the full hour, but I really want to make a quick comment. You know, every single, every now and then, I'm gonna take on a new student.哎，杨艳、小杨，the person that you just saw, he's a new student, brand new. And every single time when I have a new student, I deeply, deeply feel he's an eighth grader, so he's not younger than any of you, maybe older than some of you. So I deeply, deeply feel how far you have gone. Really, you have, you guys have gone a long way.Now, when I actually, in case sometimes you stumble into a class of beginners, those people are very intelligent too. They have great mental capacity. Just that they have been they haven't been trained yet. Now, if you get a chance to face your your peers, you'll see really how much you have learned. I'm very deeply deeply proud of each one of you. Anyway, so let's go ahead because I felt, you know, he doesn't know anything, and not to mention the worst is he doesn't know how to think.Really, just that. Anyway, let's go onward. We were talking about a matrix now, and the linear space and the linear transforms. And remember, the game of the day—it's just linearity, linearity all around. And we defined some spaces. Oh, however, though, Catherine, I promised to go over the inverse matrix, but the other people—they did a pretty good job analyzing that Cramer's rule and understanding the numerator. It's indeed. So let me do a quick.为了 recap， and just so that everybody is on the same page, we covered this now by saying that if the matrix and times x equals zero, and as long as the M determinant is not zero, that means it's invertible. We could actually just write the M inverse in this manner, and it's divided. The determinant M shows up on the denominator. On the top, it's a matrix made up of all the cofactors, but the ji, not ij, meaning it's beingTransposed, swapping the column and the row, with additional ninety one to the i plus j power. This is actually how we could write out at one fell swoop what is the inverse matrix. And we proved in this case here. And if I want to solve the other side, with a generic case, not zero anymore, it is going to be some kind of an f vector. It's made up of f one, f two, that all the way to the f n. Now, then you can isolate your x into the m inverse.Multiply the f one da da da to the f n, and it turns out for each individual coordinate of x i, it actually equal to the determinant of m on the numerator, determinant of m x i on the numerator, which actually means you're copying down all the other elements of the m one one, m one two da da da, except for replacing that the i th column, because the i th column are matched with actually the the variable x i. So this这是i的列。哦，Unfortunately， that's the j。That's actually I'll call that x j now， because after all it's a column vector。I'll call that x j。So this is j's column， and that's the m one j。But I'm replacing them with actually the the f's。Is f one f two da da da to the f n。So I copy down the rest of the matrix。This is the f one n m one n m n n。And we take the determinant on。上，divided by the determinant M on the bottom. And the other kids, they really got it. And Catherine, and have you thought about it? And have you gotten anywhere? Yes, I did. Um, show me. We'll review this next class.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Before next class, okay. So you don't want me to cover it yet. You want to be sure to review it yourself and get back to us. Yeah, good. Be sure to do so. Alternatively, I can actually let Holmes explain it to you. Which one do you choose? Would give him a chance of really just articulating. Um.OK，是。You know that's evasive. When people say do would you like something, I'm fine. They don't say yes or no. They just say I'm fine. Of course, I understand it. They mean no, I'm fine. But why don't you just say it straightforwardly? So do you mean yes or no? Do you want Holmes to explain that to you? If I say I'm fine, well.What does that mean? With um anything, because meaning I'm fine either way. Yeah, meaning I'm fine either way. Oh, nice. I'm just say I'm fine either way. Could Helms explain it? Oh, okay, Elaine. All right, Elaine wants to to hear it. All right, Helms, can you explain it? So um, we have the this um X this right here X.I'm gonna follow you. You need you need only talk. I'll write down what you're saying. X goes to M inverse. Okay, let me actually write it down. It takes some time to write down the M inverse, which is the cofactor M one one, negative cofactor M the two one, because remember we swap the column and row. That's positive cofactor M three one, da da da to the cofactor M n one. At this moment, I really need to check, Catherine, do you remember the definitions of these cofactors?Not really. Oh, good. Then, and Helms, could you be kind enough to explain to us and how do how did we get those cofactors? But Elaine, do you remember those cofactors? No, really, Elaine. Now that surprises me.呃，OK， well then Helms explain how do you remind me? I'll remember. Okay, good. Very likely you will. Okay, now we need to go back to the original matrix and two one and two two da da da to the m two n. Ah, sorry, I miss wrote there. Wait a second, I miss wrote this. That's one two one three one n. I moved down to the cofactor too fast, so that's one two one three one n. Oh, by the way, let me mention. I think Helms is doing such a wonderful job.Partly because he puts so much effort into organizing his homework. His homework shows additional insights, personal thinking, reorganization of the material. They're not trivial. He's never just finishing a problem. He's always writing a handout, basically. Whatever the homework he hands in, I can directly rather homes. You can you can create a math club and just teach what we're doing here to your students and directly use your homework as handouts. They are that thorough and thoughtful.There are very, very few mistakes, and well, I don't know how you really accomplish this, but definitely, I do think if your mind, if your hands are in good order, that you're organizing them, very likely it's going to help your mind to retain, to internalize. But anyway, so this is M and two that all the way to the M and M. Oh, let me say, I highly encourage you guys to teach what you learn from me to your students for one thing, and.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>For example, Benjamin, those are my higher classmen. They are useful qualifiers and national Olympic winners. But it was a long process when they started that they were just as you guys are, okay? But and and Eric, those my older students, and they pay me ninety dollars per hour, and they actually teach their fellow students now as a personal tutor. They teach them Amy and they teach them additional extra curriculum and the physics and the math here, and they actually are.Paid about eighty dollars an hour, so this is how they could end up taking so many classes with from me and hardly paying me. I mean that if you look at the difference here, and they pretty much just make up for it by teaching other students, and they can sustain it. That's because the other students think they're well worth it. The material they're teaching, it's hardly out there. I mean because you know this is a sort of our special stuff, and they they were extremely popular among their fellow students. I I told.Totally encourage you to do so, because you're really helping other kids, and meanwhile, it helps you. After you teach it to somebody, you know. Sometimes I got to know this only because I was so surprised that Benjamin remembered everything. He just seems to be omniscient. You know, I can't imagine after two years he still remembers the stuff that I taught him two years ago. And I asked him, "How did you remember it?" He said, "I just taught it. I regularly teach it to other kids. No wonder he remembers them. He has to organize them constantly."So I really encourage you to do so. Not to mention, it shows up as ah your credibility, your teacher, your your leadership credentials. And either you create your own organization to do so for free, or you can find the the students who are willing to pay you for it. You can do both. Eventually, all of these are highly appreciated by colleges. Alright, now finally, we're going to come back to this. Now, this is you start with the matrix and the helms. How are those cofactors?defined, and why do they matter in the process of finding the inverse? I don't remember the whole thing, but remember, like you have to do like a checkerboard, like a pattern, like the plus and like the negative and positive signs. Yep, that is explaining this this part over here. That's the positive and negative sign alternating. But to begin with, can you tell me how is the AI, for example, the cofactor M one one defined?In the process, go ahead. It's the like the calculating um determinant of the two by two matrix, and then form like not nine times like form by removing the like the first row and the first column. That's right. Depending on the index over here, if I do the M two three, then I'm looking for the little M two three, which is this little M two three, and I'm.Just removing, he's right. Removing the corresponding row, that's the second row entirely, and the third column entirely. And then you look at the remaining n minus one by n n n minus one matrix without shuffling them around, without doing any further changes here, and then take that determinant. It's a number, and that's called the cofactor of the element two three. So basically, the element two three and the cofactor two three give you a pair.Why would this be important for finding, like, for inverse? Very good. Okay. Now, Helms, do you remember why these numbers are very important for, really, just for finding the inverse to begin with? So, fundamentally, can you show us why this inverse that you created earlier is indeed the inverse? I don't remember. I believe you do. You may not just remember how to say it. Well, let's try it out.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>If I want to try it out to prove that is actually inverse now, what do we need to do? Then we just need to play it out. I'm going to write down this matrix, which is M one one. I thought I wrote it down somewhere. Yeah, I wrote it down here. I wrote it down here. Oops, sorry. One second. This is my well, this is my candidate for the inverse now. It's made up of the Cramers. By the way, that's that's not. So I'm actually question.Is that the inverse, right? I'm writing down, and then followed by the M. Remember this: we swap the columns and rows, so that's M one two, but it's negative. Alternating between positive and negative, so that's the M two two. This is M three two, negative, da da da da. And that's going to be finally there's a negative one to the n plus first power, and then they also alternate, da da da. Eventually, you get to the M n n. On the diagonal, they're always positive, and this is M one n.And with ninety one raised to the n plus first power, that's our candidate. And eventually, we have to divide by the determinant M. Now, I want to see whether that's really the inverse. How do we check it out? We just sorry sorry. We just multiply this by the M now, which is M one one, M one two, that to the one M one n, that's M two one, and M n one. And I'm just copying down.The matrix M itself, M and N. Remember, in the future, whenever you want to demonstrate a proof or validate something, don't try to remember a formula. You would always panic because honestly, I don't remember anything. Don't be afraid. You just build it from ground up. Look for what. How do we define inverse? A inverse is if they multiply together. This is really I did the inverse method M now. Although that inverse is it's waiting to be proven.Okay， and that must give us identity. The check, the burden of the proof lies here. And then let's just multiply them out. And I'm pretty sure it's coming back to you, Helms. Could you continue, or maybe even somebody else is remembering it, Elaine? Does it come back to you? Not really. Okay, then Helms, you can. But before that, I need to double check. Do we remember?How to calculate the determinant of a matrix? This is a huge, not two by two, not three by three. Only those have shortcuts. Going for the major and minor diagonal. I'm talking about the higher dimensional matrix now. Is it like you, let's just say, a big matrix, and then you go from the like the one one M one one, and then you take that number, and then remove, like basically, take itsrow factor， like remove the row and column， and multiply by the um smaller matrix。 Very good. Yeah, that's right. Now I'm gonna actually follow. Now Helmut saying you go for H defined recursively. If we want to find a determinant now, it's n by n matrix. The determinant is defined based off our understanding of a lower dimensional matrix. So we can grab arbitrary column or row. You can grab the first column now. And oh, by the way, over here, yeah.That really means the first column. Okay, I'm going to do the determinant expansion according to the first column. Remember, we proved that a long time ago, because it actually means the wedge product. It gives you the volume by looking at the decomposition of the volume. If you don't remember, a lot later, I'm going to do another review. So, if I expand according to the first column here, it would equal to the m one one multiplied by the remaining volume of that subspace of the other coordinates. Now.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Which is exactly we define as a cofactor, right? Now we're going to go to the second, but it's negative because of the directional volume. When you swap the two coordinates, one is positive, the other is negative. So by the time you get into the second coordinate, this is a minus of the M two one and multiplied by its cofactor, big M two one. And then you just continue plus the M three one multiplied by the M three one. But let me actually.Make a mention. Eventually, we're alternating between plus or minus. We're getting to plus ninety one to the n plus first power of the m n one, the cofactor of the n one. You don't necessarily have to expand according to the first column. You can expand according to the fourth column, or the fifth, or the nth, or the second row. All of those would work. But you should pay attention to that. Whatever the cofactor needs to match with the index number of the element.If you have a mismatch, then you're not getting the determinant. Having revealed this, and I'm I'm I feel certain that Holmes everything is fresh on his mind now. Elaine, does it come back to you fully? Cramer's law proof? No, no, no, not the Cramer's rule. Just how the determinant, the higher order matrix is defined. We're we're recalling at the blackboard.Lock， yes， I remember this， beautiful， okay， then maybe like you can multiply them out on the process of proving the inverse is written in such a manner， and meaning when you multiply them， we we want to double check whether we get identity， so one number at a time。 Don't jump to conclusions。 So to begin with， what do we know about the first elements？When you multiplying them, remind you we want to grab this column match with that row, right? Yeah, the dot products, right? Yes. Wait a second, what happened? Are you still seeing my whiteboard? Yeah, yeah. But why I'm not seeing it? That's weird.What? Where did that go? I'm not seeing it. Why does it still shows we're sharing the screen now? So weird. Can I stop sharing and restart? This is my service machine has been behaving a little weird lately. Okay.你 see it now? Yeah, okay, good. All right, so what's the first element? Uh, M one one, M one one, minus M two one, M two one, plus, and so on. And what would that give you? Can you simplify that? The determinant.That's exactly the determinant. It follows our definition exactly, so that's the determinant to the M, right? Yeah, it's a number. Okay. Well, before you move on to the the other elements in the first row, I'm gonna actually, Catherine, can you work out what is going to be this element here, which is the result, the resultant element, the second row and second column? Oh, okay.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>嗯。It's still the determinant of M. Exactly, we just pick another column match with actually the right cofactors. You can see their indices still match perfectly. Correct.Yeah, got the same thing. So only the ones on the diagonals would be the the determinant, right? Because the other ones it would match. Very good, that's right. And so this is on the denominator, we're dividing by the determinant. So eventually they're all ones. That look, that's looking good. But we need to carefully validate why everything else is zero. We know they don't match, but how are they exactly zero? The beauty is because of the symmetry, you can grab a representative column or row, and if that turns outNot be zero, and your logic doesn't depend on specific number, then that would apply for every single mismatch the column and row. So, without loss of generality, why don't we look at what is this this element here, which is the first row and second column? Who wants to to show it? Why that's zero? This element. That first row and second column. Yes, which actually means we're matching these numbers together, right? We're doing a dot product between those numbers and the first row.嗯。嗯。嗯。I would try proving that the two vectors are like perpendicular.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cular to each other, because then the dot product would equal zero. Cool. Nevertheless, though, and those cofactors, if you really want to look at those values here, it's very difficult because each one, each element involves the entire determinant. So I still want you to think connected back to the determinant of some matrix. It's not our M matrix anymore because there's a mismatch. But knowing those cofactors are very complicated, their calculations involve so many elements here. Maybe we don't want to change them.We want to construct a matrix so that, you know, because when you do these two, whatever that comes out really looks like a determinant. It fits into the total format of the determinant, right? Except for the elements are not right. So, mathematicians glory in minimal fix. So, could we maybe fix it so that when you do those numbers together, they do give you the determinant of some kind of matrix?I'm gonna write out what we're trying to prove now. We're trying to prove this: the M little one M one two the multiplied by the cofactor of the M one one the minus the M I this is M two two M two two cofactor of the M two one add onto the M three two the cofactor of the M three one. So you can see, there's just a total mismatch and the.918， and finally we get to ninety one to the m plus first power. and now you're looking at the m of the n two, the cofactor of the n one. and knowing the cofactors involve too too many elements, you probably don't want to change them. so to respect those cofactors here, I'm going to build upon this. so I'm going to actually retain all these numbers in that m matrix, because.If I keep them, those cofactors won't won't change, right? All right, and then what do I do? How do I get this quantity as a meaningful determinant? I construct two matrices, and thenMultiplying, uh, you're contracting two matrices. How does that actually give you this number? That number really fits into. It looks like the format of the calculations of a determinant, right? Helms, what do you say?Do we like add or take out some terms? Um, if I want to calculate determinant according to the uh column expansion of the first column, that's how I could keep those calculations of cofactors so that they're not wasted. ButBut you know the first cofactor, which is this this thing, that can't be multiplied onto the M one one. That's just not right. We have to multiply this onto M one two, right? Yeah. So what do we do to that matrix?</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>We multiply the big matrix without the corresponding column.Row of empty one. Say it again. Sorry. Um, we multiply the matrix without the corresponding row and column. We want to understand. Hold on, I don't know why my Google all of a sudden just started talking. I didn't click on anything. Did you hear? Yeah. Yes.哦，maybe something triggered it. Okay, so sorry, Catherine, be kind enough to say it again. Like M two one M two one means we are you talking about the big M or small M? I can't tell. Are you talking about the cofactor M one one, or are you talking about the element M one one? Um, both.Start from the very beginning. What do we do again? Wait, I'm confused now. I want us to understand how do we how do we create the matrix so that this quantity.becomes its determinant. And like I said, we want to keep those cofactors because the minute you change them, they are nightmare because they're reusing so many rows and columns. So I want to keep these cofactors in their original place. So I kept this entire block. But if I want to be able to write out determinant, um, in fact, I'm waiting to fill in the first column so that what we had there, which volay, would be ourDeterminant， do we swap the row and the column? What do you mean? If you swap the row with the column, and then what you're filling in is M one one, M one two, that are to the one M one n, right? Yeah, would that give you that as the determinant? Can we? No, right? Um, M one two, M two two, M three two. Indeed, I just copy those.Numbers, because I want them, I'm just going to force them in. I'll write them in. So this is M one two, that's the M two two, and all the way to the M n two, right? Yeah. If I just do that, don't we have a matrix? And this matrix determinant, I'll call that M star matrix. It's a revised version. But don't we know this is just whatever this element here, read as a dot product, really just equal to the determinant of that M star, correct?Yeah, but like the M star matrix has two identical columns, exactly right on target. Therefore, it equals to zero. It has got to be equal to zero. Why is that again? Because, like, the two vectors are on this. There are two identical vectors, and so the the determinant zero.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>I know, but why that again? Why there are two identical vectors and the determinant must be zero? Because you're missing a dimension. Very good. Yeah, but I'm still yet to hear the keyword. Like this is like, is the volume? Yes, volume is a keyword. It's a dimensional volume. Since we have crashed dimension into a minus one at the very least, so necessarily it's zero. It has zero volume. And could you repeat about?What it said, like what you said about it, the matrix having identical columns. The having two identical columns simply means the two vectors are collinear. So that means the dimension of these n plus one vectors at at most n minus one. So they don't really give you a n dimensional volume here. It's like in three D m star. In the m star, in the m star, because we have to fit into.That definition, I have to copy down the column two in the place of column one. That created two. Oh, I see. Makes sense, ah. Hey, does it come back to you? Because we did cover this before, just the two sessions ago. Do you remember? Yes, I think so. Yeah, remember doing this. Yeah, helps. Yeah, okay. Now, does that mean I'm not blaming you? Because this is a one of the most difficult college courses.In fact, my best students in high school. When they go to college, the only one course they fail to get a five, they get a five minus. It's linear algebra. And so, this is a definitely a little mentally taxing. But would you like me to slow down? Does that mean we need to slow down, give more repetition? Yeah, can we slow down a little bit? Yeah, we will. So, well, be sure to holler and stop me, and keep asking questions, and just ask me to repeat whenever.你 need it, okay. I really appreciate that. I don't think you are a little slow. No, I don't think that at all. I think you are really just maturing and knowing how to secure certain knowledge. I I would be pleased. All right, so that's how we find the inverse. We have proven. Oh, this is by looking at it. Just write it with the cofactors. Fortuitously, all the diagonals are all the same. They all equal to the determinant. Elsewhere, they're all zero because of mismatch between the cofactors and the real elements.How nice! So that means by the time you're getting here, it's only one step away from the identity, which actually define our identity matrix. Now, that just means we need to scale it down. We need to scale the diagonal elements down, so we divide by the determinant of M. Hence, we have proven this constructed is indeed our inverse. In the future, you can feel free to write it as just a find all the cofactors, transpose them, put it in the check.把所有的 positives 和 voila， and then finally the entire matrix that's constructed needs to be divided by the determinant of M。 Are we totally clear? Yes. Okay, so that's the inverse. Having validated inverse, now there's only one last step to finish Cramer's rule. Meaning, we know how to write the solution. Having the inverse gives us power to isolate direct.Calculate what your x is, as if this is just a single-variable linear equation. You know, if you're dealing with a seven x equals five, you just divide by seven. What you did is that you took the inverse of the seven on both sides of the equation. Now we're doing something very powerful, because we said we said you could isolate your x by just multiplying the f by that inverse. So theoretically, you've got all the solutions. Now we just need to play them out. So I'm going to repeat, reuse this inverse matrix we have got now.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>And now my task is to demonstrate. I want to use it to find my x. Now that is indeed our inverse. Okay. Now I'm going to write it different color. Now my x here just equal to that one multiplied by the f's, f one, f two, all the way to the f n. But I want to prove though, it does that actually equal to the determinant of the m one, m j, orOver the determinant M, this Mj is defined as I described it earlier by replacing out the j's column with the f now. If I put it in here, that's called M three, and I just need to take that determinant. That's going to give me the numerator of the the j's element of the x now. For example, eventually I want to find out what's the x three. What I need to do is to replace this third column with a bunch of f's and calculate determinant again. So why is that so? Well, toTo answer that question, we we definitely need to multiply these two matrices out, right? We have to multiply that column vector of the apps onto this inverse matrix. So, see what does that give you? What is the first element? So we multiply this matrix.By f one, f two. Yeah. Oh, oh, hold on. Why, Catherine? Because we're solving that linear equation. We're solving this here, the m x equal to the f. So to isolate my x now, I just multiplied on the left by the inverse. I multiplied the whole equation on the left by the inverse, so that the m inverse and m would give you back the identity. x becomes isolated. The right hand side is m inverse.multiply the f. Hans, I just read it out. Yeah, I understand. Beautiful. Well, let's multiply them out. Whoever wants, could you remind me what the f's are again? The f's are just the set of the constant terms on the right-hand side of that initial set.线性方程组。 our set of linear equations are m x equal to the f. They look like, for example, if the dimension three, they look like a two x minus three y and plus seven z equals to a four, and then the x plus the y equal to a six, and then the three x and minus z equal to a seven. Four, six, seven are the bunch of f's. Okay.You're with me, totally. All right, so can we multiply them out and see what we're getting?嗯。</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>嗯。嗯。嗯。嗯。Tell me where you are. What is the first element? M one one F one minus M two one F two plus M three one F three, and so on. Good. So we're getting the F one, M one one, and again, you're seeing something familiar, which again is a structure of a determinant. I was trying to fit into a determinant, but I got kind of.Okay, well, pause and think about how we did it here. We just did it a little earlier, and you can compare them. There is still something very similar between these two things we just did, right? I filled in the first column with the Fs, but I'm not sure what to put as the rest of the elements. Oh, they're the cofactors. So, in fact, their places have got to go exactly where the cofactors demand the rest of them, because the minute you write the cofactorM one one， it's really using all these numbers here. It's a determinant of that block. You can't change that, can you? No. So, so after I do that, those are just the M's, right? We just replace the first row with the F. Yeah, exactly. Isn't that exactly what's happening? Because again, we're keeping all the same cofactors, andIn this yellow block, they don't go anywhere. Sorry, they don't go anywhere. But then, in order to fit into what they're multiplied onto, I just needed to put in. This is the F one, F two, da da da to the F n. Every single time, we're just walking. What to fit in? But isn't that exactly Kramers rule saying? Yeah, remember this. That's right. For that, is it generalizable?</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>For example, if I want to look at the arbitrary the the j's element, I want to find out not the first element, but rather the j's. That actually means something different because you're picking this row now, which is filled with the m one j now, m two j, right, all the way to the m n j, correct? Yes, and thenWhen you actually fit into, well, the only part we need to change would be I change that index from the one to j, two to the j, and then where do I fit in f so that the cofactors are actually in the place they should be? So, how do we modify this M star matrix to make it again fit?Do you put it with the F's in the J's column? Yes, indeed. And the reason we put it into the J's column is that only so these cofactors, because we have to eliminate when I calculate M one J. Don't I need to cancel the first row and the J's column? So those numbers remain in the in the rest part of it. So that's why this M one J cofactor.It's actually multiplied onto the right element, which only if I put F here. So those cofactors are calculated by eliminating individual rows and j's column. Really crystal clear. Yes. Yeah. There you have it. That's Cramer's rule. Totally proven. Now I actually want to take you a step further, since we're going to slow down to to give you a chance to cook these ideas in your head.What if the determinant of M is zero? Then immediately this whole process, the whole engine stops because we can't even go with the first step, right? So if the determinant M starts with a zero, now, now just me, hold on, hold on. Now just if the determinant of M starts off at zero, which really just saying the M inverse doesn't exist, you can't divide anything by a zero. Not to mention.Of course, no matter what you multiply, you won't be getting identity. Okay, so it's non-existent or undefined. That means Cramer's rule doesn't work anymore. You can't put zero over zero. However, it does mean now if I go for the so to speak the m one f now that actually means just replacing the first column with the f. That means doing f one, f two, da da to the f n, and then the m one, two, da da.Filling the rest of the matrix still with the original elements in M. This is how we define M one. Can you prove to me if the determinant of the M is zero, then this determinant is necessarily zero? Because if it's not, then in fact your x one it's not just undefined, it's infinity. It's a non-zero number divided by a zero number. Doesn't that mean it's infinity?Can that be true? Actually, can. That's not necessarily zero. I didn't want to tell you. I wanted to figure it out. But looking at the time here, we have only eleven minutes left. So, sort of a I'm telling you, and then can you prove it? There will be two scenarios. When you replace it, these f's, they could be that determinant could be zero or not zero. And I'll tell you what are the ramifications. If it is zero, then you look at the.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Indeterminate form that means there're infinitely many solutions, infinitely many solutions. Because zero zero over zero may actually end up giving you a nice behaving number, a well behaving number. They always do. Now, second scenario though would be actually that scenario number a scenario number one and scenario number two is that your and oh, that's scenario number one. I should write it here.So the consequence would be we have infinite many solutions. Necessary scenario number two would be this M one determinant is not zero. Then naturally the x one must equal infinity, right? That's still graphically meaningful. It is meaningful. But I want you to prove something. If I know this is zero, if the determinant of M one is zero, then necessarily, this is very important, then the determinant of the M two must also be zero. HasThat's got to be also zero. You know, that's a little weird. But can you tell me why? Likewise, if the determinant of the M one is not zero, then that necessarily the M two, or the I don't mean that, I mean the M M one determinant of M two, it's also zero. Meaning, you all either you have infinite many solutions for each one of the.x， each one of the variable x， or you don't have any solution， meaning they're all infinity， for any one of the x， you would never have solutions for some of the x， but no solution for others。 That's what's motivating it. Intuitively, that that must be true， because if you don't solve， the m one again， is it just the matrix replaced like the first？ Yeah， that's all。Columns with F, okay. Yes, and each of these will be in the Cramer's rule. The determinant will get you the numerator of your solutions to the axes.嗯。嗯。嗯。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>So for the first scenario, we wanna prove that M one equals zero if the determinant ofM 零。 No, I'm actually saying if the determinant of M 零 is zero, there are two possible scenarios. That's gonna give you for the solution we know for sure. For the solution, the x, the denominator are guaranteed to be zero now because we're talking about invertible case. We're talking about no, sorry, we're talking about the uninvertible case. Sorry. So that means you either have infinite many solutions or you have none. The spirit here is that you can tell whether we have infinite.Many solutions were none, depending on only one variable. You need only look at one. You need only look at x one now. You know you can write in form, the x one should equal to the denominator is zero. The numerator there are two cases. The numerator should be the determinant of this m one. Yeah, right. That's either zero or not zero. If it's zero, then there's hope. You're getting zero over zero case. That just means there are infinite many solutions. If it's not zero, then your x one would be a non-zero number.Which is the determinant M one over the zero? That's going to be bound to be infinity. I'm only setting it up. What we want to prove would be: once I check the one variable, if I know the M one determinant zero, now the whole matrix, just the determinant zero, then necessarily we can draw the conclusion that the determinant or two and other they're all zeros for arbitrary j they're all zero. Meaning the scenario whether there infinite many solutions or non solution.ution can be checked by looking at only one of these determinants, by looking at only one variable. That's why this is so commonsensical, because you can't have no solution for x one, and yet you would have solution for x two, even many solution for x two. Because what do they mean by being the solution if we can't even find x one to go with them, right? From this point of view, it's pretty obvious to be logically consistent, to be reasonable.This must be the case, but I want you to prove it. That the M one determinant is zero. Yes, if if that's zero, then we're proving the other M Js are also zero. Meaning you can put this f vector column into other locations instead of replacing the first column. You can use it to replace other columns, and we're still bound to get a zero.And for the second scenario, if M one is not zero, then the others are not zero either. Okay. Notice here, the proof doesn't have to depend on calculations. In fact, the proof doesn't take any real calculations. We're not trying to construct a matrix anymore. We're trying to analyze how this scenario with M maps back.By the way, this is what I plan on to talk about in our next group session—the big group session. How this maps back onto the scenario with a solution to the linear equations.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>嗯。嗯。嗯。嗯。Tell me what you're thinking. And again, I want your mental process. Really, what are you connecting it? How are you connecting them with actually the solution?For the linear equations, geometrically, what does it mean by saying a set of linear equations don't have solutions? We do know each linear equation really describes a plane in the higher dimensional space, right? If we're dealing with the three equations I gave you earlier, that's in three dimensional space now. 哎，What's happening? Why can't I move it? Where where's myWhat happened? It's so weird. Okay, so the three equations I gave you, each one represents a plane in the three D space. Why don't they have intersections? In the majority, yeah, that's right. It means they're parallel. If they're parallel, could there be any solutions? What about they have even many solutions?They're the same. They're coinciding, but do they have to be the same, though? Could we have this type of scenario? Here's one plane. That's the second plane. I hope you can see visually. And then here is the third plane. Could you visualize? They happen to, aha, they all share one line. There's still infinitely many solutions. Just not every single solution on the plane. When one dimension is the same.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Yes， and how does that translate into these? That you know, each row of that actually means the normal vector of the hyperplane. I know I'm jumping a lot of places, but we did learn this before. Remember that set of coordinates are not useless, don't they? Give you the direction of the plane. They are the so-called normal vector of the plane, aren't they? Homer, which coordinates? I'm talking about the three.系数的二、一、负三和七， meaning that's the first row in your M matrix. Oh, so they actually mean something very concrete geometrically. Homework: really think about it, connect it back because it's not in your textbook. It's not in your college linear algebra textbook either. But I want you to understand it. So continue in our next meeting. Keep up your good work. I'm genuinely pleased with you guys. Thank you. Bye. Thank you. Thank you.病。</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

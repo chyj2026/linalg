@@ -328,17 +328,18 @@
     {
       "id": "2026-03-07-cramer-review",
       "date": "2026-03-07", "date_confidence": "high", "session": "after — Cramer review",
-      "title_en": "Inverse Matrix is Two-Sided; Kernel and Range as Linear Vector Spaces",
-      "topics": ["matrix-inverse", "cofactor", "vector-space", "kernel", "range", "linear-independence"],
-      "lead": "Proves left-inverse = right-inverse for invertible M via det(X-I)·det(M)=0 and the n-independent-columns argument, defines linear vector space, proves ker(M) is a subspace, previews range(M).",
-      "key_theorems": ["Left-inverse = right-inverse for invertible matrix", "det A · det B = det(AB) (imported)", "ker(M) is a linear vector space"],
-      "homework": "Prove range(M) is a linear vector space (Toby's closure-check technique).",
-      "notes": "Follows the morning Cramer-rule session — note content overlap with `2026-03-07-LVS`; treat as two halves of the same lesson when distilling.",
+      "title_en": "Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy",
+      "topics": ["cramers-rule", "matrix-inverse", "cofactor", "determinant", "linear-system"],
+      "lead": "Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.",
+      "key_theorems": ["M·adj(M)/det M = I (cofactor inverse formula, proved end-to-end including the off-diagonal case)", "Cramer's rule x_j = det(M^(j←f))/det M", "Singular dichotomy: det M=0 ⇒ either all det(M^(j←f))=0 or all ≠0; mixed outcome impossible"],
+      "homework": "Prove the singular dichotomy (Theorem 10): if det M=0, prove det(M^(j←f))=0 for all j, or det(M^(j←f))≠0 for all j — never mixed.",
+      "notes": "Drive Last-Modified 2026-03-12; date may actually be 2026-03-12 not 2026-03-07. Companion to `2026-03-07-LVS`: that session imports the cofactor inverse formula; this session proves it. Heavy back-and-forth with Catherine relearning cofactor definition; Helms re-explains.",
       "transcript": "transcripts/Satafter0307Cramerrev.txt",
       "video_drive_id": "1mz0iHud82ejyMkQy8UxQGbFgWXhZJFOC",
       "video_embed": "https://drive.google.com/file/d/1mz0iHud82ejyMkQy8UxQGbFgWXhZJFOC/preview",
       "video_view":  "https://drive.google.com/file/d/1mz0iHud82ejyMkQy8UxQGbFgWXhZJFOC/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.1/2026-03-07-cramer-review.mp4",
+      "status": "published"
     },
     {
       "id": "2026-03-28-morning",

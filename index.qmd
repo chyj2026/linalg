@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>29</strong><span>sessions (+1 duplicate)</span></div>
-    <div><strong>1</strong><span>lesson published</span></div>
+    <div><strong>2</strong><span>lessons published</span></div>
   </div>
 </section>
 ```
@@ -24,6 +24,11 @@ title: "Linear Algebra Notes"
 
 ```{=html}
 <div class="lesson-grid">
+<article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>Mar 7, 2026 — Cramer review</span><span>Published</span></div>
+  <h3><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a></h3>
+  <p>Companion review: end-to-end proof that <em>M·adj(M)/det M = I</em> (the off-diagonal vanishes via the determinant-with-repeated-rows trick), Cramer re-derived, and the singular dichotomy stated as homework.</p>
+</article>
 <article class="lesson-card is-new">
   <div class="lesson-card-meta"><span>Mar 7, 2026 — LVS</span><span>Published</span></div>
   <h3><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a></h3>
@@ -63,7 +68,7 @@ The 29 sessions below carry full metadata (title, topics, lead, key theorems, ho
 <tr><td>2026-02-21</td><td>afternoon</td><td>Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi) <em>(draft)</em></td></tr>
 <tr><td>2026-02-28 <sup title="unknown date">⚠</sup></td><td>individual</td><td>Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism <em>(draft)</em></td></tr>
 <tr><td>2026-03-07</td><td>LVS</td><td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td></tr>
-<tr><td>2026-03-07</td><td>after — Cramer review</td><td>Inverse Matrix is Two-Sided; Kernel and Range as Linear Vector Spaces <em>(draft)</em></td></tr>
+<tr><td>2026-03-07</td><td>after — Cramer review</td><td><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-28</td><td>morning</td><td>Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse <em>(draft)</em></td></tr>
 <tr><td>2026-04-04 <sup title="medium">⚠</sup></td><td>morning</td><td>Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro <em>(draft)</em></td></tr>
 <tr><td>2026-04-04</td><td>afternoon (2)</td><td>Powering Jordan Blocks: Binomial Expansion with Nilpotent N <em>(draft)</em></td></tr>
