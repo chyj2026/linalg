@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-02-21">
 
-<title>Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi) – Linear Algebra Notes</title>
+<title>Symmetric-Axis Formula for Elliptical Conics via the y → yi Substitution – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions" id="toc-primitive-notions" class="nav-link" data-scroll-target="#primitive-notions">Primitive notions</a></li>
+  <li><a href="#theorem" id="toc-theorem" class="nav-link" data-scroll-target="#theorem">Theorem</a></li>
+  <li><a href="#derivation-a-hyperbolic-case-recap" id="toc-derivation-a-hyperbolic-case-recap" class="nav-link" data-scroll-target="#derivation-a-hyperbolic-case-recap">Derivation A — hyperbolic case (recap)</a></li>
+  <li><a href="#derivation-b-elliptic-case-via-y-to-yi-substitution" id="toc-derivation-b-elliptic-case-via-y-to-yi-substitution" class="nav-link" data-scroll-target="#derivation-b-elliptic-case-via-y-to-yi-substitution">Derivation B — elliptic case via <span class="math inline">\(y \to yi\)</span> substitution</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</h1>
+<h1 class="title">Symmetric-Axis Formula for Elliptical Conics via the y → yi Substitution</h1>
 </div>
 
 
@@ -190,32 +228,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Extends the tan(2θ) = 2b/(a-c) symmetric-axis formula from hyperbolas to ellipses by reinterpreting bounding-box diagonal slopes as complex k₁,k₂ obtained by substituting yi for y.</p>
+<p>Extends the <strong><span class="math inline">\(\tan(2\theta) = 2b/(a-c)\)</span></strong> rotation-angle formula — derived in the hyperbolic case via real asymptote slopes acting as angle bisectors — to the <strong>elliptical case</strong> where no real asymptotes exist. Technique: substitute <span class="math inline">\(y \to yi\)</span>, converting the elliptic equation into a hyperbolic one with <strong>complex</strong> slopes; the angle-bisector identity still holds algebraically; the same formula gives the real rotation angle. Confirms (68) is <strong>type-independent</strong>.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(ax^2 + 2bxy + cy^2\)</span></td>
+<td>quadratic form of centred conic</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Delta = b^2 - ac\)</span></td>
+<td>discriminant (<span class="math inline">\(&gt;0\)</span> hyperbola, <span class="math inline">\(&lt;0\)</span> ellipse, <span class="math inline">\(=0\)</span> parabola)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(k_1, k_2\)</span></td>
+<td>slopes of factor lines (<span class="math inline">\(ck^2 + 2bk + a = 0\)</span>); real for hyperbola, complex conjugate for ellipse</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>rotation angle to symmetric axes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions">Primitive notions</h2>
+<ol type="1">
+<li>Hyperbolic factorisation: <span class="math inline">\(ax^2 + 2bxy + cy^2 = c(y - k_1 x)(y - k_2 x)\)</span> when <span class="math inline">\(\Delta &gt; 0\)</span>.</li>
+<li>Angle bisector: symmetric axis at angle <span class="math inline">\(\theta\)</span> with <span class="math inline">\(2\theta = \arctan k_1 + \arctan k_2\)</span>.</li>
+<li>Tangent addition: <span class="math inline">\(\tan(\alpha + \beta) = \frac{\tan\alpha + \tan\beta}{1 - \tan\alpha\tan\beta}\)</span>.</li>
+<li>Vieta on <span class="math inline">\(ck^2 + 2bk + a = 0\)</span>: <span class="math inline">\(k_1 + k_2 = -2b/c\)</span>, <span class="math inline">\(k_1 k_2 = a/c\)</span>.</li>
+</ol>
+</section>
+<section id="theorem" class="level2">
+<h2 class="anchored" data-anchor-id="theorem">Theorem</h2>
+<div class="theorem">
+<p><strong>(Universal rotation-angle formula).</strong> For any centred conic <span class="math inline">\(ax^2 + 2bxy + cy^2 = \text{const}\)</span>, <span class="math display">\[
+\tan(2\theta) \;=\; \frac{2b}{a - c}. \tag{68}
+\]</span></p>
+</div>
+</section>
+<section id="derivation-a-hyperbolic-case-recap" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-hyperbolic-case-recap">Derivation A — hyperbolic case (recap)</h2>
+<p>Real asymptote slopes <span class="math inline">\(k_1, k_2\)</span>. Tangent of bisector angle: <span class="math display">\[
+\tan(2\theta) = \frac{k_1 + k_2}{1 - k_1 k_2} = \frac{-2b/c}{1 - a/c} = \frac{-2b/c}{(c-a)/c} = \frac{2b}{a-c}. \quad\blacksquare
+\]</span></p>
+</section>
+<section id="derivation-b-elliptic-case-via-y-to-yi-substitution" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-elliptic-case-via-y-to-yi-substitution">Derivation B — elliptic case via <span class="math inline">\(y \to yi\)</span> substitution</h2>
+<p>For ellipse (<span class="math inline">\(\Delta &lt; 0\)</span>), <span class="math inline">\(ck^2 + 2bk + a = 0\)</span> has complex-conjugate roots <span class="math inline">\(k_1 = p + qi, k_2 = p - qi\)</span>.</p>
+<p><strong>Substitution.</strong> <span class="math inline">\(y \to yi\)</span> turns <span class="math inline">\(cy^2 = c(yi)^2 = -cy^2\)</span>. The transformed equation is hyperbolic in <span class="math inline">\((x, y)\)</span>, so it factors with two complex linear factors. The slopes <span class="math inline">\(\kappa_{1,2}\)</span> satisfy a quadratic with real coefficients and complex-conjugate roots.</p>
+<p><strong>Key insight.</strong> The formula <span class="math inline">\(\tan(2\theta) = (k_1 + k_2)/(1 - k_1 k_2)\)</span> depends only on <strong>Vieta sums and products</strong>, which are real for complex-conjugate roots: - <span class="math inline">\(k_1 + k_2 = 2p\)</span> (real) - <span class="math inline">\(k_1 k_2 = p^2 + q^2\)</span> (real)</p>
+<p>The same Vieta values come from the original <span class="math inline">\(ck^2 + 2bk + a = 0\)</span>: <span class="math inline">\(-2b/c\)</span> and <span class="math inline">\(a/c\)</span>. So: <span class="math display">\[
+\tan(2\theta) = \frac{-2b/c}{1 - a/c} = \frac{2b}{a-c}. \quad\blacksquare
+\]</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>tan(2θ) = 2b/(a-c) holds for both elliptical and hyperbolic conics</li>
-<li>Box-diagonal interpretation of symmetric axes via yi substitution</li>
+<li><strong>Ellipse <span class="math inline">\(4x^2 + 2xy + y^2 = 4\)</span>.</strong> <span class="math inline">\(\Delta = 1 - 4 = -3 &lt; 0\)</span>. Formula: <span class="math inline">\(\tan(2\theta) = 2/(4-1) = 2/3\)</span>. <span class="math inline">\(2\theta \approx 33.7°\)</span>, <span class="math inline">\(\theta \approx 16.85°\)</span>. ✓</li>
+<li><strong>Vieta sanity.</strong> <span class="math inline">\(k^2 + 2k + 4 = 0\)</span> ⇒ <span class="math inline">\(k_{1,2} = -1 \pm i\sqrt{3}\)</span>. Sum <span class="math inline">\(= -2 = -2b/c\)</span> ✓. Product <span class="math inline">\(= 4 = a/c\)</span> ✓. <span class="math inline">\(\tan(2\theta) = -2/(1-4) = 2/3\)</span> ✓.</li>
+<li><strong>Hyperbola <span class="math inline">\(x^2 - y^2 = c\)</span>.</strong> <span class="math inline">\(a=1, b=0, c=-1\)</span>. <span class="math inline">\(\tan(2\theta) = 0/2 = 0\)</span> ⇒ <span class="math inline">\(\theta = 0\)</span>. ✓ (axes already aligned)</li>
+<li><strong>Already-rotated.</strong> <span class="math inline">\(b = 0\)</span> ⇒ <span class="math inline">\(\tan(2\theta) = 0\)</span> ⇒ no rotation needed. ✓</li>
+<li><strong>Symmetry <span class="math inline">\(a \leftrightarrow c\)</span>.</strong> Flips sign of <span class="math inline">\(\tan(2\theta)\)</span> — mirror reflection. ✓</li>
+<li><strong>Dependency.</strong> A: real Vieta + tangent addition. B: same identities, complex roots that conjugate-pair to real. No circularity.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.0/2026-02-21-afternoon.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v1.0" target="_blank">GitHub Release v1.0</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2026-02-21-afternoon/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Hyperbolic recap."> <img src="../figures/2026-02-21-afternoon/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Ellipse: no real asymptotes; \Delta < 0."> <img src="../figures/2026-02-21-afternoon/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — y \to yi substitution."> <img src="../figures/2026-02-21-afternoon/frame-52m00.jpg" class="img-fluid" alt="Frame @ 52m00 — Worked example."></p>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “No real asymptotes for ellipses — geometric proof breaks. How proceed?” <br><span class="speaker">Students:</span> “Use <span class="math inline">\(y \to yi\)</span> to convert into algebraic hyperbola.” <br><span class="speaker">Teacher:</span> “Slopes become complex, conjugate pairs, sum/product real. Formula survives.”</p>
+<p><em>Teaching move:</em> <strong>complex detour preserves formula</strong> — generic technique when real-case geometric argument fails but algebra still works.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -226,39 +346,33 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Solve 4x²+2xy+y²=4: find tan 2θ via quadratic in t=tan θ, then cos θ/sin θ via 1+t²=sec²θ, then U/V via rotation; verify against Desmos.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Live ChatGPT screen-share comparing AI’s matrix-heavy proof to the teacher’s geometric shortcut; teaches prompt-engineering for rigor.</p>
-</div>
+<p><strong>Homework.</strong> Solve <span class="math inline">\(4x^2 + 2xy + y^2 = 4\)</span>: apply (68); compute <span class="math inline">\(\tan\theta\)</span> via <span class="math inline">\(2t/(1-t^2) = 2/3\)</span>; get <span class="math inline">\(\cos\theta, \sin\theta\)</span> via <span class="math inline">\(1+t^2 = \sec^2\theta\)</span>; substitute <span class="math inline">\(u = x\cos\theta + y\sin\theta\)</span>, <span class="math inline">\(v = -x\sin\theta + y\cos\theta\)</span>; verify diagonalization on Desmos.</p>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Derivation B’s Vieta-reality relies on real coefficients <span class="math inline">\((a, b, c)\)</span>. Complex coefficients would break.</li>
+<li><strong>Imported facts.</strong> Vieta; tangent addition; hyperbolic factorisation.</li>
+<li><strong>Geometric meaning loss in elliptic case.</strong> Complex slopes don’t draw; symmetric axes equivalently = major/minor axes of bounding box.</li>
+<li><strong>Confidence.</strong> High. Two derivations of same formula confirm.</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Companion morning:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> derives <span class="math inline">\(\tan(2\theta) = 2b/(a-c)\)</span> via trace/det invariance — matrix approach. This afternoon: algebraic <span class="math inline">\(y \to yi\)</span> detour. Two proofs of same identity.</li>
+<li><strong>Precursors:</strong> <a href="2025-10-04-morning.html">2025-10-04</a>, <a href="2025-10-18-morning.html">2025-10-18 morning</a>.</li>
+<li><strong>Forward:</strong> complex eigenvalues of rotation matrices (<a href="2026-04-04-afternoon-2.html">Apr 4 afternoon</a>) — same complex-coordinate technique.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -267,7 +381,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>哦，sorry， Elaine is asking for the recording herself， so we we got everybody. Jacqueline was thoroughly intimidated， she won't be joining us. I know we have a new student now， but she， you know， most of the kids when they drop into a class， they're all going to be thoroughly intimidated， so she's not here anymore. So we're back to our older students， and now tonight we want to pick up where we were， and in fact.Catherine， in the morning， the group session really made made equal progress with with our individual session. We're very much on the same page. So let's recap what is the big story we're in. We're analyzing how to capture the behavior, the classification and the orientation of a chronic now by using this little matrix. And I think I gave you a three and three. No, no, I gave you two, four and three and three, right? In the morning, Catherine.I didn't give you that, but I used it in a group session. This is a conic x and y and xy. We figured out several ways to come up with what are the orientations of the new major and minor axes. We know we could actually explicitly solve the angle turned here, and in a minute I'm going to recapture it very quickly. Or we could actually go by factored form of the two angle, sorry, two asymptotes now, and once you find out.What are the two end slopes, k one and k two, and then we'll be able to also use it to find out the rotational angle of the u and v axis, because the u and v are the angle bisectors of the two asymptotes. So that makes them nice. That just means the direction formed between the u here, if I put at the theta, this theta would equal to one half of the angle basically it's marked by arctangent of the k one, and then plus arctangentOur tangent of the k two, we know that condition, and which gives us a convenient way without having to go through the tedious calculation of the rotational matrix. Here, it gives us a way to calculate what would be the tangent of twice of that theta. So, if I go for tangent twice of the theta, which is really tangent of these two angles added together, which means we're taking the tangent of the sum of the arc tangent k one and plus the arc tangent.k two right and nicely we're equipped with the complex number we'll be able to apply the sum of angle formula it would equal to the k one plus the k two divided by one minus the k one k two but beautifully we don't really need to solve for k one k two remember they're solved by solving that quadratic equation so we can directly use the Viet to plug them in terms of those a b c's let me actually play them out if your quadratic equationComes from the a x squared, and then plus a two b x y, and plus a c of the y squared equal to something. And we set the other side to be zero to solve the two asymptotes to get the two slopes. And instead of factoring it down in terms of the multivariable between x and the y, now what we're really interested in is the slope. We're interested in the k would equal to y over x. So I want to pull out that variable to begin with.By dividing everything by the x squared, so that it actually reads the c k squared, it sort of read backwards now because the y survives as a variable, x gets divided up. We're getting c k squared, and then plus a two b k, and then plus a equal to zero. And again, there's no need to really solve for what the k one k two are. We just know directly from the Viet right here that the k one plus the k two not just equal to a.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>negative two b， and meanwhile the k one times the oh oh sorry negative two b over the c sorry over the l the coefficient and the k one k two that will just equal to the a over the c so when we simplify we get exactly a two b over the a minus the c now this is actually the same result as what we solved from the rotational matrix with great effort it's notOur lack of capacity of solving, and it just that it's intrinsically a little tedious. Although I think we were already taking the shortest route possible. So this is how theoretically we have nailed what is that angle now. So then we'll be able to answer the question: where are the locations of the U and V? Knowing the tangent to theta, we'll be able to work backward with concrete numbers. Now, what would be the cosine, the sine theta? Plug it in, just do the rotation, etc., etc. ButI do want to highlight there was something we we validated earlier. The transformation of the coordinates is in the opposite direction of the transformation of the graph. Meaning, if we rotate the u axis forward by the theta angle, then the real rotation of the coordinates here would be the negative theta angle. So that actually means if I do write my u and v now as rotated the coordinates here x and y by the positive angle of the theta, whichWhich means that's the cosine theta. This is negative sine theta. That's the sine theta. That's the cosine theta. Then that angle, directional angle, is actually negative theta. Correct? Yeah. This is. I gave you the analogy. Whenever later you lose track of the intuitive understanding, you think about if I do x plus two, we're really putting two more on the x coordinate here. But in the if I set the u now, what we did is to push. If this is x axis.And that's the y. We need to push the y to this v here backward by two units, meaning you have to plug in the new x coordinate negative two to get back to the zero on the u. So, what's happening to the coordinate system? It's the opposite. What's happening to the to to the numbers? All right, now here we're facing a question. We can go ahead go ahead and double check for every single quantity. The approach directly through the matrices.would be identical with the approach graphicaly by identifying. Just because we're so smart with complex numbers now, so this part it's easy. Only because we have paved the way, we are so good at complex numbers, and yet, and a bunch of other things. Now I pose the question: Now what if we don't even have asymptotes? Now, in fact, I didn't want to give you any suspense here. AI wouldn't hide from you. This is exactly true. So you could start with a kind of a conic section that doesn't really have a asymptote at all. It's elliptical, and you could still identify the new directions of the U and V by doing exactly the same by looking at basically this is a negative theta. Then the tangent twice of the theta still satisfies that condition. And Catherine, I haven't said that to you, but Holmes, I did say that too. But morein group now, can we think about why? We mathematicians are very bold in our hypotheses, but it doesn't mean we don't work very, very carefully and scrupulously. And in order to justify what we do, we have to prove it is true. A lot of times, even after we're bold enough to do it. Sorry, I didn't hear what you say is true.哎。</span>

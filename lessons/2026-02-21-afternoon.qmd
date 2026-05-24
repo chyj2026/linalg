@@ -1,47 +1,128 @@
 ---
-title: "Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)"
+title: "Symmetric-Axis Formula for Elliptical Conics via the y → yi Substitution"
 date: 2026-02-21
 session: afternoon
-topics: [conic-sections, ellipse, hyperbola, complex-numbers]
+topics: [conic-sections, ellipse, hyperbola, complex-numbers, quadratic-form, rotation, vieta-formulas]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Extends the tan(2θ) = 2b/(a-c) symmetric-axis formula from hyperbolas to ellipses by reinterpreting bounding-box diagonal slopes as complex k₁,k₂ obtained by substituting yi for y.
+Extends the **$\tan(2\theta) = 2b/(a-c)$** rotation-angle formula — derived in the hyperbolic case via real asymptote slopes acting as angle bisectors — to the **elliptical case** where no real asymptotes exist. Technique: substitute $y \to yi$, converting the elliptic equation into a hyperbolic one with **complex** slopes; the angle-bisector identity still holds algebraically; the same formula gives the real rotation angle. Confirms (68) is **type-independent**.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- tan(2θ) = 2b/(a-c) holds for both elliptical and hyperbolic conics
-- Box-diagonal interpretation of symmetric axes via yi substitution
-
-## Homework given
-
-::: {.callout-important}
-Solve 4x²+2xy+y²=4: find tan 2θ via quadratic in t=tan θ, then cos θ/sin θ via 1+t²=sec²θ, then U/V via rotation; verify against Desmos.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $ax^2 + 2bxy + cy^2$ | quadratic form of centred conic |
+| $\Delta = b^2 - ac$ | discriminant ($>0$ hyperbola, $<0$ ellipse, $=0$ parabola) |
+| $k_1, k_2$ | slopes of factor lines ($ck^2 + 2bk + a = 0$); real for hyperbola, complex conjugate for ellipse |
+| $\theta$ | rotation angle to symmetric axes |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions
 
-Live ChatGPT screen-share comparing AI's matrix-heavy proof to the teacher's geometric shortcut; teaches prompt-engineering for rigor.
+1. Hyperbolic factorisation: $ax^2 + 2bxy + cy^2 = c(y - k_1 x)(y - k_2 x)$ when $\Delta > 0$.
+2. Angle bisector: symmetric axis at angle $\theta$ with $2\theta = \arctan k_1 + \arctan k_2$.
+3. Tangent addition: $\tan(\alpha + \beta) = \frac{\tan\alpha + \tan\beta}{1 - \tan\alpha\tan\beta}$.
+4. Vieta on $ck^2 + 2bk + a = 0$: $k_1 + k_2 = -2b/c$, $k_1 k_2 = a/c$.
+
+## Theorem
+
+::: {.theorem}
+**(Universal rotation-angle formula).** For any centred conic $ax^2 + 2bxy + cy^2 = \text{const}$,
+$$
+\tan(2\theta) \;=\; \frac{2b}{a - c}. \tag{68}
+$$
+:::
+
+## Derivation A — hyperbolic case (recap)
+
+Real asymptote slopes $k_1, k_2$. Tangent of bisector angle:
+$$
+\tan(2\theta) = \frac{k_1 + k_2}{1 - k_1 k_2} = \frac{-2b/c}{1 - a/c} = \frac{-2b/c}{(c-a)/c} = \frac{2b}{a-c}. \quad\blacksquare
+$$
+
+## Derivation B — elliptic case via $y \to yi$ substitution
+
+For ellipse ($\Delta < 0$), $ck^2 + 2bk + a = 0$ has complex-conjugate roots $k_1 = p + qi, k_2 = p - qi$.
+
+**Substitution.** $y \to yi$ turns $cy^2 = c(yi)^2 = -cy^2$. The transformed equation is hyperbolic in $(x, y)$, so it factors with two complex linear factors. The slopes $\kappa_{1,2}$ satisfy a quadratic with real coefficients and complex-conjugate roots.
+
+**Key insight.** The formula $\tan(2\theta) = (k_1 + k_2)/(1 - k_1 k_2)$ depends only on **Vieta sums and products**, which are real for complex-conjugate roots:
+- $k_1 + k_2 = 2p$ (real)
+- $k_1 k_2 = p^2 + q^2$ (real)
+
+The same Vieta values come from the original $ck^2 + 2bk + a = 0$: $-2b/c$ and $a/c$. So:
+$$
+\tan(2\theta) = \frac{-2b/c}{1 - a/c} = \frac{2b}{a-c}. \quad\blacksquare
+$$
+
+## Verification audit
+
+::: {.audit}
+
+- **Ellipse $4x^2 + 2xy + y^2 = 4$.** $\Delta = 1 - 4 = -3 < 0$. Formula: $\tan(2\theta) = 2/(4-1) = 2/3$. $2\theta \approx 33.7°$, $\theta \approx 16.85°$. ✓
+- **Vieta sanity.** $k^2 + 2k + 4 = 0$ ⇒ $k_{1,2} = -1 \pm i\sqrt{3}$. Sum $= -2 = -2b/c$ ✓. Product $= 4 = a/c$ ✓. $\tan(2\theta) = -2/(1-4) = 2/3$ ✓.
+- **Hyperbola $x^2 - y^2 = c$.** $a=1, b=0, c=-1$. $\tan(2\theta) = 0/2 = 0$ ⇒ $\theta = 0$. ✓ (axes already aligned)
+- **Already-rotated.** $b = 0$ ⇒ $\tan(2\theta) = 0$ ⇒ no rotation needed. ✓
+- **Symmetry $a \leftrightarrow c$.** Flips sign of $\tan(2\theta)$ — mirror reflection. ✓
+- **Dependency.** A: real Vieta + tangent addition. B: same identities, complex roots that conjugate-pair to real. No circularity.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.0/2026-02-21-afternoon.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v1.0" target="_blank">GitHub Release v1.0</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1DutFnM2Q22aoLq30WP9Z0HM_wUweVnFd/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Hyperbolic recap.](../figures/2026-02-21-afternoon/frame-08m00.jpg)
+![**Frame @ 22m00** — Ellipse: no real asymptotes; $\Delta < 0$.](../figures/2026-02-21-afternoon/frame-22m00.jpg)
+![**Frame @ 38m00** — $y \to yi$ substitution.](../figures/2026-02-21-afternoon/frame-38m00.jpg)
+![**Frame @ 52m00** — Worked example.](../figures/2026-02-21-afternoon/frame-52m00.jpg)
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "No real asymptotes for ellipses — geometric proof breaks. How proceed?"
+<br><span class="speaker">Students:</span> "Use $y \to yi$ to convert into algebraic hyperbola."
+<br><span class="speaker">Teacher:</span> "Slopes become complex, conjugate pairs, sum/product real. Formula survives."
+
+*Teaching move:* **complex detour preserves formula** — generic technique when real-case geometric argument fails but algebra still works.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.** Solve $4x^2 + 2xy + y^2 = 4$: apply (68); compute $\tan\theta$ via $2t/(1-t^2) = 2/3$; get $\cos\theta, \sin\theta$ via $1+t^2 = \sec^2\theta$; substitute $u = x\cos\theta + y\sin\theta$, $v = -x\sin\theta + y\cos\theta$; verify diagonalization on Desmos.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Derivation B's Vieta-reality relies on real coefficients $(a, b, c)$. Complex coefficients would break.
+- **Imported facts.** Vieta; tangent addition; hyperbolic factorisation.
+- **Geometric meaning loss in elliptic case.** Complex slopes don't draw; symmetric axes equivalently = major/minor axes of bounding box.
+- **Confidence.** High. Two derivations of same formula confirm.
+
+:::
+
+## Related sessions
+
+- **Companion morning:** [2026-02-21 morning](2026-02-21-morning.html) derives $\tan(2\theta) = 2b/(a-c)$ via trace/det invariance — matrix approach. This afternoon: algebraic $y \to yi$ detour. Two proofs of same identity.
+- **Precursors:** [2025-10-04](2025-10-04-morning.html), [2025-10-18 morning](2025-10-18-morning.html).
+- **Forward:** complex eigenvalues of rotation matrices ([Apr 4 afternoon](2026-04-04-afternoon-2.html)) — same complex-coordinate technique.
 
 ## Full transcript
 

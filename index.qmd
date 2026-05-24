@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>28</strong><span>sessions</span></div>
-    <div><strong>12</strong><span>lessons distilled</span></div>
+    <div><strong>13</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -79,7 +79,7 @@ title: "Linear Algebra Notes"
 <tr><td>2026-01-03</td><td>morning</td><td><a href="lessons/2026-01-03-morning.html">Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-01-10</td><td>morning</td><td><a href="lessons/2026-01-10-morning.html">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-01-24</td><td>morning</td><td><a href="lessons/2026-01-24-morning.html">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</a> <span class="mini-badge">Published</span></td></tr>
-<tr><td>2026-02-21</td><td>afternoon</td><td><a href="lessons/2026-02-21-afternoon.html">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2026-02-21</td><td>afternoon</td><td><a href="lessons/2026-02-21-afternoon.html">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-02-21 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-02-21-morning.html">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-02-28 <sup title="unknown date — inferred">⚠</sup></td><td>individual followup</td><td><a href="lessons/2026-02-28-eigenvalues-followup.html">Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-07</td><td>after — Cramer review</td><td><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a> <span class="mini-badge">Published</span></td></tr>
