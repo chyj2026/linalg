@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-02-28">
 
-<title>Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism – Linear Algebra Notes</title>
+<title>Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,8 +187,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#topics-covered" id="toc-topics-covered" class="nav-link" data-scroll-target="#topics-covered">Topics covered</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-42-per-vector-eigenvalue-equation" id="toc-derivation-of-theorem-42-per-vector-eigenvalue-equation" class="nav-link" data-scroll-target="#derivation-of-theorem-42-per-vector-eigenvalue-equation">Derivation of Theorem 42 (per-vector eigenvalue equation)</a></li>
+  <li><a href="#derivation-of-theorem-43-characteristic-polynomial" id="toc-derivation-of-theorem-43-characteristic-polynomial" class="nav-link" data-scroll-target="#derivation-of-theorem-43-characteristic-polynomial">Derivation of Theorem 43 (characteristic polynomial)</a></li>
+  <li><a href="#derivation-of-theorem-44a-trace-recovery-vieta-on-lambdan-1-coefficient" id="toc-derivation-of-theorem-44a-trace-recovery-vieta-on-lambdan-1-coefficient" class="nav-link" data-scroll-target="#derivation-of-theorem-44a-trace-recovery-vieta-on-lambdan-1-coefficient">Derivation of Theorem 44a (trace recovery — Vieta on <span class="math inline">\(\lambda^{n-1}\)</span> coefficient)</a></li>
+  <li><a href="#derivation-of-theorem-44b-determinant-recovery-the-lambda-0-trick" id="toc-derivation-of-theorem-44b-determinant-recovery-the-lambda-0-trick" class="nav-link" data-scroll-target="#derivation-of-theorem-44b-determinant-recovery-the-lambda-0-trick">Derivation of Theorem 44b (determinant recovery — the <span class="math inline">\(\lambda = 0\)</span> trick)</a></li>
+  <li><a href="#derivation-b-of-theorem-44-independent-similarity-invariance" id="toc-derivation-b-of-theorem-44-independent-similarity-invariance" class="nav-link" data-scroll-target="#derivation-b-of-theorem-44-independent-similarity-invariance">Derivation B of Theorem 44 <em>(independent — similarity invariance)</em></a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -166,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism</h1>
+<h1 class="title">Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial</h1>
 </div>
 
 
@@ -189,55 +236,298 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Manifest date flag.</strong> <code>date_confidence: unknown</code> — the file <code>video1897151257.txt</code> has no parseable date. Content places it during the conic→eigenvalue transition window (late Feb 2026). Inferred date 2026-02-28; verify against Drive <code>createdTime</code> if precision matters.</p>
 </div>
 </div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Individual afternoon session re-deriving the 2×2 conic diagonalization as M·[ε₁ ε₂] = [ε₁ ε₂]·Λ, then defining the eigenvalue problem (M-λI)v = 0 and showing the resulting quadratic recovers the same λ₁+λ₂ = a+c and λ₁λ₂ = ac-b² invariants.</p>
+<p>Promotes the matrix eigenvalue equation <span class="math inline">\(M \cdot E = E \cdot \Lambda\)</span> (<a href="2026-02-21-morning.html">Feb 21 homework</a>) to its per-vector form <span class="math inline">\((M - \lambda I)\mathbf{v} = \mathbf{0}\)</span>. The non-trivial-solution requirement gives <strong><span class="math inline">\(\det(M - \lambda I) = 0\)</span></strong> — the <strong>characteristic polynomial</strong>. The session then proves that this polynomial has degree exactly <span class="math inline">\(n\)</span> in <span class="math inline">\(\lambda\)</span>, leading coefficient <span class="math inline">\((-1)^n\)</span>, and (by Vieta) recovers the trace and determinant relations <span class="math inline">\(\sum \lambda_i = \operatorname{tr}(M)\)</span>, <span class="math inline">\(\prod \lambda_i = \det(M)\)</span> — <strong>without</strong> assuming the matrix is symmetric or even diagonalisable. The constant-term-via-<span class="math inline">\(\lambda=0\)</span> trick gives the determinant identity in one line.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(M \in \mathbb{R}^{n\times n}\)</span> (or <span class="math inline">\(\mathbb{C}^{n\times n}\)</span>)</td>
+<td>general square matrix</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{v} \in \mathbb{R}^n\)</span></td>
+<td>candidate eigenvector</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lambda \in \mathbb{C}\)</span></td>
+<td>candidate eigenvalue (complex in general)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(I\)</span></td>
+<td><span class="math inline">\(n\times n\)</span> identity</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(M - \lambda I\)</span></td>
+<td>“shifted” matrix; diagonal entries <span class="math inline">\(m_{ii} - \lambda\)</span>, off-diagonal entries unchanged</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p(\lambda) := \det(M - \lambda I)\)</span></td>
+<td><strong>characteristic polynomial</strong> of <span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\operatorname{tr}(M) = \sum_i m_{ii}\)</span></td>
+<td>trace</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\det(M) = p(0) \cdot (-1)^n\)</span></td>
+<td>determinant (via characteristic polynomial evaluated at <span class="math inline">\(\lambda = 0\)</span>)</td>
+</tr>
+<tr class="odd">
+<td>“Fixed subspace”</td>
+<td>a 1-dim subspace <span class="math inline">\(\operatorname{span}(\mathbf{v})\)</span> such that <span class="math inline">\(M(\operatorname{span}(\mathbf{v})) \subseteq \operatorname{span}(\mathbf{v})\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Cramer’s rule classification</strong> (<a href="2025-10-11-afternoon.html">2025-10-11 afternoon, Theorem 24</a>): a linear system <span class="math inline">\(A\mathbf{x} = \mathbf{0}\)</span> has non-trivial solutions iff <span class="math inline">\(\det A = 0\)</span>.</li>
+<li><strong>Cofactor / Laplace expansion</strong> of <span class="math inline">\(\det A\)</span> along any row or column.</li>
+<li><strong>Vieta’s formulas</strong> for a degree-<span class="math inline">\(n\)</span> polynomial <span class="math inline">\(a_n\lambda^n + a_{n-1}\lambda^{n-1} + \cdots + a_0\)</span>: sum of roots <span class="math inline">\(= -a_{n-1}/a_n\)</span>, product of roots <span class="math inline">\(= (-1)^n a_0/a_n\)</span>.</li>
+<li><strong>Determinant geometry</strong> (parallelepiped volume) — same as in <a href="2025-10-11-morning.html">2025-10-11-morning</a>.</li>
+<li><strong>Imported facts:</strong> existence of <span class="math inline">\(n\)</span> complex eigenvalues counted with multiplicity (fundamental theorem of algebra applied to the characteristic polynomial).</li>
+</ol>
+</section>
+<section id="topics-covered" class="level2">
+<h2 class="anchored" data-anchor-id="topics-covered">Topics covered</h2>
 <ul>
-<li>Eigenvalues defined via M·v = λv as fixed/dilated subspace</li>
-<li>(M-λI)v = 0 requires det(M-λI) = 0 for nontrivial solutions</li>
-<li>Vieta on characteristic polynomial gives trace and det</li>
+<li>Linear-transformation viewpoint of <span class="math inline">\(M\)</span> acting on vectors <span class="math inline">\(\mathbf{v} \in \mathbb{R}^n\)</span></li>
+<li>“Fixed subspace” interpretation of eigenvectors (preserved direction, scaled by <span class="math inline">\(\lambda\)</span>)</li>
+<li>Subtracting a <em>scalar</em> from a <em>matrix</em>: requires lifting <span class="math inline">\(\lambda \to \lambda I\)</span> first</li>
+<li><span class="math inline">\((M - \lambda I)\mathbf{v} = \mathbf{0}\)</span> as the per-vector eigenvalue equation</li>
+<li><span class="math inline">\(\det(M - \lambda I) = 0\)</span> via Cramer’s-rule non-trivial-solution criterion</li>
+<li>Degree analysis of the characteristic polynomial: leading term <span class="math inline">\((-\lambda)^n\)</span></li>
+<li>The <span class="math inline">\(\lambda^{n-1}\)</span> coefficient: requires using <span class="math inline">\(n-1\)</span> diagonals, picking the constant on the remaining row</li>
+<li>Trace recovery: <span class="math inline">\(\sum \lambda_i = \operatorname{tr}(M)\)</span></li>
+<li>Determinant recovery: evaluate <span class="math inline">\(p(\lambda)\)</span> at <span class="math inline">\(\lambda = 0\)</span> to extract the constant term in one line</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Eigenvalue equation, per-vector form).</strong> <span class="math inline">\(\mathbf{v}\)</span> is an eigenvector of <span class="math inline">\(M\)</span> with eigenvalue <span class="math inline">\(\lambda\)</span> iff <span class="math display">\[
+(M - \lambda I)\,\mathbf{v} \;=\; \mathbf{0} \tag{42}
+\]</span> with <span class="math inline">\(\mathbf{v} \ne \mathbf{0}\)</span>.</p>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+<div class="theorem">
+<p><strong>(Characteristic polynomial — eigenvalue criterion).</strong> <span class="math inline">\(\lambda \in \mathbb{C}\)</span> is an eigenvalue of <span class="math inline">\(M\)</span> iff <span class="math display">\[
+p(\lambda) \;:=\; \det(M - \lambda I) \;=\; 0. \tag{43}
+\]</span> The polynomial <span class="math inline">\(p(\lambda)\)</span> has degree exactly <span class="math inline">\(n\)</span> in <span class="math inline">\(\lambda\)</span>, leading coefficient <span class="math inline">\((-1)^n\)</span>.</p>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+<div class="theorem">
+<p><strong>(Trace and determinant via Vieta — general <span class="math inline">\(n\)</span>).</strong> If <span class="math inline">\(\lambda_1, \dots, \lambda_n\)</span> are the eigenvalues of <span class="math inline">\(M\)</span> (with multiplicity, over <span class="math inline">\(\mathbb{C}\)</span>), then <span class="math display">\[
+\sum_{i=1}^{n} \lambda_i \;=\; \operatorname{tr}(M) \;=\; \sum_{i=1}^{n} m_{ii}, \tag{44a}
+\]</span> <span class="math display">\[
+\prod_{i=1}^{n} \lambda_i \;=\; \det(M). \tag{44b}
+\]</span></p>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Small individual/two-student session (Catherine, Elaine). References ‘what we had in the morning’. Date inferred late-Feb 2026 from the eigenvalue-introduction window.</p>
-</div>
-</div>
+</section>
+<section id="derivation-of-theorem-42-per-vector-eigenvalue-equation" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-42-per-vector-eigenvalue-equation">Derivation of Theorem 42 (per-vector eigenvalue equation)</h2>
+<p>Starting from <span class="math inline">\(M\mathbf{v} = \lambda\mathbf{v}\)</span> and bringing <span class="math inline">\(\lambda\mathbf{v}\)</span> to the LHS: <span class="math inline">\(M\mathbf{v} - \lambda\mathbf{v} = \mathbf{0}\)</span>. <strong>Cannot</strong> factor as “<span class="math inline">\((M - \lambda)\mathbf{v}\)</span>” — <span class="math inline">\(M\)</span> is a matrix, <span class="math inline">\(\lambda\)</span> is a scalar; not the same kind of object. The fix: promote <span class="math inline">\(\lambda\)</span> to <span class="math inline">\(\lambda I\)</span> (the scalar matrix with <span class="math inline">\(\lambda\)</span> on the diagonal): <span class="math display">\[
+\lambda\mathbf{v} \;=\; (\lambda I)\,\mathbf{v}.
+\]</span> Now <span class="math inline">\(M\)</span> and <span class="math inline">\(\lambda I\)</span> are both <span class="math inline">\(n \times n\)</span> matrices, so <span class="math display">\[
+M\mathbf{v} - (\lambda I)\,\mathbf{v} \;=\; (M - \lambda I)\,\mathbf{v} \;=\; \mathbf{0}. \tag{45}
+\]</span> With <span class="math inline">\(\mathbf{v} \ne \mathbf{0}\)</span> as the eigenvector requirement. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-43-characteristic-polynomial" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-43-characteristic-polynomial">Derivation of Theorem 43 (characteristic polynomial)</h2>
+<p>The equation <span class="math inline">\((M - \lambda I)\mathbf{v} = \mathbf{0}\)</span> is a homogeneous linear system in <span class="math inline">\(\mathbf{v}\)</span>. By <a href="2025-10-11-afternoon.html">Cramer’s-rule classification (Thm 24)</a>, it has non-trivial solutions iff <span class="math inline">\(\det(M - \lambda I) = 0\)</span>.</p>
+<p><strong>Why degree exactly <span class="math inline">\(n\)</span>, leading coefficient <span class="math inline">\((-1)^n\)</span>:</strong> Write <span class="math inline">\(M - \lambda I\)</span> with diagonal <span class="math inline">\((m_{ii} - \lambda)\)</span> and off-diagonal <span class="math inline">\(m_{ij}\)</span> unchanged. The determinant picks one entry from each row and column. The unique combination of <span class="math inline">\(n\)</span> entries all carrying a <span class="math inline">\(\lambda\)</span> is the diagonal product: <span class="math display">\[
+(m_{11} - \lambda)(m_{22} - \lambda)\cdots(m_{nn} - \lambda) \;=\; (-\lambda)^n + (\text{lower in }\lambda).
+\]</span> All other determinant terms involve at least one off-diagonal <span class="math inline">\(m_{ij}\)</span> entry, which is <span class="math inline">\(\lambda\)</span>-free, giving lower degrees. So <span class="math inline">\(p(\lambda) = (-1)^n \lambda^n + \cdots\)</span>, degree exactly <span class="math inline">\(n\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-44a-trace-recovery-vieta-on-lambdan-1-coefficient" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-44a-trace-recovery-vieta-on-lambdan-1-coefficient">Derivation of Theorem 44a (trace recovery — Vieta on <span class="math inline">\(\lambda^{n-1}\)</span> coefficient)</h2>
+<p>Expand the diagonal product: <span class="math display">\[
+\prod_{i=1}^{n}(m_{ii} - \lambda) \;=\; (-\lambda)^n + (-\lambda)^{n-1}\sum_{i=1}^{n} m_{ii} + \cdots
+\]</span> The <span class="math inline">\(\lambda^{n-1}\)</span> coefficient is <span class="math inline">\((-1)^{n-1}\operatorname{tr}(M)\)</span>.</p>
+<p><strong>Off-diagonal terms cannot contribute to <span class="math inline">\(\lambda^{n-1}\)</span>:</strong> any term using an off-diagonal <span class="math inline">\(m_{ij}\)</span> entry (with <span class="math inline">\(i \ne j\)</span>) eliminates <em>two</em> diagonals at once (row <span class="math inline">\(i\)</span> AND column <span class="math inline">\(j\)</span> each lose their diagonal entry). So such terms have at most <span class="math inline">\(n - 2\)</span> <span class="math inline">\(\lambda\)</span>-bearing factors, contributing only <span class="math inline">\(\lambda^{n-2}\)</span> or lower.</p>
+<p>By Vieta on <span class="math inline">\(p(\lambda) = (-1)^n \lambda^n + (-1)^{n-1}\operatorname{tr}(M)\,\lambda^{n-1} + \cdots\)</span>: <span class="math display">\[
+\sum_{i=1}^{n}\lambda_i \;=\; -\frac{(-1)^{n-1}\operatorname{tr}(M)}{(-1)^n} \;=\; \operatorname{tr}(M). \qquad\blacksquare
+\]</span></p>
+</section>
+<section id="derivation-of-theorem-44b-determinant-recovery-the-lambda-0-trick" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-44b-determinant-recovery-the-lambda-0-trick">Derivation of Theorem 44b (determinant recovery — the <span class="math inline">\(\lambda = 0\)</span> trick)</h2>
+<p>Constant term: <span class="math inline">\(p(0) = \det(M - 0 \cdot I) = \det(M)\)</span>. By Vieta: <span class="math display">\[
+\prod_{i=1}^{n}\lambda_i \;=\; (-1)^n \frac{p(0)}{(-1)^n} \;=\; \det(M). \qquad\blacksquare
+\]</span></p>
+<p>Dramatically shorter than the trace argument — entire determinant identity in one substitution.</p>
+</section>
+<section id="derivation-b-of-theorem-44-independent-similarity-invariance" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-44-independent-similarity-invariance">Derivation B of Theorem 44 <em>(independent — similarity invariance)</em></h2>
+<p>If <span class="math inline">\(M\)</span> is diagonalisable, <span class="math inline">\(M = E \Lambda E^{-1}\)</span> with <span class="math inline">\(\Lambda = \operatorname{diag}(\lambda_1, \dots, \lambda_n)\)</span>. Then by trace cyclicity (<span class="math inline">\(\operatorname{tr}(ABC) = \operatorname{tr}(BCA)\)</span>) and multiplicative determinant law: <span class="math display">\[
+\operatorname{tr}(M) = \operatorname{tr}(\Lambda) = \sum \lambda_i, \qquad
+\det(M) = \det(\Lambda) = \prod \lambda_i.
+\]</span> <strong>Note:</strong> this derivation imports two deeper facts and only works for diagonalisable matrices. Derivation A works for <strong>all</strong> matrices and uses lighter imports.</p>
+<p><em>Note on independence.</em> Derivation A: cofactor expansion + Vieta. Derivation B: trace cyclicity + det multiplicativity. Disjoint imports.</p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong><span class="math inline">\(n = 1\)</span>.</strong> <span class="math inline">\(M = (m)\)</span>, <span class="math inline">\(p(\lambda) = m - \lambda\)</span>, root <span class="math inline">\(\lambda_1 = m\)</span>. Trace = det = <span class="math inline">\(m = \lambda_1\)</span>. ✓</li>
+<li><strong><span class="math inline">\(n = 2\)</span>.</strong> <span class="math inline">\(M = \begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}\)</span>, <span class="math inline">\(p(\lambda) = (a-\lambda)(d-\lambda) - bc = \lambda^2 - (a+d)\lambda + (ad-bc)\)</span>. Vieta: <span class="math inline">\(\lambda_1 + \lambda_2 = a+d = \operatorname{tr}\)</span> ✓, <span class="math inline">\(\lambda_1\lambda_2 = ad-bc = \det\)</span> ✓. Recovers Theorem 38 from <a href="2026-02-21-morning.html">2026-02-21 morning</a>.</li>
+<li><strong>Worked <span class="math inline">\(3 \times 3\)</span>.</strong> <span class="math inline">\(M = \begin{pmatrix}2&amp;1&amp;0\\0&amp;3&amp;0\\1&amp;0&amp;4\end{pmatrix}\)</span>, block lower-triangular. Eigenvalues <span class="math inline">\(\{2, 3, 4\}\)</span>. Trace: <span class="math inline">\(2+3+4=9\)</span> ✓. Determinant: <span class="math inline">\(2\cdot 3\cdot 4 = 24\)</span> ✓.</li>
+<li><strong>Complex eigenvalues OK.</strong> <span class="math inline">\(M = \begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}\)</span> (90° rotation). <span class="math inline">\(p(\lambda) = \lambda^2 + 1\)</span>, roots <span class="math inline">\(\pm i\)</span>. Trace <span class="math inline">\(= 0 = i+(-i)\)</span> ✓, det <span class="math inline">\(= 1 = i\cdot(-i)\)</span> ✓.</li>
+<li><strong>Defective (non-diagonalisable) matrix.</strong> <span class="math inline">\(M = \begin{pmatrix}2&amp;1\\0&amp;2\end{pmatrix}\)</span>. <span class="math inline">\(p(\lambda) = (2-\lambda)^2\)</span>, double root <span class="math inline">\(\lambda = 2\)</span>. Vieta: <span class="math inline">\(2+2 = 4 = \operatorname{tr}\)</span> ✓, <span class="math inline">\(2\cdot 2 = 4 = \det\)</span> ✓. Theorem 44 holds without diagonalisability.</li>
+<li><strong>Degree sanity.</strong> <span class="math inline">\(n = 3\)</span>: <span class="math inline">\(p(\lambda)\)</span> has degree 3, leading coefficient <span class="math inline">\((-1)^3 = -1\)</span>. ✓</li>
+<li><strong>Dependency check.</strong> Theorem 42: algebra. Theorem 43: Cramer-classification + cofactor structure. Theorem 44 (A): polynomial-degree analysis + Vieta + <span class="math inline">\(\lambda=0\)</span> trick. Theorem 44 (B): trace cyclicity + det multiplicativity. No circularity. ✓</li>
+</ul>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.4/2026-02-28-eigenvalues-followup.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  Individual session (Catherine + Elaine) · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.4" target="_blank">GitHub Release v0.4</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view" target="_blank">Google Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-28-eigenvalues-followup/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Recap of conic-diagonalization; linear-transformation view of <span class="math inline">\(M\)</span> acting on <span class="math inline">\(\mathbf{v}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-28-eigenvalues-followup/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — “Fixed subspace” picture: <span class="math inline">\(M\mathbf{v} = \lambda\mathbf{v}\)</span> as preserved direction, scaled by <span class="math inline">\(\lambda\)</span>. Bundling into matrix form <span class="math inline">\(ME = E\Lambda\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-28-eigenvalues-followup/frame-38m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m00</strong> — The <span class="math inline">\(\lambda \to \lambda I\)</span> lift resolving the scalar-matrix-subtraction type mismatch. Result: <span class="math inline">\((M - \lambda I)\mathbf{v} = \mathbf{0}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-02-28-eigenvalues-followup/frame-52m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 52m00</strong> — Degree analysis of <span class="math inline">\(\det(M - \lambda I)\)</span> as <span class="math inline">\(n\)</span>-degree polynomial; diagonal product gives <span class="math inline">\((-\lambda)^n\)</span>; Vieta + <span class="math inline">\(\lambda=0\)</span> trick recover trace and determinant.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["M·v = λ·v&lt;br/&gt;per-vector eigen&lt;br/&gt;&lt;i&gt;(Feb 21 homework)&lt;/i&gt;"] --&gt; B["Bring λv to LHS:&lt;br/&gt;M·v − λv = 0"]
+    B --&gt; C["Type mismatch:&lt;br/&gt;M matrix vs λ scalar"]
+    C --&gt; D["Lift λ → λI&lt;br/&gt;now both n×n"]
+    D --&gt; E["(M − λI)·v = 0&lt;br/&gt;Theorem 42"]
+    F["Cramer classification:&lt;br/&gt;nontrivial soln iff det = 0&lt;br/&gt;&lt;i&gt;(Oct 11 afternoon)&lt;/i&gt;"] --&gt; G["det(M − λI) = 0&lt;br/&gt;characteristic poly&lt;br/&gt;Theorem 43"]
+    E --&gt; G
+    H["Diagonal product Π(m_ii − λ)&lt;br/&gt;gives (−λ)ⁿ leading"] --&gt; I["p(λ) degree n,&lt;br/&gt;leading coef (−1)ⁿ"]
+    I --&gt; J["[λ^(n−1)] coef =&lt;br/&gt;(−1)^(n−1)·tr(M)"]
+    K["Off-diag terms&lt;br/&gt;knock out 2 diagonals each&lt;br/&gt;⇒ only ≤ λ^(n−2)"] --&gt; J
+    J --&gt; L["Vieta: Σλᵢ = tr(M)&lt;br/&gt;Theorem 44a"]
+    M["p(0) = det(M − 0·I) = det(M)"] --&gt; N["Vieta: Πλᵢ = det(M)&lt;br/&gt;Theorem 44b&lt;br/&gt;&lt;b&gt;'λ=0 trick'&lt;/b&gt;"]
+    L -.matches.-&gt; P["Feb 21 morning result&lt;br/&gt;for n=2 (Theorem 38)"]
+    N -.matches.-&gt; P
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “From <span class="math inline">\(M\mathbf{v} - \lambda\mathbf{v} = \mathbf{0}\)</span>, can I pull out <span class="math inline">\(\mathbf{v}\)</span> and write <span class="math inline">\((M - \lambda)\mathbf{v} = \mathbf{0}\)</span>?” <br><span class="speaker">Catherine:</span> <em>(hesitates)</em> <br><span class="speaker">Teacher:</span> “If I gave you <span class="math inline">\(\begin{pmatrix}1&amp;2\\3&amp;4\end{pmatrix}\)</span> and asked you to subtract 7, what would you do? Five dogs minus seven dogs is fine. But five dogs minus <em>one cat</em> — what’s left?” <br><span class="speaker">Catherine:</span> “Oh — different types.” <br><span class="speaker">Teacher:</span> “Right. Lift the cat to a herd: <span class="math inline">\(\lambda \to \lambda I\)</span>. Now they’re the same animal.”</p>
+<p><em>Teaching move:</em> <strong>type-system intuition</strong> — algebraic operations require like-typed objects. Scalar–matrix mismatch is a real bug, silently fixed by inserting an identity. Making the lift explicit clarifies what was previously hand-waved.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “What’s the constant term of this hugely complicated <span class="math inline">\(n\)</span>-degree polynomial?” <br><span class="speaker">Catherine:</span> “Too complicated to find by expansion?” <br><span class="speaker">Teacher:</span> “Plug in <span class="math inline">\(\lambda = 0\)</span>.” <br><span class="speaker">Catherine:</span> “Oh — and that’s just <span class="math inline">\(\det(M)\)</span>!” <br><span class="speaker">Teacher:</span> “Brilliant. The whole determinant identity in one line.”</p>
+<p><em>Teaching move:</em> <strong>substitution as evaluation shortcut</strong> — when only the value at a specific input is needed, substitute instead of expanding symbolically.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Verify the <span class="math inline">\(\lambda^{n-1}\)</span> coefficient extraction for <span class="math inline">\(n = 3\)</span> by explicit expansion. Confirm against the trace prediction.</li>
+<li>Compute eigenvalues of <span class="math inline">\(M = \begin{pmatrix}3&amp;-2\\1&amp;0\end{pmatrix}\)</span> via <span class="math inline">\(\det(M - \lambda I) = 0\)</span>. Then find eigenvectors by solving <span class="math inline">\((M - \lambda_i I)\mathbf{v} = \mathbf{0}\)</span> for each <span class="math inline">\(\lambda_i\)</span>.</li>
+<li><em>Preview for next session:</em> what happens when the characteristic polynomial has a <strong>repeated root</strong>? Sketch the eigenvector picture.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> The <span class="math inline">\(\lambda^{n-1}\)</span> coefficient argument relies on the combinatorial claim “off-diagonal terms knock out two diagonals each.” This is correct but the lesson sketches rather than fully formalises it. The formal proof: any non-identity permutation <span class="math inline">\(\sigma \in S_n\)</span> contributing to <span class="math inline">\(\det(M-\lambda I)\)</span> has at least 2 indices <span class="math inline">\(i\)</span> with <span class="math inline">\(\sigma(i) \ne i\)</span>, so its contributing term has at most <span class="math inline">\(n - 2\)</span> factors of <span class="math inline">\((m_{ii} - \lambda)\)</span>.</li>
+<li><strong>Imported facts.</strong> Cramer’s-rule classification (proved <a href="2025-10-11-afternoon.html">2025-10-11 afternoon</a>); cofactor expansion; Vieta’s formulas; fundamental theorem of algebra. Multiplicative determinant law used only in Derivation B.</li>
+<li><strong>Diagonalisability silently varies.</strong> Theorem 44 holds for all matrices (Vieta works on roots-with-multiplicity), but the lesson doesn’t explicitly distinguish “<span class="math inline">\(n\)</span> eigenvalues” from “<span class="math inline">\(n\)</span> linearly independent eigenvectors.” The Jordan-block case (defective matrices) gets formal treatment in <a href="2026-04-04-morning.html">2026-04-04 morning</a>.</li>
+<li><strong>Real vs complex eigenvalues.</strong> Symmetric matrices guarantee real eigenvalues; general matrices may have complex ones (e.g., the 90° rotation example). All theorems hold over <span class="math inline">\(\mathbb{C}\)</span>.</li>
+<li><strong>Confidence.</strong> Theorem 42, 43 + proofs: high. Theorem 44 Derivation A: high (the trace argument needs the combinatorial gloss noted above). Derivation B: high but limited to diagonalisable matrices.</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursors:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> — matrix eigenvalue equation <span class="math inline">\(M E = E \Lambda\)</span> for <span class="math inline">\(n=2\)</span> symmetric case (Theorem 38) is the direct setup. <a href="2025-10-11-afternoon.html">2025-10-11 afternoon</a> — Cramer’s-rule classification (Theorem 24) is the load-bearing import.</li>
+<li><strong>Sequels:</strong>
+<ul>
+<li><a href="2026-03-28-morning.html">2026-03-28 morning</a> (stub) — Gram-matrix rank tests; pivots to Gauss-Jordan inversion.</li>
+<li><a href="2026-04-04-morning.html">2026-04-04 morning</a> (stub) — companion matrix + <strong>Jordan-block</strong> treatment of repeated eigenvalues (homework #3 above). Defective case formal treatment.</li>
+<li><a href="2026-05-02-morning.html">2026-05-02 morning</a> (stub) — <strong>Cayley–Hamilton</strong> <span class="math inline">\(p(M) = 0\)</span> strengthens Theorem 43.</li>
+</ul></li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

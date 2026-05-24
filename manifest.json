@@ -452,18 +452,19 @@
     },
     {
       "id": "2026-02-28-eigenvalues-followup",
-      "date": "2026-02-28", "date_confidence": "unknown", "session": "individual",
-      "title_en": "Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism",
-      "topics": ["quadratic-form", "conic-sections", "eigenvalues", "eigenvectors", "diagonalization", "linear-transformation"],
-      "lead": "Individual afternoon session re-deriving the 2×2 conic diagonalization as M·[ε₁ ε₂] = [ε₁ ε₂]·Λ, then defining the eigenvalue problem (M-λI)v = 0 and showing the resulting quadratic recovers the same λ₁+λ₂ = a+c and λ₁λ₂ = ac-b² invariants.",
-      "key_theorems": ["Eigenvalues defined via M·v = λv as fixed/dilated subspace", "(M-λI)v = 0 requires det(M-λI) = 0 for nontrivial solutions", "Vieta on characteristic polynomial gives trace and det"],
-      "homework": null,
-      "notes": "Small individual/two-student session (Catherine, Elaine). References 'what we had in the morning'. Date inferred late-Feb 2026 from the eigenvalue-introduction window.",
+      "date": "2026-02-28", "date_confidence": "unknown", "session": "individual followup",
+      "title_en": "Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial",
+      "topics": ["eigenvalues", "eigenvectors", "determinant", "trace", "characteristic-polynomial", "vieta-formulas", "linear-transformation", "fixed-subspace"],
+      "lead": "Formally derives (M-λI)v = 0 as the per-vector eigenvalue equation; det(M-λI) = 0 is the characteristic polynomial; Vieta gives Σλ=tr(M) and Πλ=det(M) for general n×n; the λ=0 trick gives the determinant identity in one line.",
+      "key_theorems": ["(M-λI)v = 0 per-vector eigenvalue equation (Theorem 42)", "det(M-λI) = 0 characteristic polynomial criterion (Theorem 43)", "Σλᵢ = tr(M), Πλᵢ = det(M) via Vieta (Theorem 44)", "Constant-term-via-λ=0 trick for det identity"],
+      "homework": "Verify λ^(n-1) coefficient extraction for n=3; compute eigenvalues + eigenvectors of [[3,-2],[1,0]]; preview repeated-root case for next session.",
+      "notes": "Small individual session with Catherine and Elaine. Crucial 'type-system intuition' moment when Catherine asks 'can I subtract a scalar from a matrix?'.",
       "transcript": "transcripts/video1897151257.txt",
       "video_drive_id": "1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC",
       "video_embed": "https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/preview",
       "video_view":  "https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.4/2026-02-28-eigenvalues-followup.mp4",
+      "status": "published"
     }
   ]
 }

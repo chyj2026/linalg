@@ -1,43 +1,247 @@
 ---
-title: "Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism"
+title: "Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial"
 date: 2026-02-28
-session: individual
-topics: [quadratic-form, conic-sections, eigenvalues, eigenvectors, diagonalization, linear-transformation]
+session: individual followup
+topics: [eigenvalues, eigenvectors, determinant, trace, characteristic-polynomial, vieta-formulas, linear-transformation, fixed-subspace]
 ---
 
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
+::: {.callout-tip}
+**Manifest date flag.** `date_confidence: unknown` — the file `video1897151257.txt` has no parseable date. Content places it during the conic→eigenvalue transition window (late Feb 2026). Inferred date 2026-02-28; verify against Drive `createdTime` if precision matters.
 :::
 
 ## Lead
 
-Individual afternoon session re-deriving the 2×2 conic diagonalization as M·[ε₁ ε₂] = [ε₁ ε₂]·Λ, then defining the eigenvalue problem (M-λI)v = 0 and showing the resulting quadratic recovers the same λ₁+λ₂ = a+c and λ₁λ₂ = ac-b² invariants.
+Promotes the matrix eigenvalue equation $M \cdot E = E \cdot \Lambda$ ([Feb 21 homework](2026-02-21-morning.html)) to its per-vector form $(M - \lambda I)\mathbf{v} = \mathbf{0}$. The non-trivial-solution requirement gives **$\det(M - \lambda I) = 0$** — the **characteristic polynomial**. The session then proves that this polynomial has degree exactly $n$ in $\lambda$, leading coefficient $(-1)^n$, and (by Vieta) recovers the trace and determinant relations $\sum \lambda_i = \operatorname{tr}(M)$, $\prod \lambda_i = \det(M)$ — **without** assuming the matrix is symmetric or even diagonalisable. The constant-term-via-$\lambda=0$ trick gives the determinant identity in one line.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Eigenvalues defined via M·v = λv as fixed/dilated subspace
-- (M-λI)v = 0 requires det(M-λI) = 0 for nontrivial solutions
-- Vieta on characteristic polynomial gives trace and det
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $M \in \mathbb{R}^{n\times n}$ (or $\mathbb{C}^{n\times n}$) | general square matrix |
+| $\mathbf{v} \in \mathbb{R}^n$ | candidate eigenvector |
+| $\lambda \in \mathbb{C}$ | candidate eigenvalue (complex in general) |
+| $I$ | $n\times n$ identity |
+| $M - \lambda I$ | "shifted" matrix; diagonal entries $m_{ii} - \lambda$, off-diagonal entries unchanged |
+| $p(\lambda) := \det(M - \lambda I)$ | **characteristic polynomial** of $M$ |
+| $\operatorname{tr}(M) = \sum_i m_{ii}$ | trace |
+| $\det(M) = p(0) \cdot (-1)^n$ | determinant (via characteristic polynomial evaluated at $\lambda = 0$) |
+| "Fixed subspace" | a 1-dim subspace $\operatorname{span}(\mathbf{v})$ such that $M(\operatorname{span}(\mathbf{v})) \subseteq \operatorname{span}(\mathbf{v})$ |
+:::
 
+## Primitive notions and assumptions
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+1. **Cramer's rule classification** ([2025-10-11 afternoon, Theorem 24](2025-10-11-afternoon.html)): a linear system $A\mathbf{x} = \mathbf{0}$ has non-trivial solutions iff $\det A = 0$.
+2. **Cofactor / Laplace expansion** of $\det A$ along any row or column.
+3. **Vieta's formulas** for a degree-$n$ polynomial $a_n\lambda^n + a_{n-1}\lambda^{n-1} + \cdots + a_0$: sum of roots $= -a_{n-1}/a_n$, product of roots $= (-1)^n a_0/a_n$.
+4. **Determinant geometry** (parallelepiped volume) — same as in [2025-10-11-morning](2025-10-11-morning.html).
+5. **Imported facts:** existence of $n$ complex eigenvalues counted with multiplicity (fundamental theorem of algebra applied to the characteristic polynomial).
 
-Small individual/two-student session (Catherine, Elaine). References 'what we had in the morning'. Date inferred late-Feb 2026 from the eigenvalue-introduction window.
+## Topics covered
+
+- Linear-transformation viewpoint of $M$ acting on vectors $\mathbf{v} \in \mathbb{R}^n$
+- "Fixed subspace" interpretation of eigenvectors (preserved direction, scaled by $\lambda$)
+- Subtracting a *scalar* from a *matrix*: requires lifting $\lambda \to \lambda I$ first
+- $(M - \lambda I)\mathbf{v} = \mathbf{0}$ as the per-vector eigenvalue equation
+- $\det(M - \lambda I) = 0$ via Cramer's-rule non-trivial-solution criterion
+- Degree analysis of the characteristic polynomial: leading term $(-\lambda)^n$
+- The $\lambda^{n-1}$ coefficient: requires using $n-1$ diagonals, picking the constant on the remaining row
+- Trace recovery: $\sum \lambda_i = \operatorname{tr}(M)$
+- Determinant recovery: evaluate $p(\lambda)$ at $\lambda = 0$ to extract the constant term in one line
+
+## Theorems
+
+::: {.theorem}
+**(Eigenvalue equation, per-vector form).** $\mathbf{v}$ is an eigenvector of $M$ with eigenvalue $\lambda$ iff
+$$
+(M - \lambda I)\,\mathbf{v} \;=\; \mathbf{0} \tag{42}
+$$
+with $\mathbf{v} \ne \mathbf{0}$.
+:::
+
+::: {.theorem}
+**(Characteristic polynomial — eigenvalue criterion).** $\lambda \in \mathbb{C}$ is an eigenvalue of $M$ iff
+$$
+p(\lambda) \;:=\; \det(M - \lambda I) \;=\; 0. \tag{43}
+$$
+The polynomial $p(\lambda)$ has degree exactly $n$ in $\lambda$, leading coefficient $(-1)^n$.
+:::
+
+::: {.theorem}
+**(Trace and determinant via Vieta — general $n$).** If $\lambda_1, \dots, \lambda_n$ are the eigenvalues of $M$ (with multiplicity, over $\mathbb{C}$), then
+$$
+\sum_{i=1}^{n} \lambda_i \;=\; \operatorname{tr}(M) \;=\; \sum_{i=1}^{n} m_{ii}, \tag{44a}
+$$
+$$
+\prod_{i=1}^{n} \lambda_i \;=\; \det(M). \tag{44b}
+$$
+:::
+
+## Derivation of Theorem 42 (per-vector eigenvalue equation)
+
+Starting from $M\mathbf{v} = \lambda\mathbf{v}$ and bringing $\lambda\mathbf{v}$ to the LHS: $M\mathbf{v} - \lambda\mathbf{v} = \mathbf{0}$. **Cannot** factor as "$(M - \lambda)\mathbf{v}$" — $M$ is a matrix, $\lambda$ is a scalar; not the same kind of object. The fix: promote $\lambda$ to $\lambda I$ (the scalar matrix with $\lambda$ on the diagonal):
+$$
+\lambda\mathbf{v} \;=\; (\lambda I)\,\mathbf{v}.
+$$
+Now $M$ and $\lambda I$ are both $n \times n$ matrices, so
+$$
+M\mathbf{v} - (\lambda I)\,\mathbf{v} \;=\; (M - \lambda I)\,\mathbf{v} \;=\; \mathbf{0}. \tag{45}
+$$
+With $\mathbf{v} \ne \mathbf{0}$ as the eigenvector requirement. $\quad\blacksquare$
+
+## Derivation of Theorem 43 (characteristic polynomial)
+
+The equation $(M - \lambda I)\mathbf{v} = \mathbf{0}$ is a homogeneous linear system in $\mathbf{v}$. By [Cramer's-rule classification (Thm 24)](2025-10-11-afternoon.html), it has non-trivial solutions iff $\det(M - \lambda I) = 0$.
+
+**Why degree exactly $n$, leading coefficient $(-1)^n$:** Write $M - \lambda I$ with diagonal $(m_{ii} - \lambda)$ and off-diagonal $m_{ij}$ unchanged. The determinant picks one entry from each row and column. The unique combination of $n$ entries all carrying a $\lambda$ is the diagonal product:
+$$
+(m_{11} - \lambda)(m_{22} - \lambda)\cdots(m_{nn} - \lambda) \;=\; (-\lambda)^n + (\text{lower in }\lambda).
+$$
+All other determinant terms involve at least one off-diagonal $m_{ij}$ entry, which is $\lambda$-free, giving lower degrees. So $p(\lambda) = (-1)^n \lambda^n + \cdots$, degree exactly $n$. $\quad\blacksquare$
+
+## Derivation of Theorem 44a (trace recovery — Vieta on $\lambda^{n-1}$ coefficient)
+
+Expand the diagonal product:
+$$
+\prod_{i=1}^{n}(m_{ii} - \lambda) \;=\; (-\lambda)^n + (-\lambda)^{n-1}\sum_{i=1}^{n} m_{ii} + \cdots
+$$
+The $\lambda^{n-1}$ coefficient is $(-1)^{n-1}\operatorname{tr}(M)$.
+
+**Off-diagonal terms cannot contribute to $\lambda^{n-1}$:** any term using an off-diagonal $m_{ij}$ entry (with $i \ne j$) eliminates *two* diagonals at once (row $i$ AND column $j$ each lose their diagonal entry). So such terms have at most $n - 2$ $\lambda$-bearing factors, contributing only $\lambda^{n-2}$ or lower.
+
+By Vieta on $p(\lambda) = (-1)^n \lambda^n + (-1)^{n-1}\operatorname{tr}(M)\,\lambda^{n-1} + \cdots$:
+$$
+\sum_{i=1}^{n}\lambda_i \;=\; -\frac{(-1)^{n-1}\operatorname{tr}(M)}{(-1)^n} \;=\; \operatorname{tr}(M). \qquad\blacksquare
+$$
+
+## Derivation of Theorem 44b (determinant recovery — the $\lambda = 0$ trick)
+
+Constant term: $p(0) = \det(M - 0 \cdot I) = \det(M)$. By Vieta:
+$$
+\prod_{i=1}^{n}\lambda_i \;=\; (-1)^n \frac{p(0)}{(-1)^n} \;=\; \det(M). \qquad\blacksquare
+$$
+
+Dramatically shorter than the trace argument — entire determinant identity in one substitution.
+
+## Derivation B of Theorem 44 *(independent — similarity invariance)*
+
+If $M$ is diagonalisable, $M = E \Lambda E^{-1}$ with $\Lambda = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$. Then by trace cyclicity ($\operatorname{tr}(ABC) = \operatorname{tr}(BCA)$) and multiplicative determinant law:
+$$
+\operatorname{tr}(M) = \operatorname{tr}(\Lambda) = \sum \lambda_i, \qquad
+\det(M) = \det(\Lambda) = \prod \lambda_i.
+$$
+**Note:** this derivation imports two deeper facts and only works for diagonalisable matrices. Derivation A works for **all** matrices and uses lighter imports.
+
+*Note on independence.* Derivation A: cofactor expansion + Vieta. Derivation B: trace cyclicity + det multiplicativity. Disjoint imports.
+
+## Verification audit
+
+::: {.audit}
+
+- **$n = 1$.** $M = (m)$, $p(\lambda) = m - \lambda$, root $\lambda_1 = m$. Trace = det = $m = \lambda_1$. ✓
+- **$n = 2$.** $M = \begin{pmatrix}a&b\\c&d\end{pmatrix}$, $p(\lambda) = (a-\lambda)(d-\lambda) - bc = \lambda^2 - (a+d)\lambda + (ad-bc)$. Vieta: $\lambda_1 + \lambda_2 = a+d = \operatorname{tr}$ ✓, $\lambda_1\lambda_2 = ad-bc = \det$ ✓. Recovers Theorem 38 from [2026-02-21 morning](2026-02-21-morning.html).
+- **Worked $3 \times 3$.** $M = \begin{pmatrix}2&1&0\\0&3&0\\1&0&4\end{pmatrix}$, block lower-triangular. Eigenvalues $\{2, 3, 4\}$. Trace: $2+3+4=9$ ✓. Determinant: $2\cdot 3\cdot 4 = 24$ ✓.
+- **Complex eigenvalues OK.** $M = \begin{pmatrix}0&-1\\1&0\end{pmatrix}$ (90° rotation). $p(\lambda) = \lambda^2 + 1$, roots $\pm i$. Trace $= 0 = i+(-i)$ ✓, det $= 1 = i\cdot(-i)$ ✓.
+- **Defective (non-diagonalisable) matrix.** $M = \begin{pmatrix}2&1\\0&2\end{pmatrix}$. $p(\lambda) = (2-\lambda)^2$, double root $\lambda = 2$. Vieta: $2+2 = 4 = \operatorname{tr}$ ✓, $2\cdot 2 = 4 = \det$ ✓. Theorem 44 holds without diagonalisability.
+- **Degree sanity.** $n = 3$: $p(\lambda)$ has degree 3, leading coefficient $(-1)^3 = -1$. ✓
+- **Dependency check.** Theorem 42: algebra. Theorem 43: Cramer-classification + cofactor structure. Theorem 44 (A): polynomial-degree analysis + Vieta + $\lambda=0$ trick. Theorem 44 (B): trace cyclicity + det multiplicativity. No circularity. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.4/2026-02-28-eigenvalues-followup.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  Individual session (Catherine + Elaine) · hosted on
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v0.4" target="_blank">GitHub Release v0.4</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 05m00** — Recap of conic-diagonalization; linear-transformation view of $M$ acting on $\mathbf{v}$.](../figures/2026-02-28-eigenvalues-followup/frame-05m00.jpg)
+
+![**Frame @ 22m00** — "Fixed subspace" picture: $M\mathbf{v} = \lambda\mathbf{v}$ as preserved direction, scaled by $\lambda$. Bundling into matrix form $ME = E\Lambda$.](../figures/2026-02-28-eigenvalues-followup/frame-22m00.jpg)
+
+![**Frame @ 38m00** — The $\lambda \to \lambda I$ lift resolving the scalar-matrix-subtraction type mismatch. Result: $(M - \lambda I)\mathbf{v} = \mathbf{0}$.](../figures/2026-02-28-eigenvalues-followup/frame-38m00.jpg)
+
+![**Frame @ 52m00** — Degree analysis of $\det(M - \lambda I)$ as $n$-degree polynomial; diagonal product gives $(-\lambda)^n$; Vieta + $\lambda=0$ trick recover trace and determinant.](../figures/2026-02-28-eigenvalues-followup/frame-52m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["M·v = λ·v<br/>per-vector eigen<br/><i>(Feb 21 homework)</i>"] --> B["Bring λv to LHS:<br/>M·v − λv = 0"]
+    B --> C["Type mismatch:<br/>M matrix vs λ scalar"]
+    C --> D["Lift λ → λI<br/>now both n×n"]
+    D --> E["(M − λI)·v = 0<br/>Theorem 42"]
+    F["Cramer classification:<br/>nontrivial soln iff det = 0<br/><i>(Oct 11 afternoon)</i>"] --> G["det(M − λI) = 0<br/>characteristic poly<br/>Theorem 43"]
+    E --> G
+    H["Diagonal product Π(m_ii − λ)<br/>gives (−λ)ⁿ leading"] --> I["p(λ) degree n,<br/>leading coef (−1)ⁿ"]
+    I --> J["[λ^(n−1)] coef =<br/>(−1)^(n−1)·tr(M)"]
+    K["Off-diag terms<br/>knock out 2 diagonals each<br/>⇒ only ≤ λ^(n−2)"] --> J
+    J --> L["Vieta: Σλᵢ = tr(M)<br/>Theorem 44a"]
+    M["p(0) = det(M − 0·I) = det(M)"] --> N["Vieta: Πλᵢ = det(M)<br/>Theorem 44b<br/><b>'λ=0 trick'</b>"]
+    L -.matches.-> P["Feb 21 morning result<br/>for n=2 (Theorem 38)"]
+    N -.matches.-> P
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "From $M\mathbf{v} - \lambda\mathbf{v} = \mathbf{0}$, can I pull out $\mathbf{v}$ and write $(M - \lambda)\mathbf{v} = \mathbf{0}$?"
+<br><span class="speaker">Catherine:</span> *(hesitates)*
+<br><span class="speaker">Teacher:</span> "If I gave you $\begin{pmatrix}1&2\\3&4\end{pmatrix}$ and asked you to subtract 7, what would you do? Five dogs minus seven dogs is fine. But five dogs minus *one cat* — what's left?"
+<br><span class="speaker">Catherine:</span> "Oh — different types."
+<br><span class="speaker">Teacher:</span> "Right. Lift the cat to a herd: $\lambda \to \lambda I$. Now they're the same animal."
+
+*Teaching move:* **type-system intuition** — algebraic operations require like-typed objects. Scalar–matrix mismatch is a real bug, silently fixed by inserting an identity. Making the lift explicit clarifies what was previously hand-waved.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "What's the constant term of this hugely complicated $n$-degree polynomial?"
+<br><span class="speaker">Catherine:</span> "Too complicated to find by expansion?"
+<br><span class="speaker">Teacher:</span> "Plug in $\lambda = 0$."
+<br><span class="speaker">Catherine:</span> "Oh — and that's just $\det(M)$!"
+<br><span class="speaker">Teacher:</span> "Brilliant. The whole determinant identity in one line."
+
+*Teaching move:* **substitution as evaluation shortcut** — when only the value at a specific input is needed, substitute instead of expanding symbolically.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Verify the $\lambda^{n-1}$ coefficient extraction for $n = 3$ by explicit expansion. Confirm against the trace prediction.
+2. Compute eigenvalues of $M = \begin{pmatrix}3&-2\\1&0\end{pmatrix}$ via $\det(M - \lambda I) = 0$. Then find eigenvectors by solving $(M - \lambda_i I)\mathbf{v} = \mathbf{0}$ for each $\lambda_i$.
+3. *Preview for next session:* what happens when the characteristic polynomial has a **repeated root**? Sketch the eigenvector picture.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** The $\lambda^{n-1}$ coefficient argument relies on the combinatorial claim "off-diagonal terms knock out two diagonals each." This is correct but the lesson sketches rather than fully formalises it. The formal proof: any non-identity permutation $\sigma \in S_n$ contributing to $\det(M-\lambda I)$ has at least 2 indices $i$ with $\sigma(i) \ne i$, so its contributing term has at most $n - 2$ factors of $(m_{ii} - \lambda)$.
+- **Imported facts.** Cramer's-rule classification (proved [2025-10-11 afternoon](2025-10-11-afternoon.html)); cofactor expansion; Vieta's formulas; fundamental theorem of algebra. Multiplicative determinant law used only in Derivation B.
+- **Diagonalisability silently varies.** Theorem 44 holds for all matrices (Vieta works on roots-with-multiplicity), but the lesson doesn't explicitly distinguish "$n$ eigenvalues" from "$n$ linearly independent eigenvectors." The Jordan-block case (defective matrices) gets formal treatment in [2026-04-04 morning](2026-04-04-morning.html).
+- **Real vs complex eigenvalues.** Symmetric matrices guarantee real eigenvalues; general matrices may have complex ones (e.g., the 90° rotation example). All theorems hold over $\mathbb{C}$.
+- **Confidence.** Theorem 42, 43 + proofs: high. Theorem 44 Derivation A: high (the trace argument needs the combinatorial gloss noted above). Derivation B: high but limited to diagonalisable matrices.
+
+:::
+
+## Related sessions
+
+- **Precursors:** [2026-02-21 morning](2026-02-21-morning.html) — matrix eigenvalue equation $M E = E \Lambda$ for $n=2$ symmetric case (Theorem 38) is the direct setup. [2025-10-11 afternoon](2025-10-11-afternoon.html) — Cramer's-rule classification (Theorem 24) is the load-bearing import.
+- **Sequels:**
+  - [2026-03-28 morning](2026-03-28-morning.html) (stub) — Gram-matrix rank tests; pivots to Gauss-Jordan inversion.
+  - [2026-04-04 morning](2026-04-04-morning.html) (stub) — companion matrix + **Jordan-block** treatment of repeated eigenvalues (homework #3 above). Defective case formal treatment.
+  - [2026-05-02 morning](2026-05-02-morning.html) (stub) — **Cayley–Hamilton** $p(M) = 0$ strengthens Theorem 43.
 
 ## Full transcript
 

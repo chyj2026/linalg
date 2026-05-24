@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>29</strong><span>sessions</span></div>
-    <div><strong>6</strong><span>lessons distilled</span></div>
+    <div><strong>7</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -42,14 +42,14 @@ title: "Linear Algebra Notes"
   <p>Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.</p>
 </article>
 <article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>2026-02-28 — individual followup</span><span>Published</span></div>
+  <h3><a href="lessons/2026-02-28-eigenvalues-followup.html">Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial</a></h3>
+  <p>Formally derives (M-λI)v = 0 as the per-vector eigenvalue equation; det(M-λI) = 0 is the characteristic polynomial; Vieta gives Σλ=tr(M) and Πλ=det(M) for general n×n; the λ=0 trick gives the determinant identity in one line.</p>
+</article>
+<article class="lesson-card is-new">
   <div class="lesson-card-meta"><span>2026-02-21 — morning</span><span>Published</span></div>
   <h3><a href="lessons/2026-02-21-morning.html">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</a></h3>
   <p>Trace and determinant invariance under rotation proved by direct algebra (declining det(AB)=det(A)det(B)); eigenvalues recovered via Vieta on (λ₁+λ₂, λ₁λ₂) without finding θ; columns of R(θ) reinterpreted as eigenvectors yielding the matrix eigenvalue equation M·E = E·Λ.</p>
-</article>
-<article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2026-01-24 — morning</span><span>Published</span></div>
-  <h3><a href="lessons/2026-01-24-morning.html">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</a></h3>
-  <p>Completes the double-root linear recursion: telescoping gives general solution f_n = (A+Bn)λⁿ; second derivation via generating functions proves 1/(1-u)² = Σ(n+1)uⁿ using the negative-power binomial.</p>
 </article>
 </div>
 ```
@@ -81,7 +81,7 @@ title: "Linear Algebra Notes"
 <tr><td>2026-01-24</td><td>morning</td><td><a href="lessons/2026-01-24-morning.html">Double-Root Linear Recursion Completed; Generating-Function Identity 1/(1-λx)² = Σ(n+1)λⁿxⁿ</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-02-21</td><td>afternoon</td><td><a href="lessons/2026-02-21-afternoon.html">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2026-02-21 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2026-02-21-morning.html">Conic Metric Diagonalization Revisited: Trace/Det Invariance, Orthogonal Matrices, and the M·E = E·Λ Eigenvalue Setup</a> <span class="mini-badge">Published</span></td></tr>
-<tr><td>2026-02-28 <sup title="unknown date — inferred">⚠</sup></td><td>individual</td><td><a href="lessons/2026-02-28-eigenvalues-followup.html">Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2026-02-28 <sup title="unknown date — inferred">⚠</sup></td><td>individual followup</td><td><a href="lessons/2026-02-28-eigenvalues-followup.html">Eigenvalue Equation det(M−λI) = 0 Derived End-to-End; Trace and Determinant from the Characteristic Polynomial</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-07</td><td>after — Cramer review</td><td><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-07</td><td>LVS</td><td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-03-28</td><td>morning</td><td><a href="lessons/2026-03-28-morning.html">Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
