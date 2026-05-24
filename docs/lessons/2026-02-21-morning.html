@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-21">
+
+<title>Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 21, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Sets up (M-λI)v = 0 and the requirement det(M-λI) = 0, then proves via Vieta on the characteristic polynomial that Σλᵢ = trace M and Πλᵢ = det M.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Eigen-equation: det(M-λI) = 0</li>
+<li>Sum of eigenvalues = trace (from λ^(n-1) coefficient)</li>
+<li>Product of eigenvalues = det M (constant term, λ=0)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Small individual session with Elaine and Catherine. Filename has a typo (<code>Saturday202602021morning</code> has an extra digit); content places it 2026-02-21, not 2026-02-02.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1c7AjkK61a2vRoz2xBuLCRcDzNaLjAWp7/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Buckle down. To begin with, any questions? Do ask. No, good. I trust you guys. I've seen your homework. I'm genuinely pleased. Eddie, I haven't seen your homework. And just what we're learning is actually rather important. This is in discrete math here. I would say, with your future in computing, probably you really want.To learn matrices. I I submitted. Uh, this morning. No, last night. Oh, last night. Okay. Well, I haven't seen that. Well, thank you though. If you have done so, and in fact, let me take a look. Oh, yes, indeed, you have. Very good. Actually, not that difficult. That's very good.Alright, now let me actually recap where we are. What, what? Now we know if we actually want to, we begin with the quadratic form. Now, you know, I am more leaning toward just reading it, the original quadratic, and just focus on what's happening to this matrix. By the way, it is the direction we're going. You begin with a b b c, and this matrix here means a metric. It is.It's a twisted way to actually measure the distance, and instead of just Pythagorean sum, you're giving it eventually we know. And if you play it on the x y and the x y here, it can be diagonalized with actually lambda one, lambda two, and u v and u v, right? And once you write it out in this manner, it's going to be lambda one of the u one u squared plus lambda two of the v squared.And it very much reminds us the Pythagorean sum. So, in a way, it shows us a weighted kind of a distance. However, when the lambda one, lambda two are of different signs, they could one of this could be negative, or both. Then that's not the conventional distance we're thinking of, because the distance usually means something non-negative. But if you actually have a one negative correlation between the two, or maybe one, or both, then surely you're looking at the possibility ofHaving a negative distance, that is not contrary to what we usually understand. But it doesn't mean such so-called metric, such a Pythagorean distances are not important. They are. Like I said, when you learn relativity, we're going to end up with actually such a. In fact, in relativity, Minkowski metric now the lambda one equal to one, lambda two equal to negative one. So you're actually looking at hyperbolic geometry. People call that not Euclidean geometry, but rather hyperbolic geometry.That happen to govern the space time of our universe profoundly. So that's why how important this general form is. But for our purposes, we just found out a way to diagonalize the matrix. So fundamentally, we are able to write this a b c. There is some precondition, meaning has got to be symmetric. Otherwise, we may not be able to diagonalize arbitrary matrix. So we begin with this metric matrix now, and it turns out.We're throwing away the x and y. It turns out by doing a rotation, we end up with cosine, negative sine theta, sine theta, cosine theta, and then the lambda one, lambda two, and there we got actually cosine, sine, negative sine, cosine. And notice here, this is the rotational matrix with the angle of the negative theta upon the coordinates, and that is why it's matched with the idea that in fact the the re-rotation of the x</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>现在会是正的 theta。 好，所以这是一个严谨的方式来写它，而我们能够找到梯度 two theta， 由使用几何学的想法来实际证明。 如果我想完成这个， 意思是，如果我想对角化对角化这个矩阵， 现在一个对称的矩阵， 一个张量， 真的。Eventually, this a b c is called a metric tensor. Don't worry about it; it's just a name for that symmetrical matrix. Now, and what you do is that you could find such a tangent to theta, which actually equals to the two b over the a minus c. In fact, the solution to the theta is not unique. The period of the tangent here is pi, and therefore the period of our solution is half of the pi, meaning.If theta is a solution, theta plus half of the pi, it's certainly also a solution. But that's good. That's exactly what we want, right? Because you can call this u, you could call the other u. This requirement doesn't really require handedness. So you do not. You could rotate by theta, or even theta plus half of the pi, or even theta plus a pi. I mean, any one of the four directions here would be fine. These are sanity checks. Are we?Good. So we solve the the tangent data now. Let's find out how do we find the lambda, lambda two. Once we know the tangent data, meaning eventually it's these two numbers that tell you the shape of the quadratic. You're going to decide whether it's elliptical or hyperbola or anything. And during that process here, we saw the idea. We saw how complicated it is because you solve the tangent data, you go back to the cosine sign, you plug it in, you multiply out, and you have.to solve your lambda one, lambda two, that's a very tall order. But two sessions ago, I did teach you an alternative way. Today, we're going to put them together and see what they tell us about matrices. So, what was that neat way? So that you could actually, this is the way to solve the theta first, get to the rotation first, know the geometry first before we actually find out lambda one, lambda two, the information on the metric, and decide shape of the cone. On the other hand,We can accomplish finding the lambda one, lambda two without having to even worry about the theta. We just know theoretically there is a theta to make it work. The matrix could be represented diagonally, or yet we can find lambda one, lambda two. In fact, that's an easier route. Just to stick to some invariances and some good natures of matrices. So, how did that go? By the way.Let me actually save you the suspense. My going back and forth between totally different methods here is to force you to know learning must reach out and connect. Okay, you can't just learn. Remember, drill the formulas that you learned in the past forty-eight hours one at a time. You can't do that. You have to actually remember how does that relate to the material earlier. Remember always to focus on the big picture. Well, if you do textbook learning, usually you're not. presented with actually several ways to approach the same problem, how they're connected. That is why I do not like textbooks. Nevertheless, though, if you don't actively do that for yourself, and then the only result, but my teaching would be jumpy. Basically, I'm not I'm not following the textbook, and you're not gaining the real advantage here. So.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Look at your notes. Think about it. Uh, what's the lambda one and lambda two represent again? They represent after you reset your und. Those are the two coefficients from which we actually deciding it's a hyperbola, to parabola, or it's ellipse. For example, if lambda lambda two are of the same sign, then it's elliptical. If the lambda lambdaTwo are of different signs, it's hyperbolic. And if one of this turned out to be zero, then you actually have a parabola. They can't be both zero for the case because your a, b, c cannot be simultaneously zero. We must have to have some kind of quadratic term.嗯。嗯。嗯。嗯。嗯。Remember, we got a lambda one plus lambda two equals to a plus c, and a minus c equals to lambda one minus lambda two in parentheses.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>And cosine theta. Where did that come from? We wrote this, and we multiplied that together. I think. Ah, meaning we're just going to multiply the whole thing out and do comparison with the original a, b, c. Right? Yeah, good. However, though, I want to have a deeper insight so that we can.Skip those unknown theta's. You notice here, if we multiply everything out, our conclusion necessarily includes cosine theta and sine theta. That's how we found the cosine two theta and the sine two theta through the other way without using the idea from geometry. But I also taught you to recognize when you're doing a transformation of such a matrix, there are certain things that simply don't change. I'm a very good, and I'm.Not impressed that you'll be you'll be able to locate it in your notes so quickly. I'm saying we do know, and in fact, lambda one and lambda two. In fact, we did get that by multiplying everything out. I don't want to reproduce that part. Lucas, good to see you. And in fact, what you're getting is actually the lambda one of the c the cosine squared, and then plus lambda two of the sine squared, and this is the lambda one of the sine squared pluslambda two of the cosine squared. There you're getting the sine cosine and the lambda one minus lambda two. I just take quite some multiplying. Okay, you have to take trouble to multiply the matrices out, and then that's going to be the lambda one minus lambda two. Now, if you are smart about it, you can manipulate this matrix, and then that's actually identical to the A B B C. You can manipulate it to skip having to find the cosine sine.In fact, immediately, since we're looking for our goal is to find the lambda one, lambda two, right? And we notice there's a way to crash the cosine and sine, make them not matter. If I'm going to add the two diagonals, so adding the diagonals called the trace, and you can see that should equal to a plus c would equal to do so would equal to lambda one plus lambda two, and that's the first equation Emma gave me. And the second equation she's translating the.These two now into a sine two theta by using the double angle formula, correct? But it still necessitates having to find the sine two theta. Well, to begin with, why, Emma? Does it actually equal to the tan? Sorry, the sine of the two theta, and then actually that's one over and the lambda one minus the lambda two, right?That's not the question. I just said it myself. Makes sense. At this moment, we still need to find the does the anything having to do with the theta. Then, can we identify some other identity that's going to entirely help you get rid of the sine cosines to keep something unchanged about the matrix? I I did also cover.That. By the way, I'm a little concerned for the rest of you and who didn't answer me, Brayden, Elaine. I'm not criticizing you. I'm trying to help you, Brayden, Elaine, and Eddie. Were you able to locate your notes earlier? And did you even does that what I said even remind you of anything in your mind? Answer me one by one in that order. Brayden, you go first.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>呃，I remember, I remember that, um, when we just multiplied everything out, and then we use this uh identity to get the tan to theta. Then why did you not say it? I was like going through my notes. Right. Well, next time, be eager to share your mental process. It helps me gauge where you are mentally. It helps my teaching always.Sharing information is such a good habit. Ah, Elaine, what about you? Ah, it did remind me that I think we did it before, but I couldn't really find it in my notes. Then maybe you should take a snapshot of your notes and send it to me from now every week. Again, this is only to help you. It just means you need to learn a way somehow to improve your notes. And meanwhile, Ima, would you be kind enough to actually do it for a few weeks and take a snapshot?Out of your notes and send it to the group, and this is going to be along with. Then why don't I require that for everybody? It's part of doing homework. And just let me see your notes and see how that could be improved. It could be handwritten, it could be typed up, or doing whatever after you record, review the recording, and you do reorganization. Feel free to use AI tools, and you could upload handwritten notes and make it organize it for you for perfectly typed up PDF.Have or even generate LaTeX for you. This is exactly where you actually want to use AI to save just the time you spend on formatting, on on copying, on different unnecessary things. But the point is, you've got to spend your real intelligence on trying to make connections. The very fact you can't find your notes, you can't make connections in your notes here, it's a very bad sign. Remember, it has only been two or three weeks since we did that. What's going to happen down the road?in a couple of months. I'm not criticizing you. It's advanced material, so you have to think really a lot about it. Okay, well, let's see. In fact, there's something that doesn't change. I keep emphasizing when you put a matrix. Now, determinant is very important. Determinant means the volume. We did two rotations. They don't change the volume. They do not change the metric, the scale, the magnitude, the distances. So, try to look at the determinant.Determinant of this guy, I said that before. I know right now it's pretty tedious, but be patient and just do it. What is the determinant of this? You're gonna see the angle will vanish.Wouldn't this one just be one? Yeah, the determinant that it's only one. You're right. That's a good notice. That is that is exactly what's guaranteeing that the determinant of these two matrices should equal to each other. Hence, giving us an easy way.Well, right now it doesn't look easy. You have to multiply a bunch of stuff, but after simplification, it's very easy.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>So, would we just be solving the two equations, a system of equations, the lambda one plus lambda two equals a plus c, and lambda one times lambda two equals a c minus b squared? Well, then you.Skipped. Actually, Emma, you were using assumption, which is a profound one, and I can't even prove it to you because it's actually such a deep one. The proof would require advanced techniques. In fact, Emma is saying, well, I'm actually looking at just these three matrices now, and Emma is saying if we're looking at referring to that, a matrix equal to a b matrix times the c matrix times the d matrix, and then the determinant of a must equal the determinant b times the determinant c times the determinantRight? We know it's true, but you don't know. It's you don't know for sure. You can't prove it is true. Later, I'm going to try to try to shed light on it so that it would be more true. Nevertheless, though, what I meant is for you to actively check these two. I don't need to use that profound theorem. I haven't proven to you. I can just go from here. Why don't you calculate what is the determinant of this very bulky, complicated guy?嗯。嗯。嗯。呃，我 getting lambda one times lambda two，说一遍。兰姆达 one times 兰姆达 two， and how did you get that? Calculated the determinant. I can you show me how? Like a d minus b squared. Uh huh. A d. A c minus b squared. That's fine. And what do we have on the right hand side? They give me the intermediate.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>steps. So, I calculated AD, which I mean AC, which is lambda one. No, no, no, no. I emphasized all of these are the results we've been using. We want to just direct. I want you to directly calculate determinant of the matrix. Those have been proven in the other through the other method. Now I want to find the.Independent thing that's going to eventually survive these rotational angles. Here, that's a general case where you do certain transformation, determinant matrix doesn't change. Sorry for not having that clear day. I want you to just find the determinant of that matrix. Is it clear now? Yeah. Good.I got sine squared cosine squared two lambda one lambda two。 That's all right。 sine sine squared times the cosine squared two lambda one lambda two。 Yeah。 No, then you weren't really careful in your simplification。 Let's see, we have actually。lambda one， basically you're multiplying these two and minus the product of those two. For the minus part, that's easy, or minusing twice of the sine squared cosine squared lambda one minus the lambda two squared, right? Now the product of these, now when you expand everything out, would give you lambda one cosine squared sine squared, and then plus the lambda two of sine squared cosine squared, and then plus the兰姆达一兰姆达二，and the cosine fourth plus the sine fourth。 See if you agree with me. Why did nothing other than? Oh, that's actually兰姆达一 squared。 Sorry，兰姆达二 squared。 Yeah, I got that part. Okay, very good. Now we just need to carefully expand out everything and simplify. Wait, why is it two sine squared cosine?Science squared， right here. That's wrong. There's no two. That's just a science critical science grade. Thank you. Somebody is paying attention. All right, go ahead and simplify. See what you're getting. Keep using the Pythagorean identity.嗯。嗯。</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>I'm getting lamed out.一 lambda 二，呃， times sine to the cosine to the fourth， plus sine to the fourth，呃， plus two， lambda 一 lambda 二 sine squared cosine squared。嗯哼。So after, well, first when you expand out this one, uh, these terms would cancel out; they'll be gone with the the the square term from here.And what's left would be lambda one lambda two, that's the cross term, and you end up with actually a cosine for it plus the sine for it, and plus twice of the sine squared the cosine squared. Does anybody else get it? Get the same?Yeah, I got the same thing. And brilliant, you. Yeah. Andy, Eddie, you. Yes, I agree. And then, where do we go from here? How do we further simplify it?所以 that cosine squared, yeah, cosine squared plus sine squared squared, which means just one. Therefore, you conclude indeed it equal to lambda one, lambda two. Although we cannot prove that grand theory, very convenient theory, yet. But at least through careful calculation, you can prove to yourself that rotational angles eventually manage.to vanish, it's not going to show up in the final calculation of the determinant. So that we want to elevate two things now. They have this universal status when you're actually doing transformations, especially the canonical transformation, which is strictly only a rotation. Now we notice here the trace of the matrix doesn't change, meaning when you just add these two elements, the two diagonal elements now they remain the same. The trace of the elements do not change, and alsoThe determinant of the matrix do not change. Determinant matrix actually means something really geometrically meaningful. It means the volume spanned out by the two vectors. So in that sense, you can say this is volume spanned out by the a one zero and sorry lambda one zero and the zero lambda two. And because it's only being performed rotation, and these two having the determinant one, meaning the additional scaling factor atDown to the volume, it's one. Therefore, you're anticipating them equal to each other. That's wishful thinking. It's good intuition, except we haven't proven it. Meaning, this determinant should directly equal to what's happening in the middle. That was a direct insight. Emma gave us right on target. But if you're a mathematician, you're not comfortable with using any formula you can't prove. I, I wouldn't. And I mean, I wouldn't use any formula I cannot prove. By the way, it's not that I wouldn't. I don't. And I, I will.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Will not, and I haven't ever. So, by the way, that's what was causing me so much trouble when I was a high schooler and learning chemistry. Because in physics and math, I could prove everything I care to use now. But in chemistry, you're just not taught what what is a proof, what's the underlying mechanism. Chemistry is half heuristics, half science. So that gave me tons of trouble because I just cannot move in the test. Now I can't prove that formula. In fact, those formulas are only conditionally.True， they're not even categorically true， and it's not that hard to prove them. If you have a entry level college physics here， I just said the chemistry teacher wouldn't really even imagine that the chemistry has some anything to do with the math and the and physics. That's the underlying language proving chemistry. So they only teach the result from chemistry， which is simply becoming random facts. So anyway， I'm urging you not to really believe everything you read from the.Textbook, it's a bad habit. Not that you're you're fooled, because most of the textbooks are, roughly speaking, still right, still correct. But nevertheless, though, that mental habit ruins you. Now, let's come back. So we do know we we proved it by using pretty tedious calculation, and being satisfied by the verified the angles go go away. So next time, we don't care about the angle first. We're going to actually get hold of the number one, number two first, right? And thenThen we can. That's easy. You can directly know. Next time, if I give you a new matrix A B B C, I'm changing into uppercase to make it a little newer. And you you you want to find your lambda one, lambda two after rotation. Here's a rotational matrix. Here's a rotational matrix in the opposite direction. Well, the voila, you take your lambda one plus lambda two equal to the A plus C by the trace. That's called the trace. Generically, you could even write a trace.这个矩阵 now would equal to that, and also the determinant of matrix lambda one, lambda two actually equal to the a c minus b squared, and easily by using the ad, you know what is lambda one, what is lambda two. Does it make sense? Now I'm going to call lambda one, lambda two. I'm giving you names now. They're called eigenvalues. They are eigenvalues. A eigenvalue, eigen come from German.It just means the one value. That means they're just uniquely special about that matrix here. They stay no matter how you transform the matrix. In fact, in the future, the matrices could suffer more transform than simply a rotation. There are a lot more different transforms here, and yet we're sticking to the same eigenvalue. Okay, now what do we call the cosine theta and sine theta we found? Remember, these two, if we rotate as rotational matrix to act upon a vector.Do you understand what I mean when I say we write it as a rotational matrix to act upon a vector? Does that mean we're rotating the vector? Meaning you're you're multiplying it onto the x and y. Rotate it. Yeah, very good. But at the same time, though, it is also made up of two vectors themselves, right? So it's made up of usually when we speak of the vectors in the matrix, unless otherwise stated, we actually mean the column vectors.So it's made up two vectors, yeah. Can we find something nice? Find everything nice about those two vectors, regardless what the angle is. We're dealing with actually cosine theta, sine theta. What do we know about the two vectors? What do you have to say? If I'm asking about the vectors now, I'm concerned with the geometric features of the vector. For example, their magnitudes.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Their orientation, their direction, the relationship to each other. What can you say? They are orthogonal to each other. Yeah, orthogonal to each other. How did you achieve that? Meaning, they're perpendicular to each other, right on target, Emma? Because we can see the particular angle of the first vector it is theta, but the particular angle of the second vector it's actually.θ plus ninety degrees. But Emma, how did you see that? I did cosine theta times negative sine theta plus sine theta times cosine theta equals zero. Meaning he/she dot producted them. She took the dot product between the two, right? Yeah, yeah. Indeed, when you do the dot product, you're going to actually multiply the x coordinate plus the y coordinate. Indeed, if I call that y one, which is basically later we shall see y one.has a particular meaning to it, and that sometimes they're called e one. But right now, because sometimes I'm using the e for the coefficient in the quadratic form, I'm calling that epsilon one, and that's called epsilon two. Yeah, yes, indeed, epsilon one dot onto the epsilon two equal to zero, easily double checked. Therefore, they're perpendicular to each other. Well, turn it the ways to check. You can do their slopes, rise over run, because after all, if I write out the cosine theta, sine theta, that x is the cosine theta, y is thesin theta as a vector now, and then the tangent theta, meaning the slope of the epsilon one here, rise over run is the sine over the cosine. But the slope of the epsilon two is the negative, sorry, cosine over the negative sine. You can see they're negative reciprocals of each other. So that also concludes equally or equivalently that they are perpendicular to each other because they have negative reciprocal slopes. Any other observations about the magnitudes?They have unit lengths. Yeah, their length equal to one. Both are unit vectors. That's guaranteed by Pythagorean sum. It's also guaranteed by the definition of the cosine and sine. This pair here falls into the exact definition of the vector unit vector on the circle with the angle of the theta. That's tautology because we define the cosine, sine in such a way, right? So in fact, they.They are like the Cartesian directions here. They're just a pair of orthogonal normal vectors. They specify two direction in space. We know they're related to the u and v axes. They're unit vectors. But at the moment here, I'm looking at this matrix as a collection of two vectors. Now, do you follow me? Now, let's actually look at this. To be vectors.And I'm going to write an epsilon epsilon two. It's made up of a pair of orthogonal basis. Normal, not orthogonal basis. Just referring to the two vectors, the linear combination of there thereof would give you the entire plane. Meaning, there the Cartesian choice of those coordinate axes, they call the vector basis. The i cap and j cap is a pair of vector basis. They give you the entire two dimensional.And this epsilon one, epsilon two would be a skewed pair of better bases, meaning they have different angles. All right, well let's see what about the entire matrix. If I'm going to actually do the epsilon one as a column now, epsilon two as a column, and I'm going to multiply, this is a rotational matrix R, okay? I'm going to multiply by that transpose, meaning I'm laying down the epsilon one as a row now, epsilon two as a row. When I write as a column, it as a stand.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>的n， for the cosine and the sine data of the two coordinates. Go ahead and multiply these matrices out. See what you're getting. Why are we?Multiplying them again. I want to show you something. I like the fact you were thinking about what, but I haven't told you. I have not told you. Actually, the goal is for me to show you. And number one, as matrices, there was orthogonal. Number two, how do we find the inverse of a rotation? Confirm your intuition and find out the result is something really meaningful, useful. That's something we can exploit.嗯。Are they inverses of each other? Indeed, in that they were finding.Elaine， that's very observant. What's the result when you are multiplying them together? The i hat and the j hat. Yes, actually, you don't have i hat. Yeah, what you mean is really just the one zero and zero one. Elaine answers in terms of the two vectors now, and she's totally right. And did you actually plug in the coordinates and multiplying them out using identities, or did you use the the idea we have?Achieved now. Understanding when you multiply matrices, what you're getting here is a dot product. Which one did you do? The second one. The second one, good. I encourage you to do the second one because it's a lot easier when you lift it to higher dimensions. So they're orthogonal, orthogonal to each other. That's already guarantees when you multiply it by its own transpose. You're doing your. It's going to result in the very dot products that we're interested in. That's epsilon two dot epsilon two.Two, but we have established now that just the one zero zero one makes sense. But actually, eventually in the future, if you manage to write four-dimensional space, you find a vector basis, a epsilon one, each which has four coordinates, epsilon two, epsilon three, epsilon four, which would be the four some jotted coordinates in space. Now, but they're mutually orthogonal to each other. They're the four-dimensional Cartesian coordinate, and the way toHere to normalize each of these vectors now, and we're going to actually call that the standard notation is orthogonal matrix. It just oh, and usually I put bold over here because usually it's printed bold or in curly. It's orthogonal matrix made up of just arbitrary n dimensions, n orthogonal normal dimension or those vectors now. And then what's the inverse of this matrix? Inverse simply.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>means you can find something to multiply that either left multiply or right multiply to guaranteed to be getting identity. So, what's the inverse? You think about what you just did. Connect them together.You just put the E one as the first row, yeah. And the rest of them are also the rows. Meaning, you just take the transposes, yeah. Because we do now when you do the well, extremely well done. And when you do the transposes now, you get actually da da da. And the result, the multiplication.Without a bunch of delta products, we do know in this case there's a convenient symbol. Please write it down. That means epsilon ij epsilon i dot onto the epsilon j here actually equal to the Kronecker. It's called the Kronecker symbol. Kronecker symbol, and would be equal to the delta ij. This symbol here simply means it's either a one if the i equals to j, and would be equal to零，如果 I 不等于 J，那只是个缩写。的notation。s， now， whenever that satisfied， it's orthogonal matrix， then the inverse would equal to its own transpose。 It is something special about the orthogonal matrix now， because when you multiply the transpose onto the O here， what you're dealing with is really a bunch of dot products relating these pairwise the dot product between these vector bases， and surely they give you either one or zero in that very nice way。 So。So they're inverses of each other, but then this is also the inverse of each other. But then, if you really stick to your guns here, and I'm writing epsilon one, that that epsilon two, and epsilon, and and here, and when you do the column, when you multiplying these two matrices, they don't give you dot products at all. They don't give you anything that's really orderly nicely. So how do we know that must also be identity?How do we know that?I'm gonna say it because you're unfamiliar with the way of thinking in matrices. Now, if I want to move from equation one to equation two, we do not resort to the meaning of the dot product. In higher dimensions, it's hard to see through that when you actually convert the columns into rows, you're also getting orthogonal bases. Well, in two dimensions, it's easy.难以见，对吧？即使你从不同的角度来看，它仍然是正交的，它仍然是由两个正交基组成的。但在高维空间中，这很难看到。但无论如何，我们可以通过形式证明来完成。通过这样做，现在，知道这是I，我对O乘O的转置感兴趣。那么，为什么我们不将两边都乘以O的转置呢？那么，我们有这个，对吗？对吗？对。</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Okay， and then we could also pull out that O transpose and say it really means this now equals to zero， right？ I moved them both to one side， and I'm going to actually just gratuitously multiply the second one with identity， and I pull it out because O transpose stays in the front in both cases。 However， when you multiply the two matrices。Together, you're getting a zero matrix. It doesn't mean determinant zero. It just means the entire matrix is being filled with zero. It doesn't necessarily lead to the fact that this matrix is zero, because the other matrix could be zero. It could be neither is zero, but the product could be zero. To begin with, okay, could you convince me? You could have two matrices. Let's make it simple, okay? You have a two by two two matrices. Neither matrix zero, but the product could be zero.How do we make that happen? Experiment and create one. Could it just be one?零零零和零零零一。嗯， beautiful， equal level one，零零零或零零零一， or you could even do one one zero。 Oh no， you can't do that。 This is and meaning putting more zero。 Well， we do need three zeros。 Put it somewhere so that they're gonna crash into each other。 That's an easy way to guarantee。 However， though， in the future we're gonna learn， whatever this OT now。It's called independent. It has a full rank. It has no more zeros than it is basically every single column row is dependent vector. In that case, the second matrix must be zero. But however, you're sort of stuck at that at that step of the proof because you haven't learned too much about matrices. For example, what's the meaning of independence? And beyond meaning the volume here, in fact, determinant means even something more. But at this moment here, if you really在线性代数， as a student, I am able, I'm ready to actually draw the, because I know how to prove it, to say the second must be zero, because the first one is called a full rank matrix. It's of full dimensions now, because its determinant is not zero. It's made up of an independent vectors, those are also normal to each other. They're not crashed down to a sub-dimensional and plane. Okay, if that's the case, and weWe can draw the conclusion: if an upper matrix, it's a left inverse, it's also a right inverse. That gives us another way to look at this whole transformation. Now, where do we go from here? Now, I'm going to actually do several things to my equation now, which is this, and I'm going to show you different ways. In the future, there's one matrix M, which becomes a rotational matrix made up of cosine data, sine data, actually negative sine.正切、余切、正弦、余弦。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Epsilon one, epsilon two。 It's made up of two vector bases, right? So I call that matrix E now. Whenever you see the matrix E, sometimes you see the matrix epsilon。 It's a two by two now。 You have the sense it's made up of vector bases as column vectors, but that's its transpose。 So we're going to multiply the entire equation on the right. When I bracket the entire equation now, we mean we're doing that multiplication on both sides of the equation by that E。 What's going to happen?然后你 just M 乘以 E 会 equal to the E 乘以 the lambda one of the two。 Double check， see if you agree with me。 I'm saying matrix product is associative。 When you multiply these two， you're gonna end up with identity。Wait, what is E? The E is defined as this matrix here. That's made up of, oops, sorry, it's made up of the first column and second E. Usually, it's reserved for a matrix being filled with vector bases. It can,哎，come on, it contains actually the epsilon one as a column and the epsilon two.Equal to this. I agree. With the energy. Can I get a confirmation? Can I get a confirmation from other people? I agree. Good. Well, then, I want you to again return the two column vectors.到 the e now and see what it means. It means that M operates on the epsilon one as a column and epsilon two as a column would turn out to be this equal to the epsilon one as a column, epsilon two as a column, and the lambda one, lambda two. Then go ahead and multiply out the right hand side of the equation. Multiply this out. Tell me what you're getting, and I'm focusing on what you're getting as two columns.嗯。I'm getting cosine lambda one, sine lambda one, negative sine lambda two, cosine lambda two. No, no, no, no.And focus on these two. What you are doing is totally right, and don't plug it in. I don't want you to obscure the real point we're making. Just think to the lambda one, lambda two as two columns. Pretend you don't know what other coordinates, and then can you multiply them up? Or you can look at what you have gotten, and then summarize it back into the epsilon one and epsilon two.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>嗯。嗯。Braden， you already got the right answer. You just need to bear out the in.Inside， how are the new two columns you got related back to the epsilon one, epsilon two？Really? This part is not that difficult. Homework: find out what the other side equations are. I didn't anticipate that you guys would be stuck here, because that's actually decent easy step of calculation.And reveal what we mean by the eigenvalue. In fact, M pro also do what's going to happen on the left hand side. I'll tell you, prove it to yourself. The point is, I'm not telling you what M is, but when M multiplies on the left, epsilon one, epsilon two, what you're getting is actually this. Prove it to yourself, okay? M multiplied by the entire matrix multiplied onto epsilon one, it gives you a column vector M epsilon two. Prove it to yourself. And the the right hand side, if you为电，and then you could compare them into two equations. That's homework. By the way, those two equations will become the definition of eigenvalues and eigenvectors, which is what we're going to do next time. Take care, bye. Be good to yourselves. Enjoy.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

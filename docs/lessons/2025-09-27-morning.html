@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-09-27">
+
+<title>Solving cos θ = a and sin θ = a via Complex Exponentials – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Solving cos θ = a and sin θ = a via Complex Exponentials</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 27, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Uses Euler’s formula to write cos and sin as sums of complex exponentials, then solves cos θ = 2, sin θ = 7, and cos θ = 1+i by reducing each to a quadratic in e^(iθ) and inverting via natural log.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>cos θ = (e<sup>(iθ)+e</sup>(-iθ))/2</li>
+<li>sin θ = (e<sup>(iθ)-e</sup>(-iθ))/(2i)</li>
+<li>General solution: θ = -i log(a ± √(a²-1))</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Derive general formulas for sin θ = a and cos θ = a for arbitrary (including complex) a; finish simplifying cos θ = 1+i.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Long disciplinary discussion in Mandarin with parents about students (Eddie, Catherine, Holmes, Elaine) being too quiet when asked questions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>To judge whether and you are on the same page with the rest of the class. Hey, good to see you all of you. As you do come in, and be sure to ask me for the recording. Thank you. Now, for all those people who have not submit submitted the homework, and especially those you're involved in two classes here, the Tuesday and the Saturday, you tend to neglect some homework.For example, I have not Holmes. Your homework is very well done. It's beautiful in that, and and but, however, Emma, are you submitting homework for for Saturday? I'm almost done with that. Okay, well, next time, do not slack. Okay, if you need the extension, ask me for it. Elaine, where is your homework? I I think I didn't submit it yet.You have not? No. The what's the reason? Uh, I finished. I just didn't submit it yet. Well, do that within ten minutes after we finish class. And you know, if you don't submit homework, it's your loss because I lose the chance of responding to it. I wouldn't be able to address any question, issues, or insights, or maybe uh second thoughts or any confusion that might be revealed in whole.So be sure to submit it. In the future, and my policy, this is universal across the board here. If somebody doesn't submit homework, and while some others do, and the people who do not submit homework on time without asking for extension are responsible for paying the class fee. Meaning, the people who do won't. Okay, and I don't give exceptions to this. This is the policy from the very beginning.I've already said that before, and because you guys are very young kids, and usually you do do a decent job submitting homework, so I am willing to let it go today, as long as you submit it before our evening class. But if you don't do that, I would start implementing this policy now. There's always some person, and for example, Eddie's mom, responsible for summarizing the class fee, and she'll be able to take that into take that into account. Is it clear?Yeah. Okay, Eda, could I have your video, please? Catherine, your homework is well done as always. So, well, last time time we were actually connecting exponential, ah, sorry, complex exponentials with actually rotations, and in fact we do realize for two D complex number, and the most convenient thing is that when you multiply them, you're adding the angles. Now that leads tothe connection between the trig function and the exponential function. To what extent you could use them mutually with each other? So I'm going to ask you a question. What if I want you to solve for the cosine theta equals to, let's say, one half, and how many solutions are there? Where are they? Apparently, theta here is the angle. By definition, cosine means the horizontal coordinate. By the way, Eddie, you told me that you're not.Terribly clear with actually trig functions. Now it's your chance. Be sure to create a graph here and be get very familiar with what these cosine, sine, tangent, secant, that what they mean, how they behave. Quickly, this is only a warm up. Could somebody let me know? Toby, go ahead. Um, three hundred and sixty. Three hundred and sixty. Ah, different answers. Ah, okay, then.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>He's actually saying the two answers. That's sixty degrees and three hundred degrees. And beautiful. And but if I am really, really stringent on getting it right, now I have to say there are infinitely many solutions. You could actually add any multiples of Lucas. So, like Toby said, three hundred degrees and sixty degrees, but it's also mod three hundred and sixty. So let's say we have sixty degrees solution, right? So for twenty degrees rotate.All the way around, another solution. So, yeah, yeah, exactly, yeah. I like the way he's saying that. And first of all, Toby is telling us on the graph here, the cosine theta gives you the horizontal coordinate. This is a unit circle, so we take one half on the horizontal coordinate. We're going to actually draw a vertical line hitting the circle at two locations, and they are. If you want to make your answer more compact, theta would equal to positive negative sixty degrees, and then plus arbitrary integer.Multiples of a three hundred and sixty. So, between Toby and Lucas, you guys gave me the perfect answer, which is done on the graph because we know the meaning of the cosine data. But what if I want you to solve the cosine data equal to two? Then could somebody tell me what is my theta? Toby, Ah, your theta would be complex or imaginary. Ah, beautiful. Why?Why do you immediately know that? It's written us. Like, because if you do like, because if I theta is two is log two, then you could immediately just like set theta. Ah, very good, very good. And, Eddie, your hand is all also up. Go ahead and share your idea.艾迪，go ahead。 You're muted. Sorry, um, is it because um, it's like not on the unit circle? Oh, surely it's not on the unit circle because it is.这是在单位圆上，那 surely a cosine theta no matter what would be having a magnitude lesser than equal one。 So basically, Eddie is saying the theta cannot be real. He's right. But what makes you think it must be complex? Of the actually, did anybody hear what Toby said? Toby gave the reason.Lucas， I didn't I didn't exactly hear what he said, but I I I only heard that he said it must be uh complex or imaginary since it doesn't exist on the uh in spirit. Indeed, uh, you're combining the insights from both Eddie and Toby. Absolutely right. Toby gave such an insightful remark. Uh, I'm rather pleased and rather impressed that you made the connection.Immediately yourself, he's actually saying if we do realize the cosine theta is the ei theta, so you want to take the inverse to reveal the angle. Fundamentally, what we want to do is to solve, right? Well, in fact, it's not just ei theta. ei theta would give you the cosine theta plus i sine theta. At least the theta is involved in that. Toby is saying to reveal the angle, we just need to take the natural log on both sides. He's saying i theta.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Actually equal to the log of the ei theta. So he's saying we can create something similar to a natural log here to reveal and this angle bundle the inside. If we want the cosine data to be two, we just need to find out how to express that as a. Oh, Toby, your hand is up again. Go ahead and talk me through how do we exactly find the data. I had a question. Like, what if data was negative iI then wouldn't like e to the i theta be e, so then cosine theta would be e, so then cosine squared plus sine squared would not be one. Uh-huh, beautiful. So Toby is actually getting a sense how we could actually create something. However, Toby, and how do you know that this quantity here is zero by just realizing what you're getting is a real number? But how do you know that sine theta can't be imaginary? But Toby is.On the right part, he's actually saying, hypothesizing. Okay, what if we actually plug in an imaginary number into this formula? What do we have on the right hand side? He's actually plugging in that the data here just equal to i. It's a good convenient check. And then on the right hand side, what we're getting is e of a negative i, negative i. So we're just getting e to the one, which is a real number. It's two point seven something. On the left, Toby is getting cosine of a negative i, and then plus.i of the sine of the negative i. Yes, Toby, you're right. What you're getting is a real number. Somehow this combination gives you a real number. But you cannot immediately draw the conclusion that the cosine negative i just equal to the e, because it is possible that in fact there's going to be some imaginary part in this number, where you multiply by the i would get would get back to the real. So first of all, let's really clearly write out the cosine theta in terms of an exponential function.First, we not only want to notice here. I also want to be able to connect back, right, cosine and sine in terms of our exponential functions.Any idea between the definition of the θ？我的 issue。Always, when you look at the ei theta, necessarily the sine data goes along the cosine data. They're always a couple. So, how do we manage to get rid of the? In fact, if you think about the graphical meaning, the cosine data is a real component, right? Just look at the graph here. You got actually two complex numbers. They share this same real component, but they have a opposite imaginary components.What do you do to isolate just the real component, Toby? Wait, so the cosine would be like this, and then the sine would be something like this. Um, maybe you're on the right track. I think you are on the right track, but I don't see exactly what you mean by creating those triangles.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>余弦是 exactly this component here, which is a projection of your e i theta. That vector is e i theta, isn't it? And that vector is e negative i theta. So, how would you isolate only the real component? That just involves being able to cancel out the imaginary components. Lucas, is it really easy?Really way to find the conjugate? What you tell me? Yes, that is easy way to find the conjugate. I've already written it out. The conjugate has a negative theta, so the conjugate is e negative by theta, isn't it? Yeah, it's right on target. You're saying to isolate the cosine, we want to take advantage of the conjugate. Any inspiration? If I write it side by side.Right, now Lucas saying like e of negative theta actually equal to same cosine theta. That's only because cosine is even function. Cosine of the negative theta, it's a negative cosine. It's the positive cosine theta. Toby, so we do e plus one over e divided by two. Indeed, Toby saying why don't we just add a pair of conjugates now? If you do, what you're getting will be the superposition of the two vector. That's going to give youthe halfway, and you still need to divide by two though. What you end up is, or you can look at it algebraically. When you're adding these two equations, and you have that, you manage to cancel out the sine theta part. You cancel entire imaginary part, and you only left with the real part. So well done. This is a try. Go ahead. We can deal with these a lot easier, right? Since sine theta is hard to imagine on the, it's harder to imagine on unit circle, but these the i theta we can justbold theta， we can try plugging in just values of theta， just find a pattern with the cosine of theta. But the theta's imaginary， right? Yeah， that's right. I， however， we need to， I， I'm yet to understand what you mean by details. Why this is so much easier? It is. Now， since we're looking at the possibility of cosine theta equal to a two， well， immediately you can clean up your equation. You're looking for the e i theta， and then plusse of the negative theta equal to four， and how is that easier to solve? How do we solve it? Tell me. Um, so we could make we could multiply everything by e to the i theta. Okay, well here'sIt's going to get rid of the negative exponent. I would imagine because it's visualizing that number as actually the reciprocal. This is on the denominator, so to get rid of that, he's going to actually multiply the common denominator. The reason we could always do so is because e i theta is not zero. In fact, it's never zero. Being exponential function, that's the advantage. And to do so, we're getting the e of the two i theta.And then plus the one minus four of the y theta would equal to zero. And then we quadratic. Indeed, this is quadratic equation. He's saying, why don't we actually visualize this unknown quantity as u now? And Elaine, would you help us finish the problem, please? Uh, can we use the can we plug it into the quadratic formula? Yeah, absolutely.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>You, you have to, because in this case, a the answer is not nice; it's not rational. So, what do we have? Four plus minus square root sixteen minus four times four.四 times e i theta times one，哈？四 times e i theta？ Are you saying in the quadratic formula there's reference to the e i theta？ Oh oh no！ So say it again. What's your answer？呃，呃，plus minus，呃，wait， actually，呃，the four is the b， right？ Yes. If you agree with me, just go ahead to the next step. Find me what the theta is. For the kids, we're already done.几？几耐？Finish your quadratic formula is a e.What? It's a quadratic equation concerning what variable? Concerning the u, which is the identity itself, so that the e of the two i theta actually is a u squared. So your quadratic equation is a u squared minus a four u plus one equal to zero. Oh, okay. Well, which part you don't understand? How did you miss that? I didn't.Those concerning you. Well, we're solving for for this y i theta, but at the moment here, do you recognize it's quadratic regarding the y i theta? Meaning, do you recognize this is really the i theta squared? Yeah. Okay. Well, next time, if I didn't ask you, would you ask? Would you holler in class here? What do you mean by two quadratic equation? You really sure?Don't be afraid of interrupting others, because if you are afraid, you would never get to talk in this class. Because Toby, between Toby and Lucas, they're going to answer all the questions, and we're done before you even know what's going on. So be sure to ask. Would you? Okay. Be sure to interrupt anything, and then just ask to be sure that you understand what what they're saying is and what we're doing is. Okay. So the identity equal to that one. Notice there are two.Possible solutions. Do we throw away anything? No, we do not. By the way, do you recognize these two solution themselves are reciprocals of each other? Beautiful. Emma goes on to isolate theta. He's taking the natural log here, and the natural log of these two numbers both are real. One is great. One is positive. The other's negative. In fact, do we realize that these two numbers are opposite of each other? Meaning, and in fact, you could also write.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>这是 positive 或 negative i natural log of the two plus root three。 Prove it to me。 Like before, the cosine is an even function. Now it is still, so your solution will be a pair of opposite of each other. Toby, I know you know it, but Eddie, could you answer this question? Hmm.Catherine， could you prove to us, in fact, the natural log of the two plus root three and natural log of the two minus root three are reciprocals of each, sorry, are negatives of each other.What does natural log mean again? Oh, natural log means what? You should ask. Really, you should be bold enough to holler and interrupt everything and ask. Natural log means the inverse function of exponential. It simply means whenever you have a a to the x power equal to the b, x as a definition would equal to the log base a of the number b. When you write a logarithm, it means the number that you're putting on the shoulder orAs the exponent of the base to get to this argument, we refer the base here as a parameter of the logarithm function, and the b as the independent variable. X will be the dependent variable, so that you can see this is really a inverse function of the exponential function. Since you don't know what natural log means, await to see why these two would add up to zero. To say that actually the result.对称的，彼此。它是在说，当你加它们的时候，记住这些是指数。Helms，你能证明给我们看为什么它们加起来等于零吗？I am not blaming you for not knowing anything. But again, Elaine, Holmes, and Catherine, you need to talk. You need to voice what you don't understand, because if you don't, the result is I will not be talking to you anymore. The loss is all yours. Emma is already giving us the proof. He's she's recognizing.These two numbers are reciprocals of each other. So, whatever the exponent you put in there, for example, I call that the x. Now, what does that mean? It just means the e to the x would equal to the two plus root three. But the two plus root three happen to equal to one over the two minus root three. They're conjugate. They're actually radical conjugates. They're reciprocals of each other, and that's why now the natural log of this one is the negative, the natural log of that one is the negative x. Extremely well done, Lucas.I'm going to add. I was going to. I was going to finish it by saying that we don't. We you can try it out by rationalizing the fraction. But two plus root three uh is equal to two minus root three raised to the negative one, which is the reciprocal. Yes, yeah. He he's correct. So again, we do the e to the x equals two plus root three. E to the negative x equals two minus root three. Correct. Taking the natural log, the the uh negative or positive on the exponent turns into a negative positive.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>He said it perfectly, right on target, totally correctly. So, in fact, there's identity connecting natural log. Meaning, if you're taking the natural log of a plus natural log of the b, you're just combining the argument a b now because you're adding the exponent, you're multiplying the powers. Because the a, if you look at that as x, look at that as y. Now, what you're getting is e x would equal to the a, e y would equal to b. What happens if you're on the added x?Why? You would multiply them, and that really just show you a very easy proof here. When you're adding them, you're multiplying them out. What you get is the natural log of the two plus root three times two minus root three, which is exactly one. So they add up to zero. Now we got our solution. However, weird, it's a purely imaginary number because the natural log part is totally real. So now we realize complex exponentials not only permit you to use this exponential function to get thePower expansion of cosine theta and sine theta. It also permits you to actually expand them in such a manner. That is, the cosine data you can write it pure and simple in terms of exponentials. Any question? Okay, well, let's find out. How do I write the sine data now? Next time, if I want to solve sine data equal to a seven, how would you do it?Based off what we have just done， how we， um we can use like the。Like one hundred and eighty minus the minus theta, and use that angle. Oh, okay. He's saying let's be lazy and do what we did before. However, if you want to take that route, is it okay? It will. By the way, it's not one hundred and eighty, right? Are you saying let's change it into the cosine of a ninety degrees minus the theta? But can you write ninety degrees, or do we have to write half of the pi?Because, go ahead. Pie, I guess. Yeah, we had to write half of the pie as a radiant. Otherwise, the expansion doesn't work. Emma has a different opinion. She's saying do something analogous to what we just did a moment ago. She's saying since we could do the e i theta plus the e of the negative i theta over the two to get the cosine, how natural it is to take the imaginary part and do the e i theta minus the e negative theta over the two i. 那就是说。Then brilliantly done. So Emma is saying the quadratic equation really just changed the u squared, and then minus the fourteen i u, and then minus a one equal to zero. Emma, isn't that what you are? That's what is giving she's giving us. Do we see, Lucas? You want to finish it for us? Yeah, then we can plug it into the.Quadratic formula again, so we get fourteen plus or minus the square root of one hundred and ninety-six. Minus wait, no. Hold on, there's a shortcut. Whenever the middle number is is double, it's even, you can directly cancel out with the denominator. I actually mentioned that before. Oh, oh, oh, okay. So we so instead we have seven plus or minus the square root of what forty-nine.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>呃， plus one， so we get seven plus or minus the square root of fifty。 Correct. So this is what we're getting, and however, we're getting the seven i plus or minus that one. I, however, though, and oh, sorry, sorry, that's another four. That's a forty-eight. Sorry, I miswrote. And now Emma, and where did you have this number? Remember.Remember, here's the i. No, I think I did the quadratic equation wrong. Slightly wrong, but very close, though. Oh, I forgot to put the i to the quadratic. Indeed. In fact, this u is purely imaginary, which doesn't actually surprise us. What we're getting, Emma, is right, though. Oh, oh, yeah, yeah. You just if that's i instead of twenty-seven, right? Emma, you meant i.i over here, then you just forgot to actually include the i in the second component. That's also imaginary, correct? Beautiful, Emma. Excellent that. So in fact, in this case, we do know that's the ei data, and you can recognize both parts are imaginary. What are you getting is i and seven plus or minus of four times root three. Very well done, Emma. And since that's or she's alsoAll right, then we could isolate it by taking the natural log. But now my question would be: now we know the i and theta. By the way, that plus or minus they remain conjugates, so it's still a pair of conjugates. Then, in fact, at this moment, when you take the natural log here, you also you seem to be able to do, and again, the plus or minus of the natural log of the i of the seven plus the four root three. But can we actually do that?Meaning, how do we simplify this? Let's not hurry. Okay, I'm just gonna keep it. How do we simplify natural log of imaginary number? What does that mean, Toby? What a natural log of a of i be? That'sThat's a good question. What is natural log of i to begin with? Wouldn't it just be, um, Lucas? I'm pretty sure there's an identity for a logarithm, so that if you square the inside, you have to divide the whole logarithm by two, right? So, can we square the inside, get negative one? So we have natural log of negative one over uh two. Ah, but what is natural log of a91， and he's totally right. He he's recognizing the i squared would give you a 91. Meaning, if I have twice of this, and that really just means natural log of the i squared, which means natural log of 91. But Toby, what is natural log of 91? Sorry, that's not 91. That's natural log of i would be half of pi. Ah, excellent. Toby is recognizing, after all, this i is a complex number. It has a magnitude of one.As angle of the half of the pi, so he's writing, he's forcing whatever the inside into an exponential as a complex number. So this one really just equal to. He's he's working directly with the i without having to square it. The i itself is e i half of the pi, isn't it? But by the time you're taking the natural log, you're just getting actually. What do let me actually do it? Yeah, separately, the natural log of the i equal to natural log of the e i half of the pi, which is half.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>cos pi i， that's it。 What you're getting is a pure angle。 But what for actually doing natural log of this many of the i now? There's a scaling factor。 What do you do? You do likewise。 You still change whatever the inside is in imaginary， rewrite it in terms of a seven plus or four minus four root three， and then times ei half of the pi， correct? And then you're taking the natural log of the whole thing。And since you're taking the natural log of the product between a scaling factor which is real and a unit complex number, you use identity again. You separate them. What you're getting will be the natural log of the seven plus or minus of four root three, and then plus the half of the pi i. But of course, this is i theta. That gives you the correct answer for the i theta. Only the real part can be changed into plus or minus of the seven plus.meaning that part they are reciprocals of each other, but not the angle. There's only one angle, so it's not true that in fact these two are always positive or negative of each other. You can't pull out the positive or negative in the front, only for the real component. We're about to be done now. You realize finally your answer is a combined complex number instead of, as earlier, only an imaginary one. Because at this moment here, what we have would be i theta equal to thePositive or negative, natural log of the seven plus the four root three, and then plus the pi over sorry, the pi over the two i. Now you cancel the i from both side. The half of the pi becomes the real part. That's going to be the angle part, half of the pi now. But we end up actually plus or minus about this one divide by i becomes imaginary. So the theta here is a combined real complex number. Unlike the cosine, you see the cosine theta gives you.a pure real number, but the sign though gives you a complex number. Well, can we create a general formula? If it's sine of theta equals, say, x, can we make a general formula for what the theta has to be? Oh, absolutely, absolutely. In fact, you just replace what we have over here in terms of, and that. Oh, well, I think Lucas is suggesting next time. Let's actually solve the sine theta.sin theta equals to a， where the a is greater than one。 In fact, regardless whether a a is greater than one or less than one, right? The general formula should always work. Are we good? Okay. By the way, in fact, I thought Toby was suggesting something earlier. He was suggesting that in order to solve for the sign, I took Emma's solution. I interrupted.Toby， in fact， Toby's solution is even easier. He's exercising the glory of a mathematician, meaning resorting to what he has already done. He's saying to solve for the sine theta equal to the a, I can first of all write it as the cosine of half of the pi minus the theta equal to the a. We have already solved the this angle as a purely imaginary whenever the a is greater than one. In fact, homework: create a general formula for the sine theta equal to the a and the cosine theta equal to the a, please.especially when a is greater than one, you just go through this whole nine yards here and write it out. Well, the final answer for the cosine would be imaginary, for the sine would be imaginary with actually half of the pi as for the real. Is everything crystal clear? Now, finally, there's something tricky. Earlier, when we solved the trig function, when we solved the cosine, it had equal to only one half. Now, the theta turns out to be.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Even in many solutions, they're all legit. They're called the co-terminal angles, and which would really work like a positive or negative sixty degrees. Or we better write everything in radians now, because we're insisting on really just matching a complex number with a real number. So we don't want to be specifically speaking of the angles. It's equal to the positive or negative pi over three, and then plus a two k pi. Well, do we have something similar here? For example.Well, we write write natural log of the i here. How do we know it's necessarily half of the pi? Can't it be anything else? Wouldn't there also be infinite many solutions? Yeah, I agree. Can we write the i since i if we rotate it another two pi, it's still the same, right? So i is not only just e to the i pi over two, but also e to the i ofπ/2， yeah， indeed. So look at saying we can still play with coterminal angles to recognize on the graph here what angle i is. It's half of the π plus a 2kπ. Therefore, the infinite many answers. The next one would be 5π/2. The next one would be 9π/2. Oh, sorry, and yes, 9π/2. And and then the next one would be. In fact, you have a negative 3π/2 as well.But since we're dealing with the cosine and sine, the two five just gets cancelled out in the end, right? No, they they don't. There are still infinite many solutions. Because remember, when you solve this theta here, you also had infinite many solutions. That's a powerful way to write it. You know, it matters. Why? That really matters now. Why? Because if I'm giving you the cosine of the two theta, or cosine of the five theta.Then those different infinitely many solutions will turn out to different rotations. Yeah, that's right. And you would have five answers. In fact, ten on the unit circle. This is a reveal now. By the way, guys, go ahead and solve that for me. I want to see all the coterminal angles. I don't want to add periodicity anymore. I just want to visualize where these solutions are on the unit circle. Now we're back to theComfortable territory, I would expect between Eddie, Catherine, Holmes, and Elaine. One of you, give me the answer.嗯。Well, alright. I'm handing it back. I'm on Lucas and Toby.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>If you have the answer, go ahead and say it. And Toby, you first. Um, twelve and sixty mod seventy two. Uh-huh. So, in fact, Toby is saying earlier we had the solution five theta actually equal to positive negative pi over three or sixty uh sixty degrees here, and plus or minus plus a two k pi, right? AndHe's saying we just need to divide that sixty degrees by five. You're getting the base solution, which is these two points: twelve degrees and negative twelve degrees. However, that that periodicity is two k pi now. Earlier, when you present the answer on the graph, you won't be seeing any more points because they're all hidden behind these two same points. You're adding a period at a time, but when you divide by five, though, that periodicityWhen from a three sixty degrees to seventy two degrees, they're all showing. I would say the best way is to create a regular pentagon, and I would say that's the easiest way for you to visualize it. Do regular pentagons, right? A regular pentagon that gives you the mod seventy two degrees. All the all these points here are the twelve degrees, and then plus seventy two, which gives you actually eighty four, and then that plus seventy two.You one fifty six, etc., etc., and the other one creates its regular pentagon. So altogether, you're having ten solutions on the unit circle. They're all different. Such is importance of adding. Be sure to add in the two k pi, because when you divide by five, they won't be even insignificantly coterminal. They would be actually giving you real different angles. Such is the case for imaginary solutions too. Lucas.All the solutions opposites of each other. Oh yeah, absolutely, they are still polar negative. In the case of your answer is real, but later though they may not be. Because we realize when you do the sign a, you enable the real complex number combination between the real and imaginary. Are we good? Yes. Crystal, for everybody, are you?You positive? Okay, well, let's Elaine. You didn't give me any signal. Oh yeah, all right. Well, let's do a just a quick exercise here. Let's say, what if I have the cosine data equal to a complex number one plus i? We're carrying out through entirely same drill.Well, this is interesting. Can we just do this literally the same thing as before? Each of the i pi, uh, plus or minus. Yeah. Absolutely. So, Lucas saying we had a formula. I just said inside, you have to make sense of it. Keep in mind how this.Number results itself. In fact, that is our b. If I call that the a now, what you're getting is actually the one plus i plus or minus the square root of one plus i squared. Do I add one or do I minus one? Here.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>或负sin one， so this is going to be actually the e i呃，sorry，呃，yes， I am getting the e i theta， that's the solution， right？ We go go directly to the quadratic the solution to that quadratic equation。 Wait， no， the I thought the trick only worked for we could I thought we can only cancel out the denominator if the uh b was even。 It is even。The even part comes from actually cosine theta itself, equal to one half of the e i theta plus e negative i theta. So whatever the other side, if you put out the a, it's always even. I got it. Yeah, I get. In fact, I just didn't write them because I assigned it homework. But Lucas, you you earned us to have a general formula. Here it is: if the other side is a, it's always a plus or minus of the a squared minus one, and that's the e i theta.In fact, whenever your a is less than one, this number would turn out to be complex, so that your theta would turn out to be real. And not to mention, if you really if this part is actually imaginary, then the magnitude it's actually one, so that means the theta is purely real. But now we're dealing with the a here. At least it's not less than one. I mean, you can't even talk about comparing the size with one.Now, because it's a complex number, but we're getting to this step. And Helms, would you take us further? Remember, you promised to practice. You have to talk. You have to communicate what you know, what you don't.Lucas， give him a second. No, I have a question. Okay, go ahead. Isn't the first bit well one plus one plus i supposed to be negative? So it's negative one minus negative one minus i. What's the minus the other stuff? That term comes from the other side of the equation. It becomes actually positive. Lucas, why?I can just quickly do it. What you're getting is basically the u squared minus a two a u plus one. Did that answer your question? Yeah. Beautiful. Back to Helms. Give him a second, please. I don't understand how you get the the same.Which one？ The e i theta equals one plus i plus minus。 What do you understand this much？ Yeah， quickly recap for us， how do we solve that equation？ Um， didn't we do because um the。对，I'm I'm listening. Holmes, I double-checked with you several times. Are you absolutely sure you understood everything?</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>There's no shame in saying I don't understand a certain point, but every single time you gave me a very assuring nod. Now, maybe you do know. Can you just recap for me how we solved that equation? Um, we did like the the two the e to the um imaginary part cancel out, and then we divide by two. I but I know that's how we got here. But then, what? How do we go forward to solve?那我们把一i theta，然后我们转成一个二次的。Go ahead， exactly what quadratic？ TheSo I think what's happening is that you just quit following. You're just staring at the screen, but you're falling behind. Which, again, I permitted you can do the review and then catch up for it. However, when I say, "Do you understand?" you would do so much better by saying, "I don't, but I'll figure it out later," so that I know not to call upon you.If you do say you understand, I want to ensure everybody here is on the same page. So I would actually put aside the effort and time for you to be solidly on the same page with the rest of the class. Okay, you you may choose to not be. You can tell me that you rather want to sit through the class here and take in the big picture and later work out the detail. I would honor that, but don't lie. You know that's my hot button. I don't like of roomful of.Panders, Eddie, do you understand the whole problem? I have a question. I got two plus two i plus minus root two plus two i squared minus four over two instead of that. Meaning you're not getting this. That's because you haven't divide by the two on the denominator. I did the direct simplification. Whenever this middle term is.Even. What what I heard, what you're reading to me is quite good. Eddie, do you understand the whole story? How we got here? Uh, yes. And go ahead and take us forward. I think we just like clear the denominator so that it's e i theta plus negative i theta equals four. I mean, like if it's cosine theta equal to two, like we just clear the.Not true. It's one plus i now. I call that the a. So then, e i theta plus e negative i theta is two plus two i. Correct, which I just call that the two a. We're we're ready here. I'm I'm asking you to take us forward from here. How do we further solve?for the i theta， 嗯嗯嗯，Emma， so we would have e i theta equals to one plus i plus minus uh.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Square root two i minus one。嗯哼，simplifying the inside， what you getting is a cancellation of that part。 What you getting is a two i minus one。 Brilliant。 How do we go from here? Meaning, eventually, we have to isolate, take the natural log that i data really just equal to the natural log of this whole thing。 So the point is to somehow simplify that number into a form so that we can take the natural log， make it come out of the natural log。How do we do that? What did we do earlier when we were about to take the natural log of something? Remember, I gave you guys several examples. Toby, um, we pull out the plus minus, and then are you sure you can pull out the plus minus? Remember, we had a tricky.Cases where you couldn't pull out the plus or minus. Did we not highlight earlier for when you solved this sign? Now, remember back here, and we're talking about the natural log of that number, and it turns out the plus or minus doesn't go to the front. It's only going to the front for the real component, which is responsible for the magnitude, but the angle is not plus or minus.Right, but Toby, could you summarize for us? Whenever you want to take the natural log of a complex number, what's the way to go about it? Um, take out the i first. Only take out the i? That's not the imaginary; it's a complex number. Could somebody summarize for me?嗯。特别recall how we did several cases earlier. There were a pure imaginary number. You identified it just has the angle of half of the pi. But we also had a combination. Remember how we took the the natural log of this number here? What did I do?What did we do? We took out the i. Well, that's only because it happened to be purely imaginary. What if I give you natural natural log of one plus i? How do we resolve this one? I actually said it earlier, because apparently nobody heard me.Lucas， sorry， go ahead。 Can we make it natural log of one plus natural log of I？ Obviously not。 Are you telling me natural log of the two is natural log of the one plus natural log of the one, which is zero？ In this case, natural log of anything would be zero because you could always break the number down into a bunch of ones added together。 No, sorry, I think I meant something else。</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Tell us that something else. By the way, I'm not criticizing you. I'm criticizing your behavior. Okay. Now, I I think I meant something else. It's one of those totally corrupt, meaningless, evasive verbal comments that honestly nobody would know what it means. I think I meant something else. Why don't you just say, "Oh, sorry, I was wrong." You.You meant what you said. What you said was wrong. Am I understand you correctly? Yeah. Don't give me those totally just. I I don't know where these bad verbal habits come from. I like straightforward kids. There's nothing can go that can go wrong or offend me if you just don't know something. You're young kids. We're doing.Something really advanced. I like the way we're all striving to understand more outside of the textbook. What I don't like would be after I repeatedly ask you to join the discussion, be blatantly straightforward, be bold and ask questions, and you either evade or you pretend to know something you don't, or you just keep quiet. I can't even get any word out of you. Stop doing that, okay? Because if you keep doing so, there is a point I would say that's.I would never question you again, Emma. Go ahead. Can we maybe try the logarithm rule of i n a plus i m b equals i n a times b? Absolutely. How? Oh, so we can maybe see that we could write one plus i plus minus square root.2i minus one， a product of like easier numbers。 Where did that square root of two come from? That's a very good direction to go。 Toby。 Um, so, like, log of the z of something is like beautiful log of z of the things。 Right, he's saying it's a good idea to rewrite something and that complex.Number into the complex exponential, but that can only handle the angle part. Go ahead. So that'll be the log of z of zero plus log z. Oh, that's not a good idea. If you translate each one of these separately, then you can't really add them. Is Lucas? I have an idea, but I'm not sure it can be easily generalizable. Ah, go ahead, try it. So my idea is, if we, I noticed that.If we when we square the one plus i, we get two. Ah, yeah, right. Well, it's not easily generalizable. The whole point I said that earlier. Next time, try to pay some attention. Is to rewrite it in its magnitude and angle separately. Consider that is a complex number. Where does that point to? It points here. What's the magnitude? Root two. What's the angle? Forty uh, five uh, five.Do we need to simplify now? Homework, finish simplifying. Did I not write that earlier? Yes, I did, and I said it right here. You look at that complex number. You rewrote it in terms of the magnitude separately from the angle. Except for there, it's purely imaginary. Therefore, the magnitude is the scaling factor. If you look at the combination, fine. You still plot the magnitude and write the rest as the angle. Then you can actually well decompose them. You get the product of the argument. Homework.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Finish simplifying this. Finish simplifying that. Get me the two solution to the theta. In fact, even the many solution to the theta. Is the entire homework clear? Yeah. And well, thank you very much for all your contributions, Eddie, Elaine, Holmes, Catherine. Get your parents here. And Elaine, if sorry for Catherine, if it's too late, and that's fine. If your mom is at in bed now, you don't have to call her up quickly. Do you get my parents? No, you don't.可以说，我、我、我，大家都知道自己的孩子的问题是什么，那就是在我一再一而再、再而三、三而四、四而五的情况下，我在邀请他们，课上不懂就要问，你不问我就要问你，我问你你不回答，然后最后被我逼逼逼逼逼了十次之后，告诉我说我不知道。那么在这种。情况下呢，艾迪很少有这样的，他就是不说话。那被我逼急到最后，我没办法等了，我就只好 move on to the next kid here。那么，如果你们的孩子坚持要这样，我觉得也不是什么大错，因为孩子有很多个性就是改变不了的。所以，我就像您想想申请一个允许，因为你们付钱，你们给我信任，对吧？你们总不希望自己的孩子在课上就完全不受到照顾。那么，如果我现在告诉你啊，我我不是没有try，我是尽力了，但。是他们就是不说话，而我再逼急了就要开始说谎了。就像Ely告诉我说：“Oh, I I think I meant something else。”这种verbal habit我非常讨厌。我跟你实话实说：“Well, what you meant is what you meant。”就be straightforward, be frank, be honest。你这样，无论你知道多还是少，无论你脑子是快还是慢，我都非常尊重，我都非常喜欢。我唯一不喜欢的就是上口是上上来就是满口的那些推脱之之词，就是你的话不可靠。小小年纪不要学成。那个样子。好，那我现在这些话说完了，我想请你们给我允许，以后我就索性再也不提问你们的孩子了。你们愿意我这样吗？就是你的学习你自己负责，因为我不想在这给你耗费时间，听到还是一堆谎话。呃，刘老师，那个呃，我觉得艾迪是昨天没有复习之前的这个课，所以我。我估计他课上一直在在就是就是没有跟上，没有跟上的时候，我估计他也不太可能 participate。那这个我们已经说好了，下一次在上课之前，他需要呃 go back to the last lesson，然后 review。他上课有可能他就是不是，就是我觉得艾丽和别的三个小朋友的情况不一样，他不是诶，就是说 evasive呀，或者说 verbally 那个 that give me 这种唐突之词，他不是。他呢，有的时候很积极，有的时候他就是lost的了。那我想这是一个过程，我们就帮助他集中了attention。那好，您可以走了。我我还会继续提问他的。好的，谢谢您。然后剩下的我并没有说这样，孩子就是孩子，很多习惯是一下子扳不过来的。我看到大家都在进步，尤其是以类，他现在学的很会提问，但是这并不等于说，当我提问到你的时候，you you just need to be totally honest，而且you're intelligent in that.up to narrow down to the detail which part you don't understand，好吧，这个必须得做。那么我家长，你们给我一个答案：要么就是我得到允许了，以后我就不再浪费课上浪费时间、心情和精力了；要么呢，就是你说我要继续提问你们的孩子。嗯，秦老师还是提问吧。那我怎么能够保证他不说那些我觉得是在corrupt我的课堂的话？你能你能保证吗？嗯，你自己说。</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>能保证。呃，Do you know what kind of a language is corruptive？那你呢？Evasive language。Not only that, sometimes it's a lot worse than evasive. Corruptive language is sort of I kinda I didn't do all of it. I did some. In fact, you just did five percent, and you said I did some. Oh no, I meant something else. That these are corruptive language. Okay, and if you if you talk that way.You think that way. If you think that way, you're no good, meaning you're not teachable. Alright, I know I'm being strict here. If you could promise, I can see you're making progress now. I would keep asking you questions.其实伊娜的变化非常非常，就是说明这孩子很能适应力极强。So I'm telling you blatantly, please learn. Helps呢是最最一个大难题。呃，我就是说怎么问都问不出来，他就是我知道这个。过程，但是我给你机会，他还是拒绝来配合的提问题。嗯，刘老师，呃，刘老师，我觉得那个刚才我又问了一下他，因为上次我也跟您交流的挺长，回来又跟他也说，呃，他刚才跟我说呢，他就是又是在，可能还是哪儿没听懂，他自己在想，在琢磨。然后你一提问，我都理解，我没有在批评他这一点，我完全理解。就是想跟您商量。我刚才也跟他说，我说那你就直接跟老师说。你说老师，我这没太懂，我在想呢，是不是也可以啊？嗯，嗯，那为什么不这么说？我给他机会了。对呀，那你要张嘴啊，是吧？嗯，因为不，他现在点点头，就像以前他也点过头。等到下次的时候，他仍然再浪费我们十分钟，我已经到了我不能接受的地步。我不是说这孩子就不好，但是我上就已经我跟他面对面了，我说，请你回答我哪一点不明白，而关键。是我不能接受的事。我问我特意问Tom，Do you totally get it？他点头点的非常的那个努力和认真。然后转过头来，我问他一个，他又不知道到底我们在干什么。这就是濒濒临在说谎的状态下。这样吧，我先让他自己呃去这个进步一个月。我这一个月当中，我就不跟他进行课上交流了。如果在这之后你再不改变，那你的学习就是你的责任。我并没有对这个孩子有任何的偏见或者不好，或者我怎么样，就是每个孩子。个性不一样，但是我只是请您以后就不要怪我。说课堂上你怎么就从来不跟我的孩子？You don't talk to me,就my my child as if he's not here。那么he forced it，不是说我愿意这样，而是他强迫我必须这样。您可以理解吗？哦，特别理解。那个我不会怪您的，我觉得主要还是他自己的问题，他要调整。就是我希望，呃，您这一个月不问他没关系，但是你不是说逃逃避，正好说老师不问你了，你也就可以不说话了。好吗？那就是我们把这个主动权交到他手上，你自己主动啊！你主动，你跟老师，哪怕说，我觉得刘老师也不会介意。你比如说，你跟老师举个手，或者你说老师，我打断一下，对吧？我从来都是欢迎的，我特别欢迎，因为我相信老师也不会怪你说打断他。怪，这就是上课，上课就得是要学生打断的，因为每个孩子水平都不一样，大家都在尽力的在学习，慢的孩子很可能将来是走的最远的。那刘老师，这样咱们就达成一致，因为像咱们大人已经努力了，那现在主动权就在你手里，好吗？这个咱们跟刘老师就达成一个一致，主动权在你手里，你可以打邓老师，对吧？嗯。你你如果说我还得鼓起勇气，那你就可以试，对吧？你下次你哪怕试一次，下次试两次，是吧？主动权在你手里，好吧？嗯嗯，好多谢。然后呢，Catherine，每这四个小朋友表现都是说课上就是八根的打。</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>不出来一句话的啊！但是Catherine她情况和别的人又不一样。Catherine的language是最最clean的，是最最honest的。她说话很这个economical，从来都不给我那些什么kind、evasive、sort of， and I saw something else。她的说一就是一，说二就是二，非常好。而且只要她明白的，我觉得她也在积极回答问题。Catherine的问题就是她不想打断，她不想耽误别的孩子，所以她有问题她就不问，她就永远不不不问问题，不主动的打断我。我也不是说。这就是一个这么大的问题，甚至都不能叫做缺点，好吧？但是我希望的就是你在课堂上你要得到，尤其是他是和我时差最不一样的，我是最难在课外多跟您交流。就是说，别的孩子随便找时间，我们Zoom上Meet二十分钟，而我跟他最难找到这样的时间的。所以，Catherine，如果你要想在课堂上，就是这是你的权利，你要用到我给你的时间，你就必须得主动说话，就是必须得主动说话。我没有办法，已经把这个说话再强硬了。你不主能说话，我也不认为你就有什么大不了的。但是你就是亏了自己。也就是说，我很多的时候跟这个学生的交流是，他问我什么，我就可以专门有的时候还 take me to a direction I didn't mean to go, but it's a good direction。那么这样的情况，他的很多 idea 都会 bash out，知道哪些 idea 是好的，将来可以重新用；哪些 idea 是 off target，将来就不用了；哪些细节点他原来都不知道。其实呢，也不是完全不问。比如说 Catherine 问我这个 natural law，他都不明白什么意思，但只是在我提问他，他才问我像这么重要的问题，你不明白拿手老的定义，你接下来五分钟、十分钟、十五分钟，你就在听天书了。这种时候要啥都不练，马上就手也不用举，张口就说。What what does that even mean? If you don't even understand what it means, you're bound to get lost in the in the following ten minutes. So that ten minutes would be entirely just totally futile for to you, useless to you。你们大家都是交了学费的，所以请你实行使一点这种个人权益，好不好？对于Catherine，我别的没有怨言。我觉得她的各种交流的这种态度是很成熟的，也是就是我最欣赏那一种，你知道吧？以后讲话就别的小孩子，你们说话就是要这样，别pick up一堆在学校学来的那些都不知道什么来的那些坏习惯，出来就是什么kind of that thing, me what sort of a a little not quite。我听了之后那时候就烦。好，就是所以你Catherine你就保持你的这种交流的方式，但是please ask your questions。你不ask，我很心疼这些学生的。我觉得你在这里都是这种，这尤其是对你来说是起早贪黑，然后你坐在这儿，然后你还不就是不participate，然后就depend on就是听recording。那我觉得你索性就别人别在这儿，你还不如早早早去睡觉，你就专门就听recording好了。好，我没有别的事儿了，又又耽误了大家这么多时间。呃，小易，你有什么？啊，没有问题。我我我会再次跟他强调，就是打断别人的话特。特别是老师的，还有其他同学的，并不代表 rudeness。他可能会觉得自己很 rude，但是我觉得可能这个这个观念要他要改变一下。嗯。In my class it's not. In my class it's not。我班上的学生都踊跃的就打断我呢。当然，如果真到了有一天，我都连话都受不了了，就做做一个打断，又一个打断，那也许我们又得重新 figure out dynamics。但是 before we get there，我们可以朝这个方向努力，好吧？OK，好，理解了，谢谢老师，谢谢你们时间。嗯，take care，拜，I'll see you guys。谢谢刘老师，拜拜，take care，拜，thank you。</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

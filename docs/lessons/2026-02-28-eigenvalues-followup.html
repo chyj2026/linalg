@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-02-28">
+
+<title>Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 28, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Individual afternoon session re-deriving the 2×2 conic diagonalization as M·[ε₁ ε₂] = [ε₁ ε₂]·Λ, then defining the eigenvalue problem (M-λI)v = 0 and showing the resulting quadratic recovers the same λ₁+λ₂ = a+c and λ₁λ₂ = ac-b² invariants.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Eigenvalues defined via M·v = λv as fixed/dilated subspace</li>
+<li>(M-λI)v = 0 requires det(M-λI) = 0 for nontrivial solutions</li>
+<li>Vieta on characteristic polynomial gives trace and det</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Small individual/two-student session (Catherine, Elaine). References ‘what we had in the morning’. Date inferred late-Feb 2026 from the eigenvalue-introduction window.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1LtCo11oGZ7DHZakVBuVA0DO0X8kq2lgC/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Thank you. We're going to take the idea from the previous session. As you come in, let me turn on your recording. And somehow, Kay, I can't see your video. Are you here in the room? Yeah. Come on, but what's happening?One second. What's happening here? Why I can't? Huh? What's happening? Uh, somehow, Catherine, I can't see your video. Have you turned on your video? Yes. It actually shows on my screen now. I don't know whether you can see it.That somehow you're not turning it on, are you? Yeah, can I rejoin? Yeah, of course. Come on, let me actually clear the board. Otherwise, this is gonna make a what? Oh, shoot!What？看嘛，看嘛，啊！What？What？哎，so weird。Why can't I just? Okay. Alright. It's better. What? I didn't know that. Sorry.For so many mishaps, and Elaine, do you have any personal questions so far? Not really. Good, and I'm gonna slow down a bit. Now I can see you very good. Okay, sorry for going back and forth. Let me turn on your recording. I'm gonna slow down a bit. We are in the territory where this is a very deep linear algebra, and so I want you to take your.Time to really think through the ideas. Try to connect them. Don't hurry with the formulas. Why do I want to move a college course to middle schoolers? The reason is plethora, or I would say most pressingly, if you want to do any independent exploration in high school, do math modeling or going for any reading or research, or really just get hands on development of AI reasoning or whatever that's out there. That's all the rave.Fundamentally, number one skill you want is linear algebra. Linear algebra is not really dependent on a deep understanding of algebra or your calculational techniques or the idea of building up calculus tools. No, no, it is sort of a zero ground. Nevertheless, it's sophisticated thinking. It gives you idea a way to look at the universe as linear space, as linear combinations, and so it is actually doable to teach it to very</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>小 kid, young kids, and as long as you put your idea, your your your concentration, put your mental concentration on understanding the big picture, and you're beginning to learn basically a language. If you learn French, and you would have a sense, fundamentally, the pronunciations are of different style. your your your physiology, your tongue and your mouth, they're just they have a different feel when you speak French, and the way that you connect the the accents and move from one.one was to the next, they're all different. So, likewise, when you're learning algebra, it's a different flavor of matter, and that's why I want to slow down and then just give you the time to really savor it. Let's recap where we are. We're dealing with lifted as much as we can, okay, from quadratic equations now from conic sections. We are processing this matrix in the abstract sense. So, actually, I give you a two by two, which is aVery small dimension, but nevertheless, though it has a capacity to generalize onto higher dimensions. So for the time being, I give you the a, b, b, c, and our goal is to diagonalize it. We already know, and the diagonalization also requires we want to change the idea minimally, meaning we actually want to preserve the determinant. We want to preserve the volume. In the future, such a matrix here could also be looked at as aActually, the volume of a bunch of vectors in the n-dimensional space. So I want to keep that, and we figured out there's something intrinsic with actually a geometric meaning to it. That's a rotation that's going to realize our goal, meaning diagonalize it. So we're trying to come up with such a cosin data, sine data, and then that's the sine data, cosine data. Then we would have aa diagonalized form lambda one, lambda two, and followed by cosine theta, sine theta, negative sine theta, cosine theta. This is the goal. And we figured out if we want to go for a shortcut, okay, we can try to avoid the cosine theta and sine theta, and just directly work at lambda one and lambda two. We already know how to do that. But starting from now on, we're going to actually change our perspective. We think of a major矩阵 now as a linear transform, and I want to write it down. This is a linear transform. What does that actually mean? It operates on a vector. And for example, I pick a vector v now that is equal to a x and a y. And if I operate this a b b c on the x and the y now, right now it's not quadratic; it's just a linear transform. Now what we're getting would be I still get a vector. I get a vector.Vector that's a combination between the original x and y coordinates. So the new horizontal coordinate, well, the x coordinate here would become a a x and plus a b y, and the bottom coordinate would become a b x and plus a c y. It becomes another vector. And don't be fooled by this long expression here. I mean, that's just a single number. You have a a coordinate and a second coordinate, nothing else. So strictly speaking, it's just a vector.And the right hand side is a transformed form of the v. So fundamentally, you can write it as the matrix M now. It operates on the v would actually yield another vector, which I call the u now. Well, majority of the cases, this u probably after you mix your x and y has nothing to do with the original v. At least you can't really identify by eyeballing. Oh, somehow the u and v are correlated. They wouldn't be. Well, the</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Majority of the cases, but we're particularly interested in those cases here that this complicated linear transform amounts to nothing but a dilation. Meaning, there will be cases here that M will not rotate your vector. It's not going to mix them. It's just a simple dilation. The resultant vector would still be parallel to the original one. By the way, these are actually what we call the fixed subspace. What does that mean?Well, each vector here is going to be a one-dimensional subspace of the higher-dimensional space now. And this M operates on it. It's not not going to turn this subspace into some other direction, but rather preserves it. So that means it's a fixed subspace. But I put at the subspace instead of just a fixed vector because we do allow a dilation, some kind of factor. And meaning this would equal to a lambda of the x and y. It just said the x and y coordinates are following.the same proportion. So this group of vectors, with the arbitrary choice of the lambda as a real number, they are all dilated version of the single vector now, or in other words, they are all parallel to the given vector, and that's called a subspace. So we're looking at the special choice of the x and y, so that it is a preserved subspace. Then what are we going to do? If somehow this lambda fits that, well, before we actually talk about howCould we find such direction, such a vector x y? And let's see what we have done earlier. How is that related to this idea of a fixed subspace? By the way, if this is true, if it turns out that your v turns out to equal to a lambda v, then the result of this linear transform does nothing other than dilated. We're going to actually assign them, and these are precious, very valuable vectors. Now we're going to call the lambda here the eigenvalue.And our v the eigenvector. And in the future, we're going to prove. And if your M starts with a symmetrical matrix here, you shall always end up with n eigenvector and n eigenvalues if it is diagonalizable. But occasionally, you would end up still n eigenvalues, but not really n eigenvectors and some eigenvalues.might be actually missing a eigenvector, but in reality, just that they're complex numbers. But in any case, this is the mindset we begin to be interested in this fortuitous case now. And now we're going to come back and relook at what we did before from with this new lens. We look at this linear transform. For that to be true, we need to do two things. Okay, number one, these are all matrices. We're not dealing with a column.向量。So we're gonna see what's gonna happen if you could find two such column vectors. Yeah, let's suppose your M operating on the v one that's gonna equal to lambda of the v one. Now M operating on the v two would give you lambda two would equal to lambda two of the v two. Somehow we found two such eigenvectors and associated two eigenvalues. Now suppose it is in two dimensional space. Now and just you.等于2。 Then can we combine them into one single matrix form? I want you to think about what's going to happen when you do the M multiply. M is a two by two matrix, but if I put the v1 as a column and the v2 also as a column, when I draw a dash here, I'm only indicating that it extends out to the whole row or to the whole column. And then knowing this is going to equal to lambda one times the v1.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Right, it's skinny and just a single column. Okay, and then the lambda two of the v two that's going to be the second column. Oh, I hope you don't misunderstand it. For the one, it's not. It's just going to be an entire column vector. Well, first, double check the notation. Do you think I can do this by lay them out side by side?Be sure to really think about it.And please do talk to me.Yes, it is. It is, it's guaranteed by the really just the operational rule when you multiply the two matrices, right? When you do the matrix multiplication, you grab the first column and you match with every single row of the M matrix to produce the numbers over here. So, indeed, the two.Two columns operated separately. I can bundle up the two equations into one now. That means M multiplied by another matrix would yield basically each column would be a transformed column vector. Okay, now if we do so, then let's see what is going to happen to this original equation. There's something not so balanced of the equation because we got one matrix on one side, three matrices on the other. Not to mention our goal is.is to really investigate what's the transform and this matrix represents. So we need to act upon some matrices. So I decide we're gonna actually make it into a transformation, act upon two vectors, and which let's actually multiply the a, b, bc, and now act upon this now the cosine data, now that sine data, negative sine data, and the sine data cosine data, butBut if I multiply that that matrices on the left here, I definitely need to do likewise on the right. Oh, that's not that that matrices. I'm going to copy in for the time being. And then lambda one, lambda two, and then followed by cosine, sine theta, sine theta, cosine, negative sine theta, and then multiplied by. Now, finally, I'm copying in cosine theta, sine theta. All of these mean theta. Sorry, sorry.Negative sine theta, cosine theta。 And let's actually see what is the multiplication of these two matrices。</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>It's a unit that um unit matrix. Yeah, I got the same thing. Yeah, exactly. For several reasons, now you can explicitly multiply them out and use the Pythagorean identity repeatedly, or you could.identify this is a pair of orthonormal basis. These two column vectors are each one a normal vector, meaning a unit vector. They're also perpendicular to each other. So when you do their mutual dot product, what you're getting is a bunch of a delta ij's, meaning they're either one or zero, and they're only one on the diagonal. So indeed, that's identity. Identity is as good as the one in the regular multiplication, so it can be neglected from our written form now. Multiply by I, it's the same.没在，not right，multiply by anything there. So in fact, that just gone. So this is the result. What does that actually mean? Have we found out the two eigenvectors for the matrix A B C? If I call that our matrix M, if you just tease out what it means now, let's again explicitly multiply the right hand side and see what you're getting.嗯。嗯。嗯。And feel free to keep me posted where you are.For the left hand side, I got a cosine theta plus b sine theta.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>θ， and negative a sine theta plus b cosine theta, b cosine theta plus c sine theta, and negative b sine theta plus c cosine. 哦，哦，你是在看左手边， yeah， okay， you are right. Ah, but actually, the goal is to find out what's going to happen on the right hand side. Why? Because in fact, what I wantto say is M operating on epsilon one. I defined the two columns here just for simplicity. I define the first column as epsilon one. It's a vector, and perpendicular to the second vector epsilon two, which is defined as the negative sine theta cosine theta. So if I do so, I would know the left hand side of the equation means the M transformation is operating on epsilon one and epsilon two, and the result happen to be lambda one epsilon one, lambda twoλ到λ到λ到λ，right? Oh, yeah. When you really multiply them out, and you can see somehow this lambda simply scale up the first column, the lambda two scale up the second column. What does that mean? Have we not found out the two eigenvalues and eigen vectors? Yeah. And this is memorable, and we really want to generalize the process in the future.What we're getting is somehow in the future, if you really want to diagonalize it to find out what's the shape of your quadratic equation, we might as well just find the eigenvalues and eigenvectors. And now I'm going to actually take entirely a different approach, so that later this is fully generalizable onto higher dimensions. At the moment, here you know if we could really understand it as a rotation, then we're definitely confined to two D. If we're dealingWith a a conic section in three D now, we're talking about the paraboloid or hyperboloid, and honestly, the three D rotation would get so complicated that we lose the intuition. We lose every single step. There's a graphical direct graphical interpretation. We lose that. But the following approach now lifted from geometry, and we'll be able to generalize it fully onto arbitrary higher dimensions. So at this moment, having this new point of view.我们 gonna actually shift it to a new mindset. Now, we're really trying to do M operating on the on the 一寸丸。 Let's just do it one at a time. Let's say I have a matrix M now. So this is focus on the approach of finding the eigenvalues and the eigenvectors.Of arbitrary matrix now. So, what do you want to do is M times V operating on the V would equal to lambda times V now. Can I, if I want to subtract the two, okay, and then I want to pull out my V here. Well, I have a difficulty. Can I just do this, pull out the V and say I'm minus the lambda equal to zero? Can I do?That. Um. Yes. No. Why not? I don't know. You have the the in the feeling, huh? Since I'm asking you, what you learn? Why not? I don't know. Maybe maybe you can just try it. For example, if I give you one, two, three, four, my</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>minus seven， what do we get? Can you tell me? How do I subtract a number from a matrix? They're not the same kind of animal. Oh, well, you can say five dogs. You lose two, you're left with three dogs. But if you lose a cat from five dogs, what do you have left? So, in fact, they're not the same animal. You can't really subtract a number from a矩阵。However, though, now after the point is not to subtract them, but subtract this one. You see, I want you to write it in a different way, so that could work. What we want to be a one, two, three, four, and operating on x and y minus a seven times x and y. I want that to be zero. So, can I somehow pull out the x and y and write the rest of it into a matrix?meaning seven into a matrix， yeah， how do I do that？ seven one zero zero， or seven zero zero one。 close， but if you actually do the seven zero zero one now multiply x and one， can you compare the result here？ Basically， you you find out。What they come up with on the right, see if they're the same. Meaning, really, you can just focus on this part now. Are they equal? Are they the same? Not really. No.No， right? But you're already halfway right. So how do how do we fix it easily?Do we change the other one into a seven? Yes, that's right. So, in fact, the rule in the future, even in higher dimensions, if you want to lambda times, come on, if want to lambda times a vector now, and you want to in order to be combined with another matrix, it's easy to simply add identity in the front. You could always multiply this by identity. That's that identity is already a two by two matrix or n by n matrix now, and then you.Absorbed lambda into the identity, right? It just lambda, lambda, lambda, depending on how many dimensions. That's actually the cleanest, the cheapest, cheapest way to immediately make the lambda subtractable from a full-blown n by n matrix, so that you do understand whatever this scaling factor, a simple number, it's also operating like a matrix, right? Okay. Well, if that's the case, now I can just change it ever so slightly.And that's identical. To find the eigen vector and the eigen value, now we need to solve this equation, right? Connected to what you know about the solution to the linear equations. This m minus lambda, no matter what. For example, in the earlier case, now what we have m equals to that a b b c minus lambda i, and we want to solve for operating on x and y would equal to zero. And but if I</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>I plug in. What you're getting is, go ahead and simplify. What is m minus lambda i, please?嗯。Finding the m minus lambda i right. Yes. We're subtracting that lambda.forced into the same format as a matrix. That's right. A minus lambda v, v and c minus lambda, and operating on the x y will equal to zero. Well done, that's correct. And Catherine, are you getting the same? Yeah. Okay. Well, knowing this is so, can you remember we're solving a set of a set of algebraic equations?Remember, the x and y are the only two variables we're solving. What vector will be preserved with no rotation, but just only a dilation? Although, in order for that to happen, there are only certain lambdas that can make it so. But if you want to solve two equations here, yet your solution are not trivial, meaning your solution are not zero zero. I mean, zero zero always fit into any single matrix. If you I'm operating on the zero vector, you just get zero vector.So that's a trivial kind of a eigenvector. We do not count it. We want to have a non-zero solutions to this set of equation. What do you guys remember? When does that happen? If I want to have a non-zero solution, for when I say non-zero solution, I mean the pair of coordinates here. They can't be both zero for x and y for this vector now, which I've.破了壁。那，what does that require of the coefficients of this two by two linear system of equations?The coefficient must equal to zero. All the coefficients must equal to zero. No.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>嗯，我们不 necessarily need that. Randomly, you try, for example, if I give you two equation, x plus y equal to zero, I'm giving you basically a minus lambda. As if this matrix here, it's replaced by just one one, and then the x minus y equal to zero. Then, in fact, there's no other solution other than zero zero, no doubt about it. In fact, we can use Cramer's rule, right?And the Cramer's rule always would guarantee you both are zeros. So, in fact, we're looking for the cases that we can't use Cramer's rule, which actually means what? When would you have infinite many solutions for this? Elaine, think about it. When.Could you like move some parts around？哈，x equals y。 Yeah, you can. And you plug it into the first equation, still zero. You didn't do anything wrong by moving them around to get a feel for the solution. But I want you to think back. Generally, if you have a three equations and three variables, right now, two.方程，两个变量， usually there's a unique solution. But what we want here, if you really you you think about the choice for the x and y, we have infinite many solutions. Because if the x y is a solution, then if I double the two coordinates, two x two y, it's definitely also a solution. You can scale it, so immediately you have infinite many. But if you have infinite many solutions here, what what does that imply about the two equations?You can give me a hint so that you, if you want me to start talking, but otherwise, I'm waiting for you to really think about it. It's important idea. Wait, so these two solutions? Ah, no, I'm talking.In general, if we have a really just the arbitrary matrix here, if I have a a x and then plus a b y equal to zero, and then c x and plus a d y equal to zero, when do we have not necessarily a unique solution, which is zero zero, but infinite many solutions, which is what we want. We want to find nontrivial eigenvectors, right? Negative a over b.Must equal to. Go on, you're right. Negative c over d. Yes, and Catherine saying they must have the same slope, meaning these two lines must be parallel. They can be really one equation, but they look different. Uh, because that may not. In fact, they could be the same, but they could also be different. But the second equation must be a scaled version of the first equation. You.Can write the way that you said, but that necessarily requires the b not to be zero. Or I can write the a over the c must equal to the b over the d, but that's also requiring that the c and d are not zero. So I would say the neat way to actually write the same condition without having to imply or be conditioned upon one of these numbers is not zero is that you can actually do the ad must equal to the bc, right? That's another way to say that all the two slopes are the same.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>或 the coefficients are in proportions, right? Yeah, but to say ad equal to bc, isn't that saying that determinant this matrix must be zero? It's really just saying, and the necessary condition for that would be the determinant of this matrix now b and c minus lambda must equal to zero, right? That's really what it means. Yeah. Go ahead and expand it out. Ah, huh, yeah.啊，I love that sound. That you begin to see something，哈。Go ahead, go ahead, the sound for your lambda. Because you're going to encounter quadratic equation, you will see there are two lambdas.嗯。嗯。嗯。It is posted. What you're doing? Uh, multiplying the a minus lambda and the c minus lambda and using the quadratic equation. Very good. By the way, and at a certain point, you might well you can use quadratic formula, but you might also observe some of the at. And if you recognize something.That you had done earlier when we were dealing with a diagonalization, that shouldn't be surprising.嗯。</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>嗯。嗯。嗯。Tell me what's happening. I'm sure you both. Uh, I got the solution to lambda one, lambda two, and the.Only remind you the same solution as earlier, exactly what we had for the diagonalization of that quadratic. Right? In fact, for these two now, you're getting quadratic equations, lambda squared minus the a plus c, and then plus the ac minus b squared. That's the quadratic equation, isn't it? Yeah. Yeah. And then just from the Viet, you directly recognize it. Really means.是 lambda 一 plus lambda 二 equal to the a plus c， and lambda 一 times lambda 二 equal to the a c minus b squared， which is exactly the condition we recognize earlier when we try to identify. After this transformation， we're saying that something is being preserved. Back to the older matrix now， and what we had in the morning， meaning the trace remains unchanged. If you add up lambda 一 plus lambda 二， it should preserve a plus c。 Determinant remains unchanged。 That meansIf you multiply lambda one, lambda two, you should preserve the a c minus b squared. Then no doubt about it. In fact, we just end up with the same set of lambda one, lambda two. In the future, you don't even need to go through that elaborate game of a rotation anymore. You just know to find the eigenvalue. What do we do? We subtract. I'm I'm going to actually streamline, summarize what is the procedure to find the eigenvalue of a matrix. Now, what you do is that you take this M, you minus lambda I.You take the determinant, which necessarily would result in an n-degree polynomial regarding the lambda, which most of the time would give you n solutions, and set it at zero would yield n-degree polynomial. Why? It's n-degree polynomial regarding lambda. Why? Because for the n-degree matrix, n-dimensional matrix. Now, what you're getting is m one one minus lambda and m one two da da da m one and I'm spelling out all the terms, and that.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The M two one, M two two minus lambda, da da da, M two n, da da da, all the way till this is the M n one, to M n n minus lambda. You're subtracting by lambda only on the diagonal. When you take the determinant, you have to pick one element from each column and row, and multiply them together, and exhaust all n factorial such combinations, and you can see the highest power it can get. Eventually.It's all going to be a polynomial of the lambda, but then you get a combination of a complicated different powers of lambda. But the highest they could possibly get will be you have to multiply the whole diagonal together. That gets you actually the leading term must be the ninety-one to the nth power lambda to the nth power. That must be the leading term, and then after that you have a complicated other terms. In fact, here's a direct proof that the trace is being preserved. How come? Well, let us see what.Is going to be actually the lambda of the n minus first power. What's the entire coefficient? That means during this complicated grand expansion of the determinant, now we're looking for altogether n raised to lambda minus one power. Wouldn't that mean at least you've got to use n minus one of these diagonal elements? You can only skip one, right? So I need to use all of these now. But if you're using n minus one such,And what would be the remaining term? That means if I pick each one of these and minus ones, I pick all of these now. And then what element must I pick in the first column? I have to pick that one.I can't pick anything because we, in order to have a term here, we have to follow. We pick only one term from each column and each row, right? I pick this, this a minus one to get the lambda from them, but necessarily as a term in the final determinant, they have to be multiplied onto that term. But I can't have the lambda to the n power anymore. I've got to have a lambda to the n minus first power. What does that mean? That means you've got to actually one second.You've got to pick each of the lambda from each of these terms here, but then combine with that one, combine with the m one one. So you still have this whole product here. Except for you, when you do the grand foiling, we're gonna nail the term which is m one m one one, and multiplied by lambda one to the n minus first power, so many of the lambda of the n minus a lambda to the n minus first power, and that's one term.Did you trace what I talked about? Did you follow? Not really. How did you get though? I'm one one. Yeah. Well, visualize this. Maybe I'm gonna actually do a concrete one. If I have a a minus a lambda, and hold on, and this is going to be um a b and a c, and then theD and E minus lambda, F, G, H. Oh, I don't want to use I, J minus lambda. And you're working on the determinant thereof. Well, let's see how many ways can we get lambda cubed. There's only one way. You have to multiply. There are only three presence of the lambda. You have to be sure to multiply them together, right? And that means you have to multiply these three terms together. That gives you a negative lambda cubed.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Correct, yeah. Well, let's see how many ways to get under squared. To get under squared, at least you need to actually grab two of these. For example, I'm using those two, and not only I need to use those two, I'm also multiplying these two terms together, right? But the minute you're including those two yellow highlighted terms now, and then what is the term we pick from the third column to be multiplied onto it? It can only be this one.Right, yeah. But then I can't pick the lambda here because I pick the lambda necessarily. We're gonna have a lambda cubed, so I need to have lambda lambda squared. So I can need I only can multiply by the j. I have to multiply by the constant term here, and with those lambda terms. Do you follow? Yes. So that I know actually j appears, but the piSymmetry by equal opportunity. If the J appears, necessarily the E must appear, right? Yeah. And also A. So, is this pattern generalizable onto n dimensions? Yes. And do we see why? In fact, that term here you can write is a negative one to the n minus first power, and then inside all theCoefficients are the m one one plus the m two two，哒哒哒， all the way two plus m n n。 Yeah, yeah, you follow me, huh? Very good. And the n n哒哒哒， you know that polynomial is very long. But we do know, though, it's a polynomial of n's power regarding lambda. Make sense? Yeah. And in order to solve the eigenvalues, I need to set it to be zero.So I do said that to Zira, and I'm not going to solve it. It's just way too nightmarish. But from the Viet alone, eventually, remember, you know, this whole M matrix would be diagonalizable onto a set of lambdas. But even just using Viet, what do we know about the sum of all the roots for this polynomial? Which I don't even know the other coefficients. Now I only know the beginning few terms, but even so, that's enough. What's the sum of伊斯兰 does。嗯。Maybe because that polynomial is too huge, but in arbitrary a polynomial, higher degree polynomial, if we do the an, now.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>lambda to the n，然后 plus a n minus one lambda n minus one，哒哒哒，plus a n minus two lambda n minus two，哒哒哒，plus a one lambda plus a zero equal，come on，plus a zero equal to zero。 What's the sum of all the roots by using the at in the higher dimensional form?I think it was only depends on the first two terms. That's right. Very good. In exactly what manner?呃，喂。Equals the negative of this a n term minus one divided by a n. Yes, very good. So the sumSum of lambdas here actually equals to i goes from one to n now equal to a n minus one minus negative of the a n. Well, then, then can we apply here? Apply to this pretty complicated. That's our a n, and this whole bundle is our n minus one.Um， can you scroll up a bit? Yes.Negative. Negative one to the n power minus one over negative one to the n power.哎，That's part of it. And of course, after cancellation, there's always going to be no negative left, becauseThere's additional negative, but they differ by one power of the negative, right? So according to what you're telling me, would equal to a negative one to the n minus first power over a negative over the negative one to the nth power. But you can see they cancel. But then don't forget, though, there's more to the coefficient. That's what we were spending so much energy finding out by looking at the matrix. Also, um.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Is it just that term? If the negatives cancel out, yes, I just said that m one one plus m two two plus da da da to the mnn, right? Yeah, don't we conclude that the trace is being conserved? That's really saying if the two matrices after diagonalization can be reduced at lambda one, lambda two now, then actually the sum of the lambdas would equal to the sum ofof the original diagonal elements. This is a proof; it's a rigorous one for the result we had earlier, intuitively and just concretely playing out by the two by two matrix. Meaning, this transformation preserves the traits. Makes sense. Okay, I'm going to actually ask you a seemingly very complicated question, but actually should be very simple. What about the product of all the lambdas? Because earlier.Here it happened to equal to the determinant, right? That means for the two matrices, the determinant is also being preserved. Then how do we know? Also from this huge polynomial, which I haven't finished writing yet. And then what is going to be the? We concluded here the lambda sigma of the lambdas equal to the sigma of the mii going from the one to n. What about the grand product? This is lambda one times lambda two and da da da multiplied.By the lambda n, I'll tell you a trick. Also, by the end, when you do the multiplication of all the lambdas, we're anticipating to actually have a the constant term, right? But then, in fact, you don't need to expand it out. There's a very neat way to get hold of the constant term. Do we know what that is? I'll tell you a trick. Meaning, if you want to find what is constant term of a polynomial, you can plug in a nice number.To find it, you don't need to worry about how many ways can we go without lambda to multiply out the rest of the m. It's just way too complicated. It's truly nightmarish. I don't even want you to think about it. But if you want to know what's the constant term of polynomial, what's the easiest way to do it? Plug in lambda equals to zero. Yes, brilliant. But if you do plug in lambda equals to zero, what do you have for this determinant? Isn't that just the determinant of the original matrix?Yeah， yeah， Santan， you have also proven that the trace is being preserved. Determinant is also being preserved because the product of all the lambdas it's naturally the determinant of the new diagonal matrix. Ah, you both did very well. Be sure to just reveal the whole story. Okay, think about it. Look forward to seeing you next Saturday. Keep up with good work. Bye, bye.拜。</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

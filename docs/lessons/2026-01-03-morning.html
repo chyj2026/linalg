@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-01-03">
+
+<title>Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 3, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Finishes the convergence bound for Σ 1/n^(1+ε) via telescoping (with 1/ε leading coefficient), then derives ζ(2) = π²/6 by treating sin(√u)/√u as an infinite-degree polynomial and applying Vieta to its reciprocal.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Σ 1/n^(1+ε) bounded (telescoping with power-rule coefficient)</li>
+<li>ζ(2) = π²/6 via Vieta on power-series of sin(√u)/√u</li>
+<li>σ₋₁ = coefficient ratio from reciprocal polynomial</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the same technique to compute ζ(4).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Long detour where Lucas describes 3Blue1Brown’s lighthouse proof; teacher pivots to algebraic Vieta route.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/17Aul5MZl4VYAlmOQbrw_moNnr-aFtguE/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/17Aul5MZl4VYAlmOQbrw_moNnr-aFtguE/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>It has to do with a lot of mathematical nimbleness, ingenuity, and eventually connections among seemingly not connected areas, but they are all connected. Okay, now let's go back. We find out Riemann theta two, obviously, and we went on to investigate what is the lowest lowest power I can put on the denominator to guarantee convergence. We got to this point now. We're dealing with the sigma of one over the k of one point one.Going from a one to infinity, and that somehow still has an upper bound. We managed to expand that a little to confine it under a finite number. So, Lucas, would you be kind enough to give me a quick summary of where we were and how do we finish the proof? How do we generalize it onto? This is a very strong conclusion, meaning the remainder of one plus a very small number epsilon. Usually, we mathematicians reserve epsilon delta. These areThe typical favorite notations for very, very tiny number, and no matter how small the epsilon is, this is guaranteed convergence. So, Lucas, I trust you most. We were we were trying to prove that the using a one plus epsilon, because that because it's greater than one, we were trying to prove that this this is has to be has to converge to a finite number.呃，呃，In fact, you don't have to finish the entire journey. You just need to recap for us where we were.呃，Why did we think of something like what we did? How did that connect to the proof of convergence? And hopefully, you can finish the journey for us. So we we started off, but we we we can we prove that呃，when we when we just do one without an epsilon, then we know that it's infinity because we can split呃，the whole sum into groups of one half, and since we haveIt's an if it's sum each their infinite groups of one half, so we get so it adds up to infinity. Whereas when we have it to two, we know that it's pi squared over six, I believe. Yes, we actually got the. This is actually we found exactly what it converges to from the calculational point of view, because we connected to the Viet of infinite many degree polynomial. We constructed the sine x over the x now to carry all these. Ah, not exactly the two squared the three.k squared, k squared here, but instead we scale them by the pi, two pi squared, three pi squared. You know, this is not generalizable. When we investigate, oh, sorry, I miswrote here. Then that's not Riemann theta two. This is Riemann theta one point one. And but before that, we did prove the convergence of Riemann theta two. So that Riemann theta two is exactly what you captured. But you know, we can't really solve that Riemann theta one point one. We have to only really just be satisfied with.Proving it converges, and that's a qualitative view. It's different from actually finding what number it converges to. So, I want you to recap and reconnect back to what we did here, so that we can finish that proof today. That's our journey.嗯。</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Emma， would you rather tell the story for us? I remember we set up the the in ah the this hypothesized thing ah inequality， and then we worked the out this n to the zero point one minus n minus one to the zero point one， and on the denominator was nMinus one to the zero point one and and to the zero point one。 Oh, very good. And we actually figured out we got some inspiration from the fact when we proved the Riemann zeta two, we did a split. We changed that actually k squared into the k and then the k minus one, and this is first the power. And we just very boldly hypothesized, why don't we just try lower that power by one? And indeed, that worked. So.We almost proved this. Zero point one on the power actually does work, except for not like this. Yeah, this is not correct. We have to modify it by what? We encountered some additional coefficient during the process of doing that binomial expansion. So, Emma, could you finish filling it in? What is that additional number in the front? We got the coefficient of ten and yes, that's really the one over the zero point one.So in fact, we figure out it's not quite true, but we can tweak it ever so slightly. It will be true. There's a one over the zero point one here. And actually, if there's anybody here who's able to understand what's going on, you know, I think Eddie, can you give us just tell us what this is about? I'm going to give you a hint, Eddie. I'm not expecting the rest of you to know it yet, but next year we all will. So, Eddie, we're summing up this one over the n one point one approximately.You know, if you think of it as Riemann sum, would that be roughly equal to an integral of this function? Our dx would equal to one. It's as if you're just, for example, you're graphing this one over the n one point one. Now you're adding, for example, when n equal to one, you're adding this area. This is where n equal to one, that equal to one, that's n equal to two, this equal to the one over the two one point one. Da da da, Toby.Is that a right side Riemann sum? Yes, it is a right side Riemann sum. No, no, it's a left. Well, depending on whether you're doing the integral from zero, but we're doing the integral from one to infinity, so it's a left side Riemann sum. A left side Riemann sum. Left side Riemann sum. But then, Eddie, what is this integral?嗯，Tell me， would it be um hand x to the zero point one?哦，It's this is a x yes and Eddie you can give us the complete answer. Uh, negative ten over ten ten root x. Yes, it is actually what you meant is this right? And you start off by x to the negative zero one. That means when we take the derivative, the power cancels out with the coefficient, and actually give you when you take the derivative.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> altogether you just have this, which is exactly what we're integrating. And if you don't know how to do the integral, that is why I say this unit it is it is so important. Elaine, do you get the same? Yeah. Earlier when we did, we tried this out. Did you think of, oh, that number isn't that just anti-derivative? This is actually the anti-derivative with the two boundary points plugged in. And, yeah.This is actually the antiderivative of what we have. Oh, yeah. And when you plug in the two boundary, the negative is being absorbed. In fact, or minus in the higher boundary from the lower boundary, even the negative sign has its right place. So hopefully, something plus ten. No, it's not. Not something plus ten. It just that the no the one is not even included. Toby, you're dealing with the boundary condition. Finally, I will finish the whole proof to see how to be careful with what's happening on.边界，Okay， but in any case， we did prove this now， and then we're able to finish off。 and If we're actually summing up all of these， our goal is to be able to confine k one point one k go from one to infinity under。 But here， remember every single one of the k to something is split between one of the k minus one。 So can I split from the first term？ We can't， hoping you see that first term is not included。 Otherwise， you're getting one over the zero。So we have to separate out the one here, and starting from the second term, which really comes from a one over the two to the one point one. But the split tells us this is actually one one point one and the minus the the one over the two. Sorry, zero point one. That's zero point one. And then you're adding the plus one over the two of the zero point one minus the three zero point one. Da da da da da. Don't forget, there's actually that coefficient of the ten up front. So.The final answer would be it is successfully confined under one plus a ten. That's it, because one to whatever the power is still one. Toby, I know you probably somewhere you missed just a little detail, but you were playing out something similar to this in your mind, weren't you? Yeah, so that's our final answer. In fact, we know for sure. We don't know how close it is to eleven, maybe not quite, but we do know for sure now. This summation is confined under.The number eleven. Everything is connected to everything. Okay, you won't find any of this in your textbook, even your college calculus textbooks. So please be sure to take notes and connect them together. Because I can guarantee you, next year when we come back to this place, the majority of you won't remember. I have the feeling that Lucas and Emma and Elaine would remember. I'm actually not sure about Eddie. It depends on how you connect things, how you retain them.But I say that they would remember because they have demonstrated their ability to go beyond homework and weave things together to really just make it digestible for themselves. Say it, say them in a different way, internalize it. And Toby, I'm not mentioning you because you know that already. You don't need to. I don't think you actually need to learn this. You you just needed to, well, reinvented yourself. Anyway, let's come down to here.And so we actually prove that. Oh, in fact, for tiny little number above that one here, we can guarantee convergence. Now, let me. This this step is trivial. Now, if we're summing up one over the k of the one plus epsilon, going from the one to infinity, and how do we confine this? This is going to be smaller than strictly smaller than one. We're really just generalizing what we did. Yeah, we do can mean that.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Can we just do what we did before? Yes, I only want you to. You don't even.Even need to show the divisional process anymore. Just tell me the final result. Wait, the power of the k is one point one, right? Earlier it was, and we can find it by thinking.through that integral, or basically, when you break one term down into the difference of the two adjacent terms, that power becomes it went from one point one to the zero point one, which is the result of power rule. What about this one? What does it say? It's one plus epsilon. Sorry.嗯。Excellent， that's it. And there is some confusion though. You mean epsilon? It's three by coordinate. Yeah, that's exactly right. However,However, Elaine, be careful. I later when when I carried out the executional details here, I left out the first term one because Elaine, if you plug in the n equal to one, what are you getting? Oh, yeah, the one on the side is one over zero. Meaning you actually have to start from where two. Yes, you have to start from two. That's it, and then find.What is the leading coefficient? All right, and so now we know convergence. Just to incorporate what you have learned so far, and also I want to wake all of you up now. Participate. Could you find me what is remainder four? There's no new knowledge point. You know everything. Copy from what we did for remainder two, because they're apparently very borrowable.Emma， would you do me a favor? I found it a few times. Your homework. I usually want to save it on my computer for illustrative purposes for later students. Now they're really good. Would you mind putting your name on it? Okay, I will. Thank you. Starting from now on, I really appreciate that. Also, I don't think we proved the Roman set.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>到 two converging to pi squared over six yet. We haven't. Not in the Tuesday class. Oh, really? I don't remember doing it like as a group. Oh, really? Now I completely misremember the class. Yeah. Oh, okay. Well, let's actually do Riemann theta two. And did we not say we're actually okay? I didn't even get started, or I just didn't finish proving it. We talked aboutthe one plus one over two squared, and but like we never prove the convergence. No, we did prove the convergence because we proved we we broke this down into the one half, ah, one minus one half, and then plus one half minus one third, because this is definitely smaller than the one plus the one times a two plus a two times a three plus one over the three times a four, right? Right?And that one can be broken down in this form, because it's just really one over the k of the k minus one, which is equal to one over the k minus one minus one over k minus two, doesn't it? Oh, we didn't prove the value. Yeah, we proved the right. We proved the convergence, and we didn't find the value. No, really. Somehow, huh? Eddie, Eddie, Lin, could you confirm we actually didn't find the value of the Riemann theta two?Sure, I wasn't here last week. Right, but you haven't caught up with the recording. It will take your time. Okay, let's let's move on. Okay, here's a hint, and you know these numbers are. I'll tell you what the answer is, and that equal to the pi. Sorry, yes, pi squared over six. And you might wonder where does the pi come from? It comes from a construction to our advantage. You know, if we want to add all these reciprocal of the square root now, I'm gonna actually Toby.You go ahead. It has to do something with circles, right? Yes, yes. And well, it doesn't directly have to do. Well, you you can't really graphically. We could make a million circles with like pi r squared. You know, we could add them all up to get a sector. Toby, don't get started. You know what is a very insightful comment, which is just being naughty. And for this one, instead, Lucas, you tell us.I'm not sure if this will work, but in the past, I was actually curious about this, and I searched it up. And the solution they gave us was like we start. They started by proving like if you have a line and the midpoint, they use lighthouses to, and they said that like they have a mid, like a like a origin. They said that the light coming from all the lighthouses will add up to this. Say it again. What would add up to this? So, like, they had they had like a一个origin point， like stay right there. They they said that like a lighthouse at distance one gives provides one light, a lighthouse at distance two provides. Oh yeah, that is right. That's following the inverse r squared. Yeah, so they use that to take advantage of the of the series, and then they transformed. They made they did like a mini proof, so that so they did like if you connect a line here, you can move like a point here to make a light now.Here and here, and you still get the same brightness from all of them. And then after that, hold on, hold on, don't mumble. I clearly lay out what is the logic of the proof. So they had like they had two perpendicular lines. Give me a second. I'm not sure the and then they connected the endpoints like that.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>the exact logistics, but they had a point on this line, and they did a proof that the light going coming that this point receives is the same from heat from this point versus the two end points over here. Ah, the that midpoint is arbitrary. The location. I'm not. I don't remember the the if it's arbitrary.呃，这是 actually the the foot of the altitude. Yeah, I think it is. Yeah. Well, then what we do know, if you call that actually the s one, that's the s two, that's the h. Now, what we have is h squared actually equal to the s one times s two. That means whatever it is a distance, the light coming from here to that point here would be proportional to the geometric average of the light coming from those two.两点， not the sum. No, geometric average. But then what? So they then they then applied that, so we could have, oh, give me a second. So they they drew a circle. They drew a circle. Like that, and then, let me make it bigger. So they drew a circle like that. So then they move the origin to the bottommost point, like like that, and then they put a lighthouse at the top.And then they said that this distance we can really find if the circumference is one. And then the oh I see, no circle, and then uh apply apply this up here to move it around, and then in the end we have哎 hold on hold on hold on hold on slow down. What do you mean by they double the circle? Like they double the circle's radius, and they draw another one, but with the same, but it also has. Here, let me show you. So like.Give me a second, Japan. So it's it's like that. It's like that sort of, and then they aligned it like that, and then they move the, then they draw drew tangent lines from this circle to the to the哦，我知，它就是像这个。等一下。这个稍微小。所以，就那样，然后他们就，把灯塔搬过来了。所以 that there's a lighthouse here and a lighthouse here. They said that because of the the proof we just did above, the the light. Wait a second, we didn't prove anything. This is not the quantity you need. Actually, Lucas, I suspect what you really wanted just Pythagorean theorem. You're saying the basically whatever the lighthouse over here receiving the light from these two would equal to, but it's actually inversely proportional. Oh, I see.So we're actually saying one over the h squared equal to one s one s two, but that doesn't equal to one over the s one squared plus the one over the s two squared, though, unless you're using the golden ratio. Is this triangle special? No, I think a previous proof was arbitrary because they they and are you actually that's exactly which is the sum of which two? We need the foundational.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Effect here. I'm not actually seeing you. You seem to be meant to say, to mean to say that somehow, and one light intensity equal to the sum of the some other two light intensities. Tell me exactly what they are in this in the above construction. So, so this point is like an observer, and so and then they said that the light light received from this point and this point sum up to the light received.哦， okay， yeah， yeah， that's not what I thought you meant. Yeah， so fundamentally， that's actually prove that fact. Now， Lucas is actually saying， the proof that they made was a kind of intuitive proof. They drew like a lot. No， no， you you don't need the intuitive proof. We're just trying to prove this， the one over h squared plus one over b squared equal to the one over h squared， right？ Yeah。 Okay， well then we're gonna find。Whatever this, oh sorry, common denominator. What you're getting is actually the a squared, the b squared would equal to the c squared, not by Pythagorean sum. Elaine, I can't look at anything that's going on there. I'm not blaming you, but you can do a better job communicating your face to us. So this is actually equal to one over h squared, which amounts to saying a b would equal to the c h, and definitely that's true because both give you the area, right? Ah.哦， yeah， okay。 So this is a definitely a brilliant fact that could be exploited. That's very good. So that actually means. Rotate the triangle, then and then made a triangle right there. Let's actually look at. I'm gonna actually move that picture away. What?Okay, now clear your your ground for us, and again carefully lay out just exactly where we what how we're using the points. So we started with a circle, like that. You you don't need to erase that. I don't want to spend time reconstructing the circles. I'm only erasing these. Yeah, that's good. Why do you get bring back the graph? I'm only erasing those these accidental lines that we put on it.啊，Hold on, hold on, hold on. Forget about it. I'll quickly draw it. Let's get to the point. You got a big circle, you got a small circle. They're actually tangent to each other. Big circles, there's a diameter, is tangent to the small circle. Okay, begin your construction. So we we set the point at the very bottom to be the origin, the like the observer, and we and we have a point there. We set.That they said that this length, that's one. And so. Hold on, the arc length or the direct distance. So just the circumference is equal to two, so that the radius is. Oh, hold on! Semi circumference is equal to one. Semi, yeah, semi circumference is equal to one. Then why don't we scale everything with the pi? Because it's just awkward. Okay, if that's the case, your diameter is equal to one over the pi, uh, one over two over the pi. The radius is equal toThe one over the pie, right? Yeah. All right. And so, from there, they then they then use the theorem that that we just proved. And so, they drew a triangle right here. They drew a triangle right here, and then moved that, and then moved this the lighthouse right here to a lighthouse here and lighthouse here. Hold on, hold on, hold on. What do you mean by oh? So you split that one, you erase this one, and move them up.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>appear， yeah， very good. okay, continue. and then they recursively use the formula infinitely many times because of the wait, wait, wait, hold on. so right now you got two copies of the same distance. you don't get a sequence yet. if you remove them, then you're gonna actually again. oh, then you keep one. you do not remove that one. yeah, you they keep both there, and they know that we know that. and you actually change that into actually that one at.and this one, so in fact, at the moment now, the three light sources are one second. Oh no, no, so no, they. So this is one which stays, and the two becomes two and three. No, they drew another twice big circle around the large circle. So we draw another. And then they drew tangent lines again, and then split the lighthouse, but making it.so that the lighthouse is one away, two away, two one away, two away, two away, one away. What do you mean by one, two, one away, two away, two away, one away? It's like this length is one, this length is two, this length is one, right? Yeah. So then, with double the circle, and I, I, I imagine splitting the lighthouse, they then made the distance along the along the circumference of the circle from the objective.从 the observer, so the first lighthouse it's one away, and then the second lighthouse is two away from the first lighthouse, and then. And where are they? Where are they? And so, like, so like they drew another circle even bigger, like that. The circles are just a pop. Can we forget about the circle? We're just considering right triangles, aren't we? No, they drew a circle.然后 they they use the fact that if the circle's radius is infinitely large, then the converges becomes a straight line. and then they they so then the distance would become no, we're not there yet. that that's the end game. just construct the beginning of the sequence for me. okay, then I'll let you draw the next circle. where are the new lighthouses? so they're not here and here. continue. the the next one would be like right here.And the that radius is what double of this, right? Of this, so that becomes four now. The diameter is of the large circle is the radius of the third circle. So every time we're doubling the radius. Yes. Okay, double again. Therefore, I'm gonna actually double it here. So this is what we have now. And then what do we do?Then draw tangent lines like this. At that point. So that it intersects that that point, yeah. Oh, I see. So we're actually going to split that lighthouse into these. Hold on, this is a. So if we actually draw a tangent line over here. Yeah. Then.And do we know where that end point is? We don't know. But then we're just gonna actually draw the tangent line. And then the point is, we need to construct a triangle. And which must, come on, sorry, which must be mean that these two points here must actually form a triangle. But that's not even if it is a tangent line. That's not right angle because this is a right angle. You can't draw a tangent line.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Like this, a tangent line. It's a, it's exactly like that because that's the diameter. So maybe that is what you meant. Hold on. So Lucas, do you mean this now? And at earlier, we actually had a tangent line. So this is a, it's halfway point, right? Well, then if you actually draw another tangent line, it would be like this. Yeah, yeah. But but then where is the三角， then like this, I think. Oh, sorry. No, that's not the diameter. The diameter. That's not the right angle either, because that's not the diameter. This is if you cut at.O P，呃，O P is not the diameter， therefore it's not a right angle。 Oh。 I like this very much。 However， you haven't really shown us how to work it out。 Hmm。Can you actually retrieve that source for us? Because I really want to do share this with all of us. Okay, let me try to find. Yeah, it looks very interesting. Hmm, let me take the idea and see whether we could build uh some kind of proof following your route.I really don't see that immediately. It's it's by three blue, one brown. Okay, I then they call it the Basel problem. The Basel problem, yeah. Uh-huh. Can you send us the link?WeChat， actually， after you don't send it here， nobody is going to watch it right here in class. Okay. Thank you. Wow, I look forward to that very much. I love three blue and one brown. Okay. And however, we're actually solving it, utilizing the power expansions. So back to this is the sequence now, and we're adding. Let me just re-summarize what we're trying to add. Now since we sort of know it's somehow connected to pi, so instead I'm going to do a Raymond.π²， divided by the π²， which really amounts to one over the π² plus one over a two π² plus one over the three π²， etc. etc. And if we're adding a bunch of numbers here, one way to do it is to use Vieta. We're going to actually consider: can we find a polynomial? This is an infinite many degree polynomial because it has to have infinite many solutions. Now, for this infinite degree polynomial.The roots, I want the roots to be before we get to the one over the reciprocal. Now, let's actually first construct the polynomial where the roots are simply pi squared, two pi squared, and then the three pi squared, etc., etc. And if you can't immediately think of something like that, well, maybe we can start from a just k pi, where the k are all the integers. They're not the same, but we could easily square this one to get that one. That's quickly done by renaming a.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>variable。 For example, if I have a polynomial of x now, where the roots are these, and you can bundle up x squared into a u, and then these would be the roots of the u now. And then we could apply the to look at what would be the sum of all the reciprocals of the roots. We know how to do that. That's old piece of knowledge, right? Then could we immediately come up with a polynomial where the k pi's are all the roots?嗯。Lucas， is your mind here? Yeah. It doesn't seem to be so. I can you can find me a polynomial where all the k pi's are the roots. Remember, arbitrary function are always expandable into polynomials. So when I call for a polynomial, you can give me an exponential function that qualifies, because we can do a power expansion, right?有它，好比 e 的 two i theta minus one。 Why do we even have e to the two i theta minus one？ You mean this？ Because all the k two i theta two i theta all the k pi's are roots。哦，OK，你 can do that， but isn't there something a lot simpler? Can we just do sine x? Oh yeah， that works。 But tell me， your construction is good， it's valid。 If we do sine x immediately， we're getting all the roots， but we don't want。 There is one root we don't want， which is x equals zero。 That's not even included， and you can't reciprocalize that。 But if you really want to apply the ad， you cannot leave。outside, leave out any root. So we really do need to get rid of a x equal to zero. So what do we do? When you want to get rid of a root, you get rid of the corresponding factor, don't we? So we divide by uh one minus zero. Wait, no, uh like zero minus one. No, x minus zero.We divide by x minus zero, so we just divide by x. Indeed, we just divide by x now. So let's look at what kind of polynomial we're even looking at. If I call that the, in in fact, it's an infinite, many degree polynomial. Toby, go ahead, lay it out, write it. Isn't that one? No, when x is approaching zero, it's a it's a removable singularity that's approaching one. But I want the whole polynomial. Otherwise, if you only evaluate it at a certain point.点？How would you apply the at? We actually need the polynomial function, don't we? So let's write what that function is. I'm a you're writing down the factored form, knowing all the roots. Is that what you're doing? Yeah. Okay. Good, you can do that. But how do you know the leading coefficient, though? I mean, you're not wrong.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>But nevertheless, though this would never end, and you won't be able to find. We have learned what is the polynomial expansion. What's the power expansion of sine x? Have we not, Toby? Well, maybe we could find this the area of the integral. We're not doing any integral. Can you follow? I'm giving you a lead. We want to expand out this polynomial so that we could apply.apply the ad to it backward, so I don't want to factor the form. We've learned how to factor the numerator. We've learned the power expansion of sine x now, because it's just the e i x imaginary part. We learned what is that exponential function by definition. Emma, good, you're right on target. I have the feeling Lucas got it too. Yes, Emma, that's what we want now. So if we're going to divide it by the x now, what we're getting is one minus x squared over the three factorial, and then plus x fourth.Over the five factorial minus x six over the seven factorial, etc., etc. That makes sense. Yeah. Okay. And for this polynomial, on the other hand, we do know it factors factors down into basically one and a minus a well pi, and that's the first root, and one plus a pi. Basically, they give us a positive pi and one minus a two pi. Or, in fact, this is where sorry, that's not a one, that'sx， my bad， I just miss wrote， and x plus a two pi etc etc， but at this moment here knowing that eventually we have to rename the variable， we have to make sure that actually k pi squared are actually all the roots now， so at this moment have we not effectively found out what is the polynomial regarding our new variable， so that let's call that u now， so that this is a polynomial of u， so that all the roots are directly pi squared， two pi squared etc etc。Lucas， what do we have then? Wait, this is we we have an infinite factor form, right? This infinite term, so factor form. Yeah, no, we're not writing down the factor term form here. We're writing down the power expansion so that we could apply the at.嗯。What are you thinking? We have already found a polynomial where the roots of the x are k pi. We're building a polynomial where the roots are k pi squared.What is there to think? Co呃，the co as the like coefficient of like, wait coefficient uh constant coefficient is negative x times x times negative two x etc. So it's just infinity. Can I repeat what we did?</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>This polynomial, being the sine x over x, all the roots are just all the k pi's. The positive, negative i, a pi, positive, negative two pi, etc., etc. That's not what we want. We want k pi squares. Where is that polynomial, Toby? Sine root x over root x. Ah, well, sometimes I need you. Could be brilliant, and sometimes.I have to say, kids are just. That's not wrong. You could do that's the sign of the square root of the x. Yes, indeed, a k pi squared would be the roots thereof. When you do the expansion, and then we divide by the root x. Now, what are we getting? Wait, did I not write down over here? If you actually want all the squares of the roots, now you just reset the variable u equal to x squared and rewrite this polynomial into.A polynomial of the u, isn't that just one over one minus u of the three factorial, plus u squared over the five factorial, minus the u cube the seven factorial?哒哒哒，We just do a replacement. Does that make sense? Oh, Lucas, does that make sense to you? Yeah. Why do I have the feeling you are still thinking about that three blue, one brown? I'm not.You're thinking about this, yeah. Well, then your mind you just checked out. Bring it back, would you? Okay. Okay. Now, residue. Do you follow? So, this is a polynomial where all the roots are exactly what we need. They're k pi squared, right? Finish it. Find the remainder two for me, because we're just finding all the reciprocals of the roots. We used to call that sigma negative one, did we not?嗯。嗯。导数。呃，Could we rewrite it as u minus pi squared times u minus four pi squared? You can write it. There's actually no need when you apply Viet. Why do you want to write it as a factor form? You actually want to write it as a power expansion, don't you? Because Viet tells you exactly.Relationship between the roots and the coefficients. If you factor it out, you're hiding the coefficients behind the parentheses. Now, we're just looking for what is the reciprocal sum of the reciprocal of the roots. Guys, let's review this: four x cubed minus seven x plus one. What's the sum of the reciprocals of roots? Sigma nine to one that actually equal to the one over x i, i goes from one to three, which equal to one over the</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>x one plus one over the x two plus one over x three， what does that equal to？ We get， uh， wait， we we first we divide the whole polynomial by four， so we get x， uh， we get x squared， x squared minus seven over four x plus one fourth fourth， and from Viet we know that the product of the roots is one fourth and the sum是 seven over negative, just seven over four. So when we when we divide, we get seven. Indeed, in fact, you bundled up two ways to solve it. First of all, you can just find the common denominator and look at the bottom, which is sigma three on top at sigma two. Because when you find the common denominator, what you're getting is, Toby, can you stop writing that? Right now, it's really a distraction. It doesn't contribute anything to our solution anymore.So on the denominator, you're getting x one, x two, x three. On the top, it's x one over x two, x one x three plus x two x three. So this is sigma two over sigma three. And via direct calculation, the sigma three actually equals to the one fourth. Sorry, this is a negative one fourth because it's the last coefficient divided by the leading one. And the sigma two, it's actually what?Wait, is that did that say x the x times four cubed or x four times four squared? Cubed. Otherwise, how do we even have three roots to begin with? Okay, so we know that sigma we know that uh one is sigma three, two is no uh sigma two is seven, and then in this case, if we wanted sigma one, that would you're not even talking about. I'm not summing up. I haven't taken the reciprocal polynomial until after this.It's polynomial. The sigma two is actually the negative seven over four, isn't it? Sigma one is actually zero because we're missing the square term, isn't it? Yeah, I was gonna say that. Well, that's not what you said. Isn't that what you said? Oh, I forgot about the leading coefficient. But that's not Viet. So what after you cancel, you're getting seven. Lucas, you did it excellently. You didn't.Actually, useless. You use a different way. Lucas is reminding us we could directly change the sigma ninety one into the sigma one about the reciprocal polynomials. Which means if we want the reciprocal, so what did Lucas do? Did you guys hear what he said? Correctly, brilliantly. In order to accommodate, in order to accommodate these reciprocals here, he actually constructed the polynomial so that the reciprocal themselves are the roots.And what is that polynomial? He divided that polynomial by four. No, he divided that polynomial by x cubed to put the x on the denominator. He contracted the reciprocal. He divided it because we're solving that equal zero. What he did is this, right? We're dividing the entire polynomial by x cubed. Lucas, that's what you did.Yeah, and then and then and then you read it backward. So this is really a polynomial regarding the one over x now, which is really would equal to the one x one over the x cubed. Then the roots here directly are reciprocals. And the minus seven of the one over the x squared, we're missing the linear term and plus of four. Then we directly apply yet sigma one, which is simply plus seven. Lucas, you didn't forget to divide by</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>I four, you were operating on a different polynomial, which was brilliant. But you should listen to my question, though. I change it into I need to give the rest of the kids actually both of the solutions. So I I'm still doing this sigma according to this one. That's why I found the common denominator and rewrote it as sigma two, sigma three. That question pertains to this polynomial, not your reciprocal one. So for this polynomial, if I want to do the same thing, I do have to divide by four because the leading coefficient.Exactly. Confusion is just one. Exactly, exactly. That looks like a zero. Okay, so is that clear now? How we figured out this is a review of Vieta. How does that apply? How does that actually help us finally solve our infinite Vieta, which is our remainder tool back here now? So we have already found out this is our polynomial. This is the polynomial we're working with.And satisfied gives us a whole set of the roots. Now, the set of roots are simply these, and we're looking for the sigma ninety one. This is actually the Riemann theta two divided by the pi squared.Maybe you should place what we did side by side with here. I notice sigma ninety one has to do with not the leading powers, but rather the ending powers. The leading powers are infinitely postponed. It's infinity degree polynomial. We shall never live to see what are actually the highest powers. So if you want to directly apply the ad, we shall need to know what is the leading coefficient, and that is impossible because this term here never shows up.它在很多国家都有很多的影响力。嗯。Lookers， what？ Look how were you there? That you already solved that。We just have another polynomial now. Although the only difficulty is it goes on forever, so we don't know what is the what final a n u n. So if I really ask you what is the sigma one, your answer would be we don't know. But more personally, it's obviously infinity because you're adding these, or pi squared, two pi squared, three pi squared, or etc. But fortunately, we're looking for sigma negative.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>One. Elaine, what are we getting? Emma, isn't it just negative one over six? Tell us why that is so.Because it's the coefficient of u on the first term. Is that what you did earlier? When you actually reverse that to look at the reciprocal polynomial, by applying the Vieta to it, which divide by which. More carefully, but I'm sure you're getting it.Toby， so would it be the one over three factorial over one? No negative.Negative. Toby is realizing this is a. Can I have some attention from all of you? Now, this is already reading backward. We're actually looking at the least power first. When you take the reciprocal, this will be the leading power. So, for the reciprocal polynomial, where one over the u are the roots now, this is the leading coefficient, and that's actually our a n not equal to the one, and that's for the reciprocal polynomial, and then.The a n minus one just equal to ninety one over six. By applying the Viet here, we're getting the negative of the a n minus one over the a n, and which means we're just getting one six, correct? Now we're done because we have just. Done. Well, look at what it is. It is actually, remember this is sigma ninety one. It's equal to the one six. That is a remainder to divided by the pi squared. Oh.哦，it is。 So that obviously the Riemann theta two just equal to pi square over six， right？ Oh yeah。 Yes。 Homework， could you guys use exactly the same technique and find me what is Riemann theta four？ Would you？ Okay。 Look forward to seeing you。 And next time remind me that we're here。 By the way， Toby， it's not tedious。 It's just the。我感觉我可能知道。哦，你确定？如果不知道，High Force over，呃，Yeah Yeah，那是个好的开始。Over 120。Hey Bye，That's certainly not right。Okay Bye。Thank you。</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

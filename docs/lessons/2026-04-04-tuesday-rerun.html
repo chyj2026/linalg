@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-04-04">
+
+<title>Linear Recursions via Companion-Matrix Diagonalization (parallel class) – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linear Recursions via Companion-Matrix Diagonalization (parallel class)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 4, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Same lesson content as Saturday 2026-04-04 morning: solving second-order recursions via companion-matrix diagonalization, introducing the Jordan-block structure for repeated roots.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Companion matrix M^n via V·Λ^n·V⁻¹</li>
+<li>Jordan-block treatment of repeated eigenvalues</li>
+<li>Generating function 1/(1-λx)² = Σ(n+1)λ^n via C(-2,k)</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Brayden to explain his generating-function partial-fraction derivation.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Closely mirrors but not byte-identical to Saturday0404morning.txt; appears to be a parallel/Tuesday-class version with new student Brayden.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1cHSy7X-O3sgtZ5qSQkL8951BHbp4tgMx/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1cHSy7X-O3sgtZ5qSQkL8951BHbp4tgMx/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>For the recording, please. So, we were on the trajectory. What? What? Okay. 嗯。 Okay, one second. This is. Okay. Now, we were on the trajectory to give a linear recursion, and especially we're interested in the case where we get a double root. If we use the characteristic equation.Method. So let me repeat where we were. We were on, for example, you're getting actually f of n plus one equal to four times of f of n and minus four times of the n minus one. And from our method of basically using the linear recursion, we change it into a geometric sequence, and we almost recovered how to do it using actually I finding the characteristic.eigenvalues actually of the curvature function, and here we change it into x squared minus four x plus four at zero. Is there anybody who doesn't know how to go from that equation to this equation? Eddie, do you understand how we went from here to here? Yeah, I I remember from from we we.And I will go ahead and find the two eigenvalues for us. Uh, what are eigenvalues? Eigenvalues are the roots to this characteristic function. This is called a characteristic function describing a linear recursion.And its two roots, x y s two, are the two values. Lucas, I know you know it, but give Andy a chance. Actually, equal to two. Yes, it's a double root. And how do we use it to build our final answer? Earlier, we learned we did prove if the two roots are two and something else. At this moment, we're ready to write the final conclusion. Right.We can just immediately say f of n equal to the a root two to the n power, and then plus the b of the other, which I call the x two to the n power. If the x two doesn't equal to x one, however, now I can't do that because if it happened to be a double root, these two are combinable, and the b it's absorbed into the coefficient of a, and then we lose one degree of freedom. You know, I can say this is part of the solution, but there's no way for us to choose the a to meet.Need the two given conditions of the f zero and f one. You can't choose the a to satisfy both. So necessarily, in our solution, there must be two degrees of freedom, meaning there must be two parameters for us to choose in order to accommodate two initial conditions. So, which is the missing part? This question is open to everybody. Remember how we solved it earlier, Toby.When we we like added all the terms and multiply them by two, I mean added all the equations of the G n. Yes, that's right. Now Toby is actually saying he's recovering the logic behind it. Knowing two is a double root, now we could immediately change this into another first-order linear recursion by minusing two to.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>2 as a root here would equal to. Braden, would you finish the right hand side of the equation for us? Um, is it 2fn minus 4fn minus 1? Correct, but how would you rather write it? Ah, oh, 2 times fn minus 2fn minus 1. Correct. How do we solve it from here?Um, this we get this is g, and and this is g n minus one. Correct. So that's directly a geometric sequence. So I can write it's two to the n times a now, which is really just the f of one minus twice of the f zero. This is basically what we call the g zero, right?那 G 零，它只是个数，这是 not a variable，只是个数，and that's manifestly a geometric sequence， meaning as you define it， the quotat g of the n quotat g of the n minus one， and the next g would always be。 by the way， this is for arbitrarily n， it's always true， and every single time you double g， so can't I write down the general formula immediately as a geometric sequence？ Would that equal to two to the n multiplied by the ininitial term president. I'm asking you. You're muted. If you said anything, um, can I have a little bit to think? Oh, so you don't know.等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等比数列。哦，等三乘三，哒哒哒哒哒。Eventually， you do the three times one hundred to go from the a zero to the a one hundred. Generically， you're getting the a n equal to the a zero plus n of the d. d is a common distance between the two adjacent terms. Brilliant. Is that obvious? Yeah. Well, then likewise， if you got the g of the n plus one equal to the g of the n times another k， and thenYou get you're given the g zero. And then what is the g of the n now? Well, you go from the g zero. Every time you're you're multiplying by k, you multiply altogether n ks, and this is called a geometric sequence. When you lay it out, all the terms would look like g zero, g zero times a k, g zero times a k squared, g zero times a k cubed, etc. etc. 好个阿西。 Now earlier I repeatedly said the sum of a geometric sequence, the sumof the geometric sequence. Did you realize what was a geometric sequence? Now, did we not write the general formula for the geometric sequence already? Because this is the sum of the geometric sequence. What do they add up to? This is a binomial expansion of something. Brayden, remind me. For that sum here, what do we have? Is it one over?</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>One minus g zero. Wait, no, uh, g zero k. Think again. You know, if I'm adding this whole sequence together, my first thing to do is to pull out the g zero, don't I? And then you're just adding one plus a k plus a k squared plus a k cube.What do they add up to? Again, one over one minus k. Okay, be sure to master this. Details counts. I thought we have gone over the sum of geometric sequence so many times that you would have recognized a geometric sequence follows this kind of a generic formula. So is it clear now? Okay, and how do we solve it from here? We know the generic formula, which is basically, but that'sNot the solution to the f itself. Toby just told us what to do. He just showed us where to go from here. Did you hear him? Did you get it, Brayden? I think it was like to add up the equations. Yes, exactly. And what's the next equation?Is it two times f n plus one minus two f n? Uh, so it's the same index, and I just repeat it, write it twice, and multiply two, and add all the equation. how How do that cancel out all the middle terms? What's the point of writing the same equation twice?Braden，Can you check your notes from the earlier session? The rest of the class, please do bear with us. He's new. He needs a bit of time to just get used to.The class dynamics, so I'm making sure he understands this. Is it so that we can cancel these two terms right here? But once we add them, so say again, what is the second equation you're writing now? Uh, two two times f n uh minus f n minus one. Yeah, this time you said it right. Earlier, you didn't get the index right.You actually gave me twice of the f of n plus one minus twice of the f n. That's what you said. This time, you said it right. Very good. And what is that equal to? Um, four, uh, four times, or two times n plus one g zero. N plus one.What is the power you put on the top? Oh, yeah, just two, just two before you march to.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>二的五次方。啊，n。 Yes, well, before you multiply by two, it's actually two minus one because you lower the index by one. But because we multiply back by the two now, so it's raised again to the two to the nth power now. Correct. Okay, then what do we do next? Um, do we just do another multiply by another two, and then just keep going? Give me exactly what that equation.This it saves more words than say "just keep going" because "just keep going" is very vague. When you illustrate the pattern, you at least need to show three terms. Showing two terms is not enough to show the pattern. Four times f n minus one minus two f n minus two equals two n g zero. Very good. Now.Now you can say da da da, because the pattern is clear now. And what's the ending equation?就是二到的n times f one minus two f n f zero， sorry。 excellent equals one to zero。 yeah，哦， you can see the last one is tautology。 but I don't want to simply skip the equation。 I said last one is tautology because that's a very definition of the。g 为零，我们定义它为 f 一减，所以它 passes the sanity check。 Right now， we're getting altogether n plus one equations， and what do we do for this n plus one equation？ We add all of these up， because it's going to serve to cancel out all the middle terms. Eventually， we're left with only f of n plus one minus the two to the n plus one times f of zero。 This is a these are the only two terms that survive。 What are the coefficients？On the outside, I I could shouldn't be putting this scratch there. I should be putting it here. Okay, would actually equal to on the right hand side. What do we have, Brayden? This is unlike what we had earlier, where when the two eigenvalues are different. Remember, instead and earlier we had the eigenvalue one to the nth power, but every time you're multiplying.By the eigenvalue two x two, so earlier this is not what we had. Earlier, what we had would be actually the x n, x one of the n minus one times the x two. This would be the x two, oh sorry, x one of the n minus two times the x two squared, right? They're not the same. Right now, because of the double value, because of the two eigenvalues are the same, if eventually the right hand side are simpler. Oh, of course, all of these are still much.乘以 g 零，所以 they combine to be the equal power now。 So at this step, in fact, we come out a lot easier. So, Brandon, what's the sum of the right hand side of the equation? Um, is it n times two n two to the n g zero? Count very carefully. How many equations are you adding up?</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>What about the n minus one? Yes, very good. You can see what to watch out for. Okay, whenever we do this kind of game, carefully counting the number of terms is important. We end up with n plus one, n times.呃，2的n次方，and times g zero。 Well, let's see what's the result. The result is we want to isolate the f of n plus one to get the general formula two n. It turns out to be some kind of coefficient. In fact, why don't I, for convenience, here, I'm going to pull out this 2 to the n plus one for convenience. If I do so, Braden, what's inside?I just want to isolate the Apple employees. What, please?I'm asking you to do your pencil work. Can tell me what you're getting.Maybe it's even better to write like this. Are you?What are you getting on the right hand side when you isolate everything?艾迪，你 mute。If you said anything, no, so definitely. Why does it take so long to calculate? You just move move the other side and then pull out two to the n plus one, because apparently this is a core building a geometric sequence. Brayden, I can see your homework. You did it already. Ah, I got this. Totally right. Yeah. Okay, next time, say you're intermediate.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Show us your mental logic. Otherwise, I would have three minutes of the unnecessary silence. Yeah, we just want to know your mental process. So this is the final conclusion. Does it confirm? Yes. That means if you got the double root here, we made up for it. You can call this the A, call the other the B. But generically, they're determined by the initial conditions, and the general formula is just going to be like this. And here I got n plus one plugged in. Generically, if I can write that for n.Now there's been two to the n, and you make up for the missing eigenvalue by actually go for the linear. You manage to incorporate that plus a b n term. Elaine, are you fully in agree in agreement with what's on the board? I don't really understand what you said about the missing eigenvector, like making up for it. Meaning earlier, if we got a double root of two different eigenvalues.values here. In comparison, we actually had f of n equal to two to the n times the a, and then plus there's x two to the n times the b, right? This is where the two eigenvalues are different. Yeah. And then right now, what's wrong? Because x one, x two are the same. What's wrong by combining them into one and just that? What's wrong with that?Why cannot say that's just our solution? We're missing the B. Yes, why do we necessarily have to have a B, Breton? Why do we necessarily have to have a B?I said that earlier in the class. You, you said something around the giving us more freedom. Yes, that's called a degree of freedom. But exactly, what does that mean? Earlier, it's this is not only Elaine because I'm pretty sure there are other kids who didn't understand.懂我那说的。 Either earlier, when you heard the word "degree of freedom" and you didn't quite figure out what I meant by it, what you should have done is to immediately stop me, holler, and ask. So, Braden, explaining to us, why do we need more freedom? Why do we necessarily have to have a B?You didn't understand either. I'm not blaming you. I am blaming you for not asking. So earlier, did you realize I said we need two degrees of freedom? We have only one. That's not okay. Did you realize?I said, said it. Please do answer in verbal, because I can't be watching each one of your little icon very intensely. Nodding doesn't help. Yeah. Then why did you not ask? I don't know. I can't make you out. Um. I should have asked.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Right. However, to answer my question, it helps you. I'm not doing rhetorical question. Least of all, I'm trying to scold you. No, I'm trying to grow self, help you grow self awareness. You know, the current study of the AI, what is to improve ChatGPT? One of the recent paper is saying confession improves ChatGPT. Meaning, if your AI learns to tell you exactly what's the boundary of my knowledge, which one I have this cognitive fragility, which one I'm using underline.Assumption, which I can't justify. Which one? I'm actually jumping the logic here. AI is trained to confess the entire mental process. It helps it tighten up the logic, develop better skills tremendously. I'm training my students without reading that paper. I just realize, oh, you know, I've been doing the same. I'm training you to confess. The reason you didn't ask is that you didn't have the habit to ask. You were accustomed to, you were conditioned to keep silent in class.You pretend you know everything because, in fact, you mostly know more than your teachers. It's not your teachers' fault; they're just high school teachers. High school teachers are supposed to be intellectually and academically second grade. So you just fall into the habit. You know, I don't pay attention to what the teacher says. I don't care what he means because I know more. Well, right now you need to change your habit. Start doing that. Toby, explain to us what I.I mean by the degree of freedom, and why we necessarily have to make up for that missing b. Elaine, that's your question. What do I mean by make up for it by the linear term? Toby is explaining to you. A, then then there's no point in having f zero and f one. There's no point. What do you mean by there's no point of have having f zero and f one? We surelyNeed those two numbers in order to calculate term by term what are the subsequent terms? But if we only needed a, then f one would be determined by f zero. Very good. Although he said the logic in a way, I think it's harder to understand. The point is, if you have only one degree of freedom, if you have only one number to determine, you can't make sure that you fit into the two initial conditions. Once you satisfy that.f zero needs to be the a here. When you plug in the equal to zero, then the f one is determined. It must equal twice the a. In our case, it doesn't have to be twice the a. I can give you arbitrary numbers to get the whole recursion sequence, the game rolling. I can tell you f zero equal to one, f two equal to four. Then how would you accommodate it? Having one undetermined coefficient a here, it's not sufficient to accommodate two initial conditions.Therefore, if you're dealing with a linear recursion with however many initial conditions, which would always equal to the order of the linear recursion, then you have to have a matching number of unknown parameters. They are not variables; they're parameters. They're just undetermined coefficients in order to be able to accommodate each one of this. I didn't say in so many words earlier. I'm not blaming you for not catching everything I say, but you need.To grow the habit of asking immediately, is it clear? Yeah. Now, Ethan, do you understand what I meant? But we have to make up for it by a linear term. We proved it by using these equations. Added up the right-hand side; they're different from what we had earlier. The earlier sum of the right-hand side gives you a geometric sequence built up upon x two, which is exactly what we need to have a different coefficient. Right now, they add up to.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>a monotonous term now, a monolithic term. They don't really have the x two to the n's, but they do have an n plus one cow piece. So instead, we have the appearance of the linear term dependent on the n here, which does allow another parameter. It's a whole story here. There's n parameters because we're trying to find an f n, right? No, there are only two.两个参数， that's a and b. n here is a variable. It's the index that f n depends on. Oh, sorry, that's what I meant. Like there's n because we're trying to find f n. Yes, that's right. Okay. Are we all crystal clear of what's going on? Very good now. And Toby. Also, if you do one or.over one minus k squared， then you will get one, two, three, four, five instead of one, one, one, one. If the term for the terms, like you'll get one plus two k plus three k squared plus four k two. Ah, right. Okay, so actually, very good. Toby is giving us the formula. Very neat. You know, this is how.His mind works. I hope you guys didn't quite understand what he said, because I'm going to change what he said into a question. Toby, that's wonderful. Okay, let's sum up this. You know how to sum up geometric sequence now. If I give you the basic sigma of three to the k power going from zero to one thousand or to infinity, but in order for that to be convergent now, and I need to give you one third.Okay， we know how to sum this up， right？ Because Raiden has helped us recall the formula。 Very good， I， Lucas， I know you know it。 This is a formula， right？ But Toby is asking us， what is this？ I'm gonna be a little sly， okay？ Toby has found a way to help us solve for what's the sum of that sequence。Toby，That's what you meant, isn't it? One of the things. Excellent. He was making an observation. How they're related.Braden， can you look at the homework you sent in the last few lines? And do you realize you have already solved this very question there? It just had to do withHow you understand what you have done? The answer is right in there. By the way, Breiden, and I'm going to make the connection between the two. This is not idle, okay? Breiden, can you explain to me when you have this? He solved by generating function, which is required of all of you. On the other hand, okay, we could change our mindset and solve the whole thing using generating function, which I shall go over. But specifically, Breiden was getting here. He said that.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>The G generating function, part of the generating function, actually equals to. There's a part of it. It's the B and one minus lambda x. Lambda here it's actually the eigenvalue. The x is no longer the eigenvalue. The x is a dummy variable we're choosing as a variable of the generating function. And after that, and you can say we can use the same power series expansion to get this. Now you wrote it equal to the B sigma of the.lambda to the n and n plus one x to the n, and n goes from zero to infinity. Why? I call that skipping steps because you didn't show us why you made that transition. Whenever students make a move like this, I have the feeling they just copied it from some book or ChatGPT. I'm not saying you necessarily did it. I encourage the student to copy from the books and ChatGPT. I even teach them better way to do so with more accuracy. I just said you had to.understand, you have to own it. You have to fill up the logic for me. Please do. And then, if you do understand what's going on, you actually know what's the sum of that. That's just a direct application. I think maybe I might have, because I had some like steps in between. Maybe I sent the wrong. I sent a wrong, like it wasn't updated version. Oh, sure.Then just fill up the steps. Now the other kids need to hear it. By the way, did you guys when you did your generating function get here? You should. Okay, so listen up. Go ahead, Brayden. I think I split it into. I did partial fractions. That's before. I have already honoring the part you split it. You did. You split the x and the one minus.lnx， that's a very good move. You already split it into. There's also the a over the one minus lnx， that's partial fraction. Although I didn't question you how you did the split， that's an easy step. I trust you know how to do it. Now I'm only focusing on the second part. Now there's no more split. Oh.嗯。You just need to share your genuine mental process. Show us the steps that you didn't put into your file. Emma, give him a chance. He needs to learn this. Whenever there's a new kid, I'm really.Sacrificing the class time, you know the other students they're a little bored. Toby, Lucas, Emma, they're fully on top of the story. But this is not a bad thing. Occasionally, they're willing to wait for you to catch up because before long, you'll be as powerful as rigorous. But the point is, you do need to catch up. So be straightforward. Just tell us what your immediate steps are, and train yourself to learn to to speak promptly, honestly, openly.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>If you don't really have those intermediary steps, you just fudged, which is very likely the case here. You just tell us so. That's not a shame. Most of the kids do it. Ah, yeah, I had the, I did the A sec, and then the V, I just um, finish your sentence. I just like fudged up to this.How how did you guess so smartly, or you copied it from? Well, I didn't guess. I had like, yeah, there's like, um, one over one minus lambda squared was this. Where did you copy that? Um, from ChatGPT. Right, next time say it upfront. There's no shame. Like.Kids said, "Kids do it. Don't pretend to be good. Okay, we're not good people. Intrinsic human nature. We lie whenever we can. We try to save labor. We just copy whenever we can. There's no need to fight against it. I'm not in the business of fighting against human nature. I'm only trying to help you for your own profit and how to do it smartly. Meaning, copy from ChatGPT by all means, but you've got to own it. You've got to understand why they did so. That's why you're paying me money to be here."Dedicating my time to help you do so. If you fudge it, if you pretend you know something you don't, you're just stupid. Okay, so let's talk through how we got here. But before we do, that's actually the task of the rest of the session. Now, can we actually see how that applies? If you did own the formula, then you would recognize. Oh, then we have learned how to solve that. Now, the question is open to everybody. The people.I've been dying to say something. Now you can go ahead and say it. 塔比，It's three quarters. It's what? At three quarters. Ah, well, you need to fill up some intermediate steps. Um, let's say that uh, one third the sigma of one third to decay is uh, well, it's half. SoWe just say it's half, so we just do half, which is Toby. Toby. Now I know how you did it, which is one way to do it. Now, however, don't we have a much more straightforward way to do it now? Oh yeah. So, that would be when we square it, we are squaring one plus one over third.One plus. Oh, right. Yes, Toby is saying. You see, guys, he's recognizing. Watch out, okay, Toby. And he he's brilliant, but he's a little sloppy in explaining what he means. Now, he's saying, let's take the b as one, lambda as one over here. We're taking the x as one third. So if we actually put that formula, the b is named as one, the lambdaIs one the x is chosen to be one third, so that equation becomes the g of the x, and he's giving the one minus one third that whole thing squared would actually equal to the sum of n plus one, which is going to be actually n plus one of the one third raised to the nth power. Toby, that's where you got it a little wrong. Sorry, that's nth power. Sorry. So Toby.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>他是在说，这正是我们想要解决的。因为，他注意到，除了几何级数之外，指数也出现在系数中。这是他的评论。但托比，你看到其中有什么不对吗？托比，因为零次幂是一。是的，没错。没错。但如何轻松地解决这个问题？确实存在一些不匹配。Power and the k. Subtracting，哈？You can, but it's easier to change it into one third and then times the sigma of the one to infinity of the k of the one third. Sorry, this is the k plus one. No, no, that's actually the still from zero to infinity of a k plus one and the one third to the k. Now, if I write in this manner, they would be exactly the same, aren't they? Yes, since the since in this case the one thirdRight, that's right, and the result is just one third, and that's just the the g of the x now, which we have figured out is one over the one third squared. That's the direct application, and we realize if you're not summing up a geometric sequence, you're summing up a linearly scaled geometric sequence. The result is not one over the one minus r, but instead it's one over the one minus r squared.Braden， ChatGPT can can help you grow smarter. When you look at the result here, you should stare at it, try to cover it, try to rederive it, try to ponder. Ah, so that includes n in the coefficient. What what's the ramification? What does that imply? And Toby is the only one immediately seeing through. Oh, you know, he said it. We can actually use it to sum up not just one plus r plus r squared plus r cubed, but one plus a two r plus a three r squared plus所以四R cube etc etc，所以那 means 你 are growing together with your Chat GPT， instead of you are being undermined by the the answers you copy， Lucas。 How about cube？ Like how about doing the one divided by one minus R cube in that？ Do we get indeed one triangular numbers or something？ Yes， indeed， very good indeed。 You do. Follow the Pascal。 So if we have this thing raised to n。And it's like the n, I guess, column, like slanted column of Pascal's triangle. Yes, I hope somebody understood what he just said. What he said is quite brilliant, very comprehensive, right on target. That's how a mathematician works. He's saying since we got the squared over here, and its generating function would give us actually the geometric sequence scaled by a linear term of the n now. Then he's saying if we do this generating function whenMinus let's do the x cubed now. He's hypothesizing we're going to get something like a geometric sequence x to the n. And here with the Pascal triangle numbers, he said triangular numbers. Triangular numbers are n choose two, and that is just so right on target. We did some kind of a coefficient, though. That's not quite it. Okay, there's some kind of a k. We still have to remember a mystery coefficient k and the b at the before. Yeah, yeah, absolutely. Well, all right.We have so many hypotheses here. Let's actually prove them. And first, Braden, could you go for the known by now expansion? At least we do have a way to do it, right? I'm gonna highlight and what you copy it here, and forget about the b. b is just a scaling factor. Let's just try to rigorously expand it out. One minus, forget about the lambda. I mean, I could look at the lambda. I said to you, and let's just do this. And after that, you can plug.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>The lambda in terms of the u and scale everything by the b. So if we could do this lightened version, and that's done. I mean, going from here to here, it's trivial. All right, Braden.呃，Braden， sorry. And go ahead and apply binomial expansion. Um, is it one over one minus two u plus u squared?Well, yeah. However, that doesn't give us a power expansion. You still have a fraction. That little binary expansion you did—it's on the denominator. What I meant is to do a binary expansion to immediately get a power expansion, a infinite one for that matter. It's what we have been doing, isn't it? Lucas has so much appreciated your comments.Yes, Brayden. We look at it as actually one minus u to the negative second power. We've done this before, have we not? Okay, go ahead and spell all the terms for us. Um, wait, what negative? Do we just do the same as like if it was like fraction?Absolutely, that's the finest instinct of a mathematician. As I said, it's wishful thinking. If something is true, it better true universally. I can even put a matrix here. I can still do what is matrix choose two? Fine, it's just a matrix times a matrix minus. You can't subtract by one. They're not even compatible species. You have to subtract by the identity matrix over two.So that means you could exponentiate a matrix. I'm not joking. Eventually, that's vital to solving differential equations. Although that's not how your textbooks teach you. Go ahead. Would it just be one plus negative two choose one u?U, Toby wrote it specifically in the proper form of the binomial. It's one plus a negative U. Ah, negative U plus negative two choose two U squared. Well, although it's the same, but I rather that you just keep alert and write negative U squared plus negative two choose three negative U cubed.and da da da， and the generic term will be the negative two choose k negative u to the k power。 Since we're keen on writing at the generic sum now， Braden， resolve for us what is the negative two choose k。Would it be negative, negative two times?</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>负三乘负四， all the way to 负 k 加一 over k factorial。 Hold on, hold on, hold on。 What's the the last number？ 负。 If there's a parenthesis, you have to expand it out。 Sorry， 负 k 减一。 Do we all agree on the top? They're all together k numbers。 Do you agree?Do we agree? End game is hard, Brayden. I fully agree because I look at it as negative one minus one, negative one minus two, because there are k terms. The last term is negative one minus k. So that's excellent in that. And then we're dividing by the k factorial. Very good, Brayden. Simplify this.Actually, I'm going to make your life easier because eventually this has got to be multiplied onto the negative u to the k's power. So, if we're keying on finding the coefficient now, I'm going to keep the u on the outside, but there is going to be that negative one to the k's power, right? It's easier to consider them together. That's the entire coefficient for the x to the k's term, u to the k's term. So, what do they end up giving you?Wait, sorry, where did the you go? I'm only looking at the coefficient. Oh, I just didn't copy that yet.嗯。There's a lot of cancellation to do. In fact, Brayden, on the top, how many negatives do you have up to here? Okay.Yeah，so the ninety-one to the k power immediately cancel with another ninety-one to the k power. So altogether, you can change them into all pluses now. And that just a two k, which is just one. So fortunately, we're getting all the positive numbers. Toby, I know you get it. Give Brandon a chance. Would it become k plus one factorial on the numerator? Beautiful. And canceling with the k factorial on the denominator, whichYou have k plus one. Does that actually prove your earlier conclusion? Yes, it does, because right here the b is just what we multiplied on both sides. Now, if I change this top into the b, and I can just have the b pulled out in front of everything, and if I swap my u back into my lambda x, and you can see all the coefficients are positive. The coefficient for the nth power term it is simply the k plus one. It just n plus one. So then.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>You have proven what you you have written down here. This is actually using an old piece of knowledge I've already given you, which is doing binomial expansion to a negative power. Ah, what version of the ChatGPT or Gemini or whatever the AI you are you guys using? Is there anybody who is using the paid version? Can I see your hands, please? I'll teach you how to make it more powerful. Aha, are you using the Plus or Pro? I'm using.Grok，呃，like the best version of Grok。啊，OK。嗯，And Eddie， what version are you using？呃，I think is like ChatGPT Five Point Two。Yeah, that's the Plus version，哈。呃，Those are good enough. Those are powerful enough. Even if you are not using any paid version, it is still good enough though. For the Grok and Eddie and ChatGPT Plus here, your AI has memory of you. You can give it personal instruction. How it does things.As a default, and you could utilize that to significantly improve its behavior. I'm only doing this as a demonstration. So, Eddie, could you share your screen and show us your ChatGPT? Oh, no, no, that yeah, yeah, you're using ChatGPT Plus. By the way, I'm teaching all of you to train your AI to give you better solutions. Brayden, the point is next time when your AI is deriving something, it's going to fill up every single detail without skipping the.step， so that at least you know where you go from and how did you end up with that expansion? It's going to fill it up for you, but it doesn't mean you you can just copy without learning it yourself. The whole point is it would save my labor, so that you can learn. Yeah, yeah, that's the correct one. So can you bring out what's on the left of here? Let me get get an annotation. Oh, I lost it. Eddie, are you? Oh, yeah, yeah, it is still here.However, somehow my screen here. Can I see this part of your chat GPT? Pull it out so that underneath here, I should be seeing your icon, your personal icon. I can't press it for some reason. Hmm, is that because you're sharing the screen? Not sure, but I'm clicking on it. Yeah, that's weird. Usually, you'll be able to actually see the whole chat history.对，and also there will be the buttons for personalization, etc. Let me try. Let me try stop sharing and the re-share. Yeah, thank you. By the way, I think the Plus version, it's only twenty dollars a week, and totally pays off. I don't believe Cloud, the Pro version, which is fourteen dollars a week, pays off. I don't like Cloud. I I think it's a little.Stupid。嗯。你听到？Yes, beautiful. I do. Yeah, and click on VKJ.Yes. I'm not seeing the setting though. Hmm. Are you seeing the setting? Yeah, I can see it, but I don't know if. Can you see it now? No.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>呃，哼，你 actually see your personal memory? It record your profession and your age and your preferences, and you could manage your memory. Are you seeing all of those?嗯， right. Um, is it at the bottom? Ah, here. I don't see it. Well, you click on the V H L, and that was right place. And then t here is a personal.There's a setting, and in the setting, there's personalization. I don't know. There's memory. What is that called? I hope I could share my screen, but my ChatGPT is not on this computer. I'm doing the surface solely for the Zoom here. Oh, I can request the remote control, Toby. Control of his screen is that what you?你 talking about Toby? Yeah, like go to the wait. Are are you is this on? Are you doing Zoom on a PC? Yes. On the top, there should be like a bunch, a few tabs. There should be like a three dots on the. Yeah, more. Yeah, then there's on the fourth from the bottom. It says request remote control. Try that. No, well that one. Okay. Oh, okay. You're talking about dance now, huh? Request. Yeah, yeah, yeah. Indeed. You're.我要去重新制作这个shared content request。好，Andy， are you giving me the permission? Okay, then let me click on this. Yes, settings. Ah, but it doesn't give me the window. I click on it already. Settings. Yeah, I I can see the window. Ah.I don't know. Maybe it's that like the Chrome is being shared, but not the other apps. So, like, oh, I'm sharing the ChatGPT app right now. But maybe that pop-up window is not shared. That could be. You know, uh, well, you do it on your own. I'm gonna actually give you guys the.memory. If the AI version permits any memory, sometimes you can directly manage your memory to put it in. Sometimes you have to open the chat and say, "Please remember, save these as a permanent memory of me." And you may be able to say that. So I'm going to tell you what my ChatGPT's memory of me. I'm also using the Plus version, and I can assure you it helps tremendously. Well, you don't copy them over; you build your own instructions for your ChatGPT.Let me actually download mine very quickly. Give me one second. I'm sending it to the entire group, and I'm going to make a few comments. If you open it up, I have highlighted.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>The parts those probably would apply would be pertinent to your STEM learning, and especially you may not understand a certain code name I share with my ChatGPT. For example, there's that phrase of a two model and back, and there's a story behind it. Okay, but particularly if you go to the yellow highlighted parts here, and these are specific instruction how the ChatGPT is supposed to using only the primary sources, cut all theSycophantic comments that just don't flatter me. If I wanted to critique my essay, otherwise it's just going to give you, oh, everything is so wonderful. That you're writing is amazing, and then it lays out the source hierarchy, and it gives my ChatGPT the instruction to practice very rigorous self audit, so that it is going to give me a proof now without skipping any step. And meanwhile, attack its own proof, so that it's all it's getting aware of certain logical leaps, and then etc. etc.嗯，Well， anyway， it probably includes some of my personal information. Yeah， I I don't care. It's if you want to read it， you can read it. I also give it my preference in literature， so that whenever it answers my question， it adopts a tone which I like， which is intellectual， humorous， pithy， and without being fluffy. But anyway， customize your ChatGPT. But Braden， the first thing.You do. If you're not using any paid version, it may not be able to even remember anything permanently about you. But at the top of every single chat here, you should tell it specifically: do not skip any step in your derivation, spell every single logical link. And it's up to you to know where it might step. If you can't follow a step here, and then just pursue it, explain to me from equation two to equation three, and ask whatever your AI to label every single.single equation in the output in sequence, so that you could follow up by just narrowing down. Could you please spell out that underlying assumption for equation seventeen, something like that? So use your ChatGPT to your advantage. Don't make it make you stupider. All right, we're not done, and we still need to validate how to use the generating function categorically. It shall continue in the evening. Take care, bye. Usually for my ChatGPT, I just Google every single.Bringer Protocol， I can find it， and then I just shovel them in there. Usually， the the title of each chat is just "Activate Bringer Protocol." Oh， okay， yeah， well that's a neat way to do it. Well， nevertheless， though， you know， well then in terms of the searchable information， that is， that is actually a very good start. And but you have to train yourself to logically engage your AI， so that you discuss the logical coherence of every single step. And I mean， thank you for bearing with.With us, if you were listening, it is. I think it's pertinent to you too. But anyway, take care. I shall see you guys in the evening. Oh, now Breeding, you're not in the evening class. This class splits into the evening one and Tuesday one. I shall see the rest of class on Tuesday. Bye. Bye. You have a good week.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

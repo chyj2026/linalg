@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-01-10">
+
+<title>Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1) – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 10, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Re-derives why a double-root linear recursion requires an extra n·λ^n term (degree-of-freedom argument) and rigorously expands 1/(1-λx)² = Σ(n+1)λ^n x^n via the negative-binomial coefficient C(-2,k).</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Double-root general solution: fₙ = (A + Bn)λ^n</li>
+<li>Generating-function identity: Σ(n+1)x^n = 1/(1-x)²</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Build searchable inventory of past notes; monthly Overleaf submission.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Very long transcript (~113 KB). New student Brayden introduced. Significant meta-discussion about AI/ChatGPT usage and personalized system instructions.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>So I'm going to be holding. And, Drayden, you probably will see the name tags. And, in fact, our little star Toby is not here yet. And this is Lucas, Eddie. Well, why don't you just quickly introduce yourself to the new classmate, possibly? Not me. Uh, actually, each one of theI just introduce you to them. Go ahead, quickly give a round so that I can get started. Lucas is seventh grader at Radner, and and besides this class, I I don't take any other academic classes. I'm a you.I'm Emma from Florida American Heritage. I'm currently in sixth grade. And when did you start loving mathematics? About two years ago. Start early, Elaine. Uh, I'm Elaine. I'm an eighth grader from California. I started liking math like one and a half years ago. Cool. HowI'm Toby. I'm sixth grader from Random Middle School, and I started liking math before I was born. Very accurate. And Helms. I'm Helms. I'm from. I'm a seventh grader from Random Middle School, and I started liking math like two years ago. Beautiful Helms. I each one of the kid. What happened to Lucas? How come he's in my way?waiting room again. Your waiting room? Huh? Does it say so? Wait, to be a hacker. I actually don't know what's happening, but let's continue. We'll go forward. We just wrapped up power expansions. We managed to write a lot of functions, although they don't look like power functions, but we wrote them as power functions. I said we were going to wrap up the power functions now, butBut before we move on, we're going to actually discuss the last topic, which is called generating functions. We made several mentions before. And, Brendan, do you know what generating functions are? Okay, well, it's kind of where do you go? He's here. All right. Oh. Now, generating function is a kind of a power function, but it's not used to calculate the outcome. It's not that we want to plug in the input. It's not to calculate the value.From it, but instead is serving as a container. Well, we've been using a lot of things as container. We're using complex numbers as a container for manipulation of the angles and the trig functions, and now we're using the generating function to carry discrete math information. What what do I mean here? This is a where I did mention that before, but today I really want to narrow down to the generating function of Catalan numbers here. Catalan number it's a specific combinatorial六次方数， that has great impact later in mathematics, a little surprisingly. And who knows what Catalan numbers are? It comes from working the grid. Well, let's say there's n by n grid here. Everybody, anyone worth its salt, having done any of the AMC, would know. And if this is going to be the n by n grid, how many ways to go from one corner to the diagonally opposed corner?</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>If the only motion permitted would be to the right and upward, Lucas, I think of it as like a kind of I think it's called a water pipe method. I think like to go one up, you have one choice to go there and there, and then you have one choice to go there and there. But since there are two ways to get here, you get two, so it's kind of like doing Pascal's triangle a little bit, but beautiful. It's not a little bit; it's through and through. You're generating Pascal's triangle by counting recursively how many ways to.get to each corner by counting you. This number means we're adding the two adjacent vertices to get here. So that's altogether how many ways to get to this corner, and that's one. And this is one plus two, so that's three. This is one plus two, that's a three. So this is six, one, four. You're getting exactly Pascal triangle numbers. And for that purpose, reason, Toby. Why aren't they triangular numbers? Okay.There's one, two, three. I mean, one, two, five, fourteen. Oh, and how is that defined? No, the Catalan numbers is a special way to actually walk the grid. So hurry not. So first of all, we want to witness we have just regenerated Pascal triangle numbers on the grid, knowing so, and the pattern continues, except for by the time you're getting to the second half now, and you have to braid.To bridle it down, because we're losing those outside grid anymore. We don't have those portion. So when you keep adding, then after you we pass halfway, these are not Pascal triangle numbers anymore. Do you get see that? And do you agree with me? Because we're losing the outside source. So what is this number?Earlier, why did anybody, all of you, agreed that past halfway point, those are not Pascal numbers anymore? What was the reason I was giving you? Because I got cut off, and like the supposed ones over here, don't add, don't add into it, so they start getting a little less than the Pascal numbers. You are comparing within this region. So, do all of you agree?Actually, really agree with Lucas. By the way, Drayden, I don't judge my students according to their IQ or EQ, but according to their BQ. Could somebody explain to Drayden how I name BQ? What does that mean? I don't think you've named it to us before, but I'm guessing you just mean like if whether or not we're paying attention and putting an actual thought into the lesson you're giving us. I think Lucas, it's veryVery hesitant to say the very dirty word, Toby. Is it one hundred twenty-six? I mean, one hundred thirty-six. Toby, I didn't even name the n for you. Have I not mentioned that you really should? But there's a grid there. I mean, that's the specific. You have been learning with me, haven't you? Learned to go for the general instead of getting hung on specific number. And you know, I don't like a number. A number doesn't reveal.Any mental process or general rule here? I have every every time. If a kid gives me a number, I always say, "Get rid of the number. Just tell me the general pattern, or what is the formula invented, or what is your mental process." Well, so I know. One second, one second. You should listen to my latest question. My latest question: We have a new kid here. I need to let him know the rules in the classroom. What is BQ? I explained it to you guys.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Before, you did, yes. This is bullshit. Caution. Lucas said it. He just didn't want to say the word bullshit, meaning every now and then, not every now and then, pretty much every class, uh, never in teaching a new concept because you're entitled to correct teaching. Okay, but after I give you the thorough logic under the concept, the clear definition of the concept, now I'm gonna actually start bullshiting you.And see all of you nod, and see how long you keep nodding until somebody smells. No, something is fishy. Use your mind, okay? You're not supposed to believe anything I'm telling you. This is math, there. It's logic, it's reasoning. Each independent person has this God-given gift of reasoning. I only guide you. I don't indicate your mind. So, well, five minutes ago when I said.When we cut it off, then these are no longer Pascal triangle numbers. Here, that was a piece of bullshit. And Lucas, could you detect what's the bullshit? Brilliant. Do you know Pascal triangle numbers? Good. They come from binomial expansion, and one way to generate them would be you're adding two.Adjacent numbers to achieve the next in the row. So we're adding these two to get that one, to get this one, and we're get adding those one to get Emma. Your statement can't be true because if we the these two halves are identical, so if we can make it up to here, why can we make it down again? Hmm, your argument is not right. These two halves are not symmetrical in the sense they are symmetrical geometrically, but not symmet.Mechanistically, because, for example, this point now is a lot smaller than that point, because that point is still the sum between these two. But either one of the crowds is bigger than this one on the lower triangle, because this this number here, that little crowd, is the sum between these two dots. So there's a progression from here to here. There's a symmetry between the starting point and the ending point. Toby.Can I continue what I was gonna say, please? Ah, because I was gonna say something also. Answering my question, whether the second half are they still Pascal triangle numbers or are they not? They, hmm, they are still because you still have, well, so on the top right, you still have this, wait, this amount plus this amount of ways.And on this one, the top um left thing I just drew, uh, you have this, whoa, plus this amount of ways, and then other. And I think your thought process is good, Toby. This, this, Toby, and your logic is backward. It's not a good starting place because you want to justify the last number is still the supposed, I Pascal triangle.Number and you start reasoning from there, but the point at this moment here, we haven't validated any of these numbers. You just talk me through a long process of a addition of all unknown numbers. It's not the proper place to start, Lucas. I think it wouldn't. I think I don't think it would be exactly Pascal's triangle numbers, because for example, let's just take the M point. Trying to work backwards, it has to have a, it has to have apart from here, from here, from here, it has to have.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>A A A A， be careful. Which number must draw from that number? What do you mean? You're saying we must have the numbers from here, from here, from here. I don't see which number need to add those components. Toby is giving us actually, and I'm gonna actually change your color. Okay, I I will be pointing according to the grid. Why don't I draw a fresh grid? One second.And we're only looking at end game here. Although I'm saying logically, it's not a good place to start. Okay, if you want that number, we need only add these two. They're staying within the grid, even the truncated grid. To get that one, we need only add these two. To get that one, we need only add these two. When do we need to employ the numbers outside? No, I'm talking about I was just drawing them there, but I'm talking about the numbers inside the box.哦，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，好的，My answer. Good idea. And say it clearly. Um, I think it is Pascal's triangle. Just like, um, each each spot is equal to like, um, the one above it and the one besides it, which is just like the definition of Pascal's triangle.嗯，艾迪，I saw your cursor. You were indicating. Can you point out graphically where is your starting place of reasoning? When you said each point on the lattice is, are you going backward or呃，where are you pointing to? Because, like, like. But the point is, if we actually go on Pascal triangle, would actually expand out.The real lattice is that big at this moment, right? I think I think I know why it's still cultural. Give Eddie a chance. He got it right. I saw how he reasoned. It's just a matter of how you say it in a way that's totally cogent.Drayden， what's your opinion? Is that number still the Pascal triangle number or not? Uh, yeah, I think so. Okay, give you a reason, please. Only the one. Say it clearly. My reason or your reason? Um, I'll just like start from the diagonal. Beautiful.That's right. Well, notice here, good, good, yeah. He touches it. He's right on target. Well, we're progressing in this direction. I have the feeling Lucas got it too. Finally, okay, we arrive at the diagonal, and now we're facing a cliff in front of us, and the description becomes partial. Actually, it it becomes incomplete. However, we have enough of the available data on the diagonal to confine to. Well, their effect propagates within this and other.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>upper triangle， because you we only need to add these two to get this new number. Although later I don't have that number now, so the next number outside of the confined region that has changed has decreased for lack of the addition of the new data. But then this number remains the same as partial triangle. And now we're using this smaller diagonal now, one level removed, as a new starting point to calculate the next layer. Every single time we still have enough of the data, exactly the same.在帕斯卡三角从的 previous level. In fact, the Pascal triangle numbers terminates at exactly that point. If you continue with all the lattice point outside, none of that region over here is Pascal triangle numbers anymore. They are affected by this propagating like a boundary condition right here, like that input of the one is going to affect all of these numbers. They're all reduced, but not within the region we carve out, because they.just have enough the initial condition to go by to last every single time we're using the previous layer of the number to get n minus one accurate numbers here every single time we're losing one number but eventually we narrow down to a single number which is still Pascal triangle number crystal clear and what is that number here?Since we're doing this Pascal triangle number now, Lucas. Well, that Pascal triangle number now can be defined by the adding, like the water pen method. We can also use combinatorics, right? Yes, absolutely. So, like the number right here would be, I guess, zero choose zero, zero choose one, zero choose no.One choose one, uh no, one choose zero, two choose zero, three choose zero, four choose zero, etc. We get here it's n choose zero. So when we get here, it should be two n choose zero. But when but when we move along the diagonal, the the top number stays the same, but the bottom set, but the bottom uh will increase. So the middle number should, so the number we're trying to find should be two n choose n, right? Yes, and also we know that from our math count days, Eddie. Uh, well, I bet you were.We're saying the same. Eddie, do you have some independent thought? Uh, like at each industry, like if you say, like this whole matrix is called board at board i j, it's gonna be equal to i plus j choose i. Very good, that's correct. But we also know this is an by n grid. By logic here, the number ways to get here, it's really you lay up the up, up and the right.da da da da， there altogether two n steps. We're choosing n steps in that whole sequence to be upward motions, that two and choose n. Toby, does that mean that i plus does that mean that n choose k equals n minus one choose k plus n minus one choose k minus one? Yeah, this is one major identity we we proved before.We use this identity to arrive at Hulking Stick Theorem. Brandon, are you familiar with all of these theorems? Good, you should be. So that's two and two said. Well, we're not even getting to the Catalan numbers here. Catalan numbers are a confined way to walk the grid, and we still have this n by n grid now. And you actually want to still get to the diagonally opposed corner, but in this case, we cannot actually walk half of the</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>region， meaning we're confined to only walking the lower half or the upper half. But this is inclusive, though the diagonal points here are included. That means among the path here, for example, this is a legit one. This is a legit path, and this is a legit path. But then, for example, this is an intruding path here. You can't do that because you trespass that diagonal. Toby.I'm thinking it would be two times something. Why two times something? You're thinking the symmetry. We're having it, Toby. I appreciate your input, but you really want to think a bit before you blurt it out, Lucas. So, can I? My idea is still using like a water pipe method. So we know that the bottom row is still one. Ah, no, but this is not generalizable. There's not easily eyeballable pattern this time. What if my grid grows very, very big?n equal to one thousand， you don't want to just count those and add them up. And the point is, unlike earlier, this time you can't really easily derive a formula from eyeballing. Brayden, sorry, Brayden, and do you know how to approach this? Um, I think is it just like the nth Catalan number? Yes, andI'm asking, what is the n Catalan number? We're using this as an entry point to look at a polynomial carrying them. It's called the generating function for the Catalan number. I might, I might need a little bit to think about it. No, you can just tell us what is the Catalan number. What is the formula for the Catalan number? By the way, it's a definition: the number of ways to walk off the grid of an n by n grid to get to the diagonal is equal to C n. Obviously, if you list it out, the C one is equal to one.The C two just equal to one, right? Oh, sorry, the the C one equal to one, that is this grade now. The C two is this grade, which would equal to two. Yeah, two. And the C three would be. Toby, what is C three? C three should be six. No.Braden， what is he three? Is it four? Count more carefully. Well, first of all, guys, I have some sense here. Eddie, is it five? Five, yeah. It must be an odd number because of the symmetry here. Everything that you do here has a reflection on the other side, except for there's a loner. This part here is what changes the parity. There's no mat.There's no match, so it must be odd number. It's five, just a bit of careful counting. And C four equal to, like I said, it equal to fourteen. And I don't know how you're counting it, but I'm actually using recursion. I'm breaking the bigger grid down to the lower grid. But okay, and how do we? This is not a very easy formula. I believe I taught you guys what is the general formula for the Catalan numbers. Brandon, do you know it? No.Well, there's a very smart way of doing it. I didn't think of this. Okay, it's by hindsight. And however, it's very smart. That's not our point. I'm going to give you the formula. But the point is, we're going to derive it using the so-called generating function. That's our hero today. And the clever way is to count the number of trespass passes, because each one of them has a funding point here. Meaning, we're going to actually do our Catalan number would equal to a two.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>to an choose n and minus the wrong path. I'll call that the wrong n, or you can call that the t n, which is trespassing across the diagonal. Then there's a good way to one-to-one map these trespassing path because they're identified by the first time we get above the diagonal. For example, for this one, it's identified by that point. I do not mean one-to-one mapped onto it because after we trespass, there are also a lot of ways to finish the rest of the grid. But we do.You know, though, we could always identify the earliest trespassing point. Do you guys agree? The minute we identify it, we're going to actually map this path using the mirror symmetry across that line, because every single trespassing path has got to cross that line somewhere, right? To get to that line, the minute we do, we're going to map the remaining path here in just do mirror symmetry. For example, the green path I have drawn would actually become.嘛，this one，Toby。 So, is it like? I think maybe it's like C one times um one, two, three, four, because there are four ways to trespass from C one. Oh, we're gonna get to that. We're we're not synchronized, Toby. I'm teaching a smart way to ID it. You're giving me the recursion. We shall do the recursion.Come out the generating function, but let's learn this first. It helps your computations. You don't want to reestablish recursion every every time. I love your exploration or explorative spirit now. But here is a very clever way to do it. So every single one can identify this one, and after that, we do a mirror image. That mirror image is going to map the destination to another destination, which is here. The question would be, how many ways we can travel? trespass knowing from this mapping, it's one to one mapping. Every path becomes a new path now with the second leg of the journey after the trespass to end there. How does that help us finish the problem? Uh, could you repeat what you just said, like about the end?What I said is, for every single trespassing path, we identify a point that's hitting that axis of symmetry, which is a, I would say, a secondary diagonal, the line above the diagonal but parallel to the diagonal, which we're going to practice a one-to-one mapping, change the left of the journey by its mirror image, and where does the new journey end?If I call that point that this is A, that's the B, I'll call that the B star point. It ends at the mirror image, right? It ends at the B star point, does it not? Yeah. Okay. It does. The question is, does every single transpassing path end up at B star point?Lucas， wait， what happens if we? Oh wait， never mind。 Toby， what? Wait， what defines trespassing? Just above the diagonal。 So just that? Well， we're defined</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Finding it instrumental to finding the Catalan number, can't you see that is useful? So going up first would automatically be trespassing, right? Of course. Okay, Elaine, what do you say? For any trespassing path, we are mapping the second regular journey in the way we described. What is the destination?By destination， you mean like the mirror image on the the line of the axis of symmetry， right? By destination， I mean the ending point of the path. After we do the mirror image mapping， for example， here is a transpassing path. When we map it， and actually this would be the point now. We still reflect.Over that one, and it's get here, right? Yeah. So, answer my question, Brayden. What is any point of a trespassing path after the mapping?Um, I was. If it ended at like a B, would it have to be a legal path? We did the map here. We change the second leg of the journey. We change the how it goes and where it ends because we mapped it across the axis symmetry. Yeah, I think it would end up be a B star.你 sure， they all end up at B star。 Would it be the one half of the total lines that trespass that you're not answering my question， and not to mention you're giving me the wrong answer。 You're giving the wrong answer because you're not following my lead。 Are we all clear how thisThis mapping works. Yes. Now, when you do the mapping, it's one-to-one. Every single point would map onto the corresponding point. Then, why is that so difficult to tell me where is the new destination? I think all. I think all of them will because the V star is just the mirrored version of B, and all the paths have to end at B. Exactly. That's it. Brayden, is that what you wanted to say? Um.A little bit. I don't know what that means in math here. A little bit, sort of, kinda. Okay, I dislike those generic verbal fillers, the fluff in my classroom. I'm not criticizing you. I'm showing you the rules here. Here, there's no kinda evasive answers and a little. And you just tell me specifically what you mean. How much percent? In what way you you are sure? In what way you have some kind of self auditing? You have fragility. You have disclaimers. You haveDoubts, just say that. Train yourself for specific talking. Alright. So, in fact, the map of B is the B star. The point is, every single illegit path here now after this manipulation ends up at B star. But if we want to shift our counting register to do something about B star now, for example, to see how many ways to go from A to the B star, then we need to establish a so-called one-to-one mapping, meaning from this new graph, okay, uh.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Just look at all the paths that go from A to the B star. If I come up with an arbitrary one, for example, this one, this one goes from A to B star. Does it map back onto a unique trespassing path within the original grid? If it does, we have succeeded in establishing a one-to-one mapping, so that we could actuallyActually, count something by counting something else. Lucas, that wasn't me. That was Toby. Oh, sorry, Toby. Thinking about this, I think, I think that they would be unique because this whole transformation is is reversible. That's so we already had this as a starting point. For example, it doesn't matter where in the line we cut off before that.That's already uniquely identified because it's never been reflected. But the rest of it, we can reflect it back and forth, and every single up transforms to a to left. So only this path would transform to its mirror image. Very good. So and Lucas is actually identifying it maps onto a this path now, which actually transpasses again, but that doesn't matter.The first transpassing point happens right here, and what we do end up with is an illegit path, meaning it's a transpassing path, but which ends at B. At this moment, if you know what's going on, we can finish the problem now. Lucas, well, if we just ignore this, I guess column, and just we know that B, B, we can even sort of go like up here and then across, and we would still.Technically, get to B star. So I'm thinking that the number of ways to get to B star would be two n choose n minus one. Hmm, indeed. Because now Lucas is studying a new grid, which is this rectangular grid mapped from the earlier square one. Okay, but it's this new rectangular grid now with actually the up that's n plus one steps rightward, it's n minus one steps at the corner that's B star. Together, they're still two n steps, and the upSure, ways to go from A to B star, going only up and rightward, would be indeed a two n choose n minus one, equal to the two n choose n plus one. We're done. The Catalan number is indeed, and the two n choose n minus a two n choose n minus one. Lucas, I just have another way to prove that the to find the combinatorics number, not just the Pascal triangle. Since that, since we can imagine each unique each unique path as a sequence ofn uh use and n and n lels for up and left we can the combinatorics way to represent the ways to order them would be two n choose n or two n choose not choose n n uh yeah did I not just write that right here oh okay I didn't see that that's up up right it's good that you're thinking about it independently yes I did mention that this is the quickest way to immediately identify how to work a grid just count the totalNumber of steps as a sequence, you're laying out your path now, indicated by up, up and right and right, up, right, da da da. And among the two n steps here, you must choose locations to fill in n ups and n rights. So surely that's where this comes from. Right now we have only n minus one rights, but n plus one ups. Correct. So go ahead and quickly simplify that for me, please.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>嗯。Give me a confirmation if you're getting what I'm getting, Toby. Uh, I'm getting, I think I'm getting different. What are you getting? I'm getting um two n factorial over.哦，我 forgot all those terms。 And what do I replace those terms by? Um, I did it like this. So there is a bunch of terms, n factorial squared over n, and then one of them has an extra n, and the other one has an extra n plus one on the denominator.然后，然后我做的是n分之一，n的平方加n。嗯，你做的和我做的是一样的。你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，你看到，Right, okay, Emma's getting the the correct one. I usually don't want to write combinatorics in such a manner because remember we want to do combinatorics with the fractional numbers. But in this case, this proof is especially clear this way, so I just wrote it that way. Brendan, do you agree?Good. Okay, I think everybody is getting the same now. Observation: We see, in fact, as n is growing bigger, and the fraction out of the total path here, this gives us a legit path staying under the diagonal. Now, it's getting that fraction, which is one out of the n plus one, is getting ever smaller. By the time the n is one hundred, there's only one percent of the paths are legal paths.And does that make intuitive sense? Yes, because when n grows bigger, you get more chance of a random. If you just take a random walk, okay, sooner or later you're going to get get to above the diagonal. If the n is approaching infinity and you just take a random walk, then there's probability of a one that we're going to trespass sooner or later. Therefore, the fraction of the legit path here is actually getting increasingly small as n as the path actually. grows bigger, so I want you to remember this. Once you have this asymptotic behavior in your mind, it's not very hard to remember. Okay, now we actually want to have another way without the clever hindsight of seeing through. Okay, we just map the path now. And these problem solving techniques are very, very clever, but they're very hard to come by. Because who would be able to invent such a thing? Okay, once you grow very savvy, you can invent some. But nevertheless,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Also very hard to come by. Or do we have a methodical way, with some kind of mathematical machinery to get here? Yes, we do. Now this is a great idea of recursion, meaning we want to build our conclusion, our solution for the n by n grid from a smaller grid. Meaning if we could find out the relationship between the c n minus one and the c n now, well, remember we learned how to solve linear recursion categorically. We're very powerful there. We can solve something like a呃，斐波那契数列。如果我给你七 F n 等于六的 F n 减一，现在一加 F n 减一，抱歉，这是 n 加一，减四。你们知道怎么解这个？谁还记得怎么解这个？Tell me。呃，我们把所有东西放到一边，然后我们把四This in this case, we'll have the seven f n plus one be positive. Very good. So, in fact, Toby is saying first absorb the nonhomogeneous term, put it into a shift in every single term now. And however, Toby, you're going to fail. It can't be absorbed because one is eigenvalue. Yet they keep see Toby try it. I'm glad some of you still remember it. We're going to actually now. I don't know what to absorb, so I'm going to do this.Shift the n plus one minus a minus six of the f n minus a minus f of n minus one minus a. Toby, that's what you're hypothesizing, right? It is supposed to equal to the ninety-four. Can we find such a number? Oops, unfortunately, we can't. No matter what shift that you perform now, they all have to cancel out on the right. I just gave you a very unlikely case.to test out whether you actually remember those tricky cases. You know, if I change that number into five, now we're fine because you could actually solve now. The age is equal to four. Do all of you agree with me? All right, now we end up the homogeneous one this, and then we can start our whole wheel rolling using the eigenvalues. But in this case, do you guys remember what we did?Let me actually confirm. Let's suppose it is a five. We managed to absorb after the shift now. So I'm defining a new sequence, uh, because I'm lazy, I don't want to recap it. So that term has been handled. And go ahead and tell me. I'm double checking my students' retention, so so that I know in the future how much I need to review for them. Braden, this is what we're doing. But do we know how to solve it here now?Toby， go ahead。 So then we can plug in a four four， and then we set a a new function. Let's suppose this is a new function. I didn't bother changing the notation. Okay. So then we will put it all on one side.Right, right. And then, and then we set it to a quadratic. Excellent. And then we solve that quadratic. Uh huh. But wait, what if the quadratic can't be solved? We handle that too. We just end up with complex roots. Oh, yeah. We love complex roots because they in</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a> indicate rotation. So that will be. Oh, don't bother calculating. You know, that's a waste of time. In our classroom, everybody knows how to calculate. Okay, if you're so keen on calculating, I'm gonna calculate it for you. So. So then, we can split it.Like the first root of x， yes， times the second root of no no times the f minus the second root。哦， brilliant！ minus f minus one。 Yeah， he he's going back to the derivational process， Toby。 That's very good。 I am super pleased if the students remember the process even more than the result。 But for time's sake here， Toby， the end result of that， because he's connecting it to a first order geometric sequence。 The result is after we find the two eigenvalues here， we can directly write our general formula。 Let's jump there。Although you were giving me the correct process in between, so it is a number times the x one to the power of n plus the another number times x two to the power of n. Brilliant. Well, anyone here, if you don't remember why that is so, how that is so, or the how to handle the special cases, for example, the nasty case where we can't absorb the.Four, I'll remind you that happens if the one is eigenvalue. Go back to the recording and review it. We need it. We need it in calculus. We need it for your math competition. We need it for you as your permanent mental furniture. This is called the linear recursion mindset. What you end up with is something akin to a geometric sequence, but it's a combination of the two different geometric sequences—the two roots to that eigen solution, the what to that eigen function.Are the seeds of the geometric sequence? Brayden, are you familiar with how to solve a linear recursion? Okay, you might want to, you know, later come up with a list of the knowledge points that we have covered in this class, but you do not own them yet. I will cover them for you, or point to the resources where you could cover them. I never teach unnecessary stuff. Okay, this is a really required to be your permanent mental furniture. So, I be.If a lot of you don't remember now, go back and review. Can you promise to do so in two weeks? That means in two weeks, here I'm going to give a quiz on linear recursion, put into an application case. So be ready then. Brayden, we do this kind of a circling back every now and then because the kids are very young. No, I cannot promise 100% retain rate. But to move forward, I actually need you to hold on to every single piece of a gadget I've taught you. So.have to mention that again, again. So today we're going to do another recursion, unless, well, except for in this case, it's not linear. It's a pretty nasty recursion. When you're facing a very, very intertwined, convoluted machinery, now we have to employ generating functions. Toby, Toby was remember now, yeah, he was, he was doing that. We said instead of doing a, we do a, b and c. R</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>哦，OK， right， OK， you remember how to absorb the four， Toby， are you？ Yeah， you OK， good， good， good。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。 We do。I remember when we were talking about the gamma stuff, and then like there were zero gammas, so then we had to do uh something else variables. Well, Brayden, you're the new kid here. His answers are usually very brilliant. I have to listen hard for the core, but he's not very good at telling you repeatedly just exactly what his metaphors are.Yet, and so we have to put up with it. And you know, Toby, when you grow older, I'm willing to give half of the classroom to you. Okay, now let's come back here. And you, when you do the review, the rest of you, you do need to think very carefully. How do we handle the case where somehow the coefficients are so fortuitous or unfortuitous, so that you can't absorb that what we call nonhomogeneous term here? Toby's right, but I'm pretty sure nobody understood.Whatever he was talking about, though. Toby, wait, but what if that also doesn't work? No, that always works. If that doesn't work, it doesn't happen at absorption. For example, you have double roots in the future, then you upgrade the power. Okay, we're not going to go down. Toby, you know we're doing something that you also wanted to do earlier. When I was mentioning that, oh, that very clever way. Now, Toby, you were telling us that.And you wanted to do recursion. You were coming up with recursion earlier, and I interrupted you. I said, "Just follow my lead." Now is your chance. Let's actually look at the recursion. So I'm going to actually look at the grid anew now. I'll draw it a little smaller, just so that you could carefully look at the intersections. So here's what I.I was um thinking about, so you want to trespass? No, I don't want to trespass now. We're changing the mindset. We're counting the legal path is, and a path. And earlier, Toby, you were already giving me the correct initial two terms. Oh, you were counting the C five. I'm going to remind you guys what I heard from Toby earlier. It said the C five would equal to a C one times a C four, but you're not done.Why? He's saying we can actually get here. He's saying if we ever touch the diagonal, and we're going to look at every possible location we're touching it. So let's say we're touching it for the first time, then that just means we need to have a legal path within this one by one grid, and then have a legal path in the following four grids. Toby, that that was your thought, wasn't it? Okay. However, don't forget you could not touch it at all.meaning you may not touch it at all. So this may actually the C zero times the C five. No, not that's not the C five. But instead, that means we stay under that diagonal. So that means you could have a C zero and times the C four. This is where there's no touching point on the diagonal whatsoever. And for I'm going to actually change that around. And then plus the C one C four. And then plus</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>You could be touching at the first time, though here. But if we do so, is that the C two times the C three? It's the C one times C three. Beautiful, no overlap. We can't overlap, so this is actually the哎，come on。So the maximum adapt C why why minimum adapt? Just a second, why is that C one times the C three?Three, because to get from to here without going here, you need to. Yeah, exactly. Yeah, go there, C one, and then go up. Correct. Meaning the first leg of the journey that must be the first touch. And now we're adding the C two, meaning the first touching point is here. But to get there, we need to stay under here. The legal path of the first leg of the journey is confined to. Meaning these two steps are determined.Already, we can't touch the diagonal, so we have to under here. So that's a C two, and then followed by, hey, come on, the C two now. C two, because going from the area C two to finish, and then we have a C three, and then a C one, then finally we have a C four, C zero. Yes, but my question would be, is a C four C zero already included somewhere? It's here, because the last one really C one C four. I know, I.No, Toby. Good, that's not bullshit because C one equals equal to the C zero, but conceptually, conceptually, if the first meeting place is here, that number is indeed C one, but that's also C zero. If you want to be coherent with subsequent logic, now. Wait, but like, if you go C zero, I mean C one, and then C four, couldn't you like?Be going to the first C point, and then going to the second and third, and then fourth and then fifth. Oh yeah, then we haven't. We want that because it's counted nowhere else. These numbers are guaranteeing later you're touching that location for the first time. Yes, indeed, you can touch this point and then keep touching it, but that is counted uniquely just once in this group. So that is.逻辑地、 coherent、 and symmetrical way to write the recursion. Give me a signal if you're fully with me. Okay, but what if if we have C six? Would it be C zero C five plus? Aha, very good. And Lucas generalizing. So indeed, if we start off with C n, our C a, come on, our C n now would equal to the C zero and C n minusn 一， and plus the c 一 of the c n 减 二， da da da， adding onto the c n 减 一， c 零。 Let's practice using the summation sign. Brayden, would you give me this notation? Make it compact. Right is the summation.What? What? I have to use like two? You have to use one simple index, a dummy.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>index now, I'll call that actually a j. j, if I name it from a, let's suppose from the one to the n minus one, perhaps you can do that.呃, from one to n, because altogether there are n terms. Why was oh, I was asking why was n minus one? Because then we have n. Yeah, you're right. There are n terms.Careful, Brayden, because we didn't start from the C one. We start. Oh, minus one. Excellent. Yes. Yes, excellent.嗯，Can you do a quick match? When the J equals one, the first term that just minus one, isn't it? Wait, how do you do it, eraser? Oh, I I think you go to your channel. Have you found it? Good, this is a perfect summation. A quick observation.This is by no means linear. We haven't done any recursion like that before. Now, this is where we need a heavy machinery. That's called a generating function, meaning we're going to carry all these cns as a container into a container now, which I'm going to define. And the g of the x now, it's a function, it's a polynomial, it's a finite polynomial, which is sigma of the ck. Come on, ck x to the kth power, going from the one to n.That's Catalan number. In fact, we want to solve all the Catalan numbers, so I can generalize it onto an infinite polynomial, all the way to infinity. Oh, don't worry about the convergence, or if you plug in a number, it's going to blow up. Yeah, all of that could happen. But I'm telling you upfront, the use of the function is not to calculate any number at all. We're simply using it, its formalism, like what we did before, or to get the infinite. Remember, we use sine x over the x.Its power expansion to find the remainder too, right? We only use the very smartly the Vieta with this infinite degree polynomial, and likewise here. If this polynomial carries all the Catalan numbers here, how do we manipulate the polynomial to actually carry this identity? Meaning, is there possibility I could come up with this kind of a combination at all? And here's a hint: try multiplying the two polynomials.Together and see what's going to happen to the particular coefficient of a power. For example, if you raise this squared here, I want you to find out for the particular term which is x two n, what is the entire coefficient? Then you're going to see something very similar to what we're getting. That's homework. Explore how you could use this generating function to carry out the recursion that you're seeing here, and in the evening.呃，and on Tuesday, we're gonna actually finish it off. The homework is to look at the generating function we we just made and see if we can find the find a formula for the Catalan numbers. Ah, that's a little jumpy. Yes, but I'm not demanding so much. I only want you to explore a bit. And what's gonna happen when you do the g squared? Observe what's happening to the coefficients, and you're gonna discover this pattern that we want. You're gonna discover such patterns.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Okay. It's homework clear. Yes. Okay, I shall see you guys before long. Take care. Bye. Thank you.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

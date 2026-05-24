@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-11-29">
+
+<title>Asymptotic Analysis: General Principle for Handling Infinitesimals – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Asymptotic Analysis: General Principle for Handling Infinitesimals</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 29, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Reviews horizontal vs slant asymptotes across power-comparison cases, then pushes the class to articulate a general principle about which infinitesimal terms may be discarded when the limit is a number vs a function.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Horizontal asymptote = ratio of leading coefficients when degrees equal</li>
+<li>Slant asymptote requires long division — cannot drop sub-leading numerator terms</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Review the recording; explain back the general principle for handling infinitesimals.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Teacher visibly frustrated when students restate polynomial-specific rules instead of the general infinity-handling philosophy.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>On your recording, and let me do a quick recap. We figured out what's going on when we solve a quadratic equation. You've got alternative, different answers for the solution to the alpha beta, or the coefficients when you factor them into quadratics. And we demonstrated into understanding that given the four roots, now there are different ways to combine them into two different quadratics. No wonder you would have alternative answers to your alpha and beta.Now, finally, if you guys don't have any issues with homework, well, I'm not hypo hypothesizing that you can't. Okay, if you do, this is the time to ask. And then we're gonna actually move on to our next unit. Now we go from a polynomial, how to solve them. Remember, we took an excursion from the complex numbers, and someday we're going to return to complex numbers and do a bit more about their ingenious applications. But now, since we're on the trajectory toDeal with this algebra topics. Yeah, I want to continue to cover up to the level of a pre-calculus. Because next year we're going to start calculus now, and all of what we're doing now would be pertinent. So let me quickly recap any questions so far concerning behavior of polynomials. How do we achieve symmetry by completing the square, completing the cube, even completing a quadratic, which not necessarily give you the symmetry becauseQuadratic is not necessarily by a shift a even or odd function anymore, and it does not have an axis symmetrical axis. But nevertheless, it gives us convenience when you have a degenerate quadratic equation to do to to find the roots. Okay, so we handled polynomials, and before that, we handled briefly conic section, how to do rotation, how to find that their orientations, and now next step, we're gonna actually learn how to graph.Rational functions， meaning we will begin to divide the polynomials by polynomials now to do a rational function R x， and which is going to be a polynomial p divided by another another polynomial。 and their graphs， their behavior。 So far， any question from homework and from what we've been doing？Anything? No, we're positive, huh? All right, well, let's go forward. Well, and we we have a fundamental sense of what's going to happen to the polynomial over polynomial. In the first fifteen minutes, it's roughly review, just to bring everything back to your mind. Now, we do know immediately for polynomial, the greatest the leading power would be.The predominant numerical term here when x is approaching infinity, or power infinity, or negative infinity. So to begin with, if you have two polynomials, I want to look at the bulk figure asymptotic one, meaning what happens when x is approaching power negative infinity. Then let me give you several scenarios. Scenario number one, let's just say this is a four of the x to the seventh power minus four thousand of the x squared plus a one dividedAdded by six x to the seventh power minus ten x. What's going to happen when x is approaching positive or negative infinity? Let's separate them. Toby, go ahead. No, actually, this is review, and I want to wait for a second to give other kids a chance. Toby, would you? When x is approaching positive infinity or negative infinity, what happened to that rational function?</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>请，请。 Elaine。You want to capture the large figure. Go ahead. Uh, as x approaches infinity, the denominator will also go to uh, the numerator will also go to infinity. But until that's the denominator, you're right. And the denominator will also go to infinity. Correct, but we're comparing them. Uh, but the denominator will eventually get, uh, uh.It will be smaller than, no, it will be bigger than the numerator because uh the numerator has the minus four thousand x squared, which is a higher power than negative ten x. Okay, but what would be the bulk figure, the term that actually matters? Roughly speaking, if you pick out the predominant terms to represent the numerator and the denominator, what powers would you take?The x to the seven， yeah， indeed， these are the determining powers now. So， what's going to happen as we talk about it? We approach one。Approach one. Why does that approach one? We pick out the predominant numbers now, and you can, for the time being, okay, make the other terms vanish. Meaning, you're just roughly speaking, the numerator is about the four x seventh, denominator is about the six x seventh. What does that approach?哎，不， give a Elaine a chance. We need to master this. Holmes， you go ahead. Will approach two over three? Yeah, absolutely. It would equal to two thirds. Elaine, well, they still have a different coefficient. Each one is a representative of the bulk figure, right? Oh, yeah. It's not equal to zero, Toby. As it's approaching infinity.Do you really follow what's going on? Yeah, the the x the sevens they cancel. So, what what about when x is approaching negative infinity? It will also approach ah two over three. That's right, because both the numerator and the denominator would be hugely negative, but it still.So, how do we prove it rigorously? You prove it by doing the long division, or you can directly prove it. There are two ways. Okay, to represent, sometimes a block figure, it's all you need. Sometimes a second block figure, it's also you need. But in this case, okay, I can say because the leading power is x to the seventh, and why don't we just do a long division? In fact, you don't have to. There are two ways to do it. We can just divide both numerator and the denominator by x to the.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Seventh, if I do so, the numerator is changing into four minus four thousand over x to the fifth, and plus one over x to the seventh. The denominator would become six minus ten x to the negative six power, right? Well, if that's the case, when x is approaching infinity, these terms are just obviously approaching zero. If they're approaching zero, then the entire thing just approaching four six.That's it, makes sense. So you can see, when they have equal power, the numerator and denominator have equal power, then asymptotically the rational function is always approaching a constant number, a single constant number, regardless polynomial negative, and that's called a horizontal asymptote. Meaning, eventually, this two third would be actually the standard line we're approaching. And then we need to worry about is it approaching it from above.或 below. A little later, we shall do it. But I'm going to actually keep this is our first example, and let's look at the second example. It has a horizontal asymptote. Let me mark it here as a horizontal asymptote at y equal to two thirds. But instead, and what if actually give you the rx equals to another polynomial over polynomial, which is four x to the seventh and minus four thousand x squared.加的 plus one， and the denominator is six x to the eighth and minus ten x。 What's gonna happen here asymptotically? What happens when you take the limit x is approaching positive infinity or x is approaching negative infinity?那会 be ？ Would it be positive two thirds and negative two thirds? Be careful with the powers. I change them. Oh, it will just be zero. Ah, indeed. Ah, in fact, if I practice the same, I really picking out the predominant term on the top. What you're seeing would be the呃， four x to the seventh on the bottom, six x to the eighth. We have a higher power on the denominator. Even after cancellation, there's a leftover power on the denominator. Therefore, definitely it would be approaching zero. Correct? No doubt about it. There's no taking care of whether it's even or odd, what is the coefficient, because denominator has predominant power now. It dominates the numerator in power, which just means period, the function is approaching zero.In this case, what kind of asymptote do we have? Do we have an asymptote at all? You guys know the definition of the asymptote.y喂。啊，It's y equals zero. Absolutely, it is also a horizontal asymptote, right? It just y equals zero now. That just means your asymptote happens to be aligned with the x-axis. And it is yet to this. We are yet to discover whether it's approaching the asymptote from a little above or from a little under. All right, now let's get the next one.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Well, so far, both cases they have horizontal asymptote. By simply comparing the power. Now, under where under the asymptote, and the three here, and where are you looking at? Oh, unless you're having a double entendre, and that would be sort of a not so pleasant joke. And if the R of the x would equal to, let's say, four of the x to the seven minus the four thousand the x squared plus one divided by六x的六次方减去十x。 I don't know what happens to my pen here. Doesn't show up very well。 六次方减去十。 And what happens when x is approaching positive infinity here? And what happens when x is approaching negative infinity? And do we have an asymptote?You know, if you just want to find asymptotic behavior, now I highly suggest that you do what we did in example one. Helms, is it gonna be approaching positive and negative infinity? You're right, that's right, and he got the sign right. This is positive infinity, the other is negative infinity. Tell us how you reasoned out so.Quickly, because the on the top the power seven and on the bottom it's six, and it will always be a lot bigger than the bottom when it's approaching infinity. Very good, Helms again is picking out the leading powers here, and he's saying, "Well, just look at the ratio. You're getting two thirds." Emma is writing it correctly. In fact, it's almost be approaching two thirds of the x. Now, Emma, are you writing down rigorously what is是 asymptote。 Do you sure? But I think we might be close to that because I don't think it's going to be a horizontal asymptote. Excellent, Emma is right, and she's also being very cautious now. She's saying if we simply compare the bar figures, this is what we're getting. And but next question would be: Does that really amount to a slant asymptote? Meaning, does your rational function infinitely?Approach it. So, if we come back here, we're gonna actually do likewise. Let's divide both the top and the bottom by this x to the six. At least I want to simplify the denominator. If you do so, what you get is a four x minus four thousand x to the negative fourth, and then plus x to the negative six divided by six minus ten x to the negative six. So, if you look at this way, because these terms are allApproaching zero, that's how you could make a rigorous justification to say that term is not just a relatively small regarding the first power, but instead the leading power. They're indeed approaching zero, absolutely approaching zero. Did you mean to write x to the negative six for the ten to the negative six on the numerator? I no, because well, yes and no. I keep all the terms. I'm not making a judgment which one to throw out.I wrote this term, so for equal reason, I'm writing down that term. At this moment, I'm not doing any sloppy reasoning that let throw away the smaller terms, because if I do, I don't need to keep any term. I just get roughly speaking, the ratio is two third x. But sometimes it's a little tricky, so I'm writing down all the terms. At the moment, I'm not doing any approximation, and then you can rigorously say all of the three terms are approaching zero. Therefore, indeed we have an asymptote, which is simply y.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Equal to the two-thirds x。 You guys are following me。 Well, let's look at this case now。 What if I actually give you a closer case? And if the R of x now, it's going to be actually the four x to the seventh on the top, and minus the four thousand x to the sixth, and then plus I and seventeen of the x fifth minus a three x cubed.And divided by a six x to the sixth and minus ten x to the fifth minus one. What would be the asymptote in this case? Um, I think it would be y equals two thirds x.Minus two thousand thirds. I think Toby again divided the both new. Usually, I would teach my students to accomplish this by doing the long division, and indeed you would. However, and there is a quicker way. This is what I've been teaching you so far. Why don't we, without doing any approximation, or just always simplify the lower?between the two leading powers. If you do so, then immediately this actually rigorously equal to four x minus four thousand, and plus a seventeen x negative first minus a three x negative third divided by six minus a ten x to the negative first minus a ten to the negative six. And we do know when x is approaching zero, sorry, when x is approaching infinity, when x is approaching infinity, this这些 term  themselves are strictly approaching zero, so looks like indeed Toby got the right answer. Toby, why is it ten, like ten to the ninth to six? Because oh, not ten, sorry, x to the ninth to six. Sorry, since moment, but since since nearly take, this is definitely I'm dividing both the top and bottom by x to the sixth power. But again, these term are all或负零，所以我们好，而且严格等于那。但什么会发生，如果你实际上需要做长期？What if you have like something like infinity to the power of zero? Like for example, x to the power of one over x, like x is approaching. Yeah, good. And what's going to happen to this? Let's take anpower the end now. After we analyze this rational function, I'm going to answer that question. There are several ways to do it, and again, you are treading in the territory of doing calculus now. This is going to be a big deal for us. Elaine would be equipped to answer that question, but not so fast. Okay, let's come back over here. Why don't we confirm this is a slant asymptote? It's called a slant one because again, it has a slope.Let's also confirm it by doing the long division, because I still want to answer the question: Do we approach the asymptote from below or from above? Right. So if you do this now, and could somebody do the long division for me, please? And I keep mentioning the process and several scenarios, actually several situations, and we should be streamlining that process, owning it now. I want to find what is the first term to.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Put into it so that I multiply the first term here, is to get the first term there. So necessarily, the first term will be actually two third of x, no doubt about it. Just so that when you match these two, you're going to actually get that term on the the leading term on the top, correct? But then, how do I decide what's the next term? What is this one?Then, don't you need to multiply these two to see what is the sixth power we we have generated? And that turned out to be actually we have subtracted by.呃，两千 over 三， correct. And of course, I mean, I subtract the power. But what we really have on the numerator is minus four thousand. So what else do I need to do here, in order to combine this one with the previous one to give me back a total of the ninety four thousand? So it looks like I.You need to provide a ninety-five ten thousand over three, right? Just so that when you combine them, when you are adding these two terms, you'll be getting properly a ninety-four thousand nine hundred six, correct? And that term must be obtained by choosing a number here so that you multiply onto the six would give you that. So, what is that number?By the way, where did I get two thousand over three? Don't I just get negative twenty over three?When I combine these two terms, hello, right? So, in order to get back to the negative four thousand over three, what we actually need would be simply negative, sorry, thirty-nine eighty over three.So that when you combine the two, you're properly getting. Oh, we shouldn't be getting the four thousand over three though. We actually need to be getting the simply four thousand. So that's also not right. It's not thirty nine, but rather one one nine. Eighty. That's better now, isn't it? So what is that co vision? We're对。</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>What are you stuck with, guys? If you can't eyeball it, let's do the long division. See what you're getting is this. If you can't see through, what are the terms here? Write it down honestly, and just start your long division. When the whole classroom is silence, I wonder what's going on. And you're dividing by six. I thought, by the way, this is a skill. Looks like you guys need repeated practice.So, in order to get a quotient here, you always compare the leading term here. What you're getting here is actually two third of x. And as you would do with the numbers, you're going to multiply everything out. What it gives you would be four x to the seven and minus a twenty over a three x to the six and minus. I'm writing it in the right place now. Minus a two third of x, correct? And you look at the leftover and the.Go, go ahead and continue to resolve it. You're more than welcome to write on my board in this case.Oh, actually, Toby, we prefer to write this rational number as a not. This is not proper one. I mean, you don't change it into a integer and a number. Now you just keep it as a overall fraction. That's what you do. That's what we prefer doing. Emma, good. I'm sketching the same.And now, what is the next term on our quotient?嗯。Yep， term is getting right， so this is actually the second term.In order to actually be sure that the remaining powers are less, and so in fact we're we're gonna actually write it in such a manner. Remember, for comparison, we had the answer before, but now after doing it carefully, we actually have a five nine nine zero over a nine, and this is actually multiplied a giving you the correct term divided by the denominator, and then there are left over, which would be this the six, I do the six minus the ten x fifth minus the one</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>And at this moment here, we're gonna find altogether what what is going to be the remainder. The remainder to head the time now, and you see we're actually multiplying these terms together, would create another when you multiply and this term here, it's going to create another x to the fifth. It is going to create plus a five nine nine nine a nine nine zero zero over a nine now, positive x to the sixth, but we onlyWe need seventeen, so we need to subtract by a lot. We need to subtract this number nine of the five nine nine zero zero minus nine times to seventeen, which is going to be and one sorry fifty three. No matter what it is, actual fifth and da da da da da. So that's going to be the next the remainder term, which is going to be negative of this one together, which is the five nine and seven four seven.x to the fifth power， and then there are miscellaneous terms， and this definitely qualifies. When x is approaching infinity， that term is approaching zero， and there you've got another asymptote. This is by doing long division， right？ This is our asymptote. But earlier， by simply get rid of both the top and the bottom by x to the sixth power， I'm already getting an asymptote. And behold， they're not the same. Which one is actually the correct answer？ andThe why they're not the same, because apparently, eventually, when I take that to infinity, and the remaining terms are cancellable, they're approaching zero. So, what's wrong with the this simple thing I did earlier? You know, this is so much easier, right, than the second long division we're doing. What's wrong with that, or if there's anything wrong with it?嗯。I don't think there's anything wrong with it, but we're getting two different answers. They can't be both the slant asymptotes, because if the function approaches one, it's not going to approach the other, right?I'm not going to tell you. You have to really figure this out. So this is not idle time. It's where your mind gets really busy thinking. I think it's the the one we got from long division. Okay, Toby, it's the second one. He's saying the second answer is right.I will not make it mysterious. I'll tell you. Right, you are right. That is the correct answer. But why? What's wrong with the first one? Oh, because like there was extra terms when we got four x to the seventh over six x six minus ten x fifth. Hold on, let's look at what we're talking about. We're talking about this guy here, right? We're talking about this. Yeah.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>And there's nothing wrong by saying when x is approaching infinity, these terms are approaching zero, aren't they? They're not approaching zero; they're definitely approaching zero. Yeah, they are. They are. Then what's wrong with saying then the r x is just left with this? Because when you multiply that by x, then there's another x sixth term. Hold on, what do we mean by one?I multiply by x. I don't multiply by x. I simply keep every term that's not. Oh, when you like in the long division, when you multiply the denominator by three. Why should I multiply the denominator by anything? I'm just sticking to my guns by saying my R x here it's equal to strictly equal to that. And when the x is approaching zero, and that just approaches because these terms are almost zero now. Why can't I just eliminate all my zeros?And say they're approaching each other. I still don't understand. Emma, your hand was up too. Ah, wait. Actually, I think I can give it a second.嗯。I think it's because that these terms, even though if they approach zero, they they still contribute a little, because the.Discrepancy between this this number and this one is by ten over nine, which is not a lot, but there's still some difference. Right, very good that you're noticing. But where did that difference come from? You have to argue back and tell me, did I throw out anything that I shouldn't in this in this expression? Because I did verify each term I've thrown out; it's approaching zero.到底，因为当你当你像，使四x除以六减十，x到负一，减，然后，要除以，负十x到负一，他们借了四千，从四千。那是正确的，那只是你的。Sticking to the next method, you're doing the other method now. But I want a direct, straightforward explanation. Why am I not allowed to throw away? Why am I doing this? Because I want you to be telling your future self. Okay? There are different intuitions in calculus. Whenever you're dealing with infinity, those are very tricky. Our uneducated intuition, even for a very smart guy, are very often wrong because we're playing with infinities here. So, Toby, can you explain it in?</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Human words, what is wrong by throwing away the terms? Those are obviously verifiably approaching zero. Because, like, if you have four x over six, you also need to have negative four thousand over negative ten x to the negative one. I don't understand. What do we mean by we all?also need to have something. I mean, I'm only keeping the terms; those are not going to zero. When you take a limit, you have to throw away the zero along the way, otherwise your calculation would be hugely not nourish. It's because if you you can't just say that four x over six minus ten x to the negative one minus x.Negative six is equal to two x over three, because you'll need to add the extra terms. I know you're resorting to the other argument because you learned to do the long division. Well, okay, Toby is isolating for us now. If I actually have a four x over the six and plus a number which is going to zero, for example, this is ten to the, I'm sorry, let's just do a ninety-one, ninety-one. I know when x is approaching.infinity， this is approaching zero. Now, why can't I say that's approaching two x over three? What's wrong with that? Because the real two x over three is it's four x plus two thirds, and because you need that because it matches up with the second term. We know that, Toby.I'm not blaming you. That's why I showed you the other way to do it. We already know how to explain it using the other method here. I want you to give me some, basically, a small word of wisdom, form an intuition, a common sense for your future. But this is educated common sense. Later, when you're dealing with the infinity, what you cannot do, Emma? Because if you throw away, like in my example here, it's like it's very tiny right now, but like.When we find the equation for the uh for this, then we will lose this constant of one because we threw away this. Oh, in fact, Emma is saying when x is approaching infinity, and that's not even approaching x plus one. That is what you're telling us, isn't it? No, no, I'm. This is strictly approaching x plus one. There's no issue with it.No, but if we throw away the one over xing that, because it's tiny, we are throwing away that one over xing that. I'm actually saying if eventually you end up the rational function, which is already simplified into this now, and then you could immediately say your asymptote is truly truly x plus one. It is approaching x plus one. There, there's nothing wrong. Oh, there's actually nothing wrong. But Toby is explaining very clearly what is wrong with it.From the strict math, he's doing by using the long division. He's right, but I want you to have an intuition. What's what's wrong with it? Because obviously, the term I'm throwing away is indeed approaching zero. What's wrong is that because x is not a number. We're saying it's approaching the two-thirds of x plus a a a number now. And here, this is not a concrete number. If you're whatever the final.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>答案 is not a number, but rather a dependence on x. So what you have thrown away are the numbers; those are approaching zero. If you're actually finding whatever the asymptote, which is only a number, my question would be earlier. And does that actually mean? Let me ask you. I'll push it for it. What is amphibian? So if you're actually looking at this, Toby, maybe you could answer me. Don't answer me through.The long division. I'm asking you, if I give you, I see the four x to the seventh power minus seventy x to the six and a plus five x da da da da da. On the denominator, you're getting six x to the seventh minus twice of the x to the six and da da da plus a four x to the fourth da da da da da. If I want to find the asymptote, do I need to do long division, or may I simply just divide both top and bottom by x to the seventh and capture?是的，only non-zero term。 Can I immediately say my answer two-thirds instead of having to do long division? Ah, I'm not so sure about that. Think about it. Well.嗯，no， you don't， because there will be some extra this term， but that's still not enough。 Oh no， there is some extra that term， there is some extra that term。 Well， there will。会，但它不够，来，做点什么，因为这，只是，你，那，那有点糟糕。你什么意思？做点什么？我知道你对，但再，我需要的是直觉。这不，哦，但你还是，你，你，你还是做了长除法，你必须做判断，它是否重要。我需要的是直觉。 cultivate your right intuition now with infinites, so that you immediately know why this one I can directly throw away all those terms; those are approaching zero by simply. Oh, Emma, because is it because the the degrees are equal and the lower order terms like will vanish? I well, it it depends on what you mean by they will vanish.vanish earlier, they also vanish, even the degree are not zero. You know, I keep saying these terms are strictly approaching zero. There's nothing wrong there; they do vanish. Yes, the final answer is not approaching that. You can split it into two fractions. You can split this part. Tract, yes, yeah, that's correct. This is still. So then, you can get rid of the negative seventy. True, and still, you're making argument.Using the long division, you guys are right. I said what the answer is. Here, I can throw away all the zeros because the final answer is a number. Compared with the number, the zeros are simply zeros; they just vanish. It's really because your final limit itself is a number. It's a concrete number. It's a finite number. It's not a function. Now, by the time we're coming back here now, your final asymptote is actually.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Actually, a function approaching infinity. And however, it looks even contradictory, even more contradictory. Because if my final function is approaching infinity in the presence here, those zeros we're throwing away would be even more negligible. But no, do they stay on the denominator? They would matter when Toby emphasized when they're multiplying back onto this leading term. It's going to create a nontrivial second power. So I would say, in general, just as a word of advice.to your future self, just write down. If you're simplifying a limit, which is a number, and then the convenient throwing away all the zero numbers along the way, starting from the first step, it's justified. You don't have to do long division. You can just directly and distill the leading powers now by just erasing all those lower powers. And then when by the time you're getting to this term, it's fine to really just call them out as zero, make them go. This is totally fine. IfThe final answer is also a number. In the presence of numbers, zeros are zero; they're gone. But if in the presence of a function, your exact capacity to be approaching zero or infinity or anything, and you can't throw them away, you have to keep enough of the lower power. And then, what is the principle? Do do we do always long division? Not necessarily. But what you do need to know is that if they're approaching each other, you have to manually check for these two functions to be approaching each other.Now, sorry, for these two functions to be approaching each other, you've got to manually take their difference to validate the remaining term. The difference is approaching zero as a function. And when you when you take the difference, you need to find the common denominator. Therefore, these terms wouldn't matter now because they don't really have the same common denominator. There, the denominators reduce to only L three. In fact, that comes from the six now. That little difference of the denominator.Would matter when you subtracted the two. Therefore, long division is needed. Are you writing this down? Can you read me back what you have written down, please? After you're done, Toby. You need to keep as many terms until the所以你're missing the point. If that's the advice you're writing to yourself, then you have to keep as many terms here when you do the long division. I kept saying that for ten times. I want you to distinguish the case where you have to do long division where you don't. This is a generalizable instinct instinct when you do infinites. I don't want you to have to go through the trouble of keeping all the terms and then, uh, just carefully analyzing every every time because time can.Consuming, yes, it's rigorous and yes, it's safe, but it's too time-consuming. I can also be equally rigorous and safe by choosing not to do the long division here, but do the long division here, there. I told you what's the difference. I wanted to write it down because you're cultivating a different set of instincts to play with infinites. Am I being clear? So don't tell me that you're just writing advice to your future self. Keep all the terms that always do long division. That's missing the point.Elen，What have you written down for yourself? Uh, if I'm simplifying a limit and the limit's like a number, so like I wrote an example, like the largest powers on the numerator and the denominator are the same, then it's fine to like uh take like the smaller ones that are approaching zero and just throw them out. And one, it's not fine.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>I just said when it's like not fine, you have to manually like take the you have to manually do the long division. But when is it not fine? You just said when it's not fine, what's gonna happen? But how do you decide it's not fine? I wrote down like if the the largest powers on the numerator and denominator denominator are not the same. Yeah, okay. I don't know what's going on. Well, that is specific to the case of the rational function.I don't know where I did not say that clearly. I'm telling you a general principle. One, you can't do this kind of simplification, Toby. If the denominator's highest power is more than the numerator's, then can we just say that it's zero? You know, are you teachable or not? That's not what I told you guys. You're narrowing down to a very concrete case. Yes, yes, that's exactly what's happening today.Okay, tomorrow I'm giving you something else. I'm giving you a trig function. Next time I'm giving you a power, the exponential function. It's not about the denominator anymore. I kept saying I told you the generic, generalizable truth, and I said it ten times. Why? And I told you to write it down. Emma, what did you write it down? For that specific case, I wrote down if there is a function that when x approaches zero or x approaches infinity.Then we have to be careful and use long division to check. That's not either the point nor what I said. So just means you didn't understand what I said, Holmes. What did you write down? I wrote: use long division only when the highest power on the numerator and the denominator are different. You know, I'm learning something. I'm learning something that kids are.You just like the concrete. Despite my effort to generalize it onto an intuition, a philosophy about manipulating infinities, here you just refuse to listen to it, hear it, or learn it. You keep bringing it right back down to the specific manual for handling a rational function with some power on the top, on the bottom. That's not what I said. You guys, you discuss it for five minutes, just so that you can collectively recall what I said and.实际上，for five times, we didn't spend two minutes. Go ahead, talk to each other. I'm a little mad at you. I told you a way, which is also legit, which also works later when you're dealing with a exponential function, or trig function, or natural log. None.None嗯。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>嗯。Divide everything by the highest power.power on the denominator， and then。 Are you able to hear what I said? It's not restricted to the polynomials divided polynomials. I gave you a general philosophy to deal with the infinities. Did you hear anything? Which is about how to handle infinities.艾迪，Would you be kind enough to give us five minutes? Because somehow I come to have closure with this group of kids. Yeah, I really appreciate this. Thank you.嗯。嗯。嗯。So when x is approaching infinity, the higher the power it dominates. So here we have to use long division because. Can you hear me? Can you hear me? I really, I'm really genuinely curious. I told you guys, what I.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>That it's not about polynomial divided by polynomial. What you write to your future self must be applicable whenever you're dealing with actually a trig function or natural log function. There's no anything dividing by anything. There's no power dividing any power. I said I give you very clear advice. What's going to happen when you handle infinity in general? So do not come back to give anything regarding polynomials anymore. Am I being clear now?I'm even tempted to say, why don't you convert your recording right now and figure out what I said? Homework. Just figure out what I actually said. On next session, explain that to me in the evening. Do that before our meeting tonight, would you? Sorry, I will learn to be less mad. But when the whole class of students, I kept repeating it for so many times, and you just refuse to listen.Well, I'm afraid you're not teachable, and I am genuinely mad. Figure this out. All right, take care. Until I see you guys in the evening. Oh, by the way, by the way, because we don't have Catherine anymore, so how about meeting a little later so that it's not so early for the kids on the West Coast? For example, can I change it to from eleven to twelve, or maybe even even from twelve to one?How do you guys feel about that? Um, I have something, like I usually have something after this. Immediately after. Yeah. And until what? Until, um. It, until. Um.One. All right, we'll talk about it on WeChat. Thank you. Okay, huh. Take care. Bye.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

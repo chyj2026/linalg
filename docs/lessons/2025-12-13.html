@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-12-13">
+
+<title>Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 13, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Uses an AMC tangent-circles problem to introduce infinite series via self-similar generating sums, then factors 1 + x + x² + … = ∏(1 + x<sup>(2</sup>k)) and connects to binary representation uniqueness.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Distance between tangency points: s = 2√(Rr) for two circles tangent to a common line</li>
+<li>Closed form of geometric series</li>
+<li>Infinite product factorization via binary digits</li>
+<li>Uniqueness of binary representation</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Determine whether C(211,143) is even or odd using a smart method (Kummer / Lucas style); don’t just compute.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Opens the sequences-and-series chapter; Lucas drives much of the discovery.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Come on. Uh, I start with usual question, and any question from homework from the previous session and from a recent weeks, because we've been treading some very deep waters. Um, so be straightforward and out with it. If you have any questions at all, Toby, I have a question. Yes. So, like, there is like.This thing, and then there's two circles that these are tangent to. So then, this is four. One second. This is also four. This is two D or four three D. Two D. When you say four, you mean the distance between the point of tangency. Ah, Toby, could I actually? Ah, you go ahead. You finish talking, and I'm gonna. I'm gonna actually.要定义的面积 of the small one. Well, that's not enough for the information, because depends on that angle. Yeah, wait, I think, ah, the angle might be determined actually by the very fact. You see, this is how we go about it. Okay, ah, the point is to connect the saving point. So fundamentally, we're gonna actually create this more clear similar. Ah, okay. Um, so if this is actually four two four, then sure.Surely, we would know that the ratio between the two radii are actually r and two r, no doubt about it, right? And these are also equal segments, right? There is no angle. What do you mean? It didn't give you angles. I I know, and I wonder why they tell you that's also four and four, because that's totally useless information. Obviously, if you know this is four and four, that is supposed.To be also four and four, yeah. And the the question would be, and if I do actually fix a certain angle now, and I'm gonna actually put in a smaller circle, and then a the point is the size of the bigger circle it's already determined by the angle. You see, therein is the answer. If you just set up your angle now, I hope all eyes are on board. IfIf I call that angle theta, then automatically I would know. And if I give you actually this distance from the center, well, no, without loss of generality, okay. Why don't we just say this is one, and that's the sine theta, that's the size of the first circle. And later, in fact, we'll know that's all one now because when you actually do, this is going to be cosine theta. We have a scaled version thereof. However, when you put in the the graph over here and the distance betweenThe first tangent point and the second will not automatically be to one to two. That's actually the issue. So we're going to actually set up the equation for it. That is the purpose of connecting to the center. All right. So if we say that the first radius is sine theta, and it's r now, and second radius is also, and knowing this is going to be a three r in between because they're tangents, and then we can solve for the equation of the r using this triangle.It's a familiar construction, and could somebody remind me? We've seen this kind of construction before. What is the relationship if if the two circles are both tangent to the same line, and then how can I write this distance between the point of tangency, which I call AMB, in terms of the given knowledge of the radii? Six R. Well, I rather want you to show me the process. It's not.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>the six R, it has a. What you're doing is actually create a cut. If we so the area of the rectangle will be four R, and the area of the triangle will be. Remember, this is two R here, and that's three R. So when you do the cut, that's also R, right? So that you should be getting whatever this four should equal to twice.等于根号二r， by using Pythagorean theorem, it should equal to the three r squared minus r squared. That's eight r squared. So we have this relationship. Oh, so you solve your r. r is root two. So then it's two pi. Ah, well, if the the area is what you are looking for.Does that make sense? Hello, does that make sense? Yes. Do we want to get reinforcement? I actually want to engage, uh, the rest of the class now. Even helps. Uh, it's useful. And let me actually, first of all, recap that major little theorem that we did here. If you have two circles, those are both tangent to.A particular line here. Then, once we have the information about the two radii, we would know exactly.What is? Hey, come on. What's the distance between the two points of tangency? So if I call that actually A here and B here. So may we derive a general formula? If I give you that little radius is small r and the radius is big R. And yes, indeed, we're creating that trapezoid now. Toby, they give other kids a chance. I.I want to make sure that everybody knows the relationship, Lucas. So the radius of the small circle is is a lowercase r, and the radius of the big circle is uppercase R, right? Correct. Then I'm thinking maybe we can draw a point like here to make like a sort of right triangle. Yeah, beautiful. Then after that's just simple Pythagorean theorem. Indeed. So let's actually call this AB the s distance.Very good. So Lucas is noticing that the hypotenuse connecting the two centers is the sum of the two radii, which is a generic pattern whenever you have tangent circles external tangent to each other. And finish it for us. So there you get r plus r squared minus r uh minus r minus r squared, so which results to.for R R， yes， very good。 I'm not sure. I'm not sure if I worded that correctly. Hey, you did it perfectly. Therefore, the S that equal to the S squared。 Do we all get why this is a big R minus small? Yes. Beautiful, Holmes is saying. Yes. All right, now you get a relationship between the R and the big R minus small. There was Amy number twelve.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Earlier and I don't remember which year it is, and but it has to do with actually a series of such circles. Actually, this is such a delightful problem. Here, you are adding in infinitely series. Give me one second, I am going to find it for you. Was it like? Go ahead, ask. Was it like this?Yes, but do you remember which problem it is? Um, give me a sec.嗯。你 know 你 from I'm trying to get it.呃，I'm gonna roughly set it up. It is indeed like what Toby is drawing. I'm doing this not just for curiosity, okay? Although this is a beautiful problem, my purpose is to introduce an infinite series. Ah, in fact, that is our next chapter. I am going into infinite sequences and series now, and this is the opening part. And it just so happens we bump into this. Um.The setup eventually, as we're looking for it, my ChatGPT is looking for it for me. I so I have to wait. Now, you can actually try the same, but before get started, now it actually the final question is concerning a infinite sequence. Now we have been dealing with polynomials and higher degree polynomials. Take for example, I'm giving you a polynomial which is infinite many degrees. I'll write the P infinity of the x now.Take a very simple one. I give you one plus x and plus x squared. Notice here, usually we write a polynomial in the descending power. Now I'm writing a polynomial in the ascending power, and the reason I do so because there's no ending, there's no actually the end here. We just do one plus x and plus x squared plus x cubed, da da da, ad infinitum. And if you want to represent the general formula, I'm giving you a sequence which is sum of the x k's power from zero to infinity.Of course, it doesn't mean you could always plug in a number to find the value, because plenty of cases the word for it is that it's not convergent, meaning these infinite many terms will not really add up to a finite number. Obviously, if you plug in two, right, because the terms are getting bigger. However, as a formal expression, it's legit to write this infinite power sequence, and if you regard each term, and you're looking at actually the term which</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>which takes like this. Now we call that a sequence. But if you're going to actually add them together, that's called a series. The series it's the addition of infinite sequence or maybe a finite sequence. And submission sign would be actually our friend for a while. Lucas. So for this one, my first thought was try to simplify it. Like I was thinking, we set we already so like we can like try multiplying all the terms by x. SoWe get the same sequence, just minus one. Uh-huh. So Lucas is finding one. So, given that we it's it is finite, then we can try doing that to find a formula. Yes, very good. And and Lucas is actually again the self-generating behavior of this. He's noticing the key to simplifying such power series. It doesn't always work. It actually depends on what is a particular sequence we're given, but it works. Beautiful. Like, because no Lucas saying.When you multiply the p by another x here, you're almost generating the same sequence. And the beauty is, there's no discrepancy in the end term; it's infinite. Therefore, the x p minus p itself just gives us one. You get a formal solution, and it's one over one minus x. I kept mentioning it's a formal solution, meaning they're equal in form, not necessarily in number. Obviously, you know, if you just try to plug in as you would.Two， how could that possibly be giving you negative one? Right, that's ridiculous. So， nevertheless， though， as algebraic forms， when you multiply them together， another way to do the sanity check would be multiply one plus x and plus x squared da da da， and multiply by this one minus x， and as you match all the terms， because of the mutual cancellation， you only get one。 Makes sense。Yes or no? Can I get a acknowledgement? Yes. Okay, now I have a. Oh, it's look has located it. Wow, beautiful! It's two thousand and fifteen AMC twelve A. Let's actually look at it. It's going to be a good starter for our about four weeks of investigation of series and sequences as I.Actually, many many degree polynomials. That's a general extension of the polynomial we have been doing. This is actually the and twenty fifteen AMC twelve A number twenty five. Let's go ahead.嗯。Come on, I'm actually sorry, my shoot. Are you guys getting it? Are you guys seeing the problem?</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Yeah, is that the correct one? Yes, it is the correct one. ChatGPT found it for me. Okay, let's see. Collection of circles in the upper. Oh, I saw the problem. It's such a delightful one. Let's look at it. Although at the entry level, we're just beginning to look at these polynomials here. This is a difficult challenge, but let's do it.哦，关于那个 circle cramming。啊， indeed。 Before we plug in the concrete numbers here, let's do it generically. Okay. Well, why don't you think about it as actually the two initial circles? They have the radii of the r one and r two. In fact, you can just for simplicity call that. Okay, I'll call that r one, r two. Save the little r for later circles. Oh, you're bringing a picture for us? Go ahead. I'll let you.Because I'm gonna use that more accurate picture. Thank you. All right, one second. Hey, come on. Go ahead, bring that in. Excellent. Oh, this is beautiful. Okay, so here you got actually R one, the other is the R two, and we're going to really just look at all these little R's generated, and the left and the right. Then eventually, our job is to actually sum up the L's.No, we're summing up. Actually, those are what the one over the square root of these little Rs. We need to find the average. No, no, the one over radius.One over root r， the sum of all of those on the first six um layers. Uh, in fact, it's not even limited to the first six layers because notice here they're saying consists of two. On the first seven. Uh, you're really counting the picture. I believe they want this to go on infinitely because remember they're saying for k is greater than equal one, and in fact.That layer L K is consisting of the layer of the two to the right, and what is the summation of the? Oh, yeah, yeah, they do give you the first six layers. Sorry, I misread the problem. I thought this is going to go on infinitely. It's a finite sum, which makes it actually a bit more tedious. Nevertheless, we can still do it though. So take a minute to think about it, and I want somebody to start showing me.Well, first of all, we need to find the very first layer, which has one one circle in it, right? I think it has two. The first one, I think the first one is L zero. Yeah, that's correct. But for, in fact, it consists of actually two to the zero power.Right, this is the first level, and the second level is here. There are two circles, and the third layer that's this. There are actually four circles, right? So let's actually first write the R one. Oh, I'll call that. Oh yeah, I'll call that R one. So this is R one has only one, and R two has two. Let's call that R two one, R two two in the future, and we're going to.</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Take the square root of this. You certainly don't want to plug in a number. We really want to find a generic pattern for it. But r one is seventy. The radius of r one is seventy squared, and the radius. Can you not? Can you not plug in the concrete numbers? Why don't we just write it in terms of the big r one, r two, and let's look at what is the little r one? Based off, uh, Lucas.Problem gives us a few, uh, like the radius. Yeah. Seventy and seventy three. I keep saying, I want to derive with simply the generic big R one, the big R two. We shall worry about how to plug in the number a little later. All right. But we just know the big R one, R two are known now. Get your hands busy, guys.We're repeatedly using the pattern that we have just found out earlier: two circles tangent to a line. There's a relationship.We just try drawing the the connecting the rate uh the centers first. Yes. So, if I look at suggesting, why don't you apply? You want.Want to connect these two? Yeah. Correct. And if that's the case, we're going to end up beautiful two conditions here. A, we shall do that in a second. Now, let's try to find what is r one. Once we have a a clear understanding between the two circles, we're putting in a third. Right now, our job is to express what is the radius of the third circle we're putting in between the.Two other circles, right? And the condition, of course, would be, and if you apply the formula we ended up earlier, we will be able to know what is going to be this total distance by using actually that distance here should equal to the twice of the square root of the big R one R two, as we derived earlier. But at the same time, you can break it down into two parts now, so it should also equal to the R one little r one plus R two.Two little r, correct. At this moment here, we really want to simplify it to make it look like eventually what we have to sum up. So, how do we rewrite this expression? Add it. Notice here, eventually, what you're adding up is reciprocal.I got R one R two over R one plus R two. Yeah, actually, a better way to write it would be like this, don't you think, Toby? Because eventually, we're preparing the way for adding all of these up. Oh, yeah. Oh, wait, hold on. So, this is just.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Two of the small Rs, yep, and that actually means whatever the the third circle you're putting in between of the two existing circles, then the quantity eventually we're expected to add up. That quantity referred to is one of the squares of the R. It's a sum of the previous two. I know. And then that is why I insisted: don't plug in a number, don't plug.Because this relationship could be reused, it's still the same when you apply that to actually this R two. And in fact, this little R is the first layer. For the second layer, I'm going to actually call that R two one and R two two. I'm writing the layer on the left, okay. And what we have just solved is actually the R one. If that's the case, we also have this, and this R two one would equal to one over the R one, and then plus one.over the r little r one, and this likewise would equal to one over the r two. If you add a layer, then you you're adding two of the ones that are not at the edges, and then one of the ones that are are at the edges. And do we notice a pattern? And eventually, when you add all the six layers, there's a bunch.Of the previous layers added in. My question is altogether, how many combination? My final answer, whenever you're doing the sigma from the one to a k now, and of these, what is the quantity defined? The s k. No, religiousness. We're doing actually adding all all these now, and these are actually the r k. All of those, including each r k, includes two to the k minus first powers.So many R's here, and if we if we add all of these together, we know for sure they can all be written in terms of several copies here of the squares of R R one and the square root. You do it. You multiply by two, and then subtract one over root R. Let's be more careful.Just exactly how many copies are we adding? You multiply by two and then subtract one over root R, because like each one. Toby, Toby, I know, I know what you mean, but that's not the final answer because that only gives you the next layer. How is that related to the previous layer, right? So when you start.如果它为零，你有那，和然后，所以你三倍它，然后。Do we notice something? Do we notice something out there? You've got actually the starter. This is one copy on that side. I'm recording how many copies of this. On this side, I'm recording how many copies of that. Okay. When you put in the first circle, it is actually one one, isn't it? This is a the first circle. And then after that, you added these two, which actually give you a two. That's, but you're still adding in another copy than that.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>So basically, you got a one two one, except for the two, it's split in the middle. So when you actually add the zero layer onto the first layer, what you're getting is a one two two one, isn't it? But if you combine the middle, it's really just like a one two one. So that that is actually my little R. This is my little R, and this is the sum up to the first layer.This is the sum up to the first up to the first layer. Now, if I hold on, is is anybody following me, Elaine and Helms? Elaine, your light doesn't show anything. I can't see your face, so you have to communicate verbally with me.I don't understand what the one one and two means. Hmm, the one one is keeping track of how many copies of the left one, how many copies of the right one. And notice here, because of this relationship, we solved that one. So we say the first circle is made up one copy on the left and one copy on the right. That's the meaning of this one one. And the second layer has two circles. Those two circles now, each one, it's made up of one.Of the original， and plus one of this， but one of this is actually the sum between the two， so what you're getting is actually one two， because you added this one onto that one now together two， and likewise。 So these are actually the two circles on the second layer。 Does that really make sense？ So that means altogether you got the three copies of here and three copies of there。I understand it. I and Elaine, do you understand it? Yeah. However, that's not everything. In fact, I wrote the one on the outside. The second layer really just consists of altogether two copies of this, and the two copies. Well, the way I'm writing it is actually wrong, because I actually want to write this is actually two.Two one, not one two. On that side, it's actually a two one. This side is actually the one two. Meaning, the second circle is made up of two copies of this and one copy of that. By adding these together, now by adding the answer together, and to give us a chance, we're working it out the rest of the class. So, this pair of numbers always just mean on that on that level, the circles is made up of how many of the one of the big root.Big R 一， and how many copies of this? That those are a pair. We're denoting how many copies, and eventually we're adding all these numbers together. And on the third layer, we're actually creating between this. I'm writing them in the order because outside you always have this. In fact, I should write these two copies infinitely on the outside because they always occupy. And let me actually be even more rigorous. They're going to align like this, and this is um.That's the original, which is made up of the copies. Now, the first layer is made up one and one. The second layer is a sum of these two, right? So that's made up of actually two one, and that's actually one two. The third layer is made up of sum of those, which is a three one, and this is a three two, and that's actually a two three, and this is actually a one three.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Is that clear? And do we see a pattern now? Because I don't want to keep writing them. Because eventually we have to add all these numbers up to look at what what is the total. And there we are going to start four one, and followed by Lucas.对，负一，那它，那让我想一想。如果要你想一想，那意味着你还没有想出我如何表示这个图。我们不是把这两个加起来吗？哦，所以是 five five two。 Yes， Toby。 So let's say we have this already. Then each time you add a new layer, then you will have two of你 will add two more of each one that you already have, because this is this plus this, and this is this plus this, except for the edges. So, but the edges combined is the center one. So you will multiply by three, and then subtract the center one. And you can do that, but I think it's a lot easier to really notice a pattern.Now you add two, that's five three, and you add that one, which is another. Now it's a four three, and now it's between those two, and it's a three four, and then this is going to be actually the three five, and then the between these two, which is going to be a two five, and eventually add them, that you're getting actually a one four. Of course, there was magical across the middle.So then, you get three sixty five a week. I think at this moment here, it's helpful to add in the total numbers on each layer, right? The first layer is one, one. The second layer is a three and three. And let me actually write it in a different. So this is a total sum total of the first layer. That's one one, and that's a three three. When you add these numbers together, what are we getting? Three three two one, which get you.Nine, right? And when you add these numbers together, what are we getting? You get twenty-seven. So, at this moment, we're ready, very ready to actually have a hypothesis. We can prove by induction that these terms are really just going to be three to the k power, uh, k minus first power. By the time you get into the sixth layer, what yougetting would be actually Lucas. What would be that? Wait, three to the fifth, I think. Which is? Wait, that's two hundred forty-three. Two hundred forty-three. I totally agree with you. So these are the tallied up, the sum of the copies of each one. And Toby, what what numbers are you getting? Three sixty-five, three sixty-five. But how come these are different numbers?</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>哦，因为像，这是所有它们的总和。哦，你正在添加它们，呃，已经，啊，是的，是的，是的。我乘以三，然后减去一个，对，差异。呃，但我们不打算添加原始的两个，对吗？嗯？嗯？不，我们不打算添加最初的副本，意思是，可能我们不添加这两个。我们不？不，我们从呃第二个，呃，第一个圆圈我们创建的，现在原始的两个。Big circles. We do. You look at the notation, meaning we start from here. Oh, that is what you're doing. You are starting from here. You're not starting from the original. That's fine. That is fine, Toby. So then you get three sixty-five each, which will be Toby three sixty-five. Toby, Toby. I really want you to stop. You're such a brilliant kid. Stop calculating the numbers and find the general pattern. What ifNext time I change the k into twelve, are we going to recalculate the numbers by plugging our new ones? No, that's not necessary. We're getting into sequences. Otherwise, this is just going to be a fun and tedious game. Now, I want to show you some some ways so that in the future this is generalizable onto calculus. We're dealing with a series, guys. The question we're dealing with it's what's the sum of actually this basically the r here, the ratio andDon't call that r. Let's call that a. a equal to three. We're adding double copy of actually, the in fact, we're not going to combine them because we're going to tally up the number of the one over the root r one and one over the root r two separately. So what really interests us is what is the sum of these copies. In fact, what we're getting is actually a to the zero and plus a to the first, da da da, all the way to the a to the fifth. But generically, eventually.This is the number of copies. That number, I'll call that n. And your answer is simply going to be one over a. Sorry, the n over the square root of the r one, plus n over the square root of r two. This is the final answer to your question. Make sense? But according to what we did before, Elaine, how do we sum it up instead of having to sum out term by term? In fact, for that purpose, here, why don't I give you a fifteen instead of a five to discourage?Term by term summation, Lucas. Give her a chance. Here, the a is equal to three, but I want you to write it in terms of the a first. Why, Lucas? Why are you crying a river? Doing this kind of thing is fun.伊莱。It's fun. Again, communicate with us if you're blocked by something. Say it. Can we do what we did before? Yes. Brilliant. Mathematicians always do what they did before.所以我们每项乘以 a， 那就得到几乎相同的序列，但。 很好。 所以 Elaine 说， 如果你乘以 a， 现在你得到 a 加…… 加…… 加…… 加…… 几乎相同的序列， 但加了项。 所以它不那么方便。</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>n from a or then a infinite series where we don't have to worry about the ending term. Now we do. Can we subtract them from each other? Yes, good idea. So if we do so, we're getting actually this a n minus n naught, which would give us the eight to the sixteenths minus one. Is that what you are saying?Lucas， good， Elaine， you got it. That reminds me of the difference of squares formula. Oh， okay， and one second. Can we do some of that? Like turn it into，呃，then we to it might we we can factor it. So we get like a to the eighth minus one， a to the eighth plus one， then the a to the eighth minus one can turn into a to the fourth minus one。哦，That's a different pattern, Lucas. That's actually entirely different pattern. Really? That's how you multiply one minus x, one minus x squared, one minus x. Uh, sorry, one plus x, one plus x squared, one plus x fourth, and one plus x eighth, etc., etc. If that's what you're doing, Lucas is mentioning there's a very neat way to simplify this. However, you should realize when you expand this.This out, what you're getting? What would you get? Lucas is actually saying we can multiply this now by the one minus one, and they all like a domino, and all of these crash into just one now. So he's saying another way to look at it, we solved it by simply using the self-generating pattern. Another way to look at it is to understand that that can be factored.Its total sum of all the powers can be factored in this manner, Lucas. If you just all of a sudden thought about it, you are a genius because there's some very deep reason behind it. There's a very deep reason behind it. I just thought about it because it reminded me of difference of squares, since a squared minus b squared equals a plus b times a minus b. Yeah, that's correct. It is. Hold on, there's so many good ideas here. I'm gonna save what Lucas is saying for.Little and for a minute now, let me circle that and come back to it, and we can finish the problem now. So this is a generic formula for what we're doing now, and now this is the time for you to plug in a number, because we didn't have sixteen, we have six. We have a summation all the way to five, so this number would be only a six now, which is decently easy to do. That six. I got it. Yeah, when you plug into the n plus one plus n over two. Correct.And so, this is going to be actually the so three to the n plus one. My, I mean, plus one over two, all over two. Yes, but that's after we plug in. So we're getting actually three to the sixth power, which is nine cubed, which of course give you the seventy nine minus one over two, and that would be the correct answer. Of course, eventually you have to plug it into here. So that AMC problem, sorry, that AMC problem is done now.D and D D D D。 I don't care, Toby. And I care about a very good idea Lucas was proposing. You know, that's really brilliant. And I didn't plan on doing this. I have plenty that I planned out, but we're going to do this now because Lucas gave us a very starting point. He's saying, in fact, if you write out one plus x plus x squared, da da da da, there's a way to factor it. It actually equals.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>就是 two, the one plus x, and the one plus x squared, and one plus x to the fourth. Okay, we're listing out these are only powers of two, and the one plus x to the eighth, etc., etc. Oh, Lucas, you can't imagine how useful your proposal is. It is indeed extremely useful. Why? Well, first of all, why this is true? Well, if you're going to really write out the summation of all the terms, and how can I know, make sure?Because the available combinations are only the zero power of the x, and the first power, second power, fourth power, eight power. We don't even we don't see the direct appearances. For example, x to the one hundred or one power. Lucas, binary. Yes, exactly. I think isn't isn't that like a part of what we do for like computers or something? Yeah, it is actually a binary system. So Lucas proving to us when you expand it out, and we're gonna actually.If and only if I want to say, and every single power of x would show up exactly once. It wouldn't show up to begin with. That requires us to break down the power into random summations of these available powers. And Lucas, you want to say it, huh? He's going to show us exactly where this power comes from. What kind of combination would give you that power? Go ahead and show us. So take a look. We know we know that. So let's take a look at all the powers of two we get.一、二、四、八、十六、三十二、 sixty-four 和一百二十八，但我们不会用到 use one hundred and twenty-eight， 因为它比一百零一更大，所以我们可以擦掉它。然后我们说， 好， sixty-four 是最大的二的幂，所以我们要需要，所以，在我们的因式分解中，我们要有 x 的 sixty-four， 所以一百零一减 sixty-four 是，呃，等一下，一百零一减 sixty-four。We get thirty-seven. Very good, Lucas is breaking it down right in binary. Is there anybody here who doesn't know binary numbers? I know binary numbers. Good, Holmes, you. I also know them. And beautiful, Elaine. Yeah, I know them. Beautiful. Okay, so basically, we break down the one.One into powers of two, and that's because yes, that's the corresponding binary number, isn't it? For a second, I thought you were writing x to the fifth instead of x to one hundred and one. Oh, oh, well, then you jump ahead of me now because we haven't been doing binary number. These are still pretty good old decimal numbers. So this is actually the expression there. And how does that tell you what combination assures us this term could be gotten?And Lucas, now you give us a chance. And Elaine, you go ahead and tell us what kind of combination, which term do we pick from these available powers here? And that's x thirty-two. All of these would actually give us that desired x one hundred first power. What do you mean by like pick? Meaning, if I want to get when you expand this out now.And the terms are coming from, for example, this kind of a combination. This is going to give you a term, right? When you multiply the choice, the different a terms in the from the different pro entities, and eventually you multiply all of them up. Do you see what I'm saying? Yeah. For example, I can justify in my final answer there is term which is s cubed. How do I get it? I can simply get it by selecting the.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>x to the first, x to the second, multiply all the ones later。 voila， I can demonstrate this term eventually will be in that grand expansion。 That doesn't mean there's only one such unique combination, though, because the coefficient is not proven to be one yet. But then, at least, could you demonstrate, actually, Elaine, this term does show up? And that's the purpose of having broken it down into.That binary number. We have to add the x because all the rest of them are even, and one hundred one is not even. But we know that. Yes, you are right. We do need to. But Elaine, you think more methodically. Definitely, we wrote it down in binary, and there is some meaning in it. That binary number should give you the entire profile how we're selecting our items.Give them a chance. I want either Elaine or Helms to work this out. Helms, you go ahead. So, so also we already did the binary thing, so we can just start to do this. So we're gonna select x x to the power of four, and then x to the power of thirty two, and x to the power of sixty four.That's very good. That's very good. You are very quick studies. So we know for sure when you're doing the all the and the helps fill in the very necessary part of rigor now. That means the other parentheses we're just selecting one from them. So guaranteed, there's this term. Oh, sorry, Miss Zhu. And x times the one times i two the four times the one times the one times the x thirty second and then times that one. That gives you exactly the term we need. ButHow do I know this term doesn't double appear elsewhere? There's no other combination that is able to give us the same power. If I can prove that, it just means every single power arbitrarily could always be written as a binary number, which indicates one way you could get that power by these the binary number combinations. And then we have to prove the coefficient is one, and then we're done. That means they're really equal to each other. How do I know this combination is unique?Lucas，I have an I have an idea for sort of a recursive proof. Okay, go ahead. Sort of, I'm not sure what what kind of proof this counts as. It's kind of recursive, kind of case by case. I'm not sure. Let's say it. So I'm thinking that assume that assume that there is more than one way to do the to do this binary combination. So in that case, either we use x.六十四，或我们用 x 到一个更高的幂，对吧？或者我们用 x 到一个更低的幂。所以，所以如果我们用 x 到一个更高的幂，例如，等等，等等，为什么不能用一个更低的幂？不，我是在说，那也是可能的。我需要证明这一点。所以，我想从我想从 x 开始。如果 x 有更高的幂大于六十四，那它必须是 x 的一百二十八。由于没有项可以降低 x 的幂，x 的一百二十八，我们不能使用任何 x 的幂。到一到二十八或以上，对吧？好的。然后我们说，如果假设我们不使用x六十六，而我们只使用所有幂次低于它，那么即使我们使用所有x项低于x六十六，我们只能得到x六十三，这比一百零一小。非常好。事实上，我们必须使用x六十六。好的。现在我们知道这一点，我们转到三十二，同样地，我们也要使用三十二、六十四。太棒了。我们知道我们不需要。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>We have to use it, but we can't. But and but if we use it, it doesn't work, etc. Brilliant, Lucas is among is among to tell us that any binary expression is unique. But he doesn't take that for granted. He's proving it to us by using a key fact, meaning you want to remake a binary number using other digits. But the point is, if you use up all the lower digits, one plus two plus four plus eight plus that that all the way to the two to the k, they stillOnly add up to the two to the k minus one, k plus one minus one. Elaine just derived that formula for us. This is a finite geometric sum, except for it's not infinite, so we end up the leftover final term minus initial. And this one is still smaller than the very next power. So the proof, the crux to the proof, is that you could use up all the lower digits and still not amounting to a higher digit. That means if you have a a single number.Can be expressed in terms of the two binaries. This is going to be actually this is a binary. That's another binary, and they must actually be the same highest power. Because if I put a one here and I put a zero here, this is the highest power. And then all these numbers can add up only less than that. So there's no way for these two numbers to equal to each other. Now once you compare them digit by digit, removing they're paired up. Highest highest digit now, and then well that that is what he meant by.Then we can actually say compare the new numbers here, and they still need to match their highest digit. We reach the not trivial conclusion now, meaning the binary expression is always unique. Toby, we found a way to factor, like a polynomial, if and only if there are there are the only coefficient is one. So, like let's say you have x.到 the nine plus x to the seventh plus x to the third plus one, okay? Yeah. Then you set x to two, and then you solve what it is. So in this case, it would be that's five one two and one two eight, which is six forty.Plus nine, six forty nine. Then you try to factor it. So, um, in this case, it looks like it can't be fact. Actually, can. Six forty nine is eleven. Ah, this is not helpful, Toby. You can't play with the numbers. But Toby, here. Wait, wait. I'm getting to the point. Okay. Then after that, you write each.Each of them, in terms of in term in binary form, like eleven would be x to the third plus x to the first plus one, and then fifty nine would be x to the fifth plus x to the fourth plus x to the third plusx to the second no x plus one， and so that would be it。 But why do you have to factor it down to begin with? In fact, we have a universal proof already using Lucas' idea. I actually don't see the point of why do we have to factor down into prime numbers.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Wait, this didn't look right. And I think Toby, you he might be thinking of applications of the binary number in the future if we want to find down something. But Toby, like I said, Toby, can you listen? I think it would be beneficial if you nod your mind to algebraic universals instead of get getting hung up on specific numbers. Now you spend way too energy calculating the.Numbers that's not worth your time. Patient, pay attention to the general pattern. I really want to reinforce. This is a great idea that Lucas is bringing us. He's showing us this geometric sequence we dealt with earlier can be re broken down into an infinite product. It went from infinite sum to infinite product now. And by the way, behind this later there will be powerful theorems we could prove. For example, if you want to do one hundred eleven.Choose a choose one one forty three, and I want to know whether the final answer is even or odd. This breaking down is going to show you a extremely simple algorithm that you could do. Instead of it, you know, this is a nightmare of a number. It's a challenge for even the best mathematicians if you don't resort to binary to decide whether that number is even or odd. But if we have this mindset, that's going to become a breeze. We have to quit the day. So remember.我们 opening a chapter, and we're going to be dealing going from polynomial to infinite degree polynomial to begin with the actual series now. So have fun, and really look at what we have done today, which was a little bit of an ad hoc, but I consider that's a great opening, really prompted by you. Take care until in the evening. What's your homework? A homework is just simply we're meeting again in the evening. Just review this, but thank you for asking. Just make sure we understand. Wait, wait.Reading again， maybe you can try to tell me whether the two hundred one， sorry two hundred eleven choose one hundred forty three， one hundred forty three， whether this is an odd number or even number。 Don't spend a lot of time working on it， and don't ask ChatGPT because that's a it is a sheer calculation. There's a smart way to do it. We shall. It's even。 How do you know？ Well， because five。What? Sorry, my student is here. Oh, bye bye.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

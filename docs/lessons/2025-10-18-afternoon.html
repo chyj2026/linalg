@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-10-18">
 
-<title>Linear Algebra Notes</title>
+<title>Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,26 +24,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
 
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -84,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Linear Algebra Notes</span>
     </a>
   </div>
@@ -95,11 +131,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./lessons.html"> 
+    <a class="nav-link" href="../lessons.html"> 
 <span class="menu-text">Lessons</span></a>
   </li>  
 </ul>
@@ -118,8 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#newly-distilled-lessons" id="toc-newly-distilled-lessons" class="nav-link active" data-scroll-target="#newly-distilled-lessons">Newly distilled lessons</a></li>
-  <li><a href="#full-lesson-library" id="toc-full-lesson-library" class="nav-link" data-scroll-target="#full-lesson-library">Full Lesson Library</a></li>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
     </div>
@@ -128,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Linear Algebra Notes</h1>
+<h1 class="title">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</h1>
 </div>
 
 
@@ -136,6 +174,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -145,240 +189,75 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section class="course-hero">
-  <div>
-    <p class="lesson-kicker">Rigorous Saturday-class notes</p>
-    <h1>Linear Algebra Notes</h1>
-    <p>Distilled lecture notes — symbol dictionaries, theorems formally stated, two independent derivations for key results, verification audits, and the full transcript preserved as appendix. Embedded video for every session.</p>
-  </div>
-  <div class="course-stats" aria-label="Course statistics">
-    <div><strong>29</strong><span>sessions</span></div>
-    <div><strong>2</strong><span>lessons distilled</span></div>
-  </div>
-</section>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Course scope.</strong> Repository name says <em>linalg</em>, but the underlying class covers a broader math arc: modular arithmetic &amp; Fermat–Euler (Sep 2025) → complex exponentials &amp; Euler’s formula (Sep 2025) → conic sections (Oct 2025) → polynomial graphing &amp; rational functions (Nov 2025) → series &amp; ζ-function (Dec 2025 – Jan 2026) → linear algebra &amp; eigentheory (Jan – May 2026). Topic tags reflect this; chronological order preserves the spiral teaching pattern.</p>
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Factors the general conic’s quadratic part as a(x - λ₁y + A)(x - λ₂y + B) and reduces the shift terms to a 2×2 linear system for A, B.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>ax² + bxy + cy² = a(x - λ₁y)(x - λ₂y) with λᵢ from the quadratic formula</li>
+<li>A + B = d, -(Bλ₁ + Aλ₂) = e/f reduce to 2×2 linear system</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Page status legend
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<ul>
-<li><strong>Distilled</strong> — full rigor: symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures, semantically-aligned key frames extracted from video.</li>
-<li><strong>Stub</strong> — auto-generated from manifest.json metadata: title, lead, topic tags, key theorems list, embedded video, full verbatim transcript appendix. Browsable, searchable, video-playable; but proofs and audits are pending. See <a href="https://github.com/chyj2026/linalg/blob/main/scripts/extract_frames.sh">extract_frames.sh</a> and <a href="https://github.com/chyj2026/linalg/blob/main/scripts/generate_stubs.ps1">generate_stubs.ps1</a> for the toolchain.</li>
-</ul>
+<p>Short transcript (~10 KB), ends mid-discussion when the 2×2 linear system for A, B has no solution.</p>
 </div>
 </div>
-</div>
-<section id="newly-distilled-lessons" class="level2">
-<h2 class="anchored" data-anchor-id="newly-distilled-lessons">Newly distilled lessons</h2>
-<div class="lesson-grid">
-<article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2026-03-07 — LVS</span><span>Published</span></div>
-  <h3 class="anchored"><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a></h3>
-  <p>Proves Cramer's rule from the cofactor adjugate formula, establishes the equivalence of left and right inverses via the column-upgrade trick, defines a linear vector space (closure under linear combination), and shows ker M is one.</p>
-</article>
-<article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2026-03-07 — after — Cramer review</span><span>Published</span></div>
-  <h3 class="anchored"><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a></h3>
-  <p>Review companion to the morning LVS session: walks Catherine through the off-diagonal proof of M·adj(M)/det M = I via the determinant-with-repeated-row construction, re-derives Cramer's rule from M^{-1}·f, and introduces the singular dichotomy theorem as homework.</p>
-</article>
 </div>
 </section>
-<section id="full-lesson-library" class="level2">
-<h2 class="anchored" data-anchor-id="full-lesson-library">Full Lesson Library</h2>
-<div class="lesson-table-wrap">
-
-<table class="lesson-index-table caption-top table">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">Date</th>
-<th data-quarto-table-cell-role="th">Session</th>
-<th data-quarto-table-cell-role="th">Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2025-09-13</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-09-13-afternoon.html">Modular Arithmetic, Roots of Unity, and Symmetry Counts</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-09-13</td>
-<td>morning</td>
-<td><a href="lessons/2025-09-13-morning.html">Fermat's Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-09-20</td>
-<td>morning</td>
-<td><a href="lessons/2025-09-20-morning.html">Proof of Euler's Formula via Additive and Multiplicative Functional Equations</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-09-27</td>
-<td>morning</td>
-<td><a href="lessons/2025-09-27-morning.html">Solving cos θ = a and sin θ = a via Complex Exponentials</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-10-04</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-10-04-afternoon.html">Eccentricity Definition of Conics; Parabola as the Borderline Case</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-10-04</td>
-<td>morning</td>
-<td><a href="lessons/2025-10-04-morning.html">Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-10-11</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-10-11-afternoon.html">Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-10-11</td>
-<td>morning</td>
-<td><a href="lessons/2025-10-11-morning.html">Cramer's Rule, Cofactors, and Unique Parabola Through Three Points</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-10-18</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-10-18-afternoon.html">Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-10-18</td>
-<td>morning</td>
-<td><a href="lessons/2025-10-18-morning.html">Quadratic Form Classification of Conics via the Discriminant</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-11-01 <sup>⚠</sup></td>
-<td>morning</td>
-<td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-11-08</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-11-08-afternoon.html">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-11-29</td>
-<td>morning</td>
-<td><a href="lessons/2025-11-29-morning.html">Asymptotic Analysis: General Principle for Handling Infinitesimals</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2025-12-06</td>
-<td>afternoon</td>
-<td><a href="lessons/2025-12-06-afternoon.html">Full Graph of a 7th/6th-Degree Rational Function</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2025-12-13</td>
-<td>unspecified</td>
-<td><a href="lessons/2025-12-13.html">Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-01-03</td>
-<td>morning</td>
-<td><a href="lessons/2026-01-03-morning.html">Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-01-10</td>
-<td>morning</td>
-<td><a href="lessons/2026-01-10-morning.html">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-01-24</td>
-<td>morning</td>
-<td><a href="lessons/2026-01-24-morning.html">Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-02-21</td>
-<td>afternoon</td>
-<td><a href="lessons/2026-02-21-afternoon.html">Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-02-21 <sup>⚠</sup></td>
-<td>morning</td>
-<td><a href="lessons/2026-02-21-morning.html">Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-02-28 <sup>⚠</sup></td>
-<td>individual</td>
-<td><a href="lessons/2026-02-28-eigenvalues-followup.html">Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-03-07</td>
-<td>after — Cramer review</td>
-<td><a href="lessons/2026-03-07-cramer-review.html">Cofactor Inverse Formula Proven; Cramer's Rule Re-derived; Singular Dichotomy</a> <span class="mini-badge">Published</span></td>
-</tr>
-<tr class="odd">
-<td>2026-03-07</td>
-<td>LVS</td>
-<td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td>
-</tr>
-<tr class="even">
-<td>2026-03-28</td>
-<td>morning</td>
-<td><a href="lessons/2026-03-28-morning.html">Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-04-04</td>
-<td>afternoon (2)</td>
-<td><a href="lessons/2026-04-04-afternoon-2.html">Powering Jordan Blocks: Binomial Expansion with Nilpotent N</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-04-04 <sup>⚠</sup></td>
-<td>morning</td>
-<td><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-04-04 <sup>⚠</sup></td>
-<td>parallel rerun</td>
-<td><a href="lessons/2026-04-04-tuesday-rerun.html">Linear Recursions via Companion-Matrix Diagonalization (parallel class)</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="even">
-<td>2026-05-02 <sup>⚠</sup></td>
-<td>morning</td>
-<td><a href="lessons/2026-05-02-morning.html">Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-<tr class="odd">
-<td>2026-05-16 <sup>⚠</sup></td>
-<td>individual (Elaine)</td>
-<td><a href="lessons/2026-05-16-elaine-dotcross.html">Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td>
-</tr>
-</tbody>
-</table>
-
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Excluded duplicate
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><code>Saturday04062026afternoon1.txt</code> is byte-identical to <code>Saturday0404morning.txt</code> — a mislabeled upload. It is recorded in <code>manifest.json</code> with <code>status: "excluded_duplicate"</code> and is not shown in the index above. The Drive video ID and verbatim transcript are preserved in case the duplicate is informative.</p>
-<p>⚠ markers on dates indicate <code>date_confidence: medium</code> or <code>unknown</code> — verify against Drive <code>createdTime</code> or recording metadata before relying on them.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Start sharing to get rid of that mark. So this is where we were. I gave you the ax squared and then plus the by plus bx y, sorry, plus cz squared and then plus the d x plus the f y plus the g equal to zero. We want to do a quick job of telling what is going to be the type of a conic by using taking advantage of the fact that the asymptotes are very nice.If we have asymptotes, necessarily it's hyperbolas. But asymptotes could be identified by trying to factor it down. But factoring only depends on these three numbers here. So having recorded what we did to factor down a one single variable quadratic equation, could somebody? I'm pretty sure you have been doing some reviewing now, at least in your mind. So how do we get started factoring this down, involving two variables?C supposed to be Y。 Oh yes, absolutely. Thank you. That was an intentional bullshit. You know, occasionally I think I'm senile. I don't know what that why I wrote Z instead of Y.Well, first, and maybe we should think about how do we factor the a x squared plus the b x plus c now.Remember, to factor is to solve, is to find what are the roots. But we have already reviewed the quadratic formula. We take factor a out first. 嗯哼，good idea.And then we complete the square. Indeed. Um, but once we do know the quadratic formula, we don't have to rederive it. It's just equal to a negative b plus or negative of the b squared minus fourac and over the twoa. Then, knowing that, can we directly write it in factored form?嗯。Elen，What's your idea?</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>We're trying to simplify it further, right? We're trying to factor it. Usually, that's not called simplifying. Simplifying means combining the terms.Oh, I bet you guys know it. If I give you concrete numbers, let's suppose if I have two roots now, one is seven, the other is four. Can you tell me what is the factored form? Keep the leading coefficient of a. What seven?And what's four? Those are the two roots. Oh. So, can we like write the equation as um a times x minus seven times x minus four equals zero? Brilliant! That's exactly right. You just put in the two roots here. Those are the two factors. I know these two roots are a lot more complicated. You're you you just don't want to put at the end, however.However, that's how you put it in. You have the factored form. What's more important is that you know you can do it. You can factor it out. Maybe if you don't really like, I know it's very complicated. But if you want to write it, you have to do this now. Plus b minus the b minus the four ac over the two a, and that's one factor. The other factor is simply going to be this. Do you guys agree with me? And please double check the sign very carefully.This is a factor form, correct? But if you are disinclined to really carry this great ball here, well, then maybe you can simply just write down that one and call that x one and x two. And no, these are really two real numbers as long as the b squared minus fourac would be strictly greater than zero. They're not going to be real numbers. Also, they they do not.Equal to each other. These are the two distinct roots. We're going to discuss the case, the second type now, where it's strictly zero, and then the two have actually the same linear combination between x and y now. So that's something special, okay? And then we're going to treat the case where the third one that's strictly less than zero, and that just means you can't factor it. And then what do we do now if you can't factor it? Okay, now let's come back. How do we map it back?Onto the two-variable case, so our goal is to factor these three terms. Can we get some inspiration from the bottom one? Well, if I have the x one x two, I don't need to carry that whole bundle. I can just write whatever this, if I erase the y now, would equal to the a of the x minus x one and the x minus x two. For the time being, the conceptual point that they do exist is all we care about. So let's not carry this bundle.So a very complicated number. So definitely, without the y, that's how you factor it out. What do we do it to? What do we do though in the two-variable case? Factor a l again. Okay, good move. And inside, what do we have?</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x squared plus bxy over a plus cy squared over b。嗯哼，I'll just modify it right here. Then, could we modify somehow add y here to this factor form to make it work?嗯。嗯。Elen，What's your opinion?呃，since the roots just make the y zero，呃，maybe we could have something with that。 What do you mean by the roots is making y zero? If you plug the roots into the for equation。 But now there's y there. By plugging the x in, we're not guaranteed to get zero。Because I don't even know what's the value of the y. Usually, somehow writing concrete numbers inspire you. So why don't I actually give you a comparison now? The x squared minus the eleven x and plus the twenty-eight. This can be factored into x minus a seven x minus four, right? But on the other hand, try this: eleven x y and plus a twenty-eight y squared, and just compare the two. How do I tweak the the above?to still make it work. When you look at when you multiply the different terms out here, the four and the eight they give you the twenty eight. Now we need twenty eight y squared. We add add a y to the seven and the four. Brilliant! I think Catherine and Yilin you both noticed here. Are you suggesting this? It works. Not to mention it's a it's beautiful because.说说，那rather gives equal opportunity to x and y. We end up with a linear combination between x and y. That honors their symmetry in the original form, the quadratic form here. And then, do we know how to do this here? Generically, if I know the two roots, when you really just plug into this one now, the two the coefficient roots are x one and x two. Then how do I write this factored form? x minus x.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>One y, brilliant, yes. And then minus x two y. So we have successfully factored down that the first two terms now. Our goal is to factor the whole thing. Permit that leaving a constant now there to move to the other side of the equation, so that we could we could call them asymptotes. Now the job is to absorb the y, the linear term of the x y now. And let's try. How do we manage to when you foil all of these now? You'll be able.To get not only quadratic terms by multiplying multiplying these four terms together, but also a bunch of linear terms. Any idea? We're going to tweak it a bit further. I would say incorporate more into each factor. We want to stick to what we had before: x minus x one y. And because of the x here, it's sort of breaking the symmetry. I'm not going to call them x one. I'll call that a lambda one, lambda two, just so that we're not favoring x or y now.Okay, I'll just call these two roots here: the lambda one and the lambda two. Then I'm I want to stick to what we had earlier because they make all the quadratic terms fit. So x minus the lambda one y, but I also want to do something to be able to absorb all of this into the factor form. And what can I do? I'll tell you. In this case, it's hard to eyeball. If I can't find out.But does it make sense if I add in pure numbers without x and y now? For example, can I add in a capital A and capital B here? Could you envision what's going to come out when you multiply three terms by three terms? And how do we choose our A and B to make it valid?Do we factor without g or with g? Oh, depend on what you can do. If you want to accommodate the d and these two terms here, you're gonna find out by yourself whether it's even possible to accommodate g at the same time. If will we if we want to be able to accommodate g呢?In fact, you're gonna get zero on the other side. Then you do not even have a conic section. What you have are two different lines. That just means either line must be zero, right? Which is a special case. We call that degenerate case. Oh, by the way, it's a lot a very tedious for me to keep the a now. So why don't we we be nice? We're gonna really cancel out a to begin with. You can divide the a through. And I don't want to carry so much of notation here. So why don't we just say a is equal to one?I'm just erasing it now, so don't bother divide everything by a anymore. So I'm setting the a equal to one here. Now, how do we choose such a and b?嗯。</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>嗯。嗯。嗯。It would be nice if you update me with what you're doing. I'm just like expanding this.And then corresponding to like the corresponding terms, yes. Although there's no need to worry about the quadratic terms at all, because we got our lambda one, lambda two satisfying that. So, oh, by the way, don't bother plugging in lambda lambda two, where the actually it is complicated for. Okay, that's just way too tedious. We're good to just keep them as lambda one, lambda two. Ah, the only terms you need to worry about would be.a linear terms of the x, a d x and f y, nothing more. Okay.嗯。嗯。</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>嗯。I got for D, I got A plus B. Hmm, very good. And because we nicely have the A equal to one now, so in fact, all the contribution to the X is simply going to be the D would equal to the A plus the B now. And for F, negative B. Um, what is that?波尔，兰姆达，兰姆达 one，兰姆达 two， negative b 兰姆达 one plus a 兰姆达 two。 You got it, perfect. So that's f now. Between these two, we just need to solve. But how do we know for sure we will be having solutions? Is there any case where we don't have solutions? We can't find such a and b to satisfy all of these terms. Tell me when that happens.嗯。嗯。You are not supposed to solve it. I just want you to realize, you know. Recently, we've been doing our goal is to solve A and B. We've been discussing very thoroughly the existence and the uniqueness of the solution to any linear systems. Now, it's a two byI two system concerning A and B. When could we have a no solution?</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>

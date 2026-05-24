@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-04">
+
+<title>Eccentricity Definition of Conics; Parabola as the Borderline Case – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Eccentricity Definition of Conics; Parabola as the Borderline Case</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Establishes the third equivalent definition of conics via ε = (distance to focus)/(distance to directrix), proving ε&lt;1 ⇒ ellipse, ε&gt;1 ⇒ hyperbola, ε=1 ⇒ parabola.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Ellipse focus-directrix ratio: PF/PL = c/a = ε &lt; 1</li>
+<li>Standard parabola from focus-directrix: x² = 4cy</li>
+<li>All parabolas are similar</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove the focus-directrix ratio for hyperbolas; prove all parabolas are similar; show that not all cubic curves are similar.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Repeated ‘zero squared’ OCR artifact. Heavy algebraic simplification involving |a - cx₀/a|.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Day of conic sections. Uh, first of all, let me. All right. Um, well, this morning we actually covered how to write the equation. Elaine, could I have your video, please? Did I turn on your recording? Okay. And we covered how to write the equation for the hyperbola and also ellipses. And we we do know those two have some kinship with each other, and they.They only differ in a part of a B or an imaginary B. You you could sort of just consider them as in one family. And I said there's yet another definition. So let me actually go back there. And if I start from the ellipse now, I define it in two ways now. And I came up with a pair of focal points. And I said every single point P simply satisfies that the two distances, the d one plus the d two, add up to.to a constant, which is a two a. I give you that's one definition. There's another definition as the dilated or compressed version of a circle, which is consistent with the equation that we're writing for it. You know, you can understand this as really a transformed circle now by giving different dilation factor for to either x or y. You know, the two definitions so far are independent. They're only proven as equivalent to each other by actually satisfying this.a d one plus the d two equals two a， and we try to write the equation for the p， which voila turns out to be the same。 and that's why we could say， oh， these two definitions both give you consistent a， a ellipse， right？ now I'm going to give you yet the third definition now， and it seems coming out of nowhere， but we can prove that's also equivalent to the the original two。 by the way， this material you could find in the intermediate algebra in other problems out。书本， and which is a conics. However, I am going a bit more in depth than the art problem solving, and yet art problem solving is still a very good starting point. You you still need to take notes though in class. All right, what then? I'll tell you what it is. If this is a focal point, it's located at c zero, and the x y intercept are a and b. We already know the relationship. They satisfy that a squared equal to the b squared plus c squared. Now.And I'm gonna actually define this ellipse here in a totally different way. By to begin with, I'll give you a focal point F, and at the same time, I'll give you a line. And let's suppose I'm going to choose the origin now to make sure that my focal point is located at c zero, and the location of a line here. It's actually called it couldn't sound like a weird number, but it would be the a squared over the c.Well, to begin with, let's see what is so nice about the location of the line and the location of F two. Now, well, there's a perihelion. Basically, there's a the point A and there's a point B. Okay, these are the two x intercepts here. My ellipse is not very well drawn, so let me actually draw that into a more symmetrical manner. All right, then, and this is the location of the directrix. Let's find.Find out what's the ratio between the distance from the A to the line. I'll call that A to the line L, and this is the directrix. Well, the name for the line is called the directrix. The distance between A and L, and as opposed to the distance between A and F two. We're doing the point point distance on the top, point line distance on the bottom. Go ahead and figure that out. What do you have?</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Are the coordinates of ages?A zero，嗯哼，yes。嗯。嗯。Could somebody talk me through the pencil work you're going through, Catherine? What are you getting? A F two is just A minus C. You are right. What about the distance between point A and the line?For that, I think I got a squared over c minus a. Indeed, and let's simplify. What are we getting? You just pull out the a from the denominator, and then you find the common denominator. You.做所有的简化，你 can。You like pull out C from the numerator. Yes, and then we'll get C times.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a over c minus one， and that cancels. Well done. What you're getting is simply the c over a. By the way, I think I introduced this quantity before. It's called the eccentricity. It's called the epsilon. Oh, at ratio, it's really eccentricity. And in the case of ellipse, we know it's forever less than one. So actually, my drawing is not that great because it just shows us a to the f two must be closer to to the directrix. So let me actually draw my.Picture a little better now. This would be the location of the directrix. Make it more believable. Some more over here. So that location is a squared over c, and that's the line. Well, let's look at the other points on the ellipse. What if what about the point B? The same definition. We're going to measure what's the distance from the B to the F two over the B to the line L. What about that ratio?嗯。嗯。Is it isn't B just negative a zero? Yes, absolutely. It's the other vertex. So the B F two would be a plus the c, right? And the distance from the B to the other direction, well, the this direction here would be actually the a plus the a squared over the c.You can see they're very similar to each other. After simplification, what do you have? Please be rigorous with your pencil work. Don't hurry, and then confirm what you're getting, what I'm getting. Yeah, I also got that. Excellent. Well, you see, they're both actually following the same ratio, and that makes me curious. What about I give you arbitrary point, a p?on that ellipse here, which has a rather arbitrary coordinate x zero y zero, as long as they fit into that equation. That's the only binding condition now. And I want to find out what about that point P now when you measure the two distances, PF two, as opposed to the distance to the line. So we're doing object PF two divided PL now. Then what aboutThe ratio of the distance. Here, the denominator is a simple one, because to measure the point line distance here, or knowing that the line is perpendicular, and we just need to measure what is going to be the difference of the s coordinate, right? And it will turn out to be. Remember, the x zero here is algebraic number; it carries its own power to negative. So what you're getting is just a squared over the c minus x zero, correct? That's the distance between the point to the line.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>But on the top, it's a little nasty. So, what is the distance between the point and the second focal point? We can use the distance formula, right? Yeah, absolutely. Show me what you're getting.Top part is x x zero minus.c 平方加 y 零 平方， absolutely， uh huh， and we know here's a quantity， uh which depends on x 零 and the y 零， but we do know x 零 and the y 零 are not two independent degrees of freedom。 In fact， i I will be able to rewrite the y 零 in terms of x 零， right？ Because they really must fit into that equation， that equation here。 So let's do so。 I want to reduce this.它into only dependent on the one variable, and eventually prove it's actually a constant. Let's actually do it. The y zero we're looking at will be this is a squared over c minus x zero. I know it's a little tedious, but there's no getting around. Let's just do it. You're getting x zero minus c squared, and then plus y zero squared, which is I would doing. Please makeMake sure that you carry out the algebra yourself, okay? Don't just trust me on it. And now, I need you to really expand out everything and carefully work it out. What does that amount to?嗯。嗯。嗯。</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>嗯。There's something a little tricky when you try to take the square root of a complete square. Now, you've got to remember this will come out as a magnitude. So you have to use your judgment from the graph now, which term is bigger when you take out the magnitude here. Whether you're getting positive or negative, otherwise you won't be getting the right answer. So be careful with every single step of the derivation.嗯。嗯。嗯。嗯。嗯。嗯。</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>In case you get stuck or you don't know how to simplify this, or worse yet, if you lose the big picture, if you don't really feel that you're clear on why we're doing what we're doing, be sure to ask. Please, you're entitled.Two. Don't be just quiet. Um, how did we get from this? Wait, this to here? Yes, right. I expand out all the terms here, but I did simplification as much as I can.For example, if I look at all the constant terms, there's a b squared, there's a c squared, right? But they add up to the a squared. That's the constant term. Now I look at the linear term of x now, and that's only the cross term over here. That's why I have a twice of the c x zero. Now we're getting to the x squared terms. There's going to be the x zero squared, but then that's minus the b squared over the a squared x zero.零次方，和零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方。零次方，零次方And the other two kids, do you have anything to ask? I was going to ask about that. Okay. So, do we realize once we get here, we'll be able to re-bundle up this this whole blob here in a square root into another complete square?Build a costume happens to fit.嗯。我 got the same. Sorry, what did you say? Um, I got the same. Oh, beautiful! That's fast. Well done. And Catherine, are you absolutely sure why I actually decided to swap the two terms and decide?</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>This is a magnitude. The numerator is a magnitude, instead of the negative version thereof. Because whenever you are having a squared, and then you are taking the square root, what you really getting would be the magnitude, right? According to the way I earlier wrote it, that it would be the negative thereof. So, how did we decide that a must be greater than the c x zero over the a?Look at the graph, Eli, where are you? I'm still trying to get the same thing. Ah, which step are you on? Um, I'm trying to simplify the x zero minus c squared thing plus a b squared minus that one. That one.meaning，have you gotten here now？not yet。have you gotten here？yeah。oh good。well after you get here，it just a matter of recognizing that whatever that's under the square root，it's a complete square。Isn't it? Oh, yeah. And then I want all of you to answer me. How do I take that out of the absolute value, deciding which is positive, which is negative?哦。嗯。嗯。嗯。</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>嗯。Hello, where are we? Uh, I'm still trying to figure out why the square at the end is, uh, whether it's negative or positive. Look at the graph. The graph naturally gives you the range of the x zero. Yeah, what I thought of was that x zero and y zero was negative, but it's not necessarily negative.In fact, it's x zero. It's arbitrarily anywhere on that ellipse. So the range of the x zero is between the two vertices. It would take the full range from the negative a to positive a, right? Yeah. Therefore, how would you judge the magnitude of this c x zero over the a term?The um X zero and.C are both less than a. Absolutely. So we know if this is range for the x is zero, then when you scale it by the c over the a now, we have to scale it by again by the c over the a. So this whole value is ranging from the negative c to positive c, right? So when you're subtracting it by a, surely the answer will be negative. But if I'm subtracting this from the a now, we know for sure this quantity is guaranteed to be positive, correct?Strictly positive. Therefore, I take out the square root and the square. Now, this is what we have on the numerator. And then, can we finish the very last step of the simplification to see what would be your final ratio?Where are you guys?I'm done. Beautiful. So we're getting the seal today. And Eden, are you getting it? Yeah. Why don't you guys make some noise? Are you just going to drag the time? I get so impatient. I said once you're done, give me a verbal confirmation. Next time, do that immediately, would you? I was going to say it. Okay, beautiful. Okay, Helms, are you getting the seal? I'm almost done. I think.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>呃，which step are you on？嗯，like the a minus c x zero over a。哦，OK，OK。Well, then you can just呃，take out the c over the a, see what's left. It would give you exactly equal numerator and denominator. So once we reach this conclusion, what have we discovered? Remember, the last ratio is for arbitrary point. Sorry, it's for arbitrary point P. It doesn't actually depend on which P.We were choosing on that ellipse, and we took the ratio between a point-point distance over the point-line distance. It's always a constant. That's going to be adequate in serving as really a definition of an ellipse, a new definition of ellipse. Now, meaning I can start from a point, which I call for point S, and I can start with the line, which is a line directrix, and I'm going to name a ratio between the two distances. I'm looking for the collection of the point.points, which is called the local the locus of the point now a point P, where basically the PF that's a point point distance to the PL now, sorry that's the PL which is the point line distance, which is always drawn vertically. Okay, this is a it's a fixed ratio epsilon, and if epsilon is less than one, what you get is a ellipse. The easily confirmed is that we wrote the equation for it. That's that that fits. So in fact.You'll be able to know, and in fact, I would say the easiest way to deal with that would be use epsilon. For example, okay, if I give the epsilon equal to one half now, then you just go for the trisector. We do know that's one point, and then you could find another one on the left, which is also following the one two three ratio. That just oh sorry one two two ratio. That just means, and I'm gonna actually go go by that long, which is going to be half of that distance, right? So theWould be these two points, and then the whole trajectory would be on the lips like that. Make sense so far? The one to two ratio is the the thing on the line, right? The one to two ratio is ratio between the two distances. Yeah, and I am picking the two special one, which is these two points. Hmm.So this is a P one, and the other one is a P two. That's the P one. This is a P two. Both actually satisfy that ratio, meaning the ratio between the distance to the point and then to the line here is actually one to two. Okay, makes sense. Yeah. All right. Well, then, what if I give you epsilon which is greater than one? For example, I'm giving the epsilon to two.And I still start with actually a point and a line. And I want to find out what if I want to maintain the constant ratio. This is point F and that's line L now. I want to maintain the constant ratio of the PF to the PL equal to a two to one now. It's a bigger number, meaning my point is farther away from the F than from the line L. And then what are we going to get?First of all, would we have a point on the x-axis? Would we have two points? Surely we would. Where are they?</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>So the refind point P one and P two, those are easy. First, they're just on your horizontal axis. We find them using the ratio, right? That's right.好的。Um, can P be like right here? Wonderful, indeed. Ah, Catherine is recognizing if it must be on the right-hand side of the line because it's closer to the line.Then from it's closer to the point, so definitely here is one. In fact, why don't I really give you the distance here? Let's say this is going to be a six, and that's also a six, right? I mean, that distance is also six. And then, is there any other? Let's call that the P two. Do we have another point?不会over two， wonderful， except for that's not very accurate。 Yeah， it's about okay， and it's about one third。 So this will be the P two P one。 Knowing these are the two。Now, can we sort of just guess how does the graph go? Now, if we do it continuously, once we veer off from the P one, where does the curve go to maintain that ratio of two to one? Would this be a bounded curve, or would that become unbounded?What does bounded and unbounded mean? Meaning the whole curve is confined within a limited region, a finite region. For example, ellipse is bounded, meaningput put a box, and the whole curve is captured by the box. Hyperbola, on the other hand, is unbounded. No matter how you specify a region, it's not going to enclose the curve. Parabola, for example, this y could I describe? It's also unbounded. e to the x power, it's unbounded because the graph would really go to infinity. Make sense? Okay, yeah. So let's look at where does this.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Where we go. In fact, why don't we just try to plot a few points as accurately as we can? Try to do it continuously. Once we leave the P one, I can't go straight. Yeah, I can't go straight because if I go straight, I'm increasing the distance from the point, but I do not increase the distance to the line at all. Should keep that ratio fixed here. I need to veer to the left a little, right, to maintain that ratio of one to two. Something like that's one to two. In fact, I would rather go like this.And because of the symmetry, the other side do they go like that? Then, do you think we could really go to infinity and still maintain that ratio one to two? Yeah. Uh huh. Actually, do you realize asymptotically, if that number is getting really, really far away, approximately where would that land on? Because once you're getting very, very far away, the P is as good as the origin now, or you can say.Well, that I mean the F, sorry, the distance to the F, it's really, and that's not exactly the same. But nevertheless, when you take the ratio, if I want to maintain the one to two ratio here, what would you guess as actually the location of that asymptotic point?Can I say approximately, which would really just equal to this ratio to that ratio, because it's so far away that the difference between the PF and the PO that's infinitesimal. When you take the ratio, when you divide by that distance, is also far away, right? And we want that to follow a two to one ratio, meaning it looks like I just want thirty degrees here.It's sort of we identify the asymptote, have we not? Yes, okay. Well, then we just know it would be approaching some kind of an angle, and looks like we got this branch. But what if I start from the P two and I still want to maintain that ratio of two to one? Then which direction shall we bear? The right. How do you?Now that we have to keep to the right, because if I don't now, I'm increasing the distance to the F, but I'm not even increasing the distance to the L. So I have to increase the distance to the L as well. So that means I do need to veer to the right. What do you think we're going to end up with a symmetrical curve, something like this? It looks like we're going to have a hyperbola. Then there's poetic justice in that, right? Because we're dealing with actually the same rule, meaning somehow we're defining the.by conic section by the ratio between the point point distance and the point line distance. If the epsilon is greater less than one, that's exactly the definition between the c over the a for the ellipse. And if this is still the c over the a for the case of the hyperbola, it would indeed be greater than one. So can we prove it? Can we prove? In fact, the easier way is to go back to the setup of the hyperbola because it has symmetry. You know, it has a coordinate in in good places. And then, what?When we write this equation for the hyperbola, we're going to actually prove in a very similar manner. Then I'm showing you the pair of hyperbola now in the equation of the x squared over the a squared minus y squared over the b squared equals two one. And we do know if c is defined as c over the a, but it's greater than one because the relationship between a, b, c would follow a squared would equal to a squared plus b squared. We proved them earlier in our morning class and last week.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>So, can we establish where is the location of the directrix? You know, we do know where the focal point is. This is the focal point F, right? It's located at c zero. But where's the directrix? Well, your guess would be as good as earlier. Your guess would be right here. This is going to be still in the location of a squared over the c, because a now is smaller than c. So immediately you can tell this is even smaller than a, correct?Okay, if this is the directrix, and that's the focal point, go ahead and prove to me. In fact, I don't want to waste time here. As homework, prove to me using the equation of the hyperbola, using the algebraic manipulation very similar to what we did to the ellipse. Now that arbitrary point P, called the x zero y zero, with the coordinate fitting into this equation, when you find what's the distance between the point and the focal point, and between the point to the line, now.Not only on that branch, you can pick an arbitrary point here, and then you still measure what is the distance to that f, okay? Not to this f, measure to that f here. Again, the distance to that line, they're always following the same ratio of c to the a. This is homework. Is the question clear? All right, now we figured out. Oh, there's going to be another way to define conic sections, but this definition gives you something in between.Right? What if I actually have the epsilon equals to one? Then so far, it doesn't look like anything we've been dealing with yet. But you know, if I set it up, it would be decently easy to find the trajectory because they have equal distances. So let me set it up. We're gonna actually prove what it's going to give you. Maybe you already realize it would give you a parabola, and you'd be totally right. So to make the setup favorable.I'm gonna actually set the directrix. Remember, it maintains equal distance. So why don't we actually set the origin as one of the P's? That means I'm setting the directrix here as actually the focal length, which we call the c. Oh, by the way, that's not even the focal. Well, it is the focal length to the origin. I'm really just saying this is my choice of the origin, and I'm placing my directrix here, and I'm placing my focal point here. So this is the c that's also the c. This is located.y 等于 negative c。 This coordinate just zero positive c。 I recall how this coordinate is set up。 Okay, and let's find out what's the locus of the point maintaining equal distance to the f and to the line。 So they're going to really go like this， and that's the absolute point P。 And I want to be sure that the PF would always equal to the FL。 Go ahead and find out what's the equation binding。my x zero y zero. I want one of you to talk me through your reasoning process here until we all arrive at the equation.嗯，I don't think I caught what we're trying to do. We're trying to write the.</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>equation of the point P of the locus of this point P now satisfying the condition that in fact the P F over the P L equal to one. We're trying to fill in that missing boundary condition where it should equal to the epsilon, which is we know it's like some one that's ellipse, greater than one that's hyper hyperbola. What about just one in between? Okay, so the condition would be the two distances would be actually the same.嗯。嗯。嗯。Is P L um Y zero plus C. I mean P L. Yeah.Oh, absolutely. Because it's always going to be the vertical distance. You're right. The denominator here, really, instead of writing the ratio, I'll just say that the two distances are equal. It's easier, right? Indeed, it's the yL plus c would equal to the other distance. You know, we're going to take the square anyway, so we're going to square it right away. And so, basically, I'm actually saying these two distances squared would be the same. Eventually, to simplify, we've got to.manage to get rid of the square root, right? Good. Continue. What's the other side of the equation?嗯。</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>嗯。嗯。So for PF， do we just use the distance formula to get x o squared plus y o minus c squared？ Yeah， absolutely。 In this case， it's a lot easier to simplify. Go ahead， isolate your y， see what equations you're getting.嗯。嗯。嗯。I got X。零 squared equals four c y 零。嗯， excellent。 So in fact, at this point is arbitrary point. We might as well just return it to the variables here. That gives us the equation. It is indeed a parabola. And Holmes and Elaine, are you getting the same? Yeah, I got the same thing. Beautiful. We're realizing the bigger the focal lines now, the farther apart these two. In fact, and is this?</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>更窄或更宽？米，如果你要非常瘦的，你想要把你的焦点和你的方向是非常接近彼此，还是非常分开？宽？嗯，呃，窄？窄。如果你要窄的，那只是意味着你想要焦距变得更大，对吧？你想要这个总焦距变得更大。That actually means you want your c to be very small. If the c is going down, that just means a stiffness here, and that's going to cause a narrow ellipse. Sorry, parabola, parabola, correct. And if you set your c as very big now, and in fact you can see your ellipse will be very wide. Hello, does it make sense to you? Yeah, yeah. Okay.Now, finally, I want to give you a non-trivial at all conclusion. Can you prove yourself, convince yourself, all the ellipses are similar? Meaning, you can draw it here. You can hold on, come on. You can draw it here. You can draw it here. You can draw that in that direction. You can draw it narrow. You could draw it very wide. All of these, if you choose the right magnifying glass here, they couldn't always be coinciding with each other. That's what similar means.Meaning, you could always choose to magnify this curve here by a certain magnifying ratio, and then you move it on top of that. The shift doesn't really matter, and they're going to actually coincide with the same as the same curve. Now, this is not trivial at all. If you're dealing with a cubic equation or anything else, for example, exponential function, none of those are similar to other versions with a different coefficient. But quadratic equations are; they're all similar.Later, there are actually AMC problems that uses this condition, and not to mention, coding sessions would be just very useful in anything having to do with math, from rocket trajectory to planetary motion to physics to chemistry to anything. So, let's guess why that is so. How do you put it into a mathematical form so that you can write it down so that it becomes something you can prove? I am going to actually leave the rest of the proof we can't finish in class here, as also.Homework. We're proving all the ellipses, sorry, parabolas are actually similar. But first of all, we do know shifts don't really matter, rotation don't matter. So why don't we be nice and put everything through the origin, and they only differ by that leading coefficient now. So we're just talking about actually y equal to arbitrary a x squared. By the way, this a is not a conic a. Okay, let me just do k x squared. If I give you y equals k x squared, I give you another y equal to.The a not the b beta x squared now. Here the k doesn't equal to beta. How would you find the correct magnifying ratio between the two? They would become one curve. How would you do that? Uh, I think I have an idea on how to prove it, but I'm not sure if it's good.Go ahead, share your idea. As the, like for example, this parabola on the on on the right, as you get closer to that flat-looking part, the the parts around it, I guess the slope, I guess, decreases. Beautiful, Elaine is saying. If I have this very wide one, as opposed to this very narrow one, they don't look like they're similar. But Elaine is suggesting we need to zoom in. We zoom in, we zoom in. If you only take</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>There's a little and window, and you can see as it gets to the origin, it flattens out. Maybe it would be really identical to that one, except for it's a it's a shrunk version. Elaine, did I capture your meaning right? Yeah,嗯，She totally right, right on target. Finish proving it as homework, and also as a counterexample, show yourself the cubics are definitely not all similar to each other. Somehow they're genuinely different. You can show.Alright, thank you for your good work. Look forward to seeing you next week. Do keep it up. Okay, we're making preparation for next year, which will be the real beginning of a, I would say, fun. And we will be learning calculus and physics. And there's so much sequels to discuss. Now we're laying the groundwork. So be sure to review, and be solid on everything. Take care. Bye. Thank you. Have a good</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

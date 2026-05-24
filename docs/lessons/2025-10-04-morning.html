@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-10-04">
+
+<title>Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c² – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c²</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Derives the focal-point relation c² = a² + b² for hyperbolas by multiple methods, including an asymptotic-limit argument that constructs a small similar triangle at infinity.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Hyperbola focal property: |d₁-d₂| = 2a</li>
+<li>Hyperbola relation: c² = a²+b²</li>
+<li>Asymptotes y = ±(b/a)x</li>
+<li>Latus rectum coordinate b²/a</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Set up the parabola as the borderline between hyperbola and ellipse: locus of points equidistant from a focus and a directrix line.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Toby suggests an elegant b → ib substitution turning the hyperbola equation into the ellipse equation — anticipates the next session.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>We need to go back to homework and start from any review, or are we ready to go forward? Toby, did I turn on your recording? Yeah, good. There we have. I'm listening.I think we can get started. You we couldn't what? Get started on something else. I still couldn't make you out. Do Do we want to start a new material, or do we need to go back and review from homework? I don't think we need to review. Ah, beautiful. Okay. And somehow, I tapped one into one second here.I I am just looking at the homework that came in in the past few hours. Yeah, I I want to be making sure that at least you all got the idea. So that's the derivation of the relationship between a and c哈， for the case of for the hyperbola. Helms, you did a good job. Emma.Alright, we got to the place of simplifying log of them. Oh, by the way, Emma, natural log that's the ln, it's not the ln. So watch out in the future if you actually write the notation of the ln, nobody would understand you. By the way, Elen, could I have your video, please? So be careful with that notation.I believe I actually gave you two homework problems. One is to prove for the hyperbola, what would be the relationship between a and b. The other one is to finish deriving what happened to the theta. I think that homework was for the afternoon Saturday class. Ah, meaning.It's not due until some sometime in the evening. Like not for this class, it's for the um the other people's class. Oh no, I'm not actually questioning you. It, I, I am. Oh, I said okay. Sorry, I talked it to Aima, huh? But in fact, I'm actually looking at the Helms for more problems. And in fact, I'm seeing very good work here overall. And let me see Toby.啊，That's for the other homework. That's not for this one. So Toby, I haven't received your homework for this class yet. Which we're using this imaginary number for the arc, well, cosh and sinh sinh now for the hyperbolic trig function. In order to, well, today my purpose to actually go for finish solving the the area of a hyperbola. We're going to generalize what we did for the area of the ellipse. Yeah. So Toby.Have you handed in homework for this session? Ah, what ellipse? What I want actually hyperbola. Well, first of all, you are supposed to prove for the hyperbola the relationship between the a b c's would be now to the a squared equal to the b squared plus the c squared. This is actually for the case of ellipse. Hmm. I don't remember doing that. Well, then you don't remember, but we did do it though. No, this.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>This is for the Saturday's afternoon. Me, Toby, and Lucas are in the Tuesday and today's. I know, but then for the Saturday afternoon session, we were actually doing the sigma, which is the square root of the ninety-one. We were doing matrices. For this hyperbola, we're actually doing that for the big class on Saturday. Everybody is in this class. Can I get a?Quick confirmation, Elaine and Helms. Yeah, are we doing using this defining the hyperbolic trig, cos theta and sin theta? Yeah, I think so. Yeah, I think so too. Emma, you remember it wrong. For the Saturday class, we're doing matrices and the four four dimensional complex numbers and the sigma x and the sigma y and.Sigma Z， we're we're doing rotation using them in three D. Okay, let's come back. Though I am yet to get an answer for for this hyperbola. Toby, you don't remember doesn't mean we didn't do it. Catherine Helms and Elaine, could we get a confirmation? I did give you homework to actually prove for the ellipse here. The equation would be the x squared over the a squared plus y squared over the b squared equal to one, where a squared plus b squared equal to theSorry, a squared minus b squared, meaning a squared equal to the b squared plus the c squared, and I left to you to prove for the hyperbola. The equation, the definition would be the difference of the two distances would be a constant, and the equation would be that b squared equal to one, and the relationship be a squared plus the b squared would give you the c squared. Toby, does it come back to you? Well, then it's your job. You have to go.Back and review it and finish it. I I I watched the the recording. I think that might be the Saturday afternoon class. Oh, it is a Saturday afternoon class. But for the Saturday morning class, I did give you this much, though. To give, however, we're gonna actually go into this today. And the Saturday morning class here doesn't take too much of the warm up here. We can go directly into it. For the Saturday morning, for the Toby and the Lucas, you guys, I did give you how to find.the arc cosine of a number which is bigger than one, right? And did I not define it as actually the cosh? We define the cosh function, which is e x and plus e negatives over the two. Did I? I don't remember saying about cosh, but yes, we did define arc cosine of a angle great of a of a cosine greater. Beautiful. Okay, that's good enough. Sorry, because I was a little behind myself, my schedule, my plan. That's why I thought.I covered that for the entire seven people on Saturday morning. So, were you saying anything about cosh? Right. Okay. Understood. Understood. Good. We're in a good place. Now, let's go back. Having sufficiently covered what we're doing now, and I'm going to actually quickly use this idea of using the arc cosine. There's no cosh yet. Okay. We're doing actually just arc cosine, using the angle and the cosine relationship to finding a particular part of the area on the ellipse.So we do know the area of the ellipse can be easily gotten by thinking it as a squash that will stretch the circle. So we know that the area of the circle would be if this equation is indeed x squared over the a squared plus y squared over the b squared equal to one. Apparently, judging from my graph here, the b is a little less than a. And I'm actually giving you basically a and b are the x and y intercepts. Now.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>If I start with a circle, which is just x squared plus y squared equal to b squared, now we would see the relationship between the area of the circle and the area of the ellipse here has only a dilation factor of a stretch. Meaning the sorry, my apologies earlier. So the area of the ellipse here is the pi b squared and then dilating by the factor of a over b, so that equal to the pi ab. This is a proof of aThe area formula for the entire ellipse, which turns out to be dependent on actually this a product of the major and the minor these axes lengths. A special case of such case would be a equal to b, and you're returning to the pi r squared of a circle. This is a quick reveal of how we can get the area of the ellipse. Are we good so far?What am I supposed to understand your blank faces, Elaine and Eddie? I can't see your eyes, so I'm not getting any communication from your faces. Toby, go ahead. Um, why is it times a or b? A b is a dilation factor to go from the size of the b to the size of the a. Meaning, I have drawn a smaller circle now, and I need to stretch it horizontally.对，by what fraction? by the fraction of a over b. But, like, how do you know that the other things, like the diagonals? What do you mean by diagonals? It's a circle, so all the diameters are the same. Like this. Oh, this is啊Toby. Basically, you don't believe this is the case, huh? It'sOne of the four definitions of ellipse, meaning it's a dilated circle. It's one of the four definitions, but how did we prove it, Toby? Look at here. If I'm going to rewrite this equation, I like Toby's question. He's questioning how, why do we know when you stretch a circle, you're going to get ellipse? By the way, we didn't cover this last Saturday night. Could somebody answer answer to Toby, Toby?Didn't we do to like um kind of slice the circle into infinite little strips, and then if you stretch the little strip, then you'll get the ellipse. Absolutely, indeed. Ah, but Helm is actually talking about how we could validate the area relationship. He's saying if indeed the circle stretches by, meaning every single coordinate here, meaning the original coordinate on circle, which is x zero andy 零 now becomes actually a over the b of the x 零 y 零。 And if that's the case, we can prove that the area relationship follows a simple dilation by the idea in calculus. Now we're going to cut it into horizontal strips, and every single strip here, that infinitely thin, would just be the area would equal to the thickness multiplied by the width. The curviness will not matter because it's infinitely thin. Then the width here gets stretched by a.a over oh yeah a over b hands the area, he's right. But Toby is asking, how do we even know that ellipse defined in such a manner would be a circle stretched horizontally by a over b? He's questioning point by point here this dilation graphical relationship to begin with. Toby, did I understand your question right? Yeah. Okay. Could somebody</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>They answer him. Toby, the answer is in that equation. We wrote down the equation. Well, now I understand. Oh, you do, huh? Okay, and well, the answer is in that equation, right? Because you could bundle it up into the x squared plus the y times the a over the b squared equal to the b squared. Sorry, if this is the case, that's the a squared now, so I should do it the other way around. What we're getting would be one second.We're getting here is that x over the b times the a squared, a n plus one squared would equal to the b squared. That means we get the dilated version of the x. This is a transformation of the x coordinate by a compression that fits into a circle. Therefore, you dilate it back, you're getting the ellipse. His question is very good, but Toby, in fact, there's another definition of the ellipse. There you.meaning a ellipse is also the locus of the point maintaining the total sum of the two distances to the two focal point. and we derived together, and from that condition, if this is F two and that's F one, they're called the two focal point now. and then any single point on the ellipse, when you add the two distances d one plus d two, they all add up to twice of the a. and we actually derived the equation for that would be atIdentically, also this, as long as the focal distance c here satisfies the condition that the a squared equal to the b squared plus the c squared. In fact, Toby, the easiest way and the rest of the class to understand that would be to try out this special point here. If I try the point here, what you're getting is a little triangle, and this is a because the sum of the two distances is supposed to be twice of the a, and thenThis is a B， therefore the focal lines will be following the Pythagorean relationship to become the C here， makes sense。 And however， we also covered it's sort of a twin sister， which is going to be what if I I write you the equation as x squared over the a squared minus y squared over the b squared equal to one， and this is a hyperbola， which actually satisfies the distance between that。哎，for local any point on the hyperbola to the two given points， those are called focal. the the they maintain the constant the difference instead of the constant sum. so the graph will be something like this. and today we're going to explore a bit more about this and finding out what can we do with the complex number track to easily find its area. so what we're having would be this now. well first of all, is this equation the graph closed? no.No, because we do know that x and y both could be approaching infinity, right? Because we're taking the difference of the two squares. Can we identify the x and y intercepts for this graph? Elaine, for just the graph, yes. Can we identify the intercepts with the x and y coordinate?嗯，I don't think so. Then, can you explain to me how did we find find the x and y intercepts? Those are a and b for the ellipse for the earlier case. Here, this is our equation. how How do you find the x y intercept of a function in general?</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>你 plug in 零 for x and 零 and 零 and x，你 see what the y is。你 plug in 零 and y，你 see what the x is。Indeed， can't we do that here for the hard problem? We can。 Yeah， so Eddie， your hand is up first。 Go ahead and find us the intercept。 There are no y intercepts， and the x intercepts are a and negative a。 Quite so， I totally agree。 Let's suppose here to make the graph。Half easier. I'm gonna actually give you the a equal to one and b equal to two. Okay, so this is going to be your x-intercept a and b now. Eddie is right. If you really want to solve for the y-intercept, now y-intercept here, y would equal to if x equal to zero, y would equal to two i positive or negative two i, right? So in a way, there are y-intercept, they just don't show up on the y-axis because on the y-axis they're all real.Then, any idea how do we complete the graph? Yeah, and some characteristic happen to this hyperbola. Now, that's usually the best way to construct the graph. Lucas, my idea is like since since we know that there's no y-axis, we know that there's there's probably an asymptote at the uh uh y equal no x equals zero. Very good. Wait, wait, wait, wait, wait. Ah, asymptote byDefinition doesn't happen when I y at zero. It happens when x is approaching infinity or negative infinity. That's what asymptotes mean. It's asymptotic behavior. It's what happens when the values are getting very large. But you're right. On target, we want to go by the by the asymptote. Toby, so it would be something.Like this, you want to be a little more accurate because this this function is apparently an even function regarding both x and y. Oh, can you see my background? There's a coordinate system. You're not drawing according to my coordinates. So, can we do a better job? So, be like this and this. Wow. So.So then, you're telling me that the y is not even approaching infinity as x is approaching infinity. Guys, I told you guys earlier how to identify the region for this graph to appear. Why don't we factor it out and find the two asymptotes? It's an old skill. Asymptotes are untouchables, meaning they are approached but never equal.等于。So x over a plus y over b times x over a minus y over b. Indeed, this is what we're having. They multiply to be one. What does that mean? That means either one could get infinitely small or infinitely big, but it can never be zero. It can't be zero because whenever each factor, any of the factors, zero, well then you will multiply by another factor, it won't be.一 anymore， so fundamentally these two lines equal to zero would become untouchable lines， but they could be infinitely approached。 So Toby， could you draw us the asymptote？ Generic， what are those？ Could you describe them for me？ So</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>So if x is a, then y can't be b or negative b. Oh, but those are not just single points; they come. In fact, if you set either parameter to zero, what you're getting is a graph of a straight line, isn't it? Uh, bx equals ay. Indeed, and why don't we say it as a line usually goes, and bySetting either factor cannot equal to zero. That just mean, or if you set it to be zero now, these are untouchable lines. What you're getting with y equal to the negative or positive b over the a times x, and that's the slope. Lucas. So we, so we already set a be one, b equal to two, so b over a that equals is two. So I'm guessing our asymptotes look a bit like this, and like.嗯哼，Well done. And forgive me, I want to draw it a bit more accurate, right? Because it should go through the point of one two here. So, first of all, the best way to graph a hyperbola is to locate its asymptote, which we have done now. And there's a pair, there's a magical about each other, right? Okay.吗？I think I have an idea at what the hyperbola looks like. Well, I think this is a hyperbola. The hyperbola would approach it infinitely, but never touch it. So I think it will be either this pair or that pair. Well, for the scenario at hand here, which pair is the case? Ah, I'm not done thinking. We have just found.Found something important, did we not? We found the x-intercepts. Lucas. So I think it looks like a bit like this. Very good indeed, Emma. Don't forget we have already found the x-intercept now, so that determines. Yeah, there you have it, and it should be symmetrical. It would really infinitely approach that asymptote. This is a graph of the hyperbola.Which directly comes out of that equation, but we can give it a graphical interpretation. It turns out, I told you guys to prove now for some of you. It turns out that every single point on the hyperbola, when you're comparing the distances to the two so-called focal points, and I'll tell you they're somewhere over here, and they're called F one and F two. Now, if you just gauge the distance to到这二点子，现在，然后他们就会真的不同，由一个常数数，他们就会总是不同由一个常数数。好，让我们实际找出，什么这个常数数。和，顺便，我们我们正在谈论这个普遍情况的A和B现在，只限于一和二。然而，你可以在一和二的方面思考我给你的。So our job is to find what would be the coordinate of the two focal points, and meanwhile, find out what is that constant difference when I subtract the d one by the d two, take the absolute value. What is that equal to, Toby? Um, I would like I was gonna say, how do we find the focal points? Oh, go ahead and let us know how do we find the focal point. Oh, I was asking a question. Oh, okay. Well, that's my question.</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>How do we find the focal points? But first of all, how do we find the the difference between the two distances d one, d two? Emma, I just have a suggestion. Can we plug the a and b into the equation to get x squared over one minus y squared over four equals to one? Indeed. However, that's not b. This is just a and negative a. I think I miss wrote there. This is a positive a, that's negative.Right? Okay. Well, Emma has a suggestion of plugging in. What? Tell me exactly. What do you mean by plugging in A and B? Ah, this part, um, this into that. I don't understand that. Exactly, what are we plugging into which? Ah, we'rePlug in negative one and two into x squared over a squared. Wait, wait, wait, wait, hold on. Ninety-one and two, that's equals to one. Oh, you're saying we're just going to try out the concrete numbers. Write the equation x squared minus y squared over four. Is that what you're suggesting?Yes, because you gave. All right, well, then how do we find what is the d one minus d two? Remember back then when we dealt with ellipses, here what did we do? Sometimes you can, although I haven't written down the specific coordinates of the other points on the hyperbola, but we do know for sure there are two simple points on the hyperbola. Why don't we just try out for those two?points. Since we do know d one minus d two is a constant, Toby. Um, it's always two a because. Ah, great! He's actually saying, "Had I just try out this this point here, then what do we have? Then the d two would be this distance, and the d one would be that one, right? That's the d one." And the subtraction would be two a.Well, the difference would be simply this in between by symmetry, because the two other side those are shared segments. Well, then, so in fact, by definition, this is similar to the to ellipse. There, you got the sum of the two distances adding up to two a. Now, you have actually the difference between the two always equal to two a. Then, where's the focal point? Would it be root five zero? And how?How did you know that? Um, I did c squared equals to a squared plus b squared. Right, but that's that's a formula that you haven't proven. The other people in this class have indeed. Elaine and Catherine and Helms, I they are supposed to know that.Because I actually gave that as homework. Proving for the case of ellipse, now we actually have a the other way around. We should have the c squared equal to the a squared plus the b squared, and the c would be the location of the focal point. But we don't know that, and we're not using that formula. We are not using that formula. We can still find where is the location of the f. How do we do that? Well, let's suppose at the moment I don't know the c, where the c is.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Well, earlier I took advantage of a special point, and now I can't use those two points now because they they happen to cancel out the distance to the sea. Toby, well, you could drop an altitude. Uh-huh. Toby is going to calculate. Right, he's going to calculate the lightest rhythm. Yeah, you can do that. Although honestly, it's a little tedious. Let me listen to Toby, and he's saying, "Uh, why don't we construct a special point which is here?" Me.meaning he wants to plug in the c, find what's the particular y coordinate, and then calculate what is the distance between the two. Toby, that's your idea, isn't it? Okay, let's do it. Eddie, do you want to? Sorry. Well, we set this up so that the that when we draw the altitude is perpendicular, right? So can we like set some variables and then try to use the Pythagorean theorem?You can do that too. Once you find the way, that's fine. But that's the same as working on the distance formula. I use the general ABC instead of the concrete numbers. Yeah. So, Lucas, you want to tell us how to how to finish it? My so my idea is like we said that we were we we know that the distance between the origin and F that's already easier, right? That's how we defined it. So we know that.little different, so we know that the whole distance from from the from the two foci are two c and then the two c and then the altitude is y, so we know that the top we can express it as four c squared plus y squared, but then we also have to add on the cross terms, which are which is two, but wait, no four c i, right? Exactly.It's two for for a y now to for c y. Toby is actually writing the Pythagorean sum now, meaning the total distance of the two c here would equal to the difference between the y plus the two a squared minus the y squared. Directly translates that. Well done. We can get rid of the four a, make it come back, Toby. Just come back. Oh, I will.I was about to simplify what for. Go ahead, you can write it. I'll write it, Toby, for you. And what Toby meant is the difference of the a squared and then plus a y. That's what you wanted to say, isn't it? Right? Okay, then let's find out the y now, and that will be done with the c. What is the y?We have to solve it, right? Eddie, can you pick up from here and find us what is the bicordinate for this lactus rectum? I'm naming that point P. Ah, don't write it, don't write it, Toby.Give idea a chance. If you don't have any good answer, you should have questions. First of all, can you repeat my question?</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Find the, uh, find y. And how is the point defined? Where is? Yes, it's vertical. The P F here is perpendicular to the horizontal axis. Uh, and P is on the curve. How usually?Usually, do you find the coordinates of a point on the curve? You can plug in. Yeah, you can plug in exactly. So, show us. I use C. Yeah, we plug in the C into the equation. Go ahead, talk us through the process here. I don't want the final answer. I want the process.嗯，就 close C N for A。 Yes, exactly.What? Wait a second. Did you say C for A? Repeat what you just said. Plug in C for A. Huh? Plug in C for A. It's an equation concerning x and y. Toby, give him a second. Give him a second.Eddie， we're finding the y coordinate. You're given the corresponding x coordinate. The c here is the x， isn't it？ Yeah. So what do we do？ Plug in c for x. That's better now. What's gonna come out？ Minnie， what is your y？Plus minus b b over a. Can you show me the intermediate step? Well, that's only because your answer is wrong. Toby, give him a second. Okay, I want Eddie to finish it, or.I want to know where he's lost, Toby. I shouldn't sound so impatient. I still love your, I insubie and excitement. Still, raise your hand, please. Don't stop doing that. But Eddie, can you talk us through your process?Can you answer me promptly? You don't need to calculate anything out. I just need to know what you're writing down on paper, one step at a time. I have read it on.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Ask you to answer me properly, and you you you you refuse to do so. It's becoming a little rude. Did he just disappear? I can't see his video anymore. All right, Toby, question is yours. Um, y equals b over a. I want the intermediary process, please. So I divided it by a squared to get c squared over.over a squared equals one plus y over a. Then I took the other equation to get c squared over. What is the other? Hold on, what is the so-called other equation you're referring to? Uh, this one at the top left. Okay. And then.To get this, yes, very good indeed. So then, so I divided by y to get, and then I multiplied by b. Beautiful. So this is actually by comparison, and we're realizing this a this y here actually equal to.哎，Toby， hold on， you made a small algebra mistake。 Yeah， bring that back please。 The y over the a would equal to the y squared over the b。 Wouldn't that be squared over here？ Oh yeah， yeah， yeah。 So in fact。But he did a good job without having to take the square root or anything, just by compare the two equations. That's a good way to solve it. We're actually getting the y actually equal to the b squared over the a, right? By the way, the definition of the y here is called latus rectum, meaning it's a erect segment is perpendicular at the very location of the focal point. All right, now let's come back and knowing.The b squared over the a is the y coordinate. Now, are we ready to finish? What is the c? We are. Go ahead and plug that in, Lucas. We got we got y equals four, right? We're not plugging in the concrete numbers.I want you to prove the relationship among a, b, c. Oh, okay. When we plug this in, don't we also end up with c squared equal to the a squared plus b squared? I'm pretty sure, Toby, you got. Since the a's cancel out, so yeah. So yeah, we just prove that c squared equals a squared. Exactly. So we have a we have another way to actually prove that the c squared, the relationship among a, b, c. Then finally, we're going to actually.Prove it using yet another way. I wanted to rehearse this process of finding the relationship among the coordinates. So earlier we kept using special points. Let me summarize: we use this point, we use the the position of the light to direct them. But why don't we actually use the x, y both are approaching infinity? They're really both approaching infinity now. If that's the case, and then what do we know about the differences of the two d?</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>They must give us this. So fundamentally, I know where the location of the big F and small f is. Okay, if both x and y, by the way, that's called asymptotic test. We're talking about what happens when the x and y are approaching very, very big. If that's the case here, because x and y are both very, very big, then I would say that in their presence here, this term here, then you have actually the x squared.the over the a squared minus the one would equal to the y squared over the b squared, right? But the a is approaching infinity, so I can actually take the ratio between the x and the y. Then can I actually say the ratio between the y squared over the x squared? I'm dividing the whole thing would be almost just the b squared over the a squared, because to be rigorous here, I have to actually subtract by the one over the a squared x squared, andThen I multiply by the b squared, right? So that's the ratio. That's the real ratio between the y squared and the x squared. Are you guys with me? But this number is surely approaching zero, and in fact, sorry, approaching zero with the second order. Well, then if I can neglect that, we would know. By the way, that is the conclusion we have drawn earlier: the asymptote y over the x here just equal to plus or minus b over the a. So.So the y and the x here almost follow the ratio of b over a now. That means I can really just take a point on the asymptote and at infinity and find out what's going to be the difference between the two distances, don't you think? Do we agree? Now watch, I'm going to actually do something. You might think it's a little dangerous, but it's actually totally correct. For that purpose, you have to envision these two points are infinitely.far away. So let me actually for that purpose here, draw you another picture. This is our hyperbola, and we're actually looking at at infinite distance here. So this is a positive and negative c. Meaning, when I actually find that point here, these two lines intersect at infinity. Then almost can I say my PF one it just parallel to the PF two.Two. Can I say that? Yes. Is everybody comfortable with that?I mean, by definition, this is assuming that they're intersecting at P, right? And we're not assuming; we're actually studying that as a case. We're measuring the distances between the P and F one, F two. P is a point on the curve, therefore, at infinity, almost on the asymptote. Yeah, almost on the asymptote. I agree with that. Okay, so they're parallel to each other.And we want to find what's this distance difference between the two. And somebody actually drew this a very nice way to find out the difference between the distances. It's really just this segment, because we cut the D one out of the D two. In fact, I cut out the D two, so I cut the equal distance from the D two now of D two from the D one. But then what is this? Well, remember this is the twice of the C we're talking about. Do we know this angle?</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Because both are are actually parallel to each other, then can I say that's the same angle as this angle, as that angle in the middle? All of the three angles are the same, because all the three lines are almost parallel. Are we good? We are, huh? Well, then we're done, because in fact our this distance, which is supposed to be the two a, two a should equal to the two c, and times the cosine of.That angle theta, correct? And then, what is the cosine theta? In particular, don't we know what is the tangent of the theta? Meaning, what is the what is this? Can we find out what's the black segment, Toby? So the tangent of theta would.b， um b over a. Indeed, it's a slope of the asymptote, which we found out earlier. Then Lucas, can you find me how long is the black segment? This segment here, because you can see we have a right triangle there. So we get four c squared minus four a squared. Uh, but I want you to actually use the.that we actually know that angle theta, we know the tangent theta, meaning we know the ratio between the opposite over the adjacent. Oh, so we, so that would be two to b. Yeah, indeed, very good. And I'm pretty sure Toby, you got that too. By definition, too simple. Yeah, to just say that. Yeah, well, then, then that's what we need. That ratio is actually b over the.A， therefore， that's two A， is just two B， right there. You're also seeing a little Pythagorean triangle， including the necessary relationship we're trying to prove， meaning A squared plus B squared equal to the C squared now， isn't it? It's a counterpart of for the case of the ellipse here. You have the sum of the basically we have chosen this nice point now. We build this little triangle where you got the A and sorry A yes C and B， so that you could.mediate eyeball the relationship, a squared equal to the b squared plus the c squared. But in the case of the hyperbola, we're building that triangle here now. Let me ask you something else, and back to the earlier graph. And I'm going to get rid of all these auxiliaries here, and just return to our my curve.All right, well, let's find out, Toby. Um, so you just multiply the b by i. Ah, well, it's like our, and yeah, indeed, Toby is actually saying, since you could really consider, ah, good. In fact, Toby is running ahead of us. That's where we're going into. That's why we want to really connect.the hyperbola and the ellipse here. Try to understand the hyperbola as a imaginary, with the the it's ellipse with the imaginary b. He's saying since we could actually identify this equation now, as actually I'm going to rewrite the equation as the x squared over the a squared, under minus the b plus the b squared, y squared over the bi squared, right, equal to a one. This is going to indeed be</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>The equation for the hyperbola, but now it looks like an ellipse now. So Toby is saying wishful thinking that we should still have actually a squared equal to the new b squared, and then plus the c squared, right? But if we just straightforwardly plug that in, and then immediately we got this. He's giving us a fourth proof, not using any geometry, but just doing wishful thinking by trying to force the equation of a hyperbola into the equation of ellipse. And Toby, this is valuable.Thinking, because in a bit we're going to really apply the same idea by working out what would be the area on the ellipse or on the hyperbola. Since it's easy to work out the area of ellipse, keep in mind what Toby is saying. He made a very good comment. Alright, but I have one more question now, and I have this point now. That's a focal point, and I want to find out what is the distance between the focal point and your asymptote. Meaning, if I draw this.This one. Now, how long is it? How far away is the focal point from the asymptote? Remember how you should be answering a question. You should always connect it back to what we have been.Going through啊，Toby， give us the second。呃，Lucas， give us a minute。 Elaine。What is that distance? I thought about using the distance formula. A between a point and a line. Ah, too complicated. That absolutely unnecessary. Think about the graph we we we just went through.哦，可以 use the Pythagorean theorem。 What do you mean? Since there's a triangle, uh, on the asymptote and the the x axis and that uh distance. And play it out. I can't judge, and unless you.你 show me the the details. Oh, we know that one of the sides is c, because that's the x coordinate of the focal point. Yeah, absolutely, that's a hyperbolas. You're right. This is a c here.I'll give you that in a second. She'll get it.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>一零。I think the distance is just the c times something. Can you teach me back? How did we prove just five minutes ago that a?a squared plus b squared equal to c squared。 We actually use a little triangle, did we not? Yeah. And is there any relationship between that triangle and this one? Notice, guys, I'm usually posing a question to double check your understanding. I'm not giving you another creative problem to solve. I just want you to recognize what we just did. So, Elaine, what's the relationship between this triangle, your dealing with and the little triangle we just dealt with. I don't know. Well, then, can you teach me back? Where did we create, and how is the previous triangle draw on that ground?就就就draw on this graph here. Uh, we used an x and y that was approaching infinity, and the distance between the focal points and that x and y, uh, the distance was the distances were parallel to each other. Right. So, can you is is it possible for you to draw on my board? No. So, can you describe to me how do I draw? Just help me line by line reconstruct that triangle here on this new graph.Draw another line on on f is parallel to the the asymptote. 做的，OK， both are on the asympt parallel to the asymptote, right? And we're gonna actually create a triangle like this, correct? Do you recognize what's the relationship between the two triangles now?The big one and the small one. Yes. Are they similar? Absolutely. Can you prove to me why they're similar? Uh, the base of the big triangle is two c. Uh huh. And I think this hypotenuse would be two times.是斜边，所以是小三角，我意思是红色距离，不是斜边。是的，你说得对。实际上它们是相似的，只是比例是二比二。但是你没有回答我的问题，你怎么知道它们是相似的？角度也是相似的，角度F。很美，你说得对。所以实际上它是同一个角度。都 here， because we actually made the conclusion that the three lines are parallel to each other. I called all of the three angles theta， and we actually use that condition to figure out what's the slope， what is the the ratio between A B C。 Now， Elaine， can you finish the answer？ What is that distance？</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>哦，Andy，你回来？哈，Sorry， Yeah， Okay， And And Uh， Your Internet 会 just off，哈， And 让我 quickly recap for you， We have a proven using this relationship.That finding the relationship of A B C using yet a different method by simply drawing a geometry. Take a special point at infinity on the asymptote. So we're realizing this relationship that by that triangle here, and it gives you actually twice of the A, twice of the B, twice of the C. Now I wanted Elaine to apply that to find me. Elaine, what is this distance we're looking for?You've been following quite well. Uh, I remember using trigonometric ratios, like like I think we used tangent theta to find it. Oh, but you just identified the similar triangles. So these two triangles follow the same ratio. Did we not figure out the three?three sides of that bigger triangle. Uh, we did. What are they? Uh, the f uh the distances. That one is two c. And this one? Uh, this one is.We have just used it to prove that c squared equal to the a squared plus b squared. By definition, what's the meaning of that? Isn't that the difference between the two distances? Oh, yeah. One is that's a PF one, the other is that PF two. So, what is it?呃，It's P F one minus P F two， which is by definition for the hyperbola. B， really? That's the definition of the hyperbola. Ethan， are you telling me that you can't remember even the definition within the span of a single class? You just forget what we were doing twenty minutes ago. You keep forgetting.Here, look at here. The difference of the two distances is two a. Toby proved that by very cleverly picking a simple point, which is right here. And did we not say when you look at the comparison of the two distances, you are getting twice of the a, right? Yeah, that's two a. And what is this?Here, you want to look at the angle. We actually knew something about that angle. Elaine, I'm stopping the entire class here to help you review what we just went over several minutes ago. How are you holding the material in your head? I would expect my students to be at least well versed in the context we're dealing with within the the span of the 60 minutes.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>I shouldn't sound impatient. It could be that you're not doing nothing wrong, but you really should put your effort into keeping the continuity of the thought. What you can't answer now, then how worse you are going to fare if I ask you the same set of question two months down the road. Well, the rest of the class here, Eddie, do you know what is this? The other side, because after all, this is the same angle.或 theta， as actually the slope of the asymptote， and we do know what is the slope of the asymptote。 So， Eddie， what is the ratio between these two segments， that one and that one？ Catherine， what's that ratio？ Is it？B to A。 Yes, absolutely. The slope, we factor that earlier. Here, it's written right here, and that slope would be over. Therefore, that's two B. And then Toby, I know you've been dying to say it now. Can we come back to the question I was posing here? And then, what is the distance between the focal point and the asymptote? BAbsolutely， it's just a smaller version. The old triangle is two b， now it's b。 That's it。 All right， we're done。 And homework here。 Remember， we proved it so many ways now。 Oh， let's actually find a special case somewhere between the hyperbola and the ellipse here。 And both are saying the two distances add up to a constant， the two distances subtract to be a constant now。 But what if the distance between the two focal pointsShould be actually infinity, but the distance in between is also infinity. I'm not trying to make you derive it. I'll tell you, then the sort of the condition in between would be actually called parabola. And parabola is actually defined by you're not setting you're not setting two points anymore. You're setting one point, which is f, the other is a line with the distance of let's say two units from it. So I give you a line now, which is the line here, and aa point up here, and you want to maintain equal distance between the line and the point. Can you write me what is the equation? And we're going to actually look at why that turns out to be the intermediary scenario between the hyperbola and ellipse. And the next session, we're not doing this. Next session, we're coming back to deal with the area inside ellipse. Are we good?Okay, take care, guys. I shall see you guys, some of you tonight, some of you on Tuesday. Bye.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

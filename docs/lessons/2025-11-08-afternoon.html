@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-11-08">
+
+<title>Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots – Linear Algebra Notes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1de071e047e49cd083ceb1b25ae4a66d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Linear Algebra Notes</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../lessons.html"> 
+<span class="menu-text">Lessons</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
+  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 8, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+</div>
+</div>
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Solves u³ - 5u + 2 = 0 via the Cardano substitution u = α + β, reduces to a quadratic in α³, β³ by Vieta, then recovers all three real roots by complex cube roots with 120° rotations.</p>
+</section>
+<section id="key-theorems-and-identities-from-the-session" class="level2">
+<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<ul>
+<li>Completing the cube: u = x - b/(3a) removes the quadratic term</li>
+<li>Cardano: u = α+β with 3αβ+p=0 reduces cubic to quadratic in (α³, β³)</li>
+<li>Vieta: x²+ax+b ⇒ x₁+x₂=-a, x₁x₂=b</li>
+<li>Cube root in polar form gives three roots spaced 120° apart</li>
+</ul>
+</section>
+<section id="homework-given" class="level2">
+<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Show all three real roots of the cubic are recovered by including coterminal 120° rotations when taking the complex cube root.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Worked example: x³-6x²+7x+2=0 has root x=2; remaining roots 2±√5 recovered by polynomial long division and polar arithmetic.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+</div>
+<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
+  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Open in Drive ↗</a>
+</p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Verbatim transcript of the session
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Definitely going to ask you for the recording, Elaine. Could I have your video, please? We're going to actually continue with what we did in the morning. We were in the middle of trying to figure out. We we found a way to solve any cubic equation now. But before I go on to discuss how do we get three roots instead of just one, and let's actually practice, get a sense of how we can solve a cubic equation. And I'm not going to give you a very simple one, meaning you can't really eyeball what the solution is.So let me actually look at x cube. The let's say minus two x. No, let me be kind here. I'm going to actually do minus six x squared, and then plus seven x. This is a cubic equation. We're going to solve.We could start by completing the cube. All right. Oh, sorry. And yeah, let's actually start by completing the cube. Hold, hold on.Actually, want to give you a nice enough answer, and let me see. Okay. Oh, yeah, that's fine. All right, so go ahead, Elaine. You can take charge.How do we complete the cube? I'm still working on it. Okay, the floor is open, Holmes. You can feel free to say it too.嗯。嗯。Go ahead and talk me through this.</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Steps, you don't need to work out all the final conclusions. I know that the first term has to be like x minus something. And what term do we actually determine? What's the criteria? We actually want to after you expand out, you want to match the quadratic term, right? Yeah. And what number do we throw in there?是 x 减二。 Yes, it's just one third thereof. Because when you do the expansion, this term will be expanded three times. So, like completing the square, you half the middle term. Now, completing the cube, you trisect the second coefficient. Perfect. So, if I do so, what would be the subsequent terms now? These two terms are bound to fit. No need to be concerned with them. anymore， and then we are left with the linear term. We force it into x minus two already, but we're really making sure that the coefficient will fit to give me the seven, correct? But what is the linear term we have already got by expanding this out?呃，十二x， beautiful， and then minus eight。 We should minus what? There's an extra negative eight, right? Yeah, correct. So, in fact, we're adding twelve x now and minus eight. Now we need to cancel them. So we subtract.呃，5x啊， brilliant。 Now add 10. And wait a second, though. Oh. Because automatically, automatically, I'm gonna actually keep that bundle. In the future, we shall do that as a new variable. So we don't write it just minus 5x. Now we write minus 5x minus 2. Oh. And then finally, what do we do? I know you already said you.Want to add back in the eight? That's how you said we add ten, but.Isn't it just x minus two cubed minus five x minus two? Yeah, because here we.Also, added ten, we have to subtract back out by ten. Yeah. So, in fact, that was. Now you see, it's really powerful to compute the cubic. The problem solved. Can we solve it? This one doesn't even use that to reduce the cubic formula. But I'm I'm trying to give you one case where the equal the solutions are simple. And in a second, I'm going to tweak it a little bit, and let's see what's going to happen. Then we do need a whole machinery to use a whole machinery now.</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>One minus two, right? Yeah. So fundamentally, we have actually this now. X minus two, I pull it out inside. I have x minus two squared minus five equal to zero. So, what are the three roots, please? Well, definitely the first one is just two. What about x two and three?是100根5加2。Yeah，所以你才。Right, actually, getting the two plus or minus root five. Remember, Elaine, we're never taking the square root; always plus minus. Oh, yeah. Done. Well done. However, I'm not going to make it so easy for you because I actually want to practice that machinery. So instead of adding a two now, I'm adding a four. That's the equation I first gave you because I wanted you to actually see the power of completing the cube. So I changed that number. I'm going to change it back now. So we have to add two to it, right? So this is actually.Q B方程， again， we're not done， and you can't eyeball answer right now。 So I'm gonna actually just to abbreviate my notation。 I'll call this u here the new variable， that is equal to x minus two。 We're gonna focus on solving the Q B方程 concerning u here， just u cube the minus five u plus two equal to zero。 We want to solve this one。 And here we do need the whole machinery right now。 So I would like one of you to talk me through it。 There involves substitute求解， with a pair of variable, and then solve that quadratic equation resulting from it by using the Viet backward. And on top of that, finally, we shall get into how do we recover all of the three roots instead of just one. I'm waiting for either one of you. Just go ahead and take charge.嗯。嗯。嗯。</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Do we set u to alpha plus beta? Uh-huh, that's a good start. We're gonna actually seemingly complicate our procedure. We set u equal to alpha plus beta, and we plug it in, which is gonna get us we plug into this equation, right?We would end up with alpha cubed, and then plus three alpha squared beta, plus three alpha beta squared, plus the beta cubed, minus five alpha, minus five beta, plus two equal to zero. And how do we reorganize the terms?嗯。嗯。嗯。嗯。Again, you don't have to have the final answer. Just we're gonna do it together, step by step. I was thinking about simplifying it.But I don't really see how right now. Well, there's no way to simplify it. But remember, we got the two degrees of freedom. So actually, to solve alpha and beta, we really need two equations. We're not going to grab arbitrary equation. We want to break this down by saying now because it's a lot of terms adding up to zero. We're going to break them into two piles and say each pile would give zero. That's what we did in the morning.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Feel free, everything is open book. Check your notes.嗯。嗯。嗯。How do we know like which two parts to separate them out into? We did it in the morning. Yeah, I was looking at the notes. They they weren't really clear on that. Your notes are not really clear on that.My teaching was very clear on it. So maybe you can recall what we did with it. If you can remember enough of the logic, you see what we did. It's not just one single equation. We did a lot of stuff later. There's engineering redundancy. If you took any notes at all, you'll be able to recover how to split them into two piles.Wasn't one pile v alpha q plus beta q plus two? 嗯哼，Excellent. So, in fact, what we did, Elaine, is that generically, and I'm not going to plug in the concrete numbers yet. If we started off by the u cube and then plus, um, I just wish I could see your notes, Elaine.Notes of Helms. And after class, after every single class, Elaine, would you take snapshots of your notes and send them to me? I just want to help you take better notes now. Otherwise, you can't recover what we cover in class now. So, Elaine, you haven't answered me. Sure. Yeah. So, this is a cubic equation we're solving, and we plug in alpha beta. We end up with actually alpha cube the plus beta cube the plus three alpha beta of the alpha plus the</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>和，然后加另一个P，所以我们要实际把它们分组，然后把它们分组，然后我们要实际把两者都归零。实际上，它们等于这个是零，而且我们可以做得更好，因为我们知道阿尔法加贝塔不是零。所以，我具体地把这个叫做零，这立即为将所有东西归入二次方程铺平了道路。好了，所以实际上，在我们的例子中。The alpha cube the plus beta cube the plus two equal to zero just means that's negative two, isn't it? And then what is alpha beta? If you want, you can carry the three alpha beta first. And what would that be? It would be five. Yeah, that would be five. Ethan, are you getting the same? I got the negative two, but I'm still.working out the five. Okay, give me a signal once you get that. Well, then helps you can think about what to do next.嗯。六堂，Alright， where do we go from here? Why does this simple simplify the original picture at all? Because if you look at it roughly, the original equation is a cubic. This is still a cubic, not to mention it's a cubic system.Now we get two unknowns. I would say the only improvement will be there's perfect symmetry here.We could set alpha cubed and beta cubed as a and b to not make it a cubic. Very good. So.We're gonna actually reduce them to different variables. Now we're gonna actually call the capital A equal to the alpha cubed and capital B equal to the beta cubed. Now, then the equation changes into A plus B equal to negative two. How do I write the second equation then? Three cube root A cube root B. But that's as bad as a cubic equation. Why don't we cube?</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Both sides, so that just means that AB here would equal to five over three of the whole thing cubed, right? Yeah, excellent. And how do we go from here?嗯。嗯。I remember using a quadratic equation and setting a and b as the two roots. Very good. But I don't remember why. Why don't you think about what it will do for us? If I do think that a and b are the two roots to a quadratic equation, can you recover what that quadratic equation must be?Because we already know certain, we already know certain relationships. These two roots must satisfy, right? We know their sum, we know their product. So it's kind of like the Viete's here. Excellent.depend on who嗯。So for the quadratic formula, the b over a would be two, and c over a would be five third um cube. Excellent. So in fact, if I try out the following quadratic equation, if I just do plus a two z, and then plus a five third cube, then up. Then before you solve that equation, before you solve</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>所求的 equation， just think about what must be the z one plus z two。 It must be the negative two here, which is the middle coefficient. What must be the product? Must be the final coefficient. Ethan， do you know Viet? Why does it take so long to answer me such a factual question?Could you repeat the question? Do you know Vieta theorem? No. In the morning, without the Vieta theorem, why did you not ask? Vieta theorem having something to do with quadratics, but I don't remember the details. Okay, well, next time ask, because apparently this is a big theorem. Vieta theorem covers the relationship between the roots and the coefficients of the polynomial without having to.To solve that polynomial, so if you're seeing generically, Elaine, I want to cover this as a theorem, as a principle. Now, if you start off with x squared plus ax plus b equal to zero, I don't want to to solve it. I just wonder what is x one plus x two, what is x one times x two. Now, I'm gonna pretend I have already factored it out because x one x two are actually the two roots now. So I can rewrite that's equal.Those two, the x minus x one, x minus x two. Do you agree? Yeah. Now, why don't you multiply it out, organize the quadratic, linear, and constant term, and match with what they're supposed to be, and tell me what must be the x plus x, or x one plus x two. What would be the x one times x two?嗯。嗯。嗯。x one times x two has to equal x squared minus x times x two. Whoa, whoa, whoa, whoa, whoa, whoa! Here, x is the only variable. The equation you are getting is x squared minus the x one plus x two times x plus x one x two, right?</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Eileen， Yeah。 Well, then you're matching this quadratic equation with that correct quadratic equation. That means you can't mismatch all the terms here. The quadratic term must equal the quadratic term, linear term must equal the linear term, constant term must equal the constant term. You have to keep in mind as well as two are numbers. Do you follow me? Yeah。 What were you doing earlier? How did you get what you got?Mine was just yours, but I expanded out the x times the x one plus x two. But how does that confused? Because you don't have the view. An equation, no matter how complicated those x one, x two are, they're just numbers. So you want to organize your terms according to x, according to what is a square term in x, what's a linear term in x, etc. You follow? Yeah. All right. Now, can you?Answer me, what must be x one plus x two? It has to equal a, right? Can you be a bit more careful? Negative a. Yes, what's the x one times x two? It's b. That's good. Yeah.That theorem, that actually it applied to quadratic. The same thing works for cubic. The same thing works for quartic. Meaning, without solving the equation, pretending you have factored it out, then you would immediately infer what's relationship between the sum and the product for the roots. Now, from the coefficients, make sense now? Yeah. Next time, how can you improve? In terms of what you want to do inI can ask when it comes up. You really should. You need to ask because why? First of all, I can explain to you so that more people can listen to it. In case this is really known by everybody and you just need to fill it up, that rudimentary technique behind it, I'm going to tell you upfront here. Elaine, go check. Yet ask ChatGPT, look for what the theorem is, look at the proof, and ask for five examples so that you can get that done before our even.In class, so that I don't have to waste Helms' time feeding you up with the edits. I don't mind feeding up, but we did it already in the morning. Is it clear? Yeah. All right. Now, do you understand how we're constructing this quadratic equation now? In our case. Yeah. All right. Let's actually solve it. What are the a b's now?The a is two, and the b is five over three cubed. What? Oh, wait, never mind. Oh, oh, sorry, I don't mean the little a, little b. I am asking for the real two roots a and b. Yeah, I thought it was the little in the little b. Yeah, right, right, right. I realized that. My bad, sorry. What are the roots a and b now?嗯。</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>We are using quadratic formula, aren't we? Yeah, good. And what are we getting?嗯。嗯。嗯。What are you guys doing? I plugged it in wrong, so I have to redo it now. Okay.嗯。嗯，Yeah，I got the same。嗯，Excellent。Is there any way to simplify it a little, but not much? I can take out a seven from the top and a three from the bottom， and so that we're reducing. And I can take out the I now， and inside。Actually, two thirds. Wait, I got what you got, but divided by four. You got that four? Where does that come from? Oh wait, I see. Oh, you divide by two a. You think the a is this coefficient? Yeah, the a is one though. So. Ah, yeah.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Indeed， and I got that by already halving everything. I have already divided, cancelled out, divided by two. Okay, so we got our a and b now. Fortunately, in this case, they are complex numbers already. But it doesn't actually say you are going to have have a complex or three roots to your real u now. You are going to find out when because they're conjugates. When you take the cube eight root and add them back, you are going to get back a real number.But no matter what, yeah. And can we finish solving our U now? Well, first of all, we need to get back to the alpha and the beta. And eventually, the X here would equal to the U plus two, correct? So the real solution would be the two add onto the alpha plus the beta, and the alpha would be the cubic root of this number, which is the ninety-one plus the seven over three and the two over third i, and add onto the cubic root of the ninety-one.Minus the seven third and the two thirds, I know. And I can promise you, this is going to come out as a real number. Although it surely doesn't look like so, but it is a real number. How? Show me. We've covered enough of the knowledge of complex number now. I want you to show me this is actually a real number.嗯。嗯。嗯。Tell me what you're thinking, please. I'm thinking that I probably cancelled. How?Well, first of all, we need to take them out of the treatment route, don't we? Yeah.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>嗯。嗯。I'm thinking about something about the conjugates, because.Because if you multiply like the complex number and its conjugate, you get like the magnitude squared. Oh, but we're not multiplying the complex conjugate pairs, though. We're adding. We're adding a conjugate pair. Whenever you're taking the cube root here, guys, we learned all those trig here. The best way to do it is not to write it in Cartesian anymore, but rather write it in polar. I gave you guys the lead in the morning. By the way, we're also paving the way, paving the way now for the future.We want to recover all of the three roots, not just one. In fact, you would even know what the three roots are, and I'm giving you an equation where I can eyeball the answer. Why? Because eventually, if I just give you that root, who bothers plugging that in and work out whether it works? It's just a nightmare, right? So look at this cubic equation. In fact, this cubic equation solvable. I mean, it's eyeballable, and I'm not distracting you from this.Regular route now. This is omnipotent. Okay, the path we were on. I want to do practice so that applies. But for a sanity check, I want to have an easy standard to show you. Oh, you see, that's definitely the right answer. Let me make a mention what I mean. This one you could eyeball the answer. What is the way to eyeball the answers? You just try out. The simplest the numbers. For example, one, ninety-one, zero. Do they work? None works. What about?Two, two works, two works. Well, if I know one factor, the problem solved. So let's actually divide into it. What's the remaining quadratic equation? Double check whether you're getting the same answer as I am.嗯。</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>嗯。I got the same. Elaine, do you? Well, then helps. I'm working on it. Which step are you on? Do you know how to do the long division? Once you know one factor, do you know how to work out the other factor? No. Well, the way I have shown you guys several times before, and be patient. Let's work it out, Elaine.You're gonna double check the leading term, and pretend I don't know that that yet. I'm waiting to fill in. Well, first of all, I need to fill in the first term, so that when you multiply by the leader term, you're gonna get u cubed, right? Yeah. So what do I fill in here? U squared. U squared. U squared. Okay, but then we're gonna actually check the check the quadratic term, which is zero. We should have zero u squared, but at the moment, I just call that fit and check.Fit and check. You forward fit. You you you're gonna multiply by the greatest the highest power to do the fit, and then you check the lower power. By putting the u squared here, we have already generated a negative two u squared, right? Yeah. But we can't have any u squared. So how would you put a linear term so that they multiply to cancel out the unwanted negative two u squared? Negative two u. Negative two u. Wouldn't that give you another negative?Positive to you, yeah. Well done to you, brilliant. That's very good. Now, how do you continue? By the same notion, Elaine, you got that one by matching with a higher power. We're going to check by multiplying the current term with a lower power. So we have generated a negative for you, right? Uh-huh. So we subtract.呃，我们 subtract a a four？哦，我们 add a four。 Elaine， we do need a ninety five yield now. This already gives us a ninety four yield. So, what do we do? We subtract five.啊，伊莲，this multiplication has already been. We subtract by one, one. Ah, indeed, we subtract by one. Although there's a more convenient way to do it, Elaine. By the time you're getting to the very end, it's a lot easier to simply compare with the two, and then you're just looking for a number to multiply by another number to get the two. So that's also ninety-one. That sort of serves as a sanity check, now, so it works.Correct. Yeah. Excellent. You are a quick study. Now we end up meaning the moral lesson would be: if you begin with a higher power polynomial, you can eyeball a solution. Beautiful. You have effectively lowered the power by one, and you end up solving a lower polynomial. And by the time you are lowered down to quadratic, now we are omnipotent because we have quadratic formula. Apply and tell me whether you agree with me to get your u one, u two, u three.</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Once you do, give me a signal.嗯。嗯。I got negative one plus or minus root two. Brilliant, that's very good. I also got that. Okay, so we know these are the three solutions. But on the other hand, I took the generic root now. We got actually this is supposed to be my u. Before we don't worry about the added two. That's going back from the u to the x here. So this is supposed to be our three real numbers here. How do they match?This is what I actually want to show you. How do they match at all? Well, they can. In fact, they do. Well, it only takes seeing these numbers as complex numbers now. And let me actually write down the three numbers that they're supposed to be, and they are a two and the ninety-one plus or minus root two now. But at the same time, they're also supposed to be and the cubic root. Well, in fact, I don't need to write it here. I'll just bring that over here for comparison. So it is.Supposed to also equal to the two plus, and then we have three options: a two and the nine to one plus or nine to root two. So we need to actually match these two. We brown circled it. That one should equal to this one, right? Well, how do they? I really want to give you a strong impression. Later, whenever dealing with complex number here, switch to the polar form. So instead of writing the Cartesian, I want to find out for this pair of a conjugate complex numbers here, what is theirTheir magnitude, what is their angle? You can't get a very accurate angle, but at least I want you to estimate. Just draw a decent graph. Where is this complex number? If I call that the one now, so this is going to be actually a negative one. You're getting a negative one. That's for the real part. Imaginary part is the square root of ninety-eight over twenty-seven. It's a little less than four, so the square root of it is getting pretty close to a two, right? Pretty close to a part of a two.Do I? But it's a little under two, so in fact, your complex number would actually look like this. That's the first one. The next one would be actually its complex conjugate. Do you agree? These are the complex number. Those are actually these two numbers here. I just grabbed them. My question would be, what's going to happen when you take the cubic root? Where should that vector be?</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>roughly speaking, first of all, we're going to handle the magnitude and the angle separately. When we take the cubic root, we're also taking the cubic root of the magnitude. We do know this is roughly two, but a little under two. When you're taking the cubic root of a number a little less than two, now, can you give me an estimate? What would you be getting? What would you get? It's aAbout one point two three ish, one point two two. Yeah, I guess like one point two. Okay, that's not bad at all. In fact, the one point two when you actually cube it, you are getting one seven nine eight, but that's pretty close. And although it's a little bigger than one point two, but where is the angle? If I call that angle theta, tell me theoretically where is the angle when you take the cube root?It's one of the major, major mindset that I harped on. We spend weeks on just nailing this part of the complex number. Remember, when you're multiplying complex number, you're adding the angles. When you're raising to a higher power, you're multiplying angles. But what if you're taking the reverse now? Helms. So it's one third the angle. Beautiful. It's one third of the angle.So roughly speaking, it's about here, right? But it's that magnitude that was just bigger, a little bigger than one now. And now you see this one, likewise. And when you add them, you're getting a pair. Actually, this one looks like the greatest of all of the three real roots. Now they exactly add up to a two. They exactly add up to a two, which means whatever the real component here, it's exactly a one. When you actually earlier you had that.One third of the angle, and whatever this y component now, so that actually means s coordinate happen to be one. So we're getting one of the three roots now. That makes sense. Before we carefully double check, you know, this seemingly very complicated number, in fact, they just add up to a two. But where do we get the other two? This is where you really want to keep in mind now. Complex number when you're taking one quarter, sorry, one third of the angle, you have to keep in mind all the angles are coterminal.They're not unique. What does that mean? Do you mean like the angles can repeat? Like if you add interval? Yeah, meaning this angle here, I'm gonna highlight that in red now. Like I can put that theta, but I could also take on entire three hundred and sixty degrees, right? Yeah, it doesn't really affect your number. If that's the case, one actually take.One third， so don't I need to add onto this existing root here? And I need to add on one third of the three hundred and sixty degrees, right? I need to add one twenty degrees, which is going to get me an angle roughly here, don't you think? Which is really forming one twenty degrees from the earlier one. Do you agree? Yeah, yeah. And if that's the case, really graphically, when you add the conjugate pair, what do you end up?This gonna be a hugely negative number, which definitely looks like it's greater than in magnitude, greater than two. Yeah, it is actually giving you the root, which is negative one, negative root two, which would roughly equal to a negative two point one four ish. Sorry, two point four one four ish. You see, that actually give you this root. Now earlier we get a two, now we're getting this one. Now where is the third? Where is a ninety one plus root two, which is really about zero point four.</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>We should be getting another root right here. Oh, sorry, didn't mean that. We should be getting another root right, right here, right? Where did that come from? I'm not gonna do all your work now as homework. Figure out exactly how many roots. Why we get a perfect match as long as we keep in mind it's tricky to take the cube root because when you're actually doing one third the angle, you have to attach whatever the rotations by two pi, by four pi, by six.六派 etc etc。 Please do a good job. Clear? Huh? Any confusion? Any question? Anything I mentioned along the way, you don't know what I meant? Be sure to tell me. Okay. That just you guys are all brilliant. You just need to know what you don't know, so that you can learn. Okay. Take care. Keep up your good work. Bye.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
