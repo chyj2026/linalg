@@ -1,43 +1,183 @@
 ---
-title: "Powering Jordan Blocks: Binomial Expansion with Nilpotent N"
+title: "k×k Jordan Block Powers via Nilpotent Binomial; Real Eigenvalues vs Complex Rotation"
 date: 2026-04-04
 session: afternoon (2)
-topics: [jordan-form, eigenvalues, diagonalization, polynomial]
+topics: [eigenvalues, eigenvectors, jordan-form, nilpotent, diagonalization, complex-numbers, rotation-matrix, polynomial]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Continues from morning by explicitly powering (λI+N)^n for 2×2 and generalizing to k×k Jordan blocks, showing that the binomial expansion produces the polynomial-in-n coefficient predicted by the old algebraic theory.
+Continues [2026-04-04 morning](2026-04-04-morning.html) by *explicitly computing* the closed form $a_n = (A + Bn)\lambda^n$ from $\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0$. Generalises to $k \times k$ Jordan blocks: $N^j$ shifts ones to the $j$-th super-diagonal, $N^k = 0$, and the binomial expansion of $(\lambda I + N)^n$ truncates after $k$ terms, producing $\lambda^n$ times a polynomial in $n$ of degree $k - 1$. Closes by introducing the **rotation matrix** $R(\theta)$ as an example of a matrix that is **not diagonalisable over $\mathbb{R}$**: its eigenvalues are complex $e^{\pm i\theta}$, with no real-direction eigenvector.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Nilpotent shift: Nₖ^j moves ones to (j+1)-th super-diagonal; Nₖ^k = 0
-- (λI+N)^n = Σ C(n,j) λ^(n-j) N^j with only j<k terms surviving
-- k-fold root solution: aₙ = λ^n · (polynomial in n of degree k-1)
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $J = \lambda I + N$ | Jordan block ($k \times k$); $\lambda$ on diagonal, 1's on subdiagonal |
+| $N$ | nilpotent: $N_{i+1,i} = 1$, all other entries 0; $N^k = 0$ |
+| $\binom{n}{j}$ | binomial coefficient |
+| $R(\theta)$ | 2D rotation matrix $\begin{pmatrix}\cos\theta & -\sin\theta\\\sin\theta & \cos\theta\end{pmatrix}$ |
+| $e^{\pm i\theta}$ | complex eigenvalues of $R(\theta)$ |
+:::
 
+## Primitive notions and assumptions
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+1. **Jordan-block decomposition** ([morning Theorem 53](2026-04-04-morning.html)).
+2. **Matrix binomial expansion** requires the matrices to commute. $\lambda I$ commutes with everything, so $(\lambda I + N)^n = \sum_j \binom{n}{j}\lambda^{n-j} N^j$.
+3. **Nilpotent shift behaviour:** $N^j$ has 1's on the $j$-th sub-diagonal; $N^k = 0$.
+4. **Euler's formula:** $e^{i\theta} = \cos\theta + i\sin\theta$.
 
-Closes with rotational 2×2 having complex eigenvalues ±e^(iθ), motivating Pauli sigmas / complex eigenspaces next.
+## Theorems
+
+::: {.theorem}
+**($k \times k$ Jordan block power).** For $J = \lambda I + N$ with $N$ the standard $k \times k$ nilpotent:
+$$
+J^n \;=\; \sum_{j=0}^{k-1}\binom{n}{j}\lambda^{n-j}\,N^j. \tag{55}
+$$
+:::
+
+::: {.theorem}
+**(Closed form for $k$-fold-root linear recursion).** A linear recursion with characteristic polynomial having a single root $\lambda$ of multiplicity $k$ has general solution
+$$
+a_n \;=\; \lambda^n \cdot P(n), \qquad \deg P \le k - 1. \tag{56}
+$$
+$P(n) = A_0 + A_1 n + \cdots + A_{k-1}n^{k-1}$ has $k$ free coefficients, fitting $k$ initial conditions.
+:::
+
+::: {.theorem}
+**(Rotation matrix has complex eigenvalues).** $R(\theta)$ has characteristic polynomial $\lambda^2 - 2\cos\theta\,\lambda + 1$, with roots $\lambda_\pm = e^{\pm i\theta}$. Real eigenvalues only when $\theta \in \pi\mathbb{Z}$. For generic $\theta$, $R(\theta)$ is *not* diagonalisable over $\mathbb{R}$ — no real eigenvector exists.
+:::
+
+## Derivation of Theorem 55 (Jordan block power)
+
+**Commutativity.** $\lambda I$ commutes with $N$ (scalar matrices commute with everything). The matrix binomial theorem applies:
+$$
+J^n = (\lambda I + N)^n = \sum_{j=0}^{n}\binom{n}{j}\lambda^{n-j} N^j.
+$$
+
+**Truncation.** $N^j = 0$ for $j \ge k$, so the sum collapses to $j = 0, \dots, k-1$. $\quad\blacksquare$
+
+**Explicit $k = 4$ case** (worked in recording):
+$$
+(\lambda I + N)^n \;=\; \lambda^n\begin{pmatrix}1 & 0 & 0 & 0\\ n/\lambda & 1 & 0 & 0\\ \binom{n}{2}/\lambda^2 & n/\lambda & 1 & 0\\ \binom{n}{3}/\lambda^3 & \binom{n}{2}/\lambda^2 & n/\lambda & 1\end{pmatrix}.
+$$
+Each $j$-th subdiagonal entry is $\binom{n}{j}\lambda^{n-j}$; pulling out $\lambda^n$ yields the form above.
+
+## Derivation of Theorem 56 (polynomial-in-$n$ closed form)
+
+From $\mathbf{a}_n = V J^n V^{-1} \mathbf{a}_0$, the first component (reading $a_n$) is a linear combination of $\binom{n}{j}\lambda^{n-j}$ for $j = 0, \dots, k-1$. Each $\binom{n}{j}$ is a polynomial of degree $j$ in $n$, so the linear combination yields $\lambda^n$ times a polynomial of degree $\le k-1$:
+$$
+a_n = \lambda^n \sum_{j=0}^{k-1} A_j \binom{n}{j}\lambda^{-j} = \lambda^n \cdot P(n).
+$$
+The $k$ coefficients $A_j$ are determined by the $k$ initial conditions $a_0, \dots, a_{k-1}$ via the Vandermonde-like linear system. $\quad\blacksquare$
+
+## Derivation of Theorem 57 (complex rotation eigenvalues)
+
+$R(\theta) - \lambda I = \begin{pmatrix}\cos\theta - \lambda & -\sin\theta\\\sin\theta & \cos\theta - \lambda\end{pmatrix}$. Determinant:
+$$
+\det(R - \lambda I) = (\cos\theta - \lambda)^2 + \sin^2\theta = \lambda^2 - 2\cos\theta\,\lambda + 1.
+$$
+Quadratic formula: $\lambda_\pm = \cos\theta \pm \sqrt{\cos^2\theta - 1} = \cos\theta \pm i|\sin\theta| = e^{\pm i\theta}$ (using $i^2 = -1$). Discriminant $\cos^2\theta - 1 < 0$ unless $\theta \in \pi\mathbb{Z}$. $\quad\blacksquare$
+
+*Geometric meaning:* $R(\theta)$ preserves no real direction for $\theta \notin \pi\mathbb{Z}$. Complex eigenvectors $\mathbf{v}_\pm = (1, \mp i)^T$ live in $\mathbb{C}^2$. Over $\mathbb{C}$, $R(\theta) = U \operatorname{diag}(e^{i\theta}, e^{-i\theta}) U^{-1}$. Over $\mathbb{R}$, it isn't diagonalisable.
+
+## Verification audit
+
+::: {.audit}
+
+- **$N^2$ for $k=3$.** $N = \begin{pmatrix}0&0&0\\1&0&0\\0&1&0\end{pmatrix}$. $N^2 = \begin{pmatrix}0&0&0\\0&0&0\\1&0&0\end{pmatrix}$. $N^3 = 0$. ✓
+- **Truncation at $k=2$, $n=5$.** $(λI+N)^5 = \lambda^5 I + 5\lambda^4 N + 0 + \cdots = \lambda^5 I + 5\lambda^4 N$. Matches morning Theorem 54. ✓
+- **$k=3$ closed form.** Triple root $\lambda$ gives $a_n = \lambda^n(A_0 + A_1 n + A_2 n^2)$ — three free constants for $a_0, a_1, a_2$. ✓
+- **Rotation eigenvalue at $\theta = \pi/2$.** $\lambda_\pm = \pm i$. Char poly $\lambda^2 + 1$, roots $\pm i$. ✓
+- **Rotation at $\theta = \pi$.** $\lambda_\pm = -1$ (double real root). Char poly $(\lambda+1)^2$. ✓ ($R(\pi) = -I$ is trivially diagonal.)
+- **Dependency check.** Thm 55: binomial + nilpotent (clean). Thm 56: Thm 55 + linear combination + Vandermonde (imported). Thm 57: characteristic polynomial (clean). No circularity.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.7/2026-04-04-afternoon-2.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.7" target="_blank">GitHub Release v0.7</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Recap of morning's Jordan-block setup $M = V(3I + N)V^{-1}$ for $a_{n+1} = 6a_n - 9a_{n-1}$.](../figures/2026-04-04-afternoon-2/frame-08m00.jpg)
+
+![**Frame @ 22m00** — Explicit binomial expansion of $(3I + N)^n$ truncated by $N^2 = 0$; recovering $a_n = (A + Bn)\cdot 3^n$.](../figures/2026-04-04-afternoon-2/frame-22m00.jpg)
+
+![**Frame @ 38m00** — $k \times k$ Jordan block generalisation: $N^j$ shifts ones to $j$-th super-diagonal; explicit $4 \times 4$ power formula.](../figures/2026-04-04-afternoon-2/frame-38m00.jpg)
+
+![**Frame @ 52m00** — Pivot to rotation matrices; $\lambda^2 - 2\cos\theta\lambda + 1$, complex eigenvalues $e^{\pm i\theta}$, no real eigenvector for generic $\theta$.](../figures/2026-04-04-afternoon-2/frame-52m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["Jordan-block J = λI + N<br/>(morning Thm 53)"] --> B["λI commutes with N<br/>⇒ binomial applies"]
+    B --> C["J^n = Σⱼ C(n,j) λ^(n-j) N^j"]
+    D["N^k = 0<br/>(nilpotent)"] --> E["Truncate at j = k-1<br/>Theorem 55"]
+    C --> E
+    E --> F["a_n = λ^n · P(n),<br/>deg P ≤ k-1<br/>Theorem 56"]
+    G["R(θ) char poly<br/>λ² - 2cos(θ)·λ + 1"] --> H["λ_± = e^(±iθ)<br/>Theorem 57"]
+    H --> I["Complex eigenvalues:<br/>no real eigenvector<br/>NOT diag over R"]
+    I -.-> J["Diag over C via Pauli sigmas<br/>(next session)"]
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "$4 \times 4$ Jordan block to the $n$-th power. What's $N^4$?"
+<br><span class="speaker">Helms:</span> "Zero."
+<br><span class="speaker">Teacher:</span> "Binomial truncates after $k = 4$ terms. $\lambda^n$ on diagonal, $n\lambda^{n-1}$ on first sub, $\binom{n}{2}\lambda^{n-2}$ on second, $\binom{n}{3}\lambda^{n-3}$ on third."
+
+*Teaching move:* nilpotent shift makes the binomial truncate. The Pascal-triangle-like sub-diagonal coefficients are the **same combinatorics** as Lucas's $1/(1-u)^r$ hypothesis from [Jan 24](2026-01-24-morning.html).
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "$R(\theta)$ — eigenvalues?"
+<br><span class="speaker">Helms:</span> "$\cos\theta \pm i\sin\theta$."
+<br><span class="speaker">Teacher:</span> "$e^{\pm i\theta}$. Complex. Geometrically?"
+<br><span class="speaker">Helms:</span> "Rotation doesn't keep any real direction."
+<br><span class="speaker">Teacher:</span> "Right. Eigenvectors live in $\mathbb{C}^2$. *Not* diagonalisable over $\mathbb{R}$."
+
+*Teaching move:* algebraic fact (complex eigenvalues) ↔ geometric fact (no preserved real direction).
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. Write out $(\lambda I + N)^n$ for $k = 5$ — all $5 \times 5$ entries.
+2. Show: a $k \times k$ Jordan block has *only one* eigenvector (1-dimensional eigenspace), regardless of $k$.
+3. For $R(\theta)$ with $\theta = \pi/3$, find complex eigenvectors and the change-of-basis $U$ such that $U^{-1}R(\theta)U = \operatorname{diag}(e^{i\theta}, e^{-i\theta})$. Verify.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Theorem 56's claim that $k$ free coefficients $A_j$ uniquely fit $k$ initial conditions requires non-degeneracy of a Vandermonde-like linear system — imported, not proved.
+- **Matrix binomial theorem** requires commutativity. $\lambda I$ commutes with everything, so OK here.
+- **Complex eigenvectors** live in $\mathbb{C}^2$. The real-Schur decomposition (block-diagonal with $2 \times 2$ rotation blocks) provides a real treatment but is not derived here.
+- **Confidence.** Theorems 55, 57: high. Theorem 56: high with the Vandermonde import.
+
+:::
+
+## Related sessions
+
+- **Precursors:** [Apr 4 morning](2026-04-04-morning.html) — Jordan-block setup. [Jan 24 morning](2026-01-24-morning.html) — telescoping route. [Feb 28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework.
+- **Sequels:** [May 2 morning](2026-05-02-morning.html) (stub) — Cayley–Hamilton. Future Pauli-sigma / complex-diagonalisation sessions previewed.
+- **Tuesday rerun:** [Apr 4 tuesday-rerun](2026-04-04-tuesday-rerun.html) (stub).
 
 ## Full transcript
 

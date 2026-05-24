@@ -390,7 +390,8 @@
       "video_drive_id": "1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB",
       "video_embed": "https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/preview",
       "video_view":  "https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.7/2026-04-04-afternoon-2.mp4",
+      "status": "published"
     },
     {
       "id": "2026-04-06-afternoon-1-DUPLICATE",

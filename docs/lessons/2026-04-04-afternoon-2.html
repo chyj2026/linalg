@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-04-04">
 
-<title>Powering Jordan Blocks: Binomial Expansion with Nilpotent N – Linear Algebra Notes</title>
+<title>k×k Jordan Block Powers via Nilpotent Binomial; Real Eigenvalues vs Complex Rotation – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,9 +106,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,8 +187,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-55-jordan-block-power" id="toc-derivation-of-theorem-55-jordan-block-power" class="nav-link" data-scroll-target="#derivation-of-theorem-55-jordan-block-power">Derivation of Theorem 55 (Jordan block power)</a></li>
+  <li><a href="#derivation-of-theorem-56-polynomial-in-n-closed-form" id="toc-derivation-of-theorem-56-polynomial-in-n-closed-form" class="nav-link" data-scroll-target="#derivation-of-theorem-56-polynomial-in-n-closed-form">Derivation of Theorem 56 (polynomial-in-<span class="math inline">\(n\)</span> closed form)</a></li>
+  <li><a href="#derivation-of-theorem-57-complex-rotation-eigenvalues" id="toc-derivation-of-theorem-57-complex-rotation-eigenvalues" class="nav-link" data-scroll-target="#derivation-of-theorem-57-complex-rotation-eigenvalues">Derivation of Theorem 57 (complex rotation eigenvalues)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#dependency-map" id="toc-dependency-map" class="nav-link" data-scroll-target="#dependency-map">Dependency map</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -166,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Powering Jordan Blocks: Binomial Expansion with Nilpotent N</h1>
+<h1 class="title">k×k Jordan Block Powers via Nilpotent Binomial; Real Eigenvalues vs Complex Rotation</h1>
 </div>
 
 
@@ -189,60 +233,226 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="lead" class="level2">
+<h2 class="anchored" data-anchor-id="lead">Lead</h2>
+<p>Continues <a href="2026-04-04-morning.html">2026-04-04 morning</a> by <em>explicitly computing</em> the closed form <span class="math inline">\(a_n = (A + Bn)\lambda^n\)</span> from <span class="math inline">\(\mathbf{a}_n = V(\lambda I + N)^n V^{-1}\mathbf{a}_0\)</span>. Generalises to <span class="math inline">\(k \times k\)</span> Jordan blocks: <span class="math inline">\(N^j\)</span> shifts ones to the <span class="math inline">\(j\)</span>-th super-diagonal, <span class="math inline">\(N^k = 0\)</span>, and the binomial expansion of <span class="math inline">\((\lambda I + N)^n\)</span> truncates after <span class="math inline">\(k\)</span> terms, producing <span class="math inline">\(\lambda^n\)</span> times a polynomial in <span class="math inline">\(n\)</span> of degree <span class="math inline">\(k - 1\)</span>. Closes by introducing the <strong>rotation matrix</strong> <span class="math inline">\(R(\theta)\)</span> as an example of a matrix that is <strong>not diagonalisable over <span class="math inline">\(\mathbb{R}\)</span></strong>: its eigenvalues are complex <span class="math inline">\(e^{\pm i\theta}\)</span>, with no real-direction eigenvector.</p>
+</section>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(J = \lambda I + N\)</span></td>
+<td>Jordan block (<span class="math inline">\(k \times k\)</span>); <span class="math inline">\(\lambda\)</span> on diagonal, 1’s on subdiagonal</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(N\)</span></td>
+<td>nilpotent: <span class="math inline">\(N_{i+1,i} = 1\)</span>, all other entries 0; <span class="math inline">\(N^k = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\binom{n}{j}\)</span></td>
+<td>binomial coefficient</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R(\theta)\)</span></td>
+<td>2D rotation matrix <span class="math inline">\(\begin{pmatrix}\cos\theta &amp; -\sin\theta\\\sin\theta &amp; \cos\theta\end{pmatrix}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e^{\pm i\theta}\)</span></td>
+<td>complex eigenvalues of <span class="math inline">\(R(\theta)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<ol type="1">
+<li><strong>Jordan-block decomposition</strong> (<a href="2026-04-04-morning.html">morning Theorem 53</a>).</li>
+<li><strong>Matrix binomial expansion</strong> requires the matrices to commute. <span class="math inline">\(\lambda I\)</span> commutes with everything, so <span class="math inline">\((\lambda I + N)^n = \sum_j \binom{n}{j}\lambda^{n-j} N^j\)</span>.</li>
+<li><strong>Nilpotent shift behaviour:</strong> <span class="math inline">\(N^j\)</span> has 1’s on the <span class="math inline">\(j\)</span>-th sub-diagonal; <span class="math inline">\(N^k = 0\)</span>.</li>
+<li><strong>Euler’s formula:</strong> <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span>.</li>
+</ol>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(<span class="math inline">\(k \times k\)</span> Jordan block power).</strong> For <span class="math inline">\(J = \lambda I + N\)</span> with <span class="math inline">\(N\)</span> the standard <span class="math inline">\(k \times k\)</span> nilpotent: <span class="math display">\[
+J^n \;=\; \sum_{j=0}^{k-1}\binom{n}{j}\lambda^{n-j}\,N^j. \tag{55}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Closed form for <span class="math inline">\(k\)</span>-fold-root linear recursion).</strong> A linear recursion with characteristic polynomial having a single root <span class="math inline">\(\lambda\)</span> of multiplicity <span class="math inline">\(k\)</span> has general solution <span class="math display">\[
+a_n \;=\; \lambda^n \cdot P(n), \qquad \deg P \le k - 1. \tag{56}
+\]</span> <span class="math inline">\(P(n) = A_0 + A_1 n + \cdots + A_{k-1}n^{k-1}\)</span> has <span class="math inline">\(k\)</span> free coefficients, fitting <span class="math inline">\(k\)</span> initial conditions.</p>
+</div>
+<div class="theorem">
+<p><strong>(Rotation matrix has complex eigenvalues).</strong> <span class="math inline">\(R(\theta)\)</span> has characteristic polynomial <span class="math inline">\(\lambda^2 - 2\cos\theta\,\lambda + 1\)</span>, with roots <span class="math inline">\(\lambda_\pm = e^{\pm i\theta}\)</span>. Real eigenvalues only when <span class="math inline">\(\theta \in \pi\mathbb{Z}\)</span>. For generic <span class="math inline">\(\theta\)</span>, <span class="math inline">\(R(\theta)\)</span> is <em>not</em> diagonalisable over <span class="math inline">\(\mathbb{R}\)</span> — no real eigenvector exists.</p>
+</div>
+</section>
+<section id="derivation-of-theorem-55-jordan-block-power" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-55-jordan-block-power">Derivation of Theorem 55 (Jordan block power)</h2>
+<p><strong>Commutativity.</strong> <span class="math inline">\(\lambda I\)</span> commutes with <span class="math inline">\(N\)</span> (scalar matrices commute with everything). The matrix binomial theorem applies: <span class="math display">\[
+J^n = (\lambda I + N)^n = \sum_{j=0}^{n}\binom{n}{j}\lambda^{n-j} N^j.
+\]</span></p>
+<p><strong>Truncation.</strong> <span class="math inline">\(N^j = 0\)</span> for <span class="math inline">\(j \ge k\)</span>, so the sum collapses to <span class="math inline">\(j = 0, \dots, k-1\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Explicit <span class="math inline">\(k = 4\)</span> case</strong> (worked in recording): <span class="math display">\[
+(\lambda I + N)^n \;=\; \lambda^n\begin{pmatrix}1 &amp; 0 &amp; 0 &amp; 0\\ n/\lambda &amp; 1 &amp; 0 &amp; 0\\ \binom{n}{2}/\lambda^2 &amp; n/\lambda &amp; 1 &amp; 0\\ \binom{n}{3}/\lambda^3 &amp; \binom{n}{2}/\lambda^2 &amp; n/\lambda &amp; 1\end{pmatrix}.
+\]</span> Each <span class="math inline">\(j\)</span>-th subdiagonal entry is <span class="math inline">\(\binom{n}{j}\lambda^{n-j}\)</span>; pulling out <span class="math inline">\(\lambda^n\)</span> yields the form above.</p>
+</section>
+<section id="derivation-of-theorem-56-polynomial-in-n-closed-form" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-56-polynomial-in-n-closed-form">Derivation of Theorem 56 (polynomial-in-<span class="math inline">\(n\)</span> closed form)</h2>
+<p>From <span class="math inline">\(\mathbf{a}_n = V J^n V^{-1} \mathbf{a}_0\)</span>, the first component (reading <span class="math inline">\(a_n\)</span>) is a linear combination of <span class="math inline">\(\binom{n}{j}\lambda^{n-j}\)</span> for <span class="math inline">\(j = 0, \dots, k-1\)</span>. Each <span class="math inline">\(\binom{n}{j}\)</span> is a polynomial of degree <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span>, so the linear combination yields <span class="math inline">\(\lambda^n\)</span> times a polynomial of degree <span class="math inline">\(\le k-1\)</span>: <span class="math display">\[
+a_n = \lambda^n \sum_{j=0}^{k-1} A_j \binom{n}{j}\lambda^{-j} = \lambda^n \cdot P(n).
+\]</span> The <span class="math inline">\(k\)</span> coefficients <span class="math inline">\(A_j\)</span> are determined by the <span class="math inline">\(k\)</span> initial conditions <span class="math inline">\(a_0, \dots, a_{k-1}\)</span> via the Vandermonde-like linear system. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-57-complex-rotation-eigenvalues" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-57-complex-rotation-eigenvalues">Derivation of Theorem 57 (complex rotation eigenvalues)</h2>
+<p><span class="math inline">\(R(\theta) - \lambda I = \begin{pmatrix}\cos\theta - \lambda &amp; -\sin\theta\\\sin\theta &amp; \cos\theta - \lambda\end{pmatrix}\)</span>. Determinant: <span class="math display">\[
+\det(R - \lambda I) = (\cos\theta - \lambda)^2 + \sin^2\theta = \lambda^2 - 2\cos\theta\,\lambda + 1.
+\]</span> Quadratic formula: <span class="math inline">\(\lambda_\pm = \cos\theta \pm \sqrt{\cos^2\theta - 1} = \cos\theta \pm i|\sin\theta| = e^{\pm i\theta}\)</span> (using <span class="math inline">\(i^2 = -1\)</span>). Discriminant <span class="math inline">\(\cos^2\theta - 1 &lt; 0\)</span> unless <span class="math inline">\(\theta \in \pi\mathbb{Z}\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><em>Geometric meaning:</em> <span class="math inline">\(R(\theta)\)</span> preserves no real direction for <span class="math inline">\(\theta \notin \pi\mathbb{Z}\)</span>. Complex eigenvectors <span class="math inline">\(\mathbf{v}_\pm = (1, \mp i)^T\)</span> live in <span class="math inline">\(\mathbb{C}^2\)</span>. Over <span class="math inline">\(\mathbb{C}\)</span>, <span class="math inline">\(R(\theta) = U \operatorname{diag}(e^{i\theta}, e^{-i\theta}) U^{-1}\)</span>. Over <span class="math inline">\(\mathbb{R}\)</span>, it isn’t diagonalisable.</p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong><span class="math inline">\(N^2\)</span> for <span class="math inline">\(k=3\)</span>.</strong> <span class="math inline">\(N = \begin{pmatrix}0&amp;0&amp;0\\1&amp;0&amp;0\\0&amp;1&amp;0\end{pmatrix}\)</span>. <span class="math inline">\(N^2 = \begin{pmatrix}0&amp;0&amp;0\\0&amp;0&amp;0\\1&amp;0&amp;0\end{pmatrix}\)</span>. <span class="math inline">\(N^3 = 0\)</span>. ✓</li>
+<li><strong>Truncation at <span class="math inline">\(k=2\)</span>, <span class="math inline">\(n=5\)</span>.</strong> <span class="math inline">\((λI+N)^5 = \lambda^5 I + 5\lambda^4 N + 0 + \cdots = \lambda^5 I + 5\lambda^4 N\)</span>. Matches morning Theorem 54. ✓</li>
+<li><strong><span class="math inline">\(k=3\)</span> closed form.</strong> Triple root <span class="math inline">\(\lambda\)</span> gives <span class="math inline">\(a_n = \lambda^n(A_0 + A_1 n + A_2 n^2)\)</span> — three free constants for <span class="math inline">\(a_0, a_1, a_2\)</span>. ✓</li>
+<li><strong>Rotation eigenvalue at <span class="math inline">\(\theta = \pi/2\)</span>.</strong> <span class="math inline">\(\lambda_\pm = \pm i\)</span>. Char poly <span class="math inline">\(\lambda^2 + 1\)</span>, roots <span class="math inline">\(\pm i\)</span>. ✓</li>
+<li><strong>Rotation at <span class="math inline">\(\theta = \pi\)</span>.</strong> <span class="math inline">\(\lambda_\pm = -1\)</span> (double real root). Char poly <span class="math inline">\((\lambda+1)^2\)</span>. ✓ (<span class="math inline">\(R(\pi) = -I\)</span> is trivially diagonal.)</li>
+<li><strong>Dependency check.</strong> Thm 55: binomial + nilpotent (clean). Thm 56: Thm 55 + linear combination + Vandermonde (imported). Thm 57: characteristic polynomial (clean). No circularity.</li>
+</ul>
+</div>
+</section>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.7/2026-04-04-afternoon-2.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.7" target="_blank">GitHub Release v0.7</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-afternoon-2/frame-08m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 08m00</strong> — Recap of morning’s Jordan-block setup <span class="math inline">\(M = V(3I + N)V^{-1}\)</span> for <span class="math inline">\(a_{n+1} = 6a_n - 9a_{n-1}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-afternoon-2/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — Explicit binomial expansion of <span class="math inline">\((3I + N)^n\)</span> truncated by <span class="math inline">\(N^2 = 0\)</span>; recovering <span class="math inline">\(a_n = (A + Bn)\cdot 3^n\)</span>.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-afternoon-2/frame-38m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m00</strong> — <span class="math inline">\(k \times k\)</span> Jordan block generalisation: <span class="math inline">\(N^j\)</span> shifts ones to <span class="math inline">\(j\)</span>-th super-diagonal; explicit <span class="math inline">\(4 \times 4\)</span> power formula.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-04-04-afternoon-2/frame-52m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 52m00</strong> — Pivot to rotation matrices; <span class="math inline">\(\lambda^2 - 2\cos\theta\lambda + 1\)</span>, complex eigenvalues <span class="math inline">\(e^{\pm i\theta}\)</span>, no real eigenvector for generic <span class="math inline">\(\theta\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="dependency-map" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-map">Dependency map</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A["Jordan-block J = λI + N&lt;br/&gt;(morning Thm 53)"] --&gt; B["λI commutes with N&lt;br/&gt;⇒ binomial applies"]
+    B --&gt; C["J^n = Σⱼ C(n,j) λ^(n-j) N^j"]
+    D["N^k = 0&lt;br/&gt;(nilpotent)"] --&gt; E["Truncate at j = k-1&lt;br/&gt;Theorem 55"]
+    C --&gt; E
+    E --&gt; F["a_n = λ^n · P(n),&lt;br/&gt;deg P ≤ k-1&lt;br/&gt;Theorem 56"]
+    G["R(θ) char poly&lt;br/&gt;λ² - 2cos(θ)·λ + 1"] --&gt; H["λ_± = e^(±iθ)&lt;br/&gt;Theorem 57"]
+    H --&gt; I["Complex eigenvalues:&lt;br/&gt;no real eigenvector&lt;br/&gt;NOT diag over R"]
+    I -.-&gt; J["Diag over C via Pauli sigmas&lt;br/&gt;(next session)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “<span class="math inline">\(4 \times 4\)</span> Jordan block to the <span class="math inline">\(n\)</span>-th power. What’s <span class="math inline">\(N^4\)</span>?” <br><span class="speaker">Helms:</span> “Zero.” <br><span class="speaker">Teacher:</span> “Binomial truncates after <span class="math inline">\(k = 4\)</span> terms. <span class="math inline">\(\lambda^n\)</span> on diagonal, <span class="math inline">\(n\lambda^{n-1}\)</span> on first sub, <span class="math inline">\(\binom{n}{2}\lambda^{n-2}\)</span> on second, <span class="math inline">\(\binom{n}{3}\lambda^{n-3}\)</span> on third.”</p>
+<p><em>Teaching move:</em> nilpotent shift makes the binomial truncate. The Pascal-triangle-like sub-diagonal coefficients are the <strong>same combinatorics</strong> as Lucas’s <span class="math inline">\(1/(1-u)^r\)</span> hypothesis from <a href="2026-01-24-morning.html">Jan 24</a>.</p>
+</div>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “<span class="math inline">\(R(\theta)\)</span> — eigenvalues?” <br><span class="speaker">Helms:</span> “<span class="math inline">\(\cos\theta \pm i\sin\theta\)</span>.” <br><span class="speaker">Teacher:</span> “<span class="math inline">\(e^{\pm i\theta}\)</span>. Complex. Geometrically?” <br><span class="speaker">Helms:</span> “Rotation doesn’t keep any real direction.” <br><span class="speaker">Teacher:</span> “Right. Eigenvectors live in <span class="math inline">\(\mathbb{C}^2\)</span>. <em>Not</em> diagonalisable over <span class="math inline">\(\mathbb{R}\)</span>.”</p>
+<p><em>Teaching move:</em> algebraic fact (complex eigenvalues) ↔︎ geometric fact (no preserved real direction).</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>Write out <span class="math inline">\((\lambda I + N)^n\)</span> for <span class="math inline">\(k = 5\)</span> — all <span class="math inline">\(5 \times 5\)</span> entries.</li>
+<li>Show: a <span class="math inline">\(k \times k\)</span> Jordan block has <em>only one</em> eigenvector (1-dimensional eigenspace), regardless of <span class="math inline">\(k\)</span>.</li>
+<li>For <span class="math inline">\(R(\theta)\)</span> with <span class="math inline">\(\theta = \pi/3\)</span>, find complex eigenvectors and the change-of-basis <span class="math inline">\(U\)</span> such that <span class="math inline">\(U^{-1}R(\theta)U = \operatorname{diag}(e^{i\theta}, e^{-i\theta})\)</span>. Verify.</li>
+</ol>
 </div>
 </div>
-<section id="lead" class="level2">
-<h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Continues from morning by explicitly powering (λI+N)^n for 2×2 and generalizing to k×k Jordan blocks, showing that the binomial expansion produces the polynomial-in-n coefficient predicted by the old algebraic theory.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
 <ul>
-<li>Nilpotent shift: Nₖ^j moves ones to (j+1)-th super-diagonal; Nₖ^k = 0</li>
-<li>(λI+N)^n = Σ C(n,j) λ^(n-j) N^j with only j&lt;k terms surviving</li>
-<li>k-fold root solution: aₙ = λ^n · (polynomial in n of degree k-1)</li>
+<li><strong>Weakest step.</strong> Theorem 56’s claim that <span class="math inline">\(k\)</span> free coefficients <span class="math inline">\(A_j\)</span> uniquely fit <span class="math inline">\(k\)</span> initial conditions requires non-degeneracy of a Vandermonde-like linear system — imported, not proved.</li>
+<li><strong>Matrix binomial theorem</strong> requires commutativity. <span class="math inline">\(\lambda I\)</span> commutes with everything, so OK here.</li>
+<li><strong>Complex eigenvectors</strong> live in <span class="math inline">\(\mathbb{C}^2\)</span>. The real-Schur decomposition (block-diagonal with <span class="math inline">\(2 \times 2\)</span> rotation blocks) provides a real treatment but is not derived here.</li>
+<li><strong>Confidence.</strong> Theorems 55, 57: high. Theorem 56: high with the Vandermonde import.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Closes with rotational 2×2 having complex eigenvalues ±e^(iθ), motivating Pauli sigmas / complex eigenspaces next.</p>
-</div>
-</div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1eZTAtBvFal7QcC-U0oFppBSHspT1dvcB/view" target="_blank">Open in Drive ↗</a>
-</p>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursors:</strong> <a href="2026-04-04-morning.html">Apr 4 morning</a> — Jordan-block setup. <a href="2026-01-24-morning.html">Jan 24 morning</a> — telescoping route. <a href="2026-02-28-eigenvalues-followup.html">Feb 28 followup</a> — eigenvalue framework.</li>
+<li><strong>Sequels:</strong> <a href="2026-05-02-morning.html">May 2 morning</a> (stub) — Cayley–Hamilton. Future Pauli-sigma / complex-diagonalisation sessions previewed.</li>
+<li><strong>Tuesday rerun:</strong> <a href="2026-04-04-tuesday-rerun.html">Apr 4 tuesday-rerun</a> (stub).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -251,7 +461,7 @@ Warning
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Just dealt with, and I want to pick up where we left off. However, alternatively, because we won't be doing anything more about the topic of those non-diagonalizable matrices until the next group session, and so there's an alternative. So tonight, I can actually look at more examples of really just using the diagonalizable matrices to do stuff. However, I do want to finish where we were in our example.meaning I wanted to recover for that two by two linear recursion. Whenever we're doing a double root, why in our final result here and there came that n term? The dependence not only as a geometric sequence, but also depends on the linear term of the n. So I do want to finish that much. And after we finish it, I'll go back and show you more some other related examples. Okay, come back to our recursion. We actually have this now: a n plus.Plus one. Hey, come on. Sorry, a n plus one. One second. Let me actually just. Okay. Okay. So this is where we got our recursion. A. Okay, one second. Is the a n plus one equals to six of the a n minus nine.of the a n minus one, but after translating it into the vector form, what we're getting is that a n plus one equal to this matrix negative uh six negative nine one zero, which we call the m now operating on the a n, and eventually we got to the place where in fact our a this matrix m now, and this one gives us a final formula for the a n, a n simply equal to the m raised to n power times the a one, which is I gave you as a.零等于一，a一等于二。That's the initial condition I gave ourselves, is it not? So that we defined the a zero simply as one, two. Now, so this is a m to the n power times one, the two. We know eventually the initial condition and find the eigenvectors or those secondary eigenvectors. They only serve to nail exactly what would be the coefficients. What's really important is that matrix term. What's going to happen there?Inside that matrix, because that's the one dependent on the n here. So we have achieved the following: we found two eigenvectors. One is a three one. This one is genuinely an eigenvector, so that whenever you operate the M on it here, it's going to give you three times of that three one itself. That's actually easily double-checked. Makes.That's this. This equal to three, three, one. Oh, we solved it. Remember, we actually went through, and this is what we did in the previous session. We found the eigenvalue by looking at the I minus lambda I determinant, actually equal to the six minus lambda negative nine one minus lambda, and this one multiplied by the x and y would equal to zero. Oh, to begin with, we.Need the determinant to be equal to zero, and that leads to a quadratic equation which has a double root. This gives us lambda squared minus six lambda plus nine equal to zero. Remember? Yeah. And that gives a double root lambda equal to three. And now we're actually solving the m minus the lambda minus three i now, which gives us a three negative nine one negative three, and operating on the x and y would equal to zero.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>We're solving for the nontrivial solution, which gives us the only eigenvector. It's arbitrary scaled version of the three one. Makes sense. But at the same time, though, we also found a v two, which is by no means the eigenvector. The v two actually follows if you operate the m on the v two, and would give you three times the v two, and then plus the v one, so it gives you the actual the v one. Let's double check the the v two we found. It's actually this is what.We did in the previous session, so I'm not going to repeat the process. I remember we found one zero. Let's try it. If we operate this six negative nine one zero operating on the V two now, and the meaning one zero, what we're getting is simply going to be the six of a one, and would that equal to the three times of the V two?m plus another three one, which is a v one. Yeah, everything is perfect. And knowing the behavior of the m now, it operates on the v one, meaning we're we're combining these two behavior into one. Oh, sorry, I have already written this down. And m operating on the three one gives you three times of three one. Meanwhile, m operating on the one zero give you three times of the one zero and add onto a three one. So I want to bundle up this.Behavior into I'm operating on the three one one zero would equal to a column manipulation. So I copy down the three one and the one zero, the multiplied by one. I want to fill in the numbers in order to capture this column manipulation. So what numbers do I fill in?And remember, you think of the result on the second column. It's a three times of the first column, and plus, sorry, three times of the second column, plus one copy of the first column.嗯。嗯。I don't know how to do that. Let's see. This is a column manipulation. I'm glad you're saying this because we just covered that. Very new, and it takes a lot of practice to begin with. And remember, when you multiply on the right by a matrix, now you're getting a column manipulation. So we're going to deal with it generically. So if I have the v one and v two, each one is a column all the way to the v n now, and I.</span>
