@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-10">
 
-<title>Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1) – Linear Algebra Notes</title>
+<title>Lattice Walks, Pascal’s Triangle, and Generating Functions: Setting Up Catalan Numbers – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-69" id="toc-derivation-of-theorem-69" class="nav-link" data-scroll-target="#derivation-of-theorem-69">Derivation of Theorem 69</a></li>
+  <li><a href="#derivation-of-theorem-70" id="toc-derivation-of-theorem-70" class="nav-link" data-scroll-target="#derivation-of-theorem-70">Derivation of Theorem 70</a></li>
+  <li><a href="#derivation-of-theorem-71" id="toc-derivation-of-theorem-71" class="nav-link" data-scroll-target="#derivation-of-theorem-71">Derivation of Theorem 71</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</h1>
+<h1 class="title">Lattice Walks, Pascal’s Triangle, and Generating Functions: Setting Up Catalan Numbers</h1>
 </div>
 
 
@@ -190,75 +227,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Re-derives why a double-root linear recursion requires an extra n·λ^n term (degree-of-freedom argument) and rigorously expands 1/(1-λx)² = Σ(n+1)λ^n x^n via the negative-binomial coefficient C(-2,k).</p>
+<p>Reformulates Pascal’s-triangle binomial coefficients as <strong>lattice-walk counts</strong> on an <span class="math inline">\(n \times n\)</span> grid: the number of monotone paths from one corner to the diagonally opposite corner is <span class="math inline">\(\binom{2n}{n}\)</span>. The session sets up <strong>Catalan numbers</strong> as a restricted count (walks constrained never to cross the diagonal) and introduces <strong>generating functions</strong> as algebraic containers for combinatorial sequences — paving the way for the generating-function machinery used in later sessions (<a href="2026-01-24-morning.html">2026-01-24 morning</a> and <a href="2026-04-04-morning.html">2026-04-04 morning</a>).</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\binom{n}{k}\)</span></td>
+<td>binomial coefficient</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C_n\)</span></td>
+<td><span class="math inline">\(n\)</span>-th Catalan number</td>
+</tr>
+<tr class="odd">
+<td>board<span class="math inline">\(_{ij}\)</span></td>
+<td>lattice-path count from origin to <span class="math inline">\((i,j)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(G(x) = \sum a_n x^n\)</span></td>
+<td>generating function</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Lattice-walk count).</strong> Monotone (right/up only) paths from <span class="math inline">\((0,0)\)</span> to <span class="math inline">\((n,n)\)</span>: <span class="math display">\[
+\binom{2n}{n}. \tag{69}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Pascal recursion via lattice).</strong> <span class="math inline">\(\binom{i+j}{i} = \binom{i+j-1}{i-1} + \binom{i+j-1}{i}\)</span>. <span class="math inline">\(\tag{70}\)</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Pascal-triangle preservation under truncation).</strong> Restricting to box <span class="math inline">\([0,n]^2\)</span> preserves Pascal values up to the diagonal; below-diagonal values are reduced due to lost boundary contributions.</p>
+</div>
+</section>
+<section id="derivation-of-theorem-69" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-69">Derivation of Theorem 69</h2>
+<p>A monotone path is an ordering of <span class="math inline">\(n\)</span> right-steps and <span class="math inline">\(n\)</span> up-steps. Number of orderings = <span class="math inline">\(\binom{2n}{n}\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-70" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-70">Derivation of Theorem 70</h2>
+<p>Last step into <span class="math inline">\((i,j)\)</span> is either from <span class="math inline">\((i-1,j)\)</span> or <span class="math inline">\((i,j-1)\)</span> (disjoint, exhaustive). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-71" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-71">Derivation of Theorem 71</h2>
+<p>Diagonal entries depend only on inputs from upper-left triangle (within the box), so they match Pascal. Below-diagonal entries would need outside-box contributions, hence reduced. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Double-root general solution: fₙ = (A + Bn)λ^n</li>
-<li>Generating-function identity: Σ(n+1)x^n = 1/(1-x)²</li>
+<li><strong><span class="math inline">\(n=1\)</span>.</strong> <span class="math inline">\(\binom{2}{1} = 2\)</span>: RU, UR. ✓</li>
+<li><strong><span class="math inline">\(n=2\)</span>.</strong> <span class="math inline">\(\binom{4}{2} = 6\)</span>: RRUU, RURU, RUUR, URRU, URUR, UURR. ✓</li>
+<li><strong>Pascal at <span class="math inline">\((1,1)\)</span>.</strong> <span class="math inline">\(\binom{2}{1} = 2 = 1+1\)</span>. ✓</li>
+<li><strong>Diagonal preservation.</strong> <span class="math inline">\((3,3)\)</span> in <span class="math inline">\(3\times 3\)</span> box: <span class="math inline">\(\binom{6}{3} = 20\)</span>. ✓</li>
+<li><strong>Dependency.</strong> Counting + case analysis + induction. No circularity.</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Build searchable inventory of past notes; monthly Overleaf submission.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Very long transcript (~113 KB). New student Brayden introduced. Significant meta-discussion about AI/ChatGPT usage and personalized system instructions.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.1/2026-01-10-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v1.1" target="_blank">GitHub Release v1.1</a>
+  · also viewable in <a href="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/view" target="_blank">Google Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2026-01-10-morning/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Pascal via lattice."> <img src="../figures/2026-01-10-morning/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Truncation question (BQ test)."> <img src="../figures/2026-01-10-morning/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Catalan setup."> <img src="../figures/2026-01-10-morning/frame-52m00.jpg" class="img-fluid" alt="Frame @ 52m00 — Generating function notation."></p>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “Past halfway — still Pascal? Or am I bullshitting (BQ test)?” <br><span class="speaker">Lucas:</span> “Diagonal stays Pascal; off-diagonal lower is reduced.”</p>
+<p><em>Teaching move:</em> <strong>BQ test</strong> — deliberate misstatements force verification over nodding.</p>
+</div>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Truncation argument needs careful induction; sketch in transcript.</li>
+<li><strong>Catalan setup only.</strong> Full <span class="math inline">\(C(x) = (1-\sqrt{1-4x})/(2x)\)</span> deferred to later sessions.</li>
+<li><strong>Meta content.</strong> ~30% methodological (BQ, Brayden intro, AI discussion).</li>
+<li><strong>Confidence.</strong> High.</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Sequels:</strong> <a href="2026-01-24-morning.html">2026-01-24 morning</a> (generating function for double-root recursions), <a href="2026-04-04-morning.html">2026-04-04 morning</a> (companion matrix). Use machinery introduced here.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -267,7 +351,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>So I'm going to be holding. And, Drayden, you probably will see the name tags. And, in fact, our little star Toby is not here yet. And this is Lucas, Eddie. Well, why don't you just quickly introduce yourself to the new classmate, possibly? Not me. Uh, actually, each one of theI just introduce you to them. Go ahead, quickly give a round so that I can get started. Lucas is seventh grader at Radner, and and besides this class, I I don't take any other academic classes. I'm a you.I'm Emma from Florida American Heritage. I'm currently in sixth grade. And when did you start loving mathematics? About two years ago. Start early, Elaine. Uh, I'm Elaine. I'm an eighth grader from California. I started liking math like one and a half years ago. Cool. HowI'm Toby. I'm sixth grader from Random Middle School, and I started liking math before I was born. Very accurate. And Helms. I'm Helms. I'm from. I'm a seventh grader from Random Middle School, and I started liking math like two years ago. Beautiful Helms. I each one of the kid. What happened to Lucas? How come he's in my way?waiting room again. Your waiting room? Huh? Does it say so? Wait, to be a hacker. I actually don't know what's happening, but let's continue. We'll go forward. We just wrapped up power expansions. We managed to write a lot of functions, although they don't look like power functions, but we wrote them as power functions. I said we were going to wrap up the power functions now, butBut before we move on, we're going to actually discuss the last topic, which is called generating functions. We made several mentions before. And, Brendan, do you know what generating functions are? Okay, well, it's kind of where do you go? He's here. All right. Oh. Now, generating function is a kind of a power function, but it's not used to calculate the outcome. It's not that we want to plug in the input. It's not to calculate the value.From it, but instead is serving as a container. Well, we've been using a lot of things as container. We're using complex numbers as a container for manipulation of the angles and the trig functions, and now we're using the generating function to carry discrete math information. What what do I mean here? This is a where I did mention that before, but today I really want to narrow down to the generating function of Catalan numbers here. Catalan number it's a specific combinatorial六次方数， that has great impact later in mathematics, a little surprisingly. And who knows what Catalan numbers are? It comes from working the grid. Well, let's say there's n by n grid here. Everybody, anyone worth its salt, having done any of the AMC, would know. And if this is going to be the n by n grid, how many ways to go from one corner to the diagonally opposed corner?</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>If the only motion permitted would be to the right and upward, Lucas, I think of it as like a kind of I think it's called a water pipe method. I think like to go one up, you have one choice to go there and there, and then you have one choice to go there and there. But since there are two ways to get here, you get two, so it's kind of like doing Pascal's triangle a little bit, but beautiful. It's not a little bit; it's through and through. You're generating Pascal's triangle by counting recursively how many ways to.get to each corner by counting you. This number means we're adding the two adjacent vertices to get here. So that's altogether how many ways to get to this corner, and that's one. And this is one plus two, so that's three. This is one plus two, that's a three. So this is six, one, four. You're getting exactly Pascal triangle numbers. And for that purpose, reason, Toby. Why aren't they triangular numbers? Okay.There's one, two, three. I mean, one, two, five, fourteen. Oh, and how is that defined? No, the Catalan numbers is a special way to actually walk the grid. So hurry not. So first of all, we want to witness we have just regenerated Pascal triangle numbers on the grid, knowing so, and the pattern continues, except for by the time you're getting to the second half now, and you have to braid.To bridle it down, because we're losing those outside grid anymore. We don't have those portion. So when you keep adding, then after you we pass halfway, these are not Pascal triangle numbers anymore. Do you get see that? And do you agree with me? Because we're losing the outside source. So what is this number?Earlier, why did anybody, all of you, agreed that past halfway point, those are not Pascal numbers anymore? What was the reason I was giving you? Because I got cut off, and like the supposed ones over here, don't add, don't add into it, so they start getting a little less than the Pascal numbers. You are comparing within this region. So, do all of you agree?Actually, really agree with Lucas. By the way, Drayden, I don't judge my students according to their IQ or EQ, but according to their BQ. Could somebody explain to Drayden how I name BQ? What does that mean? I don't think you've named it to us before, but I'm guessing you just mean like if whether or not we're paying attention and putting an actual thought into the lesson you're giving us. I think Lucas, it's veryVery hesitant to say the very dirty word, Toby. Is it one hundred twenty-six? I mean, one hundred thirty-six. Toby, I didn't even name the n for you. Have I not mentioned that you really should? But there's a grid there. I mean, that's the specific. You have been learning with me, haven't you? Learned to go for the general instead of getting hung on specific number. And you know, I don't like a number. A number doesn't reveal.Any mental process or general rule here? I have every every time. If a kid gives me a number, I always say, "Get rid of the number. Just tell me the general pattern, or what is the formula invented, or what is your mental process." Well, so I know. One second, one second. You should listen to my latest question. My latest question: We have a new kid here. I need to let him know the rules in the classroom. What is BQ? I explained it to you guys.</span>

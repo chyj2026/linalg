@@ -1,47 +1,109 @@
 ---
-title: "Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)"
+title: "Lattice Walks, Pascal's Triangle, and Generating Functions: Setting Up Catalan Numbers"
 date: 2026-01-10
 session: morning
-topics: [polynomial, vieta-formulas]
+topics: [polynomial, vieta-formulas, generating-functions, combinatorics, catalan-numbers, pascal-triangle]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Re-derives why a double-root linear recursion requires an extra n·λ^n term (degree-of-freedom argument) and rigorously expands 1/(1-λx)² = Σ(n+1)λ^n x^n via the negative-binomial coefficient C(-2,k).
+Reformulates Pascal's-triangle binomial coefficients as **lattice-walk counts** on an $n \times n$ grid: the number of monotone paths from one corner to the diagonally opposite corner is $\binom{2n}{n}$. The session sets up **Catalan numbers** as a restricted count (walks constrained never to cross the diagonal) and introduces **generating functions** as algebraic containers for combinatorial sequences — paving the way for the generating-function machinery used in later sessions ([2026-01-24 morning](2026-01-24-morning.html) and [2026-04-04 morning](2026-04-04-morning.html)).
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Double-root general solution: fₙ = (A + Bn)λ^n
-- Generating-function identity: Σ(n+1)x^n = 1/(1-x)²
-
-## Homework given
-
-::: {.callout-important}
-Build searchable inventory of past notes; monthly Overleaf submission.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $\binom{n}{k}$ | binomial coefficient |
+| $C_n$ | $n$-th Catalan number |
+| board$_{ij}$ | lattice-path count from origin to $(i,j)$ |
+| $G(x) = \sum a_n x^n$ | generating function |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Theorems
 
-Very long transcript (~113 KB). New student Brayden introduced. Significant meta-discussion about AI/ChatGPT usage and personalized system instructions.
+::: {.theorem}
+**(Lattice-walk count).** Monotone (right/up only) paths from $(0,0)$ to $(n,n)$:
+$$
+\binom{2n}{n}. \tag{69}
+$$
+:::
+
+::: {.theorem}
+**(Pascal recursion via lattice).** $\binom{i+j}{i} = \binom{i+j-1}{i-1} + \binom{i+j-1}{i}$. $\tag{70}$
+:::
+
+::: {.theorem}
+**(Pascal-triangle preservation under truncation).** Restricting to box $[0,n]^2$ preserves Pascal values up to the diagonal; below-diagonal values are reduced due to lost boundary contributions.
+:::
+
+## Derivation of Theorem 69
+
+A monotone path is an ordering of $n$ right-steps and $n$ up-steps. Number of orderings = $\binom{2n}{n}$. $\quad\blacksquare$
+
+## Derivation of Theorem 70
+
+Last step into $(i,j)$ is either from $(i-1,j)$ or $(i,j-1)$ (disjoint, exhaustive). $\quad\blacksquare$
+
+## Derivation of Theorem 71
+
+Diagonal entries depend only on inputs from upper-left triangle (within the box), so they match Pascal. Below-diagonal entries would need outside-box contributions, hence reduced. $\quad\blacksquare$
+
+## Verification audit
+
+::: {.audit}
+
+- **$n=1$.** $\binom{2}{1} = 2$: RU, UR. ✓
+- **$n=2$.** $\binom{4}{2} = 6$: RRUU, RURU, RUUR, URRU, URUR, UURR. ✓
+- **Pascal at $(1,1)$.** $\binom{2}{1} = 2 = 1+1$. ✓
+- **Diagonal preservation.** $(3,3)$ in $3\times 3$ box: $\binom{6}{3} = 20$. ✓
+- **Dependency.** Counting + case analysis + induction. No circularity.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.1/2026-01-10-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v1.1" target="_blank">GitHub Release v1.1</a>
+  · also viewable in <a href="https://drive.google.com/file/d/18AUbBPy6DWcQXSWjM_NC8I1piVJfUeLw/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Pascal via lattice.](../figures/2026-01-10-morning/frame-08m00.jpg)
+![**Frame @ 22m00** — Truncation question (BQ test).](../figures/2026-01-10-morning/frame-22m00.jpg)
+![**Frame @ 38m00** — Catalan setup.](../figures/2026-01-10-morning/frame-38m00.jpg)
+![**Frame @ 52m00** — Generating function notation.](../figures/2026-01-10-morning/frame-52m00.jpg)
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Past halfway — still Pascal? Or am I bullshitting (BQ test)?"
+<br><span class="speaker">Lucas:</span> "Diagonal stays Pascal; off-diagonal lower is reduced."
+
+*Teaching move:* **BQ test** — deliberate misstatements force verification over nodding.
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Truncation argument needs careful induction; sketch in transcript.
+- **Catalan setup only.** Full $C(x) = (1-\sqrt{1-4x})/(2x)$ deferred to later sessions.
+- **Meta content.** ~30% methodological (BQ, Brayden intro, AI discussion).
+- **Confidence.** High.
+
+:::
+
+## Related sessions
+
+- **Sequels:** [2026-01-24 morning](2026-01-24-morning.html) (generating function for double-root recursions), [2026-04-04 morning](2026-04-04-morning.html) (companion matrix). Use machinery introduced here.
 
 ## Full transcript
 
