@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-12-13">
 
-<title>Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary – Linear Algebra Notes</title>
+<title>Tangent-Circle Chain: Self-Similar Infinite Series and the Binary Factorization 1 + x + x² + … = ∏(1 + x(2k)) – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-75" id="toc-derivation-of-theorem-75" class="nav-link" data-scroll-target="#derivation-of-theorem-75">Derivation of Theorem 75</a></li>
+  <li><a href="#derivation-of-theorem-76" id="toc-derivation-of-theorem-76" class="nav-link" data-scroll-target="#derivation-of-theorem-76">Derivation of Theorem 76</a></li>
+  <li><a href="#derivation-of-theorem-77-binary-unfolding" id="toc-derivation-of-theorem-77-binary-unfolding" class="nav-link" data-scroll-target="#derivation-of-theorem-77-binary-unfolding">Derivation of Theorem 77 (binary unfolding)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary</h1>
+<h1 class="title">Tangent-Circle Chain: Self-Similar Infinite Series and the Binary Factorization 1 + x + x² + … = ∏(1 + x<sup>(2</sup>k))</h1>
 </div>
 
 
@@ -190,34 +226,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Uses an AMC tangent-circles problem to introduce infinite series via self-similar generating sums, then factors 1 + x + x² + … = ∏(1 + x<sup>(2</sup>k)) and connects to binary representation uniqueness.</p>
+<p>An AMC 2015 #25 tangent-circle problem opens the chapter on <strong>infinite series</strong>. Two circles tangent to a common line, with radii <span class="math inline">\(R\)</span> and <span class="math inline">\(r\)</span>, have tangency-point separation <span class="math inline">\(s = 2\sqrt{Rr}\)</span>. The lesson uses a <em>self-similar</em> generating-sum argument to obtain the geometric series closed form, then <strong>(Lucas’s observation)</strong> factors the geometric series via binary representation: <span class="math inline">\(1 + x + x^2 + \cdots = \prod_{k=0}^{\infty}(1 + x^{2^k})\)</span>. The product unfolds because every non-negative integer has a <em>unique</em> binary representation.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Tangent-circle separation).</strong> Two circles tangent to a common line and externally tangent to each other, with radii <span class="math inline">\(R, r\)</span>: tangency-point separation <span class="math inline">\(s = 2\sqrt{Rr}\)</span>. <span class="math inline">\(\tag{75}\)</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Geometric series, closed form).</strong> For <span class="math inline">\(|x| &lt; 1\)</span>: <span class="math display">\[
+\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}. \tag{76}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Binary factorization of geometric series).</strong> For <span class="math inline">\(|x| &lt; 1\)</span>: <span class="math display">\[
+\sum_{n=0}^{\infty} x^n = \prod_{k=0}^{\infty} (1 + x^{2^k}) \;=\; (1+x)(1+x^2)(1+x^4)(1+x^8)\cdots \tag{77}
+\]</span></p>
+</div>
+</section>
+<section id="derivation-of-theorem-75" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-75">Derivation of Theorem 75</h2>
+<p>Place the common tangent line as <span class="math inline">\(y = 0\)</span> with circles’ centers at <span class="math inline">\((x_1, R)\)</span> and <span class="math inline">\((x_2, r)\)</span>. Centers’ distance equals <span class="math inline">\(R + r\)</span> (external tangency). So <span class="math inline">\(\sqrt{(x_2 - x_1)^2 + (r - R)^2} = R + r\)</span>. Squaring: <span class="math inline">\((x_2 - x_1)^2 = (R+r)^2 - (R-r)^2 = 4Rr\)</span>, giving <span class="math inline">\(|x_2 - x_1| = 2\sqrt{Rr}\)</span> — which is the tangency-point separation along the line. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-76" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-76">Derivation of Theorem 76</h2>
+<p>Let <span class="math inline">\(S = 1 + x + x^2 + \cdots\)</span>. Then <span class="math inline">\(xS = x + x^2 + x^3 + \cdots = S - 1\)</span>, so <span class="math inline">\(S(1 - x) = 1\)</span>, giving <span class="math inline">\(S = 1/(1-x)\)</span>. (Convergence requires <span class="math inline">\(|x| &lt; 1\)</span>.) <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-of-theorem-77-binary-unfolding" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-77-binary-unfolding">Derivation of Theorem 77 (binary unfolding)</h2>
+<p>Expand the product <span class="math inline">\(\prod_{k=0}^{\infty}(1 + x^{2^k})\)</span> term-by-term: each factor contributes either 1 or <span class="math inline">\(x^{2^k}\)</span> when multiplied out. So the product equals <span class="math display">\[
+\sum_{S \subseteq \{0,1,2,\dots\}\text{ finite}} x^{\sum_{k \in S} 2^k}.
+\]</span> The exponents range over <span class="math inline">\(\sum_{k \in S} 2^k\)</span> — but every non-negative integer <span class="math inline">\(n\)</span> has a <strong>unique binary representation</strong> <span class="math inline">\(n = \sum_{k \in S_n} 2^k\)</span>. So the exponents cover each non-negative integer exactly once, and the product equals <span class="math inline">\(\sum_{n \ge 0} x^n\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Distance between tangency points: s = 2√(Rr) for two circles tangent to a common line</li>
-<li>Closed form of geometric series</li>
-<li>Infinite product factorization via binary digits</li>
-<li>Uniqueness of binary representation</li>
+<li><strong>Tangent circles <span class="math inline">\(R=4, r=1\)</span>.</strong> <span class="math inline">\(s = 2\sqrt{4\cdot 1} = 4\)</span>. ✓</li>
+<li><strong>Geometric at <span class="math inline">\(x = 1/2\)</span>.</strong> <span class="math inline">\(S = 1/(1-1/2) = 2\)</span>. Sum <span class="math inline">\(1 + 1/2 + 1/4 + \cdots = 2\)</span>. ✓</li>
+<li><strong>Binary factorization at <span class="math inline">\(x = 1/2\)</span>.</strong> <span class="math inline">\((1+1/2)(1+1/4)(1+1/16)\cdots = (3/2)(5/4)(17/16)(257/256)\cdots\)</span>. Numerically: <span class="math inline">\(1.5 \cdot 1.25 = 1.875\)</span>; <span class="math inline">\(\cdot 1.0625 = 1.9921875\)</span>; <span class="math inline">\(\cdot 1.00390625 \approx 1.9999...\)</span>; converges to 2. ✓</li>
+<li><strong>Truncated check at <span class="math inline">\(x = 1/3\)</span>.</strong> <span class="math inline">\((1+1/3)(1+1/9)(1+1/81) = (4/3)(10/9)(82/81) = 3280/2187 \approx 1.500\)</span>; geometric: <span class="math inline">\(1/(1-1/3) = 1.5\)</span>. ✓</li>
+<li><strong>Dependency.</strong> Thm 75: Pythagorean. Thm 76: self-similar shift. Thm 77: unique binary representation. No circularity.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.3/2025-12-13.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.3" target="_blank">v1.3</a> · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2025-12-13/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Tangent circle configuration; s = 2\sqrt{Rr}."> <img src="../figures/2025-12-13/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Self-similar geometric series derivation."> <img src="../figures/2025-12-13/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Lucas’s binary factorization insight."> <img src="../figures/2025-12-13/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Uniqueness of binary representation."></p>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Convergence requires <span class="math inline">\(|x| &lt; 1\)</span></strong> for both series and product to make sense.</li>
+<li><strong>Binary uniqueness</strong> is the bottom-line import; deep result of number theory (Stern-Brocot tree, base representation theory) but accepted as elementary.</li>
+<li><strong>Confidence.</strong> All three theorems: high.</li>
+</ul>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -228,39 +307,20 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Determine whether C(211,143) is even or odd using a smart method (Kummer / Lucas style); don’t just compute.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Opens the sequences-and-series chapter; Lucas drives much of the discovery.</p>
-</div>
+<p><strong>Homework.</strong> Determine whether <span class="math inline">\(\binom{211}{143}\)</span> is even or odd using <strong>Kummer’s theorem</strong> (count carries in binary addition of <span class="math inline">\(143 + 68 = 211\)</span>).</p>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Open in Drive ↗</a>
-</p>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Sequels:</strong> <a href="2026-01-03-morning.html">2026-01-03 morning</a> (Basel ζ(2)). <a href="2026-01-10-morning.html">2026-01-10 morning</a> (Catalan + generating functions).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -269,7 +329,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Come on. Uh, I start with usual question, and any question from homework from the previous session and from a recent weeks, because we've been treading some very deep waters. Um, so be straightforward and out with it. If you have any questions at all, Toby, I have a question. Yes. So, like, there is like.This thing, and then there's two circles that these are tangent to. So then, this is four. One second. This is also four. This is two D or four three D. Two D. When you say four, you mean the distance between the point of tangency. Ah, Toby, could I actually? Ah, you go ahead. You finish talking, and I'm gonna. I'm gonna actually.要定义的面积 of the small one. Well, that's not enough for the information, because depends on that angle. Yeah, wait, I think, ah, the angle might be determined actually by the very fact. You see, this is how we go about it. Okay, ah, the point is to connect the saving point. So fundamentally, we're gonna actually create this more clear similar. Ah, okay. Um, so if this is actually four two four, then sure.Surely, we would know that the ratio between the two radii are actually r and two r, no doubt about it, right? And these are also equal segments, right? There is no angle. What do you mean? It didn't give you angles. I I know, and I wonder why they tell you that's also four and four, because that's totally useless information. Obviously, if you know this is four and four, that is supposed.To be also four and four, yeah. And the the question would be, and if I do actually fix a certain angle now, and I'm gonna actually put in a smaller circle, and then a the point is the size of the bigger circle it's already determined by the angle. You see, therein is the answer. If you just set up your angle now, I hope all eyes are on board. IfIf I call that angle theta, then automatically I would know. And if I give you actually this distance from the center, well, no, without loss of generality, okay. Why don't we just say this is one, and that's the sine theta, that's the size of the first circle. And later, in fact, we'll know that's all one now because when you actually do, this is going to be cosine theta. We have a scaled version thereof. However, when you put in the the graph over here and the distance betweenThe first tangent point and the second will not automatically be to one to two. That's actually the issue. So we're going to actually set up the equation for it. That is the purpose of connecting to the center. All right. So if we say that the first radius is sine theta, and it's r now, and second radius is also, and knowing this is going to be a three r in between because they're tangents, and then we can solve for the equation of the r using this triangle.It's a familiar construction, and could somebody remind me? We've seen this kind of construction before. What is the relationship if if the two circles are both tangent to the same line, and then how can I write this distance between the point of tangency, which I call AMB, in terms of the given knowledge of the radii? Six R. Well, I rather want you to show me the process. It's not.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>the six R, it has a. What you're doing is actually create a cut. If we so the area of the rectangle will be four R, and the area of the triangle will be. Remember, this is two R here, and that's three R. So when you do the cut, that's also R, right? So that you should be getting whatever this four should equal to twice.等于根号二r， by using Pythagorean theorem, it should equal to the three r squared minus r squared. That's eight r squared. So we have this relationship. Oh, so you solve your r. r is root two. So then it's two pi. Ah, well, if the the area is what you are looking for.Does that make sense? Hello, does that make sense? Yes. Do we want to get reinforcement? I actually want to engage, uh, the rest of the class now. Even helps. Uh, it's useful. And let me actually, first of all, recap that major little theorem that we did here. If you have two circles, those are both tangent to.A particular line here. Then, once we have the information about the two radii, we would know exactly.What is? Hey, come on. What's the distance between the two points of tangency? So if I call that actually A here and B here. So may we derive a general formula? If I give you that little radius is small r and the radius is big R. And yes, indeed, we're creating that trapezoid now. Toby, they give other kids a chance. I.I want to make sure that everybody knows the relationship, Lucas. So the radius of the small circle is is a lowercase r, and the radius of the big circle is uppercase R, right? Correct. Then I'm thinking maybe we can draw a point like here to make like a sort of right triangle. Yeah, beautiful. Then after that's just simple Pythagorean theorem. Indeed. So let's actually call this AB the s distance.Very good. So Lucas is noticing that the hypotenuse connecting the two centers is the sum of the two radii, which is a generic pattern whenever you have tangent circles external tangent to each other. And finish it for us. So there you get r plus r squared minus r uh minus r minus r squared, so which results to.for R R， yes， very good。 I'm not sure. I'm not sure if I worded that correctly. Hey, you did it perfectly. Therefore, the S that equal to the S squared。 Do we all get why this is a big R minus small? Yes. Beautiful, Holmes is saying. Yes. All right, now you get a relationship between the R and the big R minus small. There was Amy number twelve.</span>

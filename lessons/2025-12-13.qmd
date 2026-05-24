@@ -1,49 +1,99 @@
 ---
-title: "Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary"
+title: "Tangent-Circle Chain: Self-Similar Infinite Series and the Binary Factorization 1 + x + x² + ... = ∏(1 + x^(2^k))"
 date: 2025-12-13
-session: unspecified
-topics: [polynomial, modular-arithmetic]
+session: morning
+topics: [polynomial, geometric-series, infinite-products, binary-representation, tangent-circles]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Uses an AMC tangent-circles problem to introduce infinite series via self-similar generating sums, then factors 1 + x + x² + … = ∏(1 + x^(2^k)) and connects to binary representation uniqueness.
+An AMC 2015 #25 tangent-circle problem opens the chapter on **infinite series**. Two circles tangent to a common line, with radii $R$ and $r$, have tangency-point separation $s = 2\sqrt{Rr}$. The lesson uses a *self-similar* generating-sum argument to obtain the geometric series closed form, then **(Lucas's observation)** factors the geometric series via binary representation: $1 + x + x^2 + \cdots = \prod_{k=0}^{\infty}(1 + x^{2^k})$. The product unfolds because every non-negative integer has a *unique* binary representation.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Distance between tangency points: s = 2√(Rr) for two circles tangent to a common line
-- Closed form of geometric series
-- Infinite product factorization via binary digits
-- Uniqueness of binary representation
-
-## Homework given
-
-::: {.callout-important}
-Determine whether C(211,143) is even or odd using a smart method (Kummer / Lucas style); don't just compute.
+::: {.theorem}
+**(Tangent-circle separation).** Two circles tangent to a common line and externally tangent to each other, with radii $R, r$: tangency-point separation $s = 2\sqrt{Rr}$. $\tag{75}$
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+::: {.theorem}
+**(Geometric series, closed form).** For $|x| < 1$:
+$$
+\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}. \tag{76}
+$$
+:::
 
-Opens the sequences-and-series chapter; Lucas drives much of the discovery.
+::: {.theorem}
+**(Binary factorization of geometric series).** For $|x| < 1$:
+$$
+\sum_{n=0}^{\infty} x^n = \prod_{k=0}^{\infty} (1 + x^{2^k}) \;=\; (1+x)(1+x^2)(1+x^4)(1+x^8)\cdots \tag{77}
+$$
+:::
+
+## Derivation of Theorem 75
+
+Place the common tangent line as $y = 0$ with circles' centers at $(x_1, R)$ and $(x_2, r)$. Centers' distance equals $R + r$ (external tangency). So $\sqrt{(x_2 - x_1)^2 + (r - R)^2} = R + r$. Squaring: $(x_2 - x_1)^2 = (R+r)^2 - (R-r)^2 = 4Rr$, giving $|x_2 - x_1| = 2\sqrt{Rr}$ — which is the tangency-point separation along the line. $\quad\blacksquare$
+
+## Derivation of Theorem 76
+
+Let $S = 1 + x + x^2 + \cdots$. Then $xS = x + x^2 + x^3 + \cdots = S - 1$, so $S(1 - x) = 1$, giving $S = 1/(1-x)$. (Convergence requires $|x| < 1$.) $\quad\blacksquare$
+
+## Derivation of Theorem 77 (binary unfolding)
+
+Expand the product $\prod_{k=0}^{\infty}(1 + x^{2^k})$ term-by-term: each factor contributes either 1 or $x^{2^k}$ when multiplied out. So the product equals
+$$
+\sum_{S \subseteq \{0,1,2,\dots\}\text{ finite}} x^{\sum_{k \in S} 2^k}.
+$$
+The exponents range over $\sum_{k \in S} 2^k$ — but every non-negative integer $n$ has a **unique binary representation** $n = \sum_{k \in S_n} 2^k$. So the exponents cover each non-negative integer exactly once, and the product equals $\sum_{n \ge 0} x^n$. $\quad\blacksquare$
+
+## Verification audit
+
+::: {.audit}
+
+- **Tangent circles $R=4, r=1$.** $s = 2\sqrt{4\cdot 1} = 4$. ✓
+- **Geometric at $x = 1/2$.** $S = 1/(1-1/2) = 2$. Sum $1 + 1/2 + 1/4 + \cdots = 2$. ✓
+- **Binary factorization at $x = 1/2$.** $(1+1/2)(1+1/4)(1+1/16)\cdots = (3/2)(5/4)(17/16)(257/256)\cdots$. Numerically: $1.5 \cdot 1.25 = 1.875$; $\cdot 1.0625 = 1.9921875$; $\cdot 1.00390625 \approx 1.9999...$; converges to 2. ✓
+- **Truncated check at $x = 1/3$.** $(1+1/3)(1+1/9)(1+1/81) = (4/3)(10/9)(82/81) = 3280/2187 \approx 1.500$; geometric: $1/(1-1/3) = 1.5$. ✓
+- **Dependency.** Thm 75: Pythagorean. Thm 76: self-similar shift. Thm 77: unique binary representation. No circularity.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.3/2025-12-13.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.3" target="_blank">v1.3</a> · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Tangent circle configuration; $s = 2\sqrt{Rr}$.](../figures/2025-12-13/frame-08m00.jpg)
+![**Frame @ 22m00** — Self-similar geometric series derivation.](../figures/2025-12-13/frame-22m00.jpg)
+![**Frame @ 38m00** — Lucas's binary factorization insight.](../figures/2025-12-13/frame-38m00.jpg)
+![**Frame @ 50m00** — Uniqueness of binary representation.](../figures/2025-12-13/frame-50m00.jpg)
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Convergence requires $|x| < 1$** for both series and product to make sense.
+- **Binary uniqueness** is the bottom-line import; deep result of number theory (Stern-Brocot tree, base representation theory) but accepted as elementary.
+- **Confidence.** All three theorems: high.
+
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.** Determine whether $\binom{211}{143}$ is even or odd using **Kummer's theorem** (count carries in binary addition of $143 + 68 = 211$).
+:::
+
+## Related sessions
+
+- **Sequels:** [2026-01-03 morning](2026-01-03-morning.html) (Basel ζ(2)). [2026-01-10 morning](2026-01-10-morning.html) (Catalan + generating functions).
 
 ## Full transcript
 

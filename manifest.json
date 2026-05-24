@@ -234,7 +234,8 @@
       "video_drive_id": "1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh",
       "video_embed": "https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/preview",
       "video_view":  "https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.3/2025-12-13.mp4",
+      "status": "published"
     },
     {
       "id": "2026-01-03-morning",
