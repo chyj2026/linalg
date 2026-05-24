@@ -1,49 +1,194 @@
 ---
-title: "Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse"
+title: "Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, and Gauss–Jordan Inversion"
 date: 2026-03-28
 session: morning
-topics: [determinant, linear-independence, rank-nullity, inner-product, linear-transformation, matrix-inverse]
+topics: [determinant, linear-independence, rank-nullity, inner-product, linear-transformation, matrix-inverse, gram-matrix, gauss-jordan]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Uses Gram matrix VᵀV to test linear independence in high-dimensional space (sub-determinants for partial ranks), derives Toby's triangle-inequality constraints on off-diagonal cosines, and teaches Gauss-Jordan row reduction for inverse computation.
+Two distinct but linked developments. First, the **Gram matrix** $G := V^T V$ (where $V$ is $m \times n$ with column-vector basis candidates in $\mathbb{R}^m$) is shown to be a rank-detection tool: $\operatorname{rank}(V) = \operatorname{rank}(G)$, and sub-determinants of $G$ probe partial linear independence of subsets of columns. The diagonal entries are squared magnitudes; off-diagonal entries are dot products bounded by Cauchy–Schwarz; for the normalized case, $G$ has 1's on the diagonal and cosines off the diagonal. **Sub-volume inequalities** (one $\ge$ any cofactor $M_{kk}$ $\ge$ smaller cofactors $\ge \det M$) force layered constraints on the off-diagonal cosines. Second, an algorithmic shift: $\mathbf{T} = U \cdot V^{-1}$ recovers a linear transform from its image on a basis, and the row-reduction algorithm $[A \mid I] \to [I \mid A^{-1}]$ — **Gauss–Jordan inversion** — exploits the matrix-as-verb interpretation to invert without computing cofactors.
 
-## Key theorems and identities (from the session)
+## Symbol dictionary
 
-- Rank via det(VᵀV) and principal minors
-- Mₖₖ cofactor ≥ det(M) for normalized Gram matrix (sub-volume bound)
-- T = U·V⁻¹ from images of basis
-- Gauss-Jordan elimination yields A⁻¹ alongside I
-
-## Homework given
-
-::: {.callout-important}
-Finish Gauss-Jordan inversion of the worked 3×3 example down to identity and verify by multiplying back.
+::: {.symbol-dictionary}
+| Symbol | Meaning |
+|---|---|
+| $V = [\mathbf{v}_1\ \mathbf{v}_2\ \cdots\ \mathbf{v}_n] \in \mathbb{R}^{m\times n}$ | matrix with $n$ candidate basis vectors as columns (each in $\mathbb{R}^m$) |
+| $G := V^T V \in \mathbb{R}^{n\times n}$ | **Gram matrix**; $G_{ij} = \mathbf{v}_i \cdot \mathbf{v}_j$ |
+| $M_{kk}$ | $(k,k)$ cofactor of $G$ (delete row and column $k$) |
+| $\theta_{ij}$ | angle between $\mathbf{v}_i$ and $\mathbf{v}_j$; $\cos\theta_{ij} = (\mathbf{v}_i\cdot\mathbf{v}_j)/(|\mathbf{v}_i||\mathbf{v}_j|)$ |
+| $\mathbf{T}: \mathbb{R}^n \to \mathbb{R}^n$ | linear transformation, identifiable with an $n\times n$ matrix once a basis is chosen |
+| $U = \mathbf{T}\,V$ | matrix whose columns are the images $\mathbf{T}\mathbf{v}_j$ |
+| $[A \mid I]$ | augmented $n \times 2n$ block matrix with $A$ on the left and $I$ on the right |
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Primitive notions and assumptions
 
-Long row-reduction example with nasty fractions.
+1. **Dot product** $\mathbf{u}\cdot\mathbf{v} = \sum_k u_k v_k = \mathbf{u}^T \mathbf{v}$. Commutative, bilinear.
+2. **Cauchy–Schwarz inequality** $|\mathbf{u}\cdot\mathbf{v}| \le |\mathbf{u}||\mathbf{v}|$ (imported; geometric proof via $\cos\theta$).
+3. **Determinant geometry**: $\det V$ for $V \in \mathbb{R}^{n\times n}$ is the signed $n$-volume of the parallelepiped on the columns.
+4. **Linear-system non-trivial-solution criterion** ([Oct 11 afternoon, Thm 24](2025-10-11-afternoon.html)): $A\mathbf{x} = \mathbf{0}$ has $\mathbf{x} \ne \mathbf{0}$ iff $\det A = 0$.
+5. **Row operations on $[A\,|\,B]$ correspond to left-multiplication** by elementary matrices.
+
+## Theorems
+
+::: {.theorem}
+**(Gram symmetry).** $G = V^T V$ is symmetric.
+:::
+
+::: {.theorem}
+**(Gram rank).** $\operatorname{rank}(V^T V) = \operatorname{rank}(V)$. So $\det G = 0 \Leftrightarrow$ columns of $V$ linearly dependent.
+:::
+
+::: {.theorem}
+**(Sub-volume inequalities, normalized Gram).** If $|\mathbf{v}_i| = 1$ for all $i$,
+$$
+1 \;\ge\; M_{kk} \;\ge\; M_{kk,\ell\ell} \;\ge\; \cdots \;\ge\; \det G \;\ge\; 0. \tag{48}
+$$
+:::
+
+::: {.theorem}
+**(Linear transform reconstruction).** If $V$ invertible and $U = \mathbf{T}V$, then
+$$
+\mathbf{T} \;=\; U \cdot V^{-1}. \tag{49}
+$$
+:::
+
+::: {.theorem}
+**(Gauss–Jordan inversion).** If $\det A \ne 0$, then row-reducing $[A \mid I]$ to $[I \mid \ast]$ produces $\ast = A^{-1}$:
+$$
+[A \mid I] \;\xrightarrow{\text{row reduce}}\; [I \mid A^{-1}]. \tag{50}
+$$
+:::
+
+## Derivation of Theorem 48 (sub-volume inequalities)
+
+Geometric chain (Emma's argument). $\det G = \det(V^T V)$ equals the **squared** $n$-volume of the parallelepiped on the columns of $V$. Each cofactor $M_{kk}$ is the squared $(n-1)$-volume of the parallelepiped on the columns *minus* $\mathbf{v}_k$.
+
+**Height decomposition.** Let $\phi_k$ be the angle between $\mathbf{v}_k$ and the span of the remaining vectors. Then
+$$
+\sqrt{\det G} \;=\; \sqrt{M_{kk}} \cdot |\mathbf{v}_k|\,|\sin\phi_k| \;=\; \sqrt{M_{kk}} \cdot h_k.
+$$
+With $|\mathbf{v}_k| = 1$, $h_k = |\sin\phi_k| \le 1$. Squaring: $\det G = M_{kk}\,h_k^2 \le M_{kk}$.
+
+**Iterate**: removing one more vector gives $M_{kk} \le M_{kk,\ell\ell}$, and so on, bottoming at $|\mathbf{v}_i|^2 = 1$. $\quad\blacksquare$
+
+Equality iff the removed vector is in the span of the rest (parallel and $\sin = 0$) OR perpendicular to that span (no height loss).
+
+## Derivation of Theorem 49 (linear transform reconstruction)
+
+By linearity, $\mathbf{T}$ is determined by its images on a basis. Writing $\mathbf{T}\mathbf{v}_j = \mathbf{u}_j$ side by side: $\mathbf{T}V = U$. If $V$ is invertible, right-multiply by $V^{-1}$: $\mathbf{T} = UV^{-1}$. $\quad\blacksquare$
+
+## Derivation A of Theorem 50 (Gauss–Jordan — "matrix as verb")
+
+Row operation = left-multiplication by an elementary matrix $E$. A sequence reducing $A$ to $I$ is a product $E_k \cdots E_1$ with
+$$
+E_k \cdots E_1 \cdot A \;=\; I \;\Rightarrow\; E_k \cdots E_1 \;=\; A^{-1}.
+$$
+Apply the same product to $I$: $E_k \cdots E_1 \cdot I = A^{-1}$. Run both blocks of $[A \mid I]$ through the same row operations until the left becomes $I$; the right becomes $A^{-1}$. $\quad\blacksquare$
+
+## Derivation B of Theorem 50 *(independent — column interpretation)*
+
+Solve $A\mathbf{x}_j = \mathbf{e}_j$ for each standard basis vector. The solution is the $j$-th column of $A^{-1}$. Gauss–Jordan solves all $n$ systems simultaneously by stacking the right-hand sides as the columns of $I$ — the same row operations solve every system in lockstep, producing $A^{-1}$ column-by-column on the right. $\quad\blacksquare$
+
+*Independence:* A uses elementary-matrix algebra (verb view); B uses simultaneous-system solving (column view). Same machinery, different perspectives.
+
+## Verification audit
+
+::: {.audit}
+
+- **Gram symmetry, $V = \begin{pmatrix}1&2\\3&4\end{pmatrix}$**: $G = \begin{pmatrix}10&14\\14&20\end{pmatrix}$. ✓
+- **$2 \times 2$ Gram inequality.** Normalized $|\mathbf{v}_i| = 1$, angle $\theta$: $G = \begin{pmatrix}1&\cos\theta\\\cos\theta&1\end{pmatrix}$, $\det G = \sin^2\theta$, $M_{11} = M_{22} = 1$. $1 \ge \sin^2\theta$ ✓.
+- **Gauss–Jordan $2 \times 2$.** $A = \begin{pmatrix}1&2\\3&4\end{pmatrix}$. Reduce $\begin{pmatrix}1&2&1&0\\3&4&0&1\end{pmatrix}$: $R_2 \to R_2 - 3R_1$, $R_2 \to -R_2/2$, $R_1 \to R_1 - 2R_2$ gives $\begin{pmatrix}1&0&-2&1\\0&1&3/2&-1/2\end{pmatrix}$. Verify: $A \cdot \begin{pmatrix}-2&1\\3/2&-1/2\end{pmatrix} = \begin{pmatrix}1&0\\0&1\end{pmatrix}$. ✓
+- **Spherical triangle inequality.** Cosines $0.5, 0.6, 0.9$: angles $60°, 53.1°, 25.8°$. Check all triangle inequalities: $60 \le 53.1 + 25.8 = 78.9$ ✓; $53.1 \le 60 + 25.8 = 85.8$ ✓; $25.8 \le 60 + 53.1$ ✓. Realisable.
+- **Counterexample to "any three cosines work".** $\cos\theta_{12} = -0.1, \cos\theta_{13} = 0.9, \cos\theta_{23} = 0.6$: angles $95.7°, 25.8°, 53.1°$. Check $95.7 \le 53.1 + 25.8 = 78.9$? **No** — violated. So not realisable. Confirms Toby's extra constraint.
+- **$\mathbf{T}$ reconstruction.** $\mathbf{T} = \begin{pmatrix}2&0\\0&3\end{pmatrix}$, $V = \begin{pmatrix}1&1\\1&-1\end{pmatrix}$: $U = \begin{pmatrix}2&2\\3&-3\end{pmatrix}$. $V^{-1} = \begin{pmatrix}1/2&1/2\\1/2&-1/2\end{pmatrix}$. $UV^{-1} = \begin{pmatrix}2&0\\0&3\end{pmatrix} = \mathbf{T}$. ✓
+- **Dependency check.** Thm 48: height + induction. Thm 49: pure algebra. Thm 50: elementary-matrix or column-solving. No circularity. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.5/2026-03-28-morning.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.5" target="_blank">GitHub Release v0.5</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9/view" target="_blank">Google Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Setting up $G = V^T V$ as a symmetric $4 \times 4$ matrix from 4 vectors in 7-D space.](../figures/2026-03-28-morning/frame-08m00.jpg)
+
+![**Frame @ 22m00** — Off-diagonal Cauchy–Schwarz bound; normalized version with 1's on diagonal and cosines off; Toby's spherical-triangle constraint.](../figures/2026-03-28-morning/frame-22m00.jpg)
+
+![**Frame @ 38m00** — Sub-volume inequality chain via Emma's geometric height argument.](../figures/2026-03-28-morning/frame-38m00.jpg)
+
+![**Frame @ 52m00** — Gauss–Jordan inversion in progress on $3 \times 3$; row operations tracked simultaneously on $[A \mid I]$.](../figures/2026-03-28-morning/frame-52m00.jpg)
+
+## Dependency map
+
+```{mermaid}
+flowchart TB
+    A["V ∈ R^(m×n), columns v_j"] --> B["G = V^T V<br/>Gram matrix"]
+    B --> C["G symmetric (G_ij = v_i·v_j)"]
+    D["Cauchy-Schwarz"] --> E["Off-diag ≤ diag<br/>(normalized: cos θ_ij)"]
+    F["Geometric height (Emma)"] --> G["det G = M_kk·h_k², h_k ≤ 1"]
+    G --> H["1 ≥ M_kk ≥ M_kk,ll ≥ ... ≥ det G<br/>Theorem 48"]
+    I["Spherical triangle (Toby)<br/>θ_ij ≤ θ_ik + θ_jk"] --> J["Extra cosine constraints"]
+    K["T linear ⇒ basis determines"] --> L["T·V = U ⇒ T = U·V⁻¹<br/>Theorem 49"]
+    M["Row op = left-mult by elementary"] --> N["Sequence to I:<br/>E_k...E_1 = A⁻¹"]
+    N --> O["[A | I] → [I | A⁻¹]<br/>Theorem 50<br/>Gauss-Jordan"]
+    P["Solve A·x_j = e_j for all j"] --> O
+```
+
+## Worked Socratic exchanges
+
+::: {.exchange}
+<span class="speaker">Toby:</span> "If $\mathbf{u}, \mathbf{v}$ angle $\phi$, $\mathbf{v}, \mathbf{w}$ angle $\theta$, then $\mathbf{u}, \mathbf{w}$ angle $\le \phi + \theta$, right?"
+<br><span class="speaker">Teacher:</span> "Yes — spherical triangle inequality. So Cauchy–Schwarz alone is too weak; the off-diagonal cosines have *layered* constraints."
+
+*Teaching move:* student-driven discovery of additional structure beyond the obvious.
+:::
+
+::: {.exchange}
+<span class="speaker">Teacher:</span> "Each matrix is a *verb*. $A^{-1}$ is the verb that undoes $A$. I don't *know* what $A^{-1}$ is, but I know its effect — row operations — and I track that effect on both halves of $[A \mid I]$ simultaneously."
+
+*Teaching move:* the **matrix-as-verb** mental model unlocks Gauss–Jordan immediately. Used later in LU, QR, pseudo-inverse.
+:::
+
+## Exercises given
+
+::: {.callout-important}
+**Homework.**
+
+1. **Finish the Gauss–Jordan worked example.** $A = \begin{pmatrix}-3&2&6\\1&7&2\\0&4&3\end{pmatrix}$: complete row reduction of $[A \mid I]$ and verify $A \cdot A^{-1} = I$.
+2. **Spherical triangle.** Are unit vectors with pairwise cosines $0.5, 0.6, 0.9$ realisable in $\mathbb{R}^3$? Use the spherical law of cosines.
+3. **Sub-volume saturation.** Find three unit vectors where $M_{33} = \det G$ exactly. What geometric configuration is this?
+:::
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Weakest step.** Theorem 48 height argument assumes Gram-Schmidt-style orthogonal decomposition; true in finite-dim inner-product spaces.
+- **Imported facts.** Cauchy–Schwarz; $\operatorname{rank}(V^T V) = \operatorname{rank}(V)$ via SVD (not derived here).
+- **Spherical triangle inequality** stated without formal proof — requires spherical law of cosines.
+- **Gauss–Jordan numerical fragility.** Numerically unstable without pivoting. Production code uses LU with partial pivoting or QR.
+- **Confidence.** Theorems (sym), 49, 50: high. Theorem 48: high in normalized case; equality conditions subtle.
+
+:::
+
+## Related sessions
+
+- **Precursors:** [2026-02-21 morning](2026-02-21-morning.html) + [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework. [2025-10-11 afternoon](2025-10-11-afternoon.html) — Cramer-classification (Theorem 24) is the load-bearing import.
+- **Sequels:** [2026-04-04 morning](2026-04-04-morning.html) (stub) — companion matrices + Jordan blocks. [2026-05-02 morning](2026-05-02-morning.html) (stub) — Cayley–Hamilton.
+- **Application:** Gauss–Jordan is $O(n^3)$ vs cofactor's $O(n!)$ — vastly faster for $n \ge 4$.
 
 ## Full transcript
 

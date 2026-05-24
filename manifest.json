@@ -358,7 +358,8 @@
       "video_drive_id": "1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9",
       "video_embed": "https://drive.google.com/file/d/1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9/preview",
       "video_view":  "https://drive.google.com/file/d/1X0tpimqwpsbfcRGJIOw4dOzOKJ9TJVF9/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.5/2026-03-28-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2026-04-04-morning",
