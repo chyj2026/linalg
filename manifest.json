@@ -189,7 +189,8 @@
       "video_drive_id": "1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p",
       "video_embed": "https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/preview",
       "video_view":  "https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.6/2025-11-08-afternoon.mp4",
+      "status": "published"
     },
     {
       "id": "2025-11-29-morning",

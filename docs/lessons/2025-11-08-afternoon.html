@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-11-08">
 
-<title>Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots – Linear Algebra Notes</title>
+<title>Cubic Equations via Cardano’s Substitution and Polar Complex Cube Roots – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-81" id="toc-derivation-of-theorem-81" class="nav-link" data-scroll-target="#derivation-of-theorem-81">Derivation of Theorem 81</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</h1>
+<h1 class="title">Cubic Equations via Cardano’s Substitution and Polar Complex Cube Roots</h1>
 </div>
 
 
@@ -190,77 +223,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Solves u³ - 5u + 2 = 0 via the Cardano substitution u = α + β, reduces to a quadratic in α³, β³ by Vieta, then recovers all three real roots by complex cube roots with 120° rotations.</p>
+<p>Solves cubic <span class="math inline">\(u^3 - 5u + 2 = 0\)</span> end-to-end via <strong>Cardano’s substitution</strong> <span class="math inline">\(u = \alpha + \beta\)</span>, which reduces the cubic to a quadratic in <span class="math inline">\((\alpha^3, \beta^3)\)</span> via the constraint <span class="math inline">\(3\alpha\beta + p = 0\)</span> and Vieta. Recovers all three real roots via complex cube roots in polar form with <span class="math inline">\(120°\)</span> rotation.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Depressed cubic).</strong> Any cubic <span class="math inline">\(ax^3 + bx^2 + cx + d = 0\)</span> reduces to a depressed cubic <span class="math inline">\(u^3 + pu + q = 0\)</span> via <span class="math inline">\(x = u - b/(3a)\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Cardano).</strong> For the depressed cubic <span class="math inline">\(u^3 + pu + q = 0\)</span>, substitute <span class="math inline">\(u = \alpha + \beta\)</span> with <span class="math inline">\(3\alpha\beta = -p\)</span>. Then <span class="math inline">\(\alpha^3, \beta^3\)</span> are roots of <span class="math inline">\(t^2 + qt - p^3/27 = 0\)</span>. Roots: <span class="math display">\[
+\alpha^3, \beta^3 \;=\; -\frac{q}{2} \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}. \tag{81}
+\]</span> The three roots of the original cubic are <span class="math inline">\(u_k = \omega^k \alpha + \omega^{-k}\beta\)</span> for <span class="math inline">\(k = 0, 1, 2\)</span> where <span class="math inline">\(\omega = e^{2\pi i/3}\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Three roots via 120° polar rotation).</strong> A complex cube root has three values spaced <span class="math inline">\(120°\)</span> apart on a circle of radius <span class="math inline">\(|z|^{1/3}\)</span>. The three cube roots of <span class="math inline">\(z = re^{i\theta}\)</span> are <span class="math inline">\(r^{1/3} e^{i(\theta + 2\pi k)/3}\)</span> for <span class="math inline">\(k = 0, 1, 2\)</span>. <span class="math inline">\(\tag{82}\)</span></p>
+</div>
+</section>
+<section id="derivation-of-theorem-81" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-81">Derivation of Theorem 81</h2>
+<p>Substitute <span class="math inline">\(u = \alpha + \beta\)</span>: <span class="math inline">\(u^3 = \alpha^3 + 3\alpha\beta(\alpha + \beta) + \beta^3 = \alpha^3 + \beta^3 + 3\alpha\beta u\)</span>. So <span class="math display">\[
+u^3 + pu + q = \alpha^3 + \beta^3 + (3\alpha\beta + p)u + q = 0.
+\]</span> Imposing <span class="math inline">\(3\alpha\beta + p = 0\)</span> kills the <span class="math inline">\(u\)</span>-term, leaving <span class="math inline">\(\alpha^3 + \beta^3 = -q\)</span>. Combined with <span class="math inline">\(\alpha^3\beta^3 = (-p/3)^3 = -p^3/27\)</span>, <span class="math inline">\(\alpha^3\)</span> and <span class="math inline">\(\beta^3\)</span> are roots of the quadratic in (81) by Vieta. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Completing the cube: u = x - b/(3a) removes the quadratic term</li>
-<li>Cardano: u = α+β with 3αβ+p=0 reduces cubic to quadratic in (α³, β³)</li>
-<li>Vieta: x²+ax+b ⇒ x₁+x₂=-a, x₁x₂=b</li>
-<li>Cube root in polar form gives three roots spaced 120° apart</li>
+<li><strong>Worked example <span class="math inline">\(u^3 - 5u + 2 = 0\)</span>.</strong> <span class="math inline">\(p = -5, q = 2\)</span>. <span class="math inline">\(\alpha^3, \beta^3 = -1 \pm \sqrt{1 - 125/27} = -1 \pm \sqrt{-98/27}\)</span> — complex! Use polar form. <span class="math inline">\(|\alpha^3| = \sqrt{1 + 98/27} = \sqrt{125/27} = 5/\sqrt{27}\cdot \sqrt{5}\)</span>… numerically <span class="math inline">\(\alpha^3 \approx -1 + 1.905i\)</span>, <span class="math inline">\(|\alpha^3| \approx 2.152\)</span>, <span class="math inline">\(\arg \approx 117.4°\)</span>. Cube roots at <span class="math inline">\(39.1°, 159.1°, 279.1°\)</span> — three real-pair sums giving real <span class="math inline">\(u\)</span> values. ✓ (See transcript for the worked details.)</li>
+<li><strong>Cross-check via Vieta on cubic.</strong> Sum of roots <span class="math inline">\(= 0\)</span> (depressed cubic has no <span class="math inline">\(u^2\)</span> term). Sum of products <span class="math inline">\(= p = -5\)</span>. Product <span class="math inline">\(= -q = -2\)</span>. Roots numerically: <span class="math inline">\(\approx -2.414, 0.414, 2\)</span>. Sum <span class="math inline">\(= 0\)</span> ✓. Product <span class="math inline">\(= -2\)</span> ✓. Sum of products <span class="math inline">\(= -5\)</span> ✓.</li>
+<li><strong>Worked <span class="math inline">\(x^3 - 6x^2 + 7x + 2 = 0\)</span>.</strong> Root <span class="math inline">\(x = 2\)</span> (by rational root theorem). Long division: <span class="math inline">\(x^3 - 6x^2 + 7x + 2 = (x-2)(x^2 - 4x - 1)\)</span>, remaining roots <span class="math inline">\(x = 2 \pm \sqrt{5}\)</span>. ✓</li>
+<li><strong>120° rotation sanity.</strong> Three cube roots of <span class="math inline">\(8 = 8e^{i\cdot 0}\)</span>: <span class="math inline">\(2, 2e^{i \cdot 120°}, 2e^{i \cdot 240°}\)</span>. <span class="math inline">\(2^3 = 8\)</span>, <span class="math inline">\((2e^{i\cdot 120°})^3 = 8 e^{i\cdot 360°} = 8\)</span>. ✓</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Show all three real roots of the cubic are recovered by including coterminal 120° rotations when taking the complex cube root.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Worked example: x³-6x²+7x+2=0 has root x=2; remaining roots 2±√5 recovered by polynomial long division and polar arithmetic.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.6/2025-11-08-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.6" target="_blank">v1.6</a> · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2025-11-08-afternoon/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Cardano substitution u = \alpha + \beta with 3\alpha\beta = -p."> <img src="../figures/2025-11-08-afternoon/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Quadratic in \alpha^3, \beta^3 via Vieta."> <img src="../figures/2025-11-08-afternoon/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Complex cube root: three values 120° apart."> <img src="../figures/2025-11-08-afternoon/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Three real roots recovered from conjugate pairs."></p>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Casus irreducibilis.</strong> When <span class="math inline">\(q^2/4 + p^3/27 &lt; 0\)</span> (three real roots), <span class="math inline">\(\alpha^3, \beta^3\)</span> are complex; Cardano’s formula then <em>requires</em> complex arithmetic to recover the real roots. There’s no purely real algebraic expression for the three real roots when the discriminant is negative — proved by Galois theory.</li>
+<li><strong>Imported facts.</strong> Vieta’s formulas; complex polar form <span class="math inline">\(e^{i\theta}\)</span>; existence of <span class="math inline">\(n\)</span>-th roots in <span class="math inline">\(\mathbb{C}\)</span>.</li>
+<li><strong>Confidence.</strong> Theorems 81, 82: high (centuries-old, well-tested).</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> complex-number arc (<a href="2025-09-13-afternoon.html">2025-09-13 afternoon</a>, <a href="2025-09-20-morning.html">2025-09-20 morning</a>).</li>
+<li><strong>Sequel:</strong> polynomial graphing (<a href="2025-11-01-morning.html">2025-11-01 morning</a>).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -269,7 +300,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Definitely going to ask you for the recording, Elaine. Could I have your video, please? We're going to actually continue with what we did in the morning. We were in the middle of trying to figure out. We we found a way to solve any cubic equation now. But before I go on to discuss how do we get three roots instead of just one, and let's actually practice, get a sense of how we can solve a cubic equation. And I'm not going to give you a very simple one, meaning you can't really eyeball what the solution is.So let me actually look at x cube. The let's say minus two x. No, let me be kind here. I'm going to actually do minus six x squared, and then plus seven x. This is a cubic equation. We're going to solve.We could start by completing the cube. All right. Oh, sorry. And yeah, let's actually start by completing the cube. Hold, hold on.Actually, want to give you a nice enough answer, and let me see. Okay. Oh, yeah, that's fine. All right, so go ahead, Elaine. You can take charge.How do we complete the cube? I'm still working on it. Okay, the floor is open, Holmes. You can feel free to say it too.嗯。嗯。Go ahead and talk me through this.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Steps, you don't need to work out all the final conclusions. I know that the first term has to be like x minus something. And what term do we actually determine? What's the criteria? We actually want to after you expand out, you want to match the quadratic term, right? Yeah. And what number do we throw in there?是 x 减二。 Yes, it's just one third thereof. Because when you do the expansion, this term will be expanded three times. So, like completing the square, you half the middle term. Now, completing the cube, you trisect the second coefficient. Perfect. So, if I do so, what would be the subsequent terms now? These two terms are bound to fit. No need to be concerned with them. anymore， and then we are left with the linear term. We force it into x minus two already, but we're really making sure that the coefficient will fit to give me the seven, correct? But what is the linear term we have already got by expanding this out?呃，十二x， beautiful， and then minus eight。 We should minus what? There's an extra negative eight, right? Yeah, correct. So, in fact, we're adding twelve x now and minus eight. Now we need to cancel them. So we subtract.呃，5x啊， brilliant。 Now add 10. And wait a second, though. Oh. Because automatically, automatically, I'm gonna actually keep that bundle. In the future, we shall do that as a new variable. So we don't write it just minus 5x. Now we write minus 5x minus 2. Oh. And then finally, what do we do? I know you already said you.Want to add back in the eight? That's how you said we add ten, but.Isn't it just x minus two cubed minus five x minus two? Yeah, because here we.Also, added ten, we have to subtract back out by ten. Yeah. So, in fact, that was. Now you see, it's really powerful to compute the cubic. The problem solved. Can we solve it? This one doesn't even use that to reduce the cubic formula. But I'm I'm trying to give you one case where the equal the solutions are simple. And in a second, I'm going to tweak it a little bit, and let's see what's going to happen. Then we do need a whole machinery to use a whole machinery now.</span>

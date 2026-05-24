@@ -1,49 +1,83 @@
 ---
-title: "Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots"
+title: "Cubic Equations via Cardano's Substitution and Polar Complex Cube Roots"
 date: 2025-11-08
 session: afternoon
-topics: [cubic-equation, polynomial, vieta-formulas, complex-numbers, roots-of-unity]
+topics: [cubic-equation, cardano, vieta-formulas, complex-numbers, roots-of-unity, polynomial]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Solves u³ - 5u + 2 = 0 via the Cardano substitution u = α + β, reduces to a quadratic in α³, β³ by Vieta, then recovers all three real roots by complex cube roots with 120° rotations.
+Solves cubic $u^3 - 5u + 2 = 0$ end-to-end via **Cardano's substitution** $u = \alpha + \beta$, which reduces the cubic to a quadratic in $(\alpha^3, \beta^3)$ via the constraint $3\alpha\beta + p = 0$ and Vieta. Recovers all three real roots via complex cube roots in polar form with $120°$ rotation.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Completing the cube: u = x - b/(3a) removes the quadratic term
-- Cardano: u = α+β with 3αβ+p=0 reduces cubic to quadratic in (α³, β³)
-- Vieta: x²+ax+b ⇒ x₁+x₂=-a, x₁x₂=b
-- Cube root in polar form gives three roots spaced 120° apart
-
-## Homework given
-
-::: {.callout-important}
-Show all three real roots of the cubic are recovered by including coterminal 120° rotations when taking the complex cube root.
+::: {.theorem}
+**(Depressed cubic).** Any cubic $ax^3 + bx^2 + cx + d = 0$ reduces to a depressed cubic $u^3 + pu + q = 0$ via $x = u - b/(3a)$.
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+::: {.theorem}
+**(Cardano).** For the depressed cubic $u^3 + pu + q = 0$, substitute $u = \alpha + \beta$ with $3\alpha\beta = -p$. Then $\alpha^3, \beta^3$ are roots of $t^2 + qt - p^3/27 = 0$. Roots:
+$$
+\alpha^3, \beta^3 \;=\; -\frac{q}{2} \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}. \tag{81}
+$$
+The three roots of the original cubic are $u_k = \omega^k \alpha + \omega^{-k}\beta$ for $k = 0, 1, 2$ where $\omega = e^{2\pi i/3}$.
+:::
 
-Worked example: x³-6x²+7x+2=0 has root x=2; remaining roots 2±√5 recovered by polynomial long division and polar arithmetic.
+::: {.theorem}
+**(Three roots via 120° polar rotation).** A complex cube root has three values spaced $120°$ apart on a circle of radius $|z|^{1/3}$. The three cube roots of $z = re^{i\theta}$ are $r^{1/3} e^{i(\theta + 2\pi k)/3}$ for $k = 0, 1, 2$. $\tag{82}$
+:::
+
+## Derivation of Theorem 81
+
+Substitute $u = \alpha + \beta$: $u^3 = \alpha^3 + 3\alpha\beta(\alpha + \beta) + \beta^3 = \alpha^3 + \beta^3 + 3\alpha\beta u$. So
+$$
+u^3 + pu + q = \alpha^3 + \beta^3 + (3\alpha\beta + p)u + q = 0.
+$$
+Imposing $3\alpha\beta + p = 0$ kills the $u$-term, leaving $\alpha^3 + \beta^3 = -q$. Combined with $\alpha^3\beta^3 = (-p/3)^3 = -p^3/27$, $\alpha^3$ and $\beta^3$ are roots of the quadratic in (81) by Vieta. $\quad\blacksquare$
+
+## Verification audit
+
+::: {.audit}
+
+- **Worked example $u^3 - 5u + 2 = 0$.** $p = -5, q = 2$. $\alpha^3, \beta^3 = -1 \pm \sqrt{1 - 125/27} = -1 \pm \sqrt{-98/27}$ — complex! Use polar form. $|\alpha^3| = \sqrt{1 + 98/27} = \sqrt{125/27} = 5/\sqrt{27}\cdot \sqrt{5}$... numerically $\alpha^3 \approx -1 + 1.905i$, $|\alpha^3| \approx 2.152$, $\arg \approx 117.4°$. Cube roots at $39.1°, 159.1°, 279.1°$ — three real-pair sums giving real $u$ values. ✓ (See transcript for the worked details.)
+- **Cross-check via Vieta on cubic.** Sum of roots $= 0$ (depressed cubic has no $u^2$ term). Sum of products $= p = -5$. Product $= -q = -2$. Roots numerically: $\approx -2.414, 0.414, 2$. Sum $= 0$ ✓. Product $= -2$ ✓. Sum of products $= -5$ ✓.
+- **Worked $x^3 - 6x^2 + 7x + 2 = 0$.** Root $x = 2$ (by rational root theorem). Long division: $x^3 - 6x^2 + 7x + 2 = (x-2)(x^2 - 4x - 1)$, remaining roots $x = 2 \pm \sqrt{5}$. ✓
+- **120° rotation sanity.** Three cube roots of $8 = 8e^{i\cdot 0}$: $2, 2e^{i \cdot 120°}, 2e^{i \cdot 240°}$. $2^3 = 8$, $(2e^{i\cdot 120°})^3 = 8 e^{i\cdot 360°} = 8$. ✓
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.6/2025-11-08-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.6" target="_blank">v1.6</a> · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Cardano substitution $u = \alpha + \beta$ with $3\alpha\beta = -p$.](../figures/2025-11-08-afternoon/frame-08m00.jpg)
+![**Frame @ 22m00** — Quadratic in $\alpha^3, \beta^3$ via Vieta.](../figures/2025-11-08-afternoon/frame-22m00.jpg)
+![**Frame @ 38m00** — Complex cube root: three values 120° apart.](../figures/2025-11-08-afternoon/frame-38m00.jpg)
+![**Frame @ 50m00** — Three real roots recovered from conjugate pairs.](../figures/2025-11-08-afternoon/frame-50m00.jpg)
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Casus irreducibilis.** When $q^2/4 + p^3/27 < 0$ (three real roots), $\alpha^3, \beta^3$ are complex; Cardano's formula then *requires* complex arithmetic to recover the real roots. There's no purely real algebraic expression for the three real roots when the discriminant is negative — proved by Galois theory.
+- **Imported facts.** Vieta's formulas; complex polar form $e^{i\theta}$; existence of $n$-th roots in $\mathbb{C}$.
+- **Confidence.** Theorems 81, 82: high (centuries-old, well-tested).
+
+:::
+
+## Related sessions
+
+- **Precursor:** complex-number arc ([2025-09-13 afternoon](2025-09-13-afternoon.html), [2025-09-20 morning](2025-09-20-morning.html)).
+- **Sequel:** polynomial graphing ([2025-11-01 morning](2025-11-01-morning.html)).
 
 ## Full transcript
 
