@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-12-06">
 
-<title>Full Graph of a 7th/6th-Degree Rational Function – Linear Algebra Notes</title>
+<title>Complete Procedure for Graphing High-Degree Rational Functions – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#procedure-theorem-78" id="toc-procedure-theorem-78" class="nav-link" data-scroll-target="#procedure-theorem-78">Procedure (Theorem 78)</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Full Graph of a 7th/6th-Degree Rational Function</h1>
+<h1 class="title">Complete Procedure for Graphing High-Degree Rational Functions</h1>
 </div>
 
 
@@ -190,75 +222,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Pulls together factored numerator/denominator (with complex-conjugate quadratics), long-division slant asymptote, and salient points to hand-sketch a rational function and verify on Desmos.</p>
+<p>Pulls together every rational-function-graphing technique into a single end-to-end procedure on a 7th-degree-numerator / 6th-degree-denominator example. Steps: factor numerator and denominator (handling complex-conjugate quadratics), find vertical asymptotes from denominator zeros, find slant asymptote via polynomial long division, compute x/y intercepts and intersections with the slant asymptote, then weave the topology together. Verifies on Desmos.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="procedure-theorem-78" class="level2">
+<h2 class="anchored" data-anchor-id="procedure-theorem-78">Procedure (Theorem 78)</h2>
+<div class="theorem">
+<p><strong>(Rational function graphing recipe).</strong> For <span class="math inline">\(R(x) = p(x)/q(x)\)</span> with <span class="math inline">\(\deg p &gt; \deg q\)</span>:</p>
+<ol type="1">
+<li><strong>Factor</strong> <span class="math inline">\(p, q\)</span> over <span class="math inline">\(\mathbb{R}\)</span> (allowing complex-conjugate irreducible quadratics).</li>
+<li><strong>Vertical asymptotes:</strong> <span class="math inline">\(x = z\)</span> for each real root <span class="math inline">\(z\)</span> of <span class="math inline">\(q\)</span> (with multiplicity controlling the sign behaviour: odd multiplicity flips, even bounces).</li>
+<li><strong>Slant/polynomial asymptote:</strong> long-divide <span class="math inline">\(p \div q\)</span> to get <span class="math inline">\(R = Q(x) + r(x)/q(x)\)</span> where <span class="math inline">\(\deg Q = \deg p - \deg q\)</span>. As <span class="math inline">\(|x| \to \infty\)</span>, <span class="math inline">\(r(x)/q(x) \to 0\)</span>, so <span class="math inline">\(R \approx Q(x)\)</span>.</li>
+<li><strong>Intercepts:</strong> <span class="math inline">\(y\)</span>-intercept <span class="math inline">\(= R(0)\)</span>; <span class="math inline">\(x\)</span>-intercepts at real zeros of <span class="math inline">\(p\)</span>.</li>
+<li><strong>Intersections with slant asymptote:</strong> solve <span class="math inline">\(R(x) = Q(x)\)</span>, i.e., <span class="math inline">\(r(x) = 0\)</span>.</li>
+<li><strong>Topology weave:</strong> combine signs in each interval bounded by vertical asymptotes and <span class="math inline">\(x\)</span>-intercepts.</li>
+<li><strong>Sanity-check</strong> on Desmos or by plotting a few values.</li>
+</ol>
+</div>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>Procedure: factor → vertical asymptotes → long division for slant asymptote → x/y intercepts → intersections with asymptote → topology weaving</li>
-<li>Four-case classification by numerator/denominator degree</li>
+<li><strong>Simple case <span class="math inline">\(R(x) = (x^2+1)/x\)</span>.</strong> <span class="math inline">\(\deg p = 2, \deg q = 1\)</span>. Long division: <span class="math inline">\(R = x + 1/x\)</span>. Slant asymptote <span class="math inline">\(y = x\)</span>. Vertical asymptote <span class="math inline">\(x = 0\)</span>. No real zeros of <span class="math inline">\(x^2 + 1\)</span> (irreducible quadratic). At <span class="math inline">\(x = 1\)</span>: <span class="math inline">\(R = 2\)</span>, slant gives <span class="math inline">\(y = 1\)</span>, intersection check <span class="math inline">\(r(x) = 1 \ne 0\)</span>. ✓</li>
+<li><strong>Degree-difference classification.</strong>
+<ul>
+<li><span class="math inline">\(\deg p &lt; \deg q\)</span>: horizontal asymptote <span class="math inline">\(y = 0\)</span>.</li>
+<li><span class="math inline">\(\deg p = \deg q\)</span>: horizontal asymptote <span class="math inline">\(y = (\text{leading coef ratio})\)</span>.</li>
+<li><span class="math inline">\(\deg p = \deg q + 1\)</span>: slant asymptote linear.</li>
+<li><span class="math inline">\(\deg p = \deg q + 2\)</span>: parabolic asymptote.</li>
+<li>General: polynomial asymptote of degree <span class="math inline">\(\deg p - \deg q\)</span>.</li>
+</ul></li>
+<li><strong>Multiplicity check.</strong> At a vertical asymptote of odd multiplicity, <span class="math inline">\(R\)</span> flips sign across the asymptote; at even multiplicity, <span class="math inline">\(R\)</span> stays the same sign (bounces).</li>
 </ul>
-</section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Internalize and own the full rational-function graphing procedure.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Continuation of morning session; long phone interruption mid-class; Desmos screen-share debugging.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.4" target="_blank">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2025-12-06-afternoon/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Factored numerator/denominator."> <img src="../figures/2025-12-06-afternoon/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Long division to extract slant asymptote."> <img src="../figures/2025-12-06-afternoon/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Intersections with slant asymptote."> <img src="../figures/2025-12-06-afternoon/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Final topology weaved together; Desmos verification."></p>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Factoring</strong> over <span class="math inline">\(\mathbb{R}\)</span> may require complex-conjugate quadratics; if you can’t factor, you can still extract asymptotic behaviour via long division.</li>
+<li><strong>Slant asymptote crossings.</strong> Surprising: the graph can cross its own slant asymptote at points where <span class="math inline">\(r(x) = 0\)</span> (numerator of the remainder). Important to track.</li>
+<li><strong>Multiplicity classification.</strong> Different from polynomial graphing — at rational-function vertical asymptotes, multiplicity controls whether the graph “blows up to <span class="math inline">\(+\infty\)</span>” or “<span class="math inline">\(-\infty\)</span>” on each side.</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-11-01-morning.html">2025-11-01 morning</a> (polynomial + rational graphing introduction).</li>
+<li><strong>Sequel:</strong> <a href="2025-11-29-morning.html">2025-11-29 morning</a> (asymptotic analysis principles).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -267,7 +300,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Thank you. And we're getting on whiteboard. All right, uh, let's continue from the morning. We got to the place. We have re-written a rational function in several ways: in its original form with the factored numerator and denominator, and in the form after doing the long division. One second, I'm double-checking my WeChat to see why Helms is not here.Yeah。All right, now Elaine, remind me what is the total? What what is the form of the rational function that we were dealing with? We're about to finish the graph, and tonight it's all about how to pull all the information together so that we can finish the graph. So.Give us a rational function, please. Before long division. Beautiful, go ahead. Oh, you want to type it up for us? Thank you. And Catherine, make sure that you're you're looking at the same equation.Beautiful， and I want to add a， right. So this is our RX.And let me actually add a parenthesis to leave no doubt. This whole thing is the denominator. Excellent. And we did the factored form. Would you type the factored form for us as well? You know, why don't you read it? And I'm going to put it here because it's a it's too difficult for me to read it. Just okay. The denominator we did factor that into. We went by finding the roots on decimals because these are impossible.的 factor I have. Go. It was I think x plus zero point six times x minus one point seven times x squared plus zero point four one x plus zero point thirty seven. And sorry, x squared plus zero point four x and plus what again? Uh, zero point uh thirty seven. Zero point three seven, and there should be another quadratic.Because remember, we had two complex pairs of a complex conjugates on the denominator. Catherine, we need to fundamentally once we understand what's the asymptote. In fact, we did find the asymptote, and which is going to be actually two third of the x now, and plus there's something, and with the remainder, we shall get to it. Now we want to get to the graph. We understand the.</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>large scale behavior, and now we're narrowing down to the small scale. So, this is a in order to know what are the vertical asymptotes, it's vital that we factor the denominator. However, like I said, it is a sixth degree polynomial. It's impossible to factor by hand. So we actually identify, we analyze how many real roots we have, and with that decimals, factor them for us, so that we actually ended up all the six roots. We backward construct.The factorization, for example, the quadratic from a pair of a complex conjugate roots at the time. So, Elaine, what is the other pair? It's I think x squared plus one point zero two x plus zero point three three. One point zero two x. And plus zero point three three. Yeah. Okay.Thank you. So you can see, Catherine, these remain unfactor unfurther factorizable quadratics now because they yield complex roots. Their discriminants would be less than zero, so the factorization stops here. Eventually, they won't matter to the vertical asymptotes. We have only two vertical asymptotes lying at x equal to negative six, zero six, and x equal to one seven. Those are the roots to these two factors. All right, then what is the factor?的 form of the numerator. I always pull out the leading coefficient, and here immediately we're noticing x cubed could be pulled out, right? And then we still have a quadratic polynomial, and it turns out, and there are still actually two real roots there. So, Elaine, remind us what is the factor form of the numerator? Four x cubed times x plus zero point nineteen times x minus.哦，Hold on，Hold on，x plus zero point nine nine。 Did I copy that right? Yeah, good. And um, times x minus nine hundred ninety nine point nine, times x squared minus zero point one x plus zero point zero one. Oh, sorry, x squared plus zero point zero one x, or zero point one x. I remember. Uh, yeah, zero point one x.minus zero one x I think。 No, minus that number is a lot smaller. I think that's minus zero one. 嗯。 Is that correct? Uh, yeah. Okay, so Catherine, you you can just copy this down. These are numbers gotten from the graphical calculators. Wait, and it's it's plus zero one. Oh, thank you, thank you. Oh yes, otherwise the.判别式不能甚至为负。非常好。好的，现在，另一方面，我们做了长除法。And Catherine，你能给我们什么结果？长除法？For this one，呃，对于相同的有理函数，但我们做了长除法。实际上，我们推导出，当长除法时，我们能简单地丢弃无穷。乘以五，和当我们不能，四分之六x。</span>

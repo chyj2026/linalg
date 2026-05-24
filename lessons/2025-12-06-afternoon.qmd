@@ -1,47 +1,75 @@
 ---
-title: "Full Graph of a 7th/6th-Degree Rational Function"
+title: "Complete Procedure for Graphing High-Degree Rational Functions"
 date: 2025-12-06
 session: afternoon
-topics: [polynomial]
+topics: [polynomial, rational-function, asymptotes, polynomial-long-division]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Pulls together factored numerator/denominator (with complex-conjugate quadratics), long-division slant asymptote, and salient points to hand-sketch a rational function and verify on Desmos.
+Pulls together every rational-function-graphing technique into a single end-to-end procedure on a 7th-degree-numerator / 6th-degree-denominator example. Steps: factor numerator and denominator (handling complex-conjugate quadratics), find vertical asymptotes from denominator zeros, find slant asymptote via polynomial long division, compute x/y intercepts and intersections with the slant asymptote, then weave the topology together. Verifies on Desmos.
 
-## Key theorems and identities (from the session)
+## Procedure (Theorem 78)
 
-- Procedure: factor → vertical asymptotes → long division for slant asymptote → x/y intercepts → intersections with asymptote → topology weaving
-- Four-case classification by numerator/denominator degree
+::: {.theorem}
+**(Rational function graphing recipe).** For $R(x) = p(x)/q(x)$ with $\deg p > \deg q$:
 
-## Homework given
-
-::: {.callout-important}
-Internalize and own the full rational-function graphing procedure.
+1. **Factor** $p, q$ over $\mathbb{R}$ (allowing complex-conjugate irreducible quadratics).
+2. **Vertical asymptotes:** $x = z$ for each real root $z$ of $q$ (with multiplicity controlling the sign behaviour: odd multiplicity flips, even bounces).
+3. **Slant/polynomial asymptote:** long-divide $p \div q$ to get $R = Q(x) + r(x)/q(x)$ where $\deg Q = \deg p - \deg q$. As $|x| \to \infty$, $r(x)/q(x) \to 0$, so $R \approx Q(x)$.
+4. **Intercepts:** $y$-intercept $= R(0)$; $x$-intercepts at real zeros of $p$.
+5. **Intersections with slant asymptote:** solve $R(x) = Q(x)$, i.e., $r(x) = 0$.
+6. **Topology weave:** combine signs in each interval bounded by vertical asymptotes and $x$-intercepts.
+7. **Sanity-check** on Desmos or by plotting a few values.
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+## Verification audit
 
-Continuation of morning session; long phone interruption mid-class; Desmos screen-share debugging.
+::: {.audit}
+
+- **Simple case $R(x) = (x^2+1)/x$.** $\deg p = 2, \deg q = 1$. Long division: $R = x + 1/x$. Slant asymptote $y = x$. Vertical asymptote $x = 0$. No real zeros of $x^2 + 1$ (irreducible quadratic). At $x = 1$: $R = 2$, slant gives $y = 1$, intersection check $r(x) = 1 \ne 0$. ✓
+- **Degree-difference classification.**
+  - $\deg p < \deg q$: horizontal asymptote $y = 0$.
+  - $\deg p = \deg q$: horizontal asymptote $y = (\text{leading coef ratio})$.
+  - $\deg p = \deg q + 1$: slant asymptote linear.
+  - $\deg p = \deg q + 2$: parabolic asymptote.
+  - General: polynomial asymptote of degree $\deg p - \deg q$.
+- **Multiplicity check.** At a vertical asymptote of odd multiplicity, $R$ flips sign across the asymptote; at even multiplicity, $R$ stays the same sign (bounces).
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.4" target="_blank">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Factored numerator/denominator.](../figures/2025-12-06-afternoon/frame-08m00.jpg)
+![**Frame @ 22m00** — Long division to extract slant asymptote.](../figures/2025-12-06-afternoon/frame-22m00.jpg)
+![**Frame @ 38m00** — Intersections with slant asymptote.](../figures/2025-12-06-afternoon/frame-38m00.jpg)
+![**Frame @ 50m00** — Final topology weaved together; Desmos verification.](../figures/2025-12-06-afternoon/frame-50m00.jpg)
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Factoring** over $\mathbb{R}$ may require complex-conjugate quadratics; if you can't factor, you can still extract asymptotic behaviour via long division.
+- **Slant asymptote crossings.** Surprising: the graph can cross its own slant asymptote at points where $r(x) = 0$ (numerator of the remainder). Important to track.
+- **Multiplicity classification.** Different from polynomial graphing — at rational-function vertical asymptotes, multiplicity controls whether the graph "blows up to $+\infty$" or "$-\infty$" on each side.
+
+:::
+
+## Related sessions
+
+- **Precursor:** [2025-11-01 morning](2025-11-01-morning.html) (polynomial + rational graphing introduction).
+- **Sequel:** [2025-11-29 morning](2025-11-29-morning.html) (asymptotic analysis principles).
 
 ## Full transcript
 

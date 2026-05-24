@@ -11,7 +11,7 @@ title: "Linear Algebra Notes"
   </div>
   <div class="course-stats" aria-label="Course statistics">
     <div><strong>28</strong><span>sessions</span></div>
-    <div><strong>16</strong><span>lessons distilled</span></div>
+    <div><strong>17</strong><span>lessons distilled</span></div>
   </div>
 </section>
 ```
@@ -42,14 +42,14 @@ title: "Linear Algebra Notes"
   <p>Recaps the algebraic Cayley–Hamilton proof using (λI-M)·adj(λI-M) = det(λI-M)·I, then resumes the cyclic-basis proof, identifies the existence-of-cyclic-basis gap, and previews four distinct proof strategies.</p>
 </article>
 <article class="lesson-card is-new">
-  <div class="lesson-card-meta"><span>2026-04-04 — morning</span><span>Published</span></div>
-  <h3><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a></h3>
-  <p>Reformulates a second-order linear recursion as first-order vector recursion aₙ₊₁ = M·aₙ, solves by diagonalizing the companion matrix, and introduces the nilpotent block for repeated eigenvalue.</p>
-</article>
-<article class="lesson-card is-new">
   <div class="lesson-card-meta"><span>2026-04-04 — afternoon (2)</span><span>Published</span></div>
   <h3><a href="lessons/2026-04-04-afternoon-2.html">Powering Jordan Blocks: Binomial Expansion with Nilpotent N</a></h3>
   <p>Continues from morning by explicitly powering (λI+N)^n for 2×2 and generalizing to k×k Jordan blocks, showing that the binomial expansion produces the polynomial-in-n coefficient predicted by the old algebraic theory.</p>
+</article>
+<article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>2026-04-04 — morning</span><span>Published</span></div>
+  <h3><a href="lessons/2026-04-04-morning.html">Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro</a></h3>
+  <p>Reformulates a second-order linear recursion as first-order vector recursion aₙ₊₁ = M·aₙ, solves by diagonalizing the companion matrix, and introduces the nilpotent block for repeated eigenvalue.</p>
 </article>
 </div>
 ```
@@ -74,7 +74,7 @@ title: "Linear Algebra Notes"
 <tr><td>2025-11-01 <sup title="medium-confidence date">⚠</sup></td><td>morning</td><td><a href="lessons/2025-11-01-morning.html">Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-11-08</td><td>afternoon</td><td><a href="lessons/2025-11-08-afternoon.html">Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
 <tr><td>2025-11-29</td><td>morning</td><td><a href="lessons/2025-11-29-morning.html">Asymptotic Analysis: General Principle for Handling Infinitesimals</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
-<tr><td>2025-12-06</td><td>afternoon</td><td><a href="lessons/2025-12-06-afternoon.html">Full Graph of a 7th/6th-Degree Rational Function</a> <span class="mini-badge" style="background:#9ca3af;">Stub</span></td></tr>
+<tr><td>2025-12-06</td><td>afternoon</td><td><a href="lessons/2025-12-06-afternoon.html">Full Graph of a 7th/6th-Degree Rational Function</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2025-12-13</td><td>unspecified</td><td><a href="lessons/2025-12-13.html">Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-01-03</td><td>morning</td><td><a href="lessons/2026-01-03-morning.html">Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta</a> <span class="mini-badge">Published</span></td></tr>
 <tr><td>2026-01-10</td><td>morning</td><td><a href="lessons/2026-01-10-morning.html">Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1)</a> <span class="mini-badge">Published</span></td></tr>
