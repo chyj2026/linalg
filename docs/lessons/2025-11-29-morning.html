@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-11-29">
 
-<title>Asymptotic Analysis: General Principle for Handling Infinitesimals – Linear Algebra Notes</title>
+<title>Asymptotic Analysis: When to Drop Infinitesimal Terms – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Asymptotic Analysis: General Principle for Handling Infinitesimals</h1>
+<h1 class="title">Asymptotic Analysis: When to Drop Infinitesimal Terms</h1>
 </div>
 
 
@@ -190,75 +222,73 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
-</div>
-</div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Reviews horizontal vs slant asymptotes across power-comparison cases, then pushes the class to articulate a general principle about which infinitesimal terms may be discarded when the limit is a number vs a function.</p>
+<p>Reviews horizontal vs slant asymptotes for rational functions, then articulates the <strong>general principle</strong> distinguishing when infinitesimal terms can be discarded (limit is a number) from when they cannot (limit is a function — slant asymptote requires keeping more terms). Teacher’s repeated frustration with students mechanically applying polynomial-specific rules instead of the general “what counts as small enough” philosophy.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Horizontal asymptote).</strong> For <span class="math inline">\(R(x) = p(x)/q(x)\)</span> with <span class="math inline">\(\deg p = \deg q\)</span>: <span class="math display">\[
+\lim_{|x|\to\infty} R(x) = \frac{\text{leading coef of }p}{\text{leading coef of }q}. \tag{79}
+\]</span> If <span class="math inline">\(\deg p &lt; \deg q\)</span>, the limit is <span class="math inline">\(0\)</span>.</p>
+</div>
+<div class="theorem">
+<p><strong>(Slant asymptote — keep more terms).</strong> For <span class="math inline">\(\deg p = \deg q + 1\)</span>, long-divide <span class="math inline">\(p \div q\)</span> to get <span class="math inline">\(R(x) = Q(x) + r(x)/q(x)\)</span> with <span class="math inline">\(\deg Q = 1\)</span>. The slant asymptote is <span class="math inline">\(y = Q(x)\)</span>. <strong>Cannot</strong> simply drop sub-leading numerator terms (as one would for a horizontal-asymptote computation) — the linear coefficient of <span class="math inline">\(Q\)</span> depends on them. <span class="math inline">\(\tag{80}\)</span></p>
+</div>
+<div class="theorem">
+<p><strong>(General infinitesimal principle).</strong> When computing <span class="math inline">\(\lim_{x \to a} f(x)\)</span>:</p>
 <ul>
-<li>Horizontal asymptote = ratio of leading coefficients when degrees equal</li>
-<li>Slant asymptote requires long division — cannot drop sub-leading numerator terms</li>
+<li>If the limit is a <strong>number</strong>, drop terms that go to zero in the limit.</li>
+<li>If the limit is a <strong>function of <span class="math inline">\(x\)</span></strong> (asymptote), drop only terms that go to zero <em>uniformly</em> relative to the asymptote’s leading order.</li>
 </ul>
+<p>The distinction: <span class="math inline">\(1/x \to 0\)</span> as <span class="math inline">\(x \to \infty\)</span>, but <span class="math inline">\(x \cdot (1/x) = 1 \ne 0\)</span>, so <span class="math inline">\(1/x\)</span> cannot be dropped if multiplied by a growing factor.</p>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Review the recording; explain back the general principle for handling infinitesimals.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Teacher visibly frustrated when students restate polynomial-specific rules instead of the general infinity-handling philosophy.</p>
-</div>
-</div>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
+<ul>
+<li><strong>Horizontal asymptote <span class="math inline">\(R(x) = (2x^2 + 3x + 1)/(x^2 - 5)\)</span>.</strong> Leading coefficients <span class="math inline">\(2/1 = 2\)</span>. ✓</li>
+<li><strong>Slant <span class="math inline">\(R(x) = (x^2 + 3x + 1)/(x - 1)\)</span>.</strong> Long-divide: <span class="math inline">\(R = x + 4 + 5/(x-1)\)</span>. Slant <span class="math inline">\(y = x + 4\)</span>. Dropping <span class="math inline">\(3x\)</span> from numerator before long division would give <span class="math inline">\(y = x + 0\)</span>, wrong by 4. ✓ Demonstrates why sub-leading terms matter for slant asymptotes.</li>
+<li><strong>General principle worked example.</strong> <span class="math inline">\(\lim_{x\to\infty} (x^2 + x)/(x + 1) = ?\)</span> Long-divide: <span class="math inline">\(= x + 0 + 0/(x+1) = x\)</span>. The slant asymptote is <span class="math inline">\(y = x\)</span> (function, not number). Dropping the “<span class="math inline">\(+x\)</span>” from numerator before division would give <span class="math inline">\(\lim x^2/(x+1) = x\)</span> — coincidentally correct here, but pure luck. The principled approach is to long-divide.</li>
+</ul>
 </div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Open in Drive ↗</a>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.5/2025-11-29-morning.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.5" target="_blank">v1.5</a> · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Drive</a>
 </p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<p><img src="../figures/2025-11-29-morning/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Horizontal asymptote case."> <img src="../figures/2025-11-29-morning/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Slant asymptote requires long division."> <img src="../figures/2025-11-29-morning/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — General principle: limit is number vs function."> <img src="../figures/2025-11-29-morning/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Teacher emphasises the principle over the polynomial-specific rule."></p>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Heuristic limit.</strong> “Drop terms that go to zero” only works when the answer is a number. For asymptotes the answer is a function, and uniformity of vanishing matters.</li>
+<li><strong>Long division is the safe path.</strong> Always works; the heuristic shortcuts are tempting but error-prone.</li>
+<li><strong>Confidence.</strong> All three theorems: high (calculus-level standard).</li>
+</ul>
+</div>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-11-01-morning.html">2025-11-01 morning</a> (polynomial + rational graphing).</li>
+<li><strong>Sequel:</strong> <a href="2025-12-06-afternoon.html">2025-12-06 afternoon</a> (full graphing recipe).</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -267,7 +297,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>On your recording, and let me do a quick recap. We figured out what's going on when we solve a quadratic equation. You've got alternative, different answers for the solution to the alpha beta, or the coefficients when you factor them into quadratics. And we demonstrated into understanding that given the four roots, now there are different ways to combine them into two different quadratics. No wonder you would have alternative answers to your alpha and beta.Now, finally, if you guys don't have any issues with homework, well, I'm not hypo hypothesizing that you can't. Okay, if you do, this is the time to ask. And then we're gonna actually move on to our next unit. Now we go from a polynomial, how to solve them. Remember, we took an excursion from the complex numbers, and someday we're going to return to complex numbers and do a bit more about their ingenious applications. But now, since we're on the trajectory toDeal with this algebra topics. Yeah, I want to continue to cover up to the level of a pre-calculus. Because next year we're going to start calculus now, and all of what we're doing now would be pertinent. So let me quickly recap any questions so far concerning behavior of polynomials. How do we achieve symmetry by completing the square, completing the cube, even completing a quadratic, which not necessarily give you the symmetry becauseQuadratic is not necessarily by a shift a even or odd function anymore, and it does not have an axis symmetrical axis. But nevertheless, it gives us convenience when you have a degenerate quadratic equation to do to to find the roots. Okay, so we handled polynomials, and before that, we handled briefly conic section, how to do rotation, how to find that their orientations, and now next step, we're gonna actually learn how to graph.Rational functions， meaning we will begin to divide the polynomials by polynomials now to do a rational function R x， and which is going to be a polynomial p divided by another another polynomial。 and their graphs， their behavior。 So far， any question from homework and from what we've been doing？Anything? No, we're positive, huh? All right, well, let's go forward. Well, and we we have a fundamental sense of what's going to happen to the polynomial over polynomial. In the first fifteen minutes, it's roughly review, just to bring everything back to your mind. Now, we do know immediately for polynomial, the greatest the leading power would be.The predominant numerical term here when x is approaching infinity, or power infinity, or negative infinity. So to begin with, if you have two polynomials, I want to look at the bulk figure asymptotic one, meaning what happens when x is approaching power negative infinity. Then let me give you several scenarios. Scenario number one, let's just say this is a four of the x to the seventh power minus four thousand of the x squared plus a one dividedAdded by six x to the seventh power minus ten x. What's going to happen when x is approaching positive or negative infinity? Let's separate them. Toby, go ahead. No, actually, this is review, and I want to wait for a second to give other kids a chance. Toby, would you? When x is approaching positive infinity or negative infinity, what happened to that rational function?</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>请，请。 Elaine。You want to capture the large figure. Go ahead. Uh, as x approaches infinity, the denominator will also go to uh, the numerator will also go to infinity. But until that's the denominator, you're right. And the denominator will also go to infinity. Correct, but we're comparing them. Uh, but the denominator will eventually get, uh, uh.It will be smaller than, no, it will be bigger than the numerator because uh the numerator has the minus four thousand x squared, which is a higher power than negative ten x. Okay, but what would be the bulk figure, the term that actually matters? Roughly speaking, if you pick out the predominant terms to represent the numerator and the denominator, what powers would you take?The x to the seven， yeah， indeed， these are the determining powers now. So， what's going to happen as we talk about it? We approach one。Approach one. Why does that approach one? We pick out the predominant numbers now, and you can, for the time being, okay, make the other terms vanish. Meaning, you're just roughly speaking, the numerator is about the four x seventh, denominator is about the six x seventh. What does that approach?哎，不， give a Elaine a chance. We need to master this. Holmes， you go ahead. Will approach two over three? Yeah, absolutely. It would equal to two thirds. Elaine, well, they still have a different coefficient. Each one is a representative of the bulk figure, right? Oh, yeah. It's not equal to zero, Toby. As it's approaching infinity.Do you really follow what's going on? Yeah, the the x the sevens they cancel. So, what what about when x is approaching negative infinity? It will also approach ah two over three. That's right, because both the numerator and the denominator would be hugely negative, but it still.So, how do we prove it rigorously? You prove it by doing the long division, or you can directly prove it. There are two ways. Okay, to represent, sometimes a block figure, it's all you need. Sometimes a second block figure, it's also you need. But in this case, okay, I can say because the leading power is x to the seventh, and why don't we just do a long division? In fact, you don't have to. There are two ways to do it. We can just divide both numerator and the denominator by x to the.</span>

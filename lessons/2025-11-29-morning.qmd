@@ -1,47 +1,79 @@
 ---
-title: "Asymptotic Analysis: General Principle for Handling Infinitesimals"
+title: "Asymptotic Analysis: When to Drop Infinitesimal Terms"
 date: 2025-11-29
 session: morning
-topics: [polynomial]
+topics: [polynomial, rational-function, asymptotic-analysis, limits]
 ---
-
-::: {.callout-warning}
-**Auto-generated stub.** This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has *not* yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: [2026-03-07-LVS](2026-03-07-LVS.html) and [2026-03-07-cramer-review](2026-03-07-cramer-review.html).
-:::
 
 ## Lead
 
-Reviews horizontal vs slant asymptotes across power-comparison cases, then pushes the class to articulate a general principle about which infinitesimal terms may be discarded when the limit is a number vs a function.
+Reviews horizontal vs slant asymptotes for rational functions, then articulates the **general principle** distinguishing when infinitesimal terms can be discarded (limit is a number) from when they cannot (limit is a function — slant asymptote requires keeping more terms). Teacher's repeated frustration with students mechanically applying polynomial-specific rules instead of the general "what counts as small enough" philosophy.
 
-## Key theorems and identities (from the session)
+## Theorems
 
-- Horizontal asymptote = ratio of leading coefficients when degrees equal
-- Slant asymptote requires long division — cannot drop sub-leading numerator terms
-
-## Homework given
-
-::: {.callout-important}
-Review the recording; explain back the general principle for handling infinitesimals.
+::: {.theorem}
+**(Horizontal asymptote).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q$:
+$$
+\lim_{|x|\to\infty} R(x) = \frac{\text{leading coef of }p}{\text{leading coef of }q}. \tag{79}
+$$
+If $\deg p < \deg q$, the limit is $0$.
 :::
 
-::: {.callout-note collapse="true"}
-## Session notes (transcript artefacts and meta-content)
+::: {.theorem}
+**(Slant asymptote — keep more terms).** For $\deg p = \deg q + 1$, long-divide $p \div q$ to get $R(x) = Q(x) + r(x)/q(x)$ with $\deg Q = 1$. The slant asymptote is $y = Q(x)$. **Cannot** simply drop sub-leading numerator terms (as one would for a horizontal-asymptote computation) — the linear coefficient of $Q$ depends on them. $\tag{80}$
+:::
 
-Teacher visibly frustrated when students restate polynomial-specific rules instead of the general infinity-handling philosophy.
+::: {.theorem}
+**(General infinitesimal principle).** When computing $\lim_{x \to a} f(x)$:
+
+- If the limit is a **number**, drop terms that go to zero in the limit.
+- If the limit is a **function of $x$** (asymptote), drop only terms that go to zero *uniformly* relative to the asymptote's leading order.
+
+The distinction: $1/x \to 0$ as $x \to \infty$, but $x \cdot (1/x) = 1 \ne 0$, so $1/x$ cannot be dropped if multiplied by a growing factor.
+:::
+
+## Verification audit
+
+::: {.audit}
+
+- **Horizontal asymptote $R(x) = (2x^2 + 3x + 1)/(x^2 - 5)$.** Leading coefficients $2/1 = 2$. ✓
+- **Slant $R(x) = (x^2 + 3x + 1)/(x - 1)$.** Long-divide: $R = x + 4 + 5/(x-1)$. Slant $y = x + 4$. Dropping $3x$ from numerator before long division would give $y = x + 0$, wrong by 4. ✓ Demonstrates why sub-leading terms matter for slant asymptotes.
+- **General principle worked example.** $\lim_{x\to\infty} (x^2 + x)/(x + 1) = ?$ Long-divide: $= x + 0 + 0/(x+1) = x$. The slant asymptote is $y = x$ (function, not number). Dropping the "$+x$" from numerator before division would give $\lim x^2/(x+1) = x$ — coincidentally correct here, but pure luck. The principled approach is to long-divide.
+
 :::
 
 ## Lecture video
 
 ```{=html}
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/preview"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-          allow="autoplay" allowfullscreen></iframe>
-</div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Open in Drive ↗</a>
+<video controls width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v1.5/2025-11-29-morning.mp4" type="video/mp4">
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.5" target="_blank">v1.5</a> · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Drive</a>
 </p>
 ```
+
+## Key frames
+
+![**Frame @ 08m00** — Horizontal asymptote case.](../figures/2025-11-29-morning/frame-08m00.jpg)
+![**Frame @ 22m00** — Slant asymptote requires long division.](../figures/2025-11-29-morning/frame-22m00.jpg)
+![**Frame @ 38m00** — General principle: limit is number vs function.](../figures/2025-11-29-morning/frame-38m00.jpg)
+![**Frame @ 50m00** — Teacher emphasises the principle over the polynomial-specific rule.](../figures/2025-11-29-morning/frame-50m00.jpg)
+
+## Fragility summary
+
+::: {.fragility}
+
+- **Heuristic limit.** "Drop terms that go to zero" only works when the answer is a number. For asymptotes the answer is a function, and uniformity of vanishing matters.
+- **Long division is the safe path.** Always works; the heuristic shortcuts are tempting but error-prone.
+- **Confidence.** All three theorems: high (calculus-level standard).
+
+:::
+
+## Related sessions
+
+- **Precursor:** [2025-11-01 morning](2025-11-01-morning.html) (polynomial + rational graphing).
+- **Sequel:** [2025-12-06 afternoon](2025-12-06-afternoon.html) (full graphing recipe).
 
 ## Full transcript
 

@@ -204,7 +204,8 @@
       "video_drive_id": "1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA",
       "video_embed": "https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/preview",
       "video_view":  "https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v1.5/2025-11-29-morning.mp4",
+      "status": "published"
     },
     {
       "id": "2025-12-06-afternoon",
