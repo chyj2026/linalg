@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-05-16">
 
-<title>Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation – Linear Algebra Notes</title>
+<title>Dot/Cross Products Recovered from First Principles; Cross-Product Components as Shadow Areas – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -155,9 +184,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#key-theorems-and-identities-from-the-session" id="toc-key-theorems-and-identities-from-the-session" class="nav-link" data-scroll-target="#key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</a></li>
-  <li><a href="#homework-given" id="toc-homework-given" class="nav-link" data-scroll-target="#homework-given">Homework given</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#derivation-of-theorem-64" id="toc-derivation-of-theorem-64" class="nav-link" data-scroll-target="#derivation-of-theorem-64">Derivation of Theorem 64</a></li>
+  <li><a href="#derivation-a-of-theorem-65-pythagorean-route" id="toc-derivation-a-of-theorem-65-pythagorean-route" class="nav-link" data-scroll-target="#derivation-a-of-theorem-65-pythagorean-route">Derivation A of Theorem 65 (Pythagorean route)</a></li>
+  <li><a href="#derivation-b-of-theorem-65-coordinate-algebra-independent" id="toc-derivation-b-of-theorem-65-coordinate-algebra-independent" class="nav-link" data-scroll-target="#derivation-b-of-theorem-65-coordinate-algebra-independent">Derivation B of Theorem 65 (coordinate algebra — independent)</a></li>
+  <li><a href="#derivation-of-theorem-66" id="toc-derivation-of-theorem-66" class="nav-link" data-scroll-target="#derivation-of-theorem-66">Derivation of Theorem 66</a></li>
+  <li><a href="#derivation-of-theorem-67" id="toc-derivation-of-theorem-67" class="nav-link" data-scroll-target="#derivation-of-theorem-67">Derivation of Theorem 67</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
+  <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
+  <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -167,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation</h1>
+<h1 class="title">Dot/Cross Products Recovered from First Principles; Cross-Product Components as Shadow Areas</h1>
 </div>
 
 
@@ -190,33 +230,168 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Auto-generated stub.</strong> This page renders the session metadata + embedded video + verbatim transcript appendix from manifest.json. It has <em>not</em> yet been distilled under the rigor protocol (symbol dictionary, two independent derivations, verification audit, fragility summary, hand-authored figures). The two reference lessons that show the target format: <a href="2026-03-07-LVS.html">2026-03-07-LVS</a> and <a href="2026-03-07-cramer-review.html">2026-03-07-cramer-review</a>.</p>
+<p><strong>Date inferred.</strong> <code>video1112502915.txt</code> has no parseable date. Internal references (“physics in summer in two weeks”) place this in late spring 2026; inferred 2026-05-16.</p>
 </div>
 </div>
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>One-on-one session reconstructing u·v = |u||v|cos θ and the cross product as a determinant with i,j,k symbols, then interpreting each component of u×v as the signed shadow area of the parallelogram on the corresponding coordinate plane.</p>
+<p>Individual session with Elaine reconstructing the dot/cross product from first principles, ahead of upcoming physics. Establishes (1) <strong>dot product</strong> <span class="math inline">\(\mathbf{u}\cdot\mathbf{v} = |\mathbf{u}||\mathbf{v}|\cos\theta = \sum u_i v_i\)</span>, (2) the <strong>Lagrange identity</strong> <span class="math inline">\(|\mathbf{u}\times\mathbf{v}|^2 = |\mathbf{u}|^2|\mathbf{v}|^2 - (\mathbf{u}\cdot\mathbf{v})^2\)</span> derived without invoking the cross product first, then (3) the <strong>component formula</strong> via the <span class="math inline">\(i, j, k\)</span> determinant. Closes with the <strong>shadow-area interpretation</strong>: each cross-product component is the signed area of the parallelogram’s shadow on the corresponding coordinate plane.</p>
 </section>
-<section id="key-theorems-and-identities-from-the-session" class="level2">
-<h2 class="anchored" data-anchor-id="key-theorems-and-identities-from-the-session">Key theorems and identities (from the session)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<div class="symbol-dictionary">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbf{u} = (a, b, c)\)</span>, <span class="math inline">\(\mathbf{v} = (x, y, z)\)</span></td>
+<td>vectors in <span class="math inline">\(\mathbb{R}^3\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>angle between them</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(|\mathbf{u}|\)</span></td>
+<td>magnitude <span class="math inline">\(\sqrt{a^2+b^2+c^2}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbf{u}^*, \mathbf{v}^*\)</span></td>
+<td>shadows on the <span class="math inline">\(xy\)</span>-plane (z-coordinate set to 0)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="theorems" class="level2">
+<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<div class="theorem">
+<p><strong>(Dot product, two formulas).</strong> <span class="math display">\[
+\mathbf{u}\cdot\mathbf{v} \;=\; u_1 v_1 + u_2 v_2 + u_3 v_3 \;=\; |\mathbf{u}||\mathbf{v}|\cos\theta. \tag{64}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Lagrange identity).</strong> <span class="math display">\[
+|\mathbf{u}\times\mathbf{v}|^2 \;=\; |\mathbf{u}|^2|\mathbf{v}|^2 - (\mathbf{u}\cdot\mathbf{v})^2 \;=\; (|\mathbf{u}||\mathbf{v}|\sin\theta)^2. \tag{65}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Cross-product component formula).</strong> <span class="math display">\[
+\mathbf{u}\times\mathbf{v} \;=\; \det\!\begin{pmatrix}\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k}\\ a &amp; b &amp; c\\ x &amp; y &amp; z\end{pmatrix} \;=\; (bz - cy,\; cx - az,\; ay - bx). \tag{66}
+\]</span></p>
+</div>
+<div class="theorem">
+<p><strong>(Shadow-area interpretation).</strong> Each component of <span class="math inline">\(\mathbf{u}\times\mathbf{v}\)</span> is the signed area of the parallelogram’s shadow on the corresponding coordinate plane: $()_x = $ area on <span class="math inline">\(yz\)</span>, $()_y = $ area on <span class="math inline">\(zx\)</span>, $()_z = $ area on <span class="math inline">\(xy\)</span>. <span class="math inline">\(\tag{67}\)</span></p>
+</div>
+</section>
+<section id="derivation-of-theorem-64" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-64">Derivation of Theorem 64</h2>
+<p>Law of cosines on triangle with sides <span class="math inline">\(\mathbf{u}, \mathbf{v}, \mathbf{v}-\mathbf{u}\)</span>: <span class="math display">\[
+|\mathbf{v}-\mathbf{u}|^2 = |\mathbf{u}|^2 + |\mathbf{v}|^2 - 2|\mathbf{u}||\mathbf{v}|\cos\theta.
+\]</span> Coordinates: <span class="math inline">\(|\mathbf{v}-\mathbf{u}|^2 = \sum(v_i - u_i)^2 = \sum v_i^2 + \sum u_i^2 - 2\sum u_i v_i\)</span>. Compare: <span class="math inline">\(\sum u_i v_i = |\mathbf{u}||\mathbf{v}|\cos\theta\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-a-of-theorem-65-pythagorean-route" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-a-of-theorem-65-pythagorean-route">Derivation A of Theorem 65 (Pythagorean route)</h2>
+<p>Define <span class="math inline">\(|\mathbf{u}\times\mathbf{v}| := |\mathbf{u}||\mathbf{v}|\sin\theta\)</span> (parallelogram area). Then <span class="math display">\[
+|\mathbf{u}\times\mathbf{v}|^2 = |\mathbf{u}|^2|\mathbf{v}|^2 \sin^2\theta = |\mathbf{u}|^2|\mathbf{v}|^2(1-\cos^2\theta) = |\mathbf{u}|^2|\mathbf{v}|^2 - (\mathbf{u}\cdot\mathbf{v})^2. \quad\blacksquare
+\]</span></p>
+</section>
+<section id="derivation-b-of-theorem-65-coordinate-algebra-independent" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-b-of-theorem-65-coordinate-algebra-independent">Derivation B of Theorem 65 (coordinate algebra — independent)</h2>
+<p>Expand <span class="math inline">\(|\mathbf{u}|^2|\mathbf{v}|^2 - (\mathbf{u}\cdot\mathbf{v})^2\)</span>: <span class="math display">\[
+(a^2+b^2+c^2)(x^2+y^2+z^2) - (ax+by+cz)^2 = (ay-bx)^2 + (bz-cy)^2 + (cx-az)^2,
+\]</span> which matches <span class="math inline">\((\mathbf{u}\times\mathbf{v})_z^2 + (\mathbf{u}\times\mathbf{v})_x^2 + (\mathbf{u}\times\mathbf{v})_y^2 = |\mathbf{u}\times\mathbf{v}|^2\)</span> using (66). <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><em>Independence.</em> A uses Pythagorean + Theorem 64. B uses pure algebraic expansion. Either suffices; B reveals (67) as a byproduct.</p>
+</section>
+<section id="derivation-of-theorem-66" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-66">Derivation of Theorem 66</h2>
+<p>Cofactor expansion of the <span class="math inline">\(i, j, k\)</span> determinant along the first row: <span class="math display">\[
+\det = \mathbf{i}(bz - cy) - \mathbf{j}(az - cx) + \mathbf{k}(ay - bx) = (bz-cy,\; cx-az,\; ay-bx). \quad\blacksquare
+\]</span></p>
+</section>
+<section id="derivation-of-theorem-67" class="level2">
+<h2 class="anchored" data-anchor-id="derivation-of-theorem-67">Derivation of Theorem 67</h2>
+<p>For the <span class="math inline">\(z\)</span>-component: cast light along the <span class="math inline">\(z\)</span>-axis. The parallelogram projects to one with vertices <span class="math inline">\(\mathbf{0}, \mathbf{u}^* = (a,b,0), \mathbf{v}^* = (x,y,0), \mathbf{u}^*+\mathbf{v}^*\)</span>. Its 2D signed area is the <span class="math inline">\(2\times 2\)</span> determinant <span class="math inline">\(\det\begin{pmatrix}a&amp;b\\x&amp;y\end{pmatrix} = ay - bx = (\mathbf{u}\times\mathbf{v})_z\)</span>. Similarly for <span class="math inline">\(x, y\)</span> components. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<div class="audit">
 <ul>
-<li>u·v = u₁v₁+u₂v₂+u₃v₃ = |u||v|cos θ</li>
-<li>|u×v|² = |u|²|v|² − (u·v)² (Lagrange identity)</li>
-<li>Components of u×v are 2D shadow areas on yz, xz, xy planes</li>
+<li><strong>Dot product orthogonal.</strong> <span class="math inline">\((1,0,0)\cdot(0,1,0) = 0 = \cos(\pi/2)\)</span>. ✓</li>
+<li><strong>Lagrange at <span class="math inline">\(\mathbf{u} = \mathbf{v}\)</span>.</strong> <span class="math inline">\(|\mathbf{u}|^4 - |\mathbf{u}|^4 = 0\)</span>; parallel vectors → zero cross product. ✓</li>
+<li><strong>Standard basis cross.</strong> <span class="math inline">\(\mathbf{i}\times\mathbf{j} = (0\cdot 0 - 0\cdot 1, 0\cdot 0 - 1\cdot 0, 1\cdot 1 - 0\cdot 0) = (0,0,1) = \mathbf{k}\)</span>. ✓</li>
+<li><strong>Worked example.</strong> <span class="math inline">\(\mathbf{u} = (1, 7, 1), \mathbf{v} = (5, 2, 4)\)</span>. <span class="math inline">\(\mathbf{u}\cdot\mathbf{v} = 5+14+4 = 23\)</span>. <span class="math inline">\(|\mathbf{u}|^2|\mathbf{v}|^2 = 51\cdot 45 = 2295\)</span>. Lagrange: <span class="math inline">\(|\mathbf{u}\times\mathbf{v}|^2 = 2295 - 529 = 1766\)</span>. Direct: <span class="math inline">\(\mathbf{u}\times\mathbf{v} = (7\cdot 4 - 1\cdot 2, 1\cdot 5 - 1\cdot 4, 1\cdot 2 - 7\cdot 5) = (26, 1, -33)\)</span>. <span class="math inline">\(|\cdot|^2 = 676 + 1 + 1089 = 1766\)</span>. ✓</li>
+<li><strong>Shadow at same example.</strong> <span class="math inline">\(z\)</span>-component <span class="math inline">\(= -33\)</span> matches the 2D determinant of <span class="math inline">\((a,b) = (1,7), (x,y) = (5,2)\)</span>: <span class="math inline">\(1\cdot 2 - 7\cdot 5 = -33\)</span>. ✓</li>
+<li><strong>Dependency.</strong> Thm 64: law of cosines. Thm 65 (A): Pythagorean + 64; (B): pure algebra. Thm 66: cofactor expansion. Thm 67: 2D determinant + projection. No circularity.</li>
 </ul>
+</div>
 </section>
-<section id="homework-given" class="level2">
-<h2 class="anchored" data-anchor-id="homework-given">Homework given</h2>
+<section id="lecture-video" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
+<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
+  <source src="https://github.com/chyj2026/linalg/releases/download/v0.9/2026-05-16-elaine-dotcross.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
+  Individual session with Elaine · hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v0.9" target="_blank">GitHub Release v0.9</a>
+  · also viewable in <a href="https://drive.google.com/file/d/1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn/view" target="_blank">Google Drive</a>
+</p>
+</section>
+<section id="key-frames" class="level2">
+<h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-16-elaine-dotcross/frame-05m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 05m00</strong> — Setup: two vectors in 3D; parallelogram area + shadow on <span class="math inline">\(xy\)</span> plane.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-16-elaine-dotcross/frame-22m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 22m00</strong> — Dot product equivalence from notes.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-16-elaine-dotcross/frame-38m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 38m00</strong> — Lagrange identity via Pythagorean.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/2026-05-16-elaine-dotcross/frame-50m00.jpg" class="img-fluid figure-img"></p>
+<figcaption><strong>Frame @ 50m00</strong> — Cross product as determinant with <span class="math inline">\(\mathbf{i}, \mathbf{j}, \mathbf{k}\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="worked-socratic-exchanges" class="level2">
+<h2 class="anchored" data-anchor-id="worked-socratic-exchanges">Worked Socratic exchanges</h2>
+<div class="exchange">
+<p><span class="speaker">Teacher:</span> “You forgot the cross product. Do you remember the dot product?” <br><span class="speaker">Elaine:</span> “<span class="math inline">\(\sum u_i v_i\)</span>, and graphically it’s <span class="math inline">\(|\mathbf{u}||\mathbf{v}|\cos\theta\)</span>.” <br><span class="speaker">Teacher:</span> “If you know cos, you know sin (Pythagorean). So area <span class="math inline">\(= |\mathbf{u}||\mathbf{v}|\sin\theta = \sqrt{|\mathbf{u}|^2|\mathbf{v}|^2 - (\mathbf{u}\cdot\mathbf{v})^2}\)</span>. The cross product magnitude is recoverable from the dot product alone.”</p>
+<p><em>Teaching move:</em> algebraic reconstruction — never memorise what you can re-derive from a related formula via one identity.</p>
+</div>
+</section>
+<section id="exercises-given" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-given">Exercises given</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -227,39 +402,38 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Print AI-generated LaTeX notes, annotate by hand, rebuild the cross-product geometric proof three different ways.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Session notes (transcript artefacts and meta-content)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Individual session with Elaine. References ‘physics in summer in two weeks’ and Sophie possibly joining — date inferred late May 2026.</p>
-</div>
+<p><strong>Homework.</strong></p>
+<ol type="1">
+<li>AI-assisted workflow: print notes, annotate by hand, re-derive before reading.</li>
+<li>Re-derive <span class="math inline">\(\mathbf{u}\cdot\mathbf{v} = |\mathbf{u}||\mathbf{v}|\cos\theta\)</span> via law of cosines without notes.</li>
+<li>Verify shadow-area component formula: pick specific 3D <span class="math inline">\(\mathbf{u}, \mathbf{v}\)</span>, project to all 3 coordinate planes, compute each shadow area, confirm against cross-product components.</li>
+</ol>
 </div>
 </div>
 </section>
-<section id="lecture-video" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://drive.google.com/file/d/1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn/preview" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allow="autoplay" allowfullscreen=""></iframe>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<div class="fragility">
+<ul>
+<li><strong>Weakest step.</strong> Teacher’s “subtract corner triangles” geometric derivation of shadow area has transcript algebra errors. The clean version: shadow on <span class="math inline">\(xy\)</span> plane is a 2D parallelogram on <span class="math inline">\((a, b), (x, y)\)</span>; signed area <span class="math inline">\(= 2\times 2\)</span> determinant <span class="math inline">\(ay - bx\)</span>. Trivially matches <span class="math inline">\((\mathbf{u}\times\mathbf{v})_z\)</span> from (66).</li>
+<li><strong>Sign conventions.</strong> Right-handed; flipping vectors flips sign. Signed area positive for counter-clockwise orientation.</li>
+<li><strong>Cross product is <span class="math inline">\(\mathbb{R}^3\)</span>-specific.</strong> General <span class="math inline">\(n\)</span>-dim analogue is the wedge product (exterior algebra). Future topic.</li>
+<li><strong>Off-topic content.</strong> ~40% methodological (note-taking workflow).</li>
+<li><strong>Confidence.</strong> Theorems 64–67: high (textbook standard). The Pythagorean derivation of Lagrange is particularly clean.</li>
+</ul>
 </div>
-<p style="text-align:center;font-size:0.9em;color:#6b7280;margin-top:0.4em;">
-  Streaming from Google Drive (no GitHub Release yet) · <a href="https://drive.google.com/file/d/1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn/view" target="_blank">Open in Drive ↗</a>
-</p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Connection to linear algebra:</strong> Lagrange identity is the <span class="math inline">\(n=2\)</span> Cauchy–Schwarz–Gram case from <a href="2026-03-28-morning.html">Mar 28 Gram matrix lesson</a> (Theorem 48).</li>
+<li><strong>Forward application:</strong> vector fields, Stokes/Green theorems in multivariable calculus and physics.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -268,7 +442,7 @@ Important
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Your notes, um, still no, but can you make that a priority? Yeah, that's not gonna make you lazy. Rather, it would really give you a comparison what is genuinely good note taking. So, and I want to go from yesterday. We were in the middle of and feeding up, but really just coming back to the vector space and look at one thing. Yes, you gave me the instruction for the ChatGPT, right? Yes, when I.Try to paste it in. For a project, there's a maximum of an eight thousand character limit. How did you manage to get past the character limit? Oh, are you talking about Claude or ChatGPT? ChatGPT. Oh, in fact, you just start a new conversation, paste in the entire instruction, make it memorize it. Don't write up in the instruction. You just save this for me as a standing instruction for this project. It will do it for.Okay. That usually, uh, continue. Okay, now, and we were talking about a recovery of a fundamental definition of the dot product and the cross product. Oh, by the way, we have an hour and ten minutes today, and I want to get solid work done. So, and can you tell me how much you have recovered with the help of ChatGPT from yesterday? I'm not expecting you to do a lot because I know this weekend. I just I'm asking only because I know exactly where you are.I want to know where exactly you are. So I read what the Claude gave me. Yes. Ah, so I remember some of the work we did with projection, with the determinant and the cross product. Ah, for example, there was a problem where we found the area of a a three D. I think.三角， using the projections of it on two dimensions, I think. Yes. 嗯。 And I also remember there was some proofs that we did. For example, if u is parallel to v, then u cross v equals zero. Yes. And I did like I reviewed what it gave me, and I compared it to the notes. So, we'll see. Let's actually try it out again. I'm not.Testing you, and I know this is a pretty advanced material. I want you to be prepared for the upcoming physics. So, mastering the mindset is our only priority. So, you shouldn't hesitate to ask whenever you're dubious about any concept at all. Okay, yeah, bring everything. Go ahead. Oh, could we review how the matrices are the matrices are um are related to the conic sections? I feel like I'm not.We will, we'll do that, and that's actually relatively the harder part of the application, and it's not immediately urgent. But we shall review it tonight. But I want to lay the foundation first. For example, if I should give you two vectors in three D space, I tell you exactly what they are. One second, and here's one. One, so that's a. You're given the v now, the three coordinate.那s those are seven negative two one okay there's another vector u and that u would equal to five positive three four and between them they're in space they're sticking out in space now you can see definitely both are pointing positively in the z direction now I can make a parallelogram between the two now what's the directional area in fact to answer that you I want to</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Know what is the area, but we want to write it as a vector. Why? I'm paving the way for asking. You have this parallelogram in three D now, and I want to cast light perpendicular to the z, parallel to the z axis, perpendicular to the xoy plane. So fundamentally, here's your coordinate system, and that's your that looks like that's the x now, and that's the y. Okay, be it. Oh, all right. Use your imagination. This is x and that.That's why, although I know it doesn't look like it, and this is a z direction. And once you have this parallelogram, I want to cast light from top down in the z direction, and I want to know what is the area of the shadow. Meaning, basically, you could even define the category of the shadow. Now, basically, you just erase the z coordinate to be zero. What you get is the the v casts the shadow here, and the u casts the shadow. Yeah, yeah, that's actually.Actually, imaginary. Sorry, this really doesn't look like the right coordinate. Can I rewrite them just so that you get something more intuitively true? Let's go for one seven one. That's better. And this is like a a um uh. Let's do a five, a two, and a four. Okay, so you cast this try.don't know. It's gonna actually chart out some area like this. Here is go to one, and that's another one. This is a size of the shadow. I'm not giving you the coordinates, and I want you to find out eventually the area of this yellow part and the area of the shadow. So, in fact, there's no elaborate math here. Just one single cross product or dot product or.Something would resolve it, so you help me recall it. Uh, okay, so can I think for a bit? Of course, open book, open your your cloud notes and open your notebook as well, and don't hesitate to keep me posted of your mental process. I will fill it in case you get stuck by something minor.嗯。嗯。嗯。</span>

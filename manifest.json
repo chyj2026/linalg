@@ -437,7 +437,8 @@
       "video_drive_id": "1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn",
       "video_embed": "https://drive.google.com/file/d/1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn/preview",
       "video_view":  "https://drive.google.com/file/d/1I2P872pzwIr38zCPq05P6h0Tkj0yGdZn/view",
-      "video_github_release": null, "status": "draft"
+      "video_github_release": "https://github.com/chyj2026/linalg/releases/download/v0.9/2026-05-16-elaine-dotcross.mp4",
+      "status": "published"
     },
     {
       "id": "2026-01-24-rerun-DUPLICATE",
