@@ -1,0 +1,283 @@
+/* Linear Algebra Notes — base style */
+
+:root {
+  --accent: #2b4d8a;
+  --accent-light: #6e8fc2;
+  --accent-dark: #1a3160;
+  --muted: #6b7280;
+  --bg-soft: #f6f7fb;
+  --border: #e3e6ee;
+  --warn: #c0392b;
+  --good: #2c8a4a;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  line-height: 1.65;
+  color: #1f2330;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.3em;
+  margin-top: 2em;
+}
+
+h3 {
+  color: var(--accent-dark);
+  margin-top: 1.6em;
+}
+
+/* hero on landing page */
+.course-hero {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 2em;
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  color: white;
+  padding: 2em;
+  border-radius: 12px;
+  margin: 1.5em 0;
+}
+
+.course-hero h1 {
+  margin-top: 0.2em;
+  font-size: 2.4em;
+}
+
+.lesson-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75em;
+  opacity: 0.85;
+}
+
+.course-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+  align-content: center;
+}
+
+.course-stats > div {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 1em;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.course-stats strong {
+  display: block;
+  font-size: 1.8em;
+  line-height: 1;
+}
+
+.course-stats span {
+  font-size: 0.85em;
+  opacity: 0.85;
+}
+
+/* symbol dictionary table */
+.symbol-dictionary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.symbol-dictionary th,
+.symbol-dictionary td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  vertical-align: top;
+  text-align: left;
+}
+
+.symbol-dictionary th {
+  background: var(--bg-soft);
+}
+
+/* theorem / lemma blocks */
+.theorem, .lemma, .definition {
+  border-left: 4px solid var(--accent);
+  background: var(--bg-soft);
+  padding: 0.8em 1.1em;
+  margin: 1.2em 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.theorem::before { content: "Theorem"; }
+.lemma::before   { content: "Lemma"; }
+.definition::before { content: "Definition"; }
+
+.theorem::before, .lemma::before, .definition::before {
+  font-weight: 700;
+  color: var(--accent-dark);
+  display: block;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3em;
+}
+
+/* verification audit + fragility blocks */
+.audit, .fragility {
+  border: 1px dashed var(--muted);
+  padding: 0.8em 1.1em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  background: #fafbfd;
+}
+
+.audit::before { content: "Verification audit"; color: var(--good); }
+.fragility::before { content: "Fragility summary"; color: var(--warn); }
+
+.audit::before, .fragility::before {
+  font-weight: 700;
+  display: block;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4em;
+}
+
+/* lesson grid on landing */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1em;
+  margin: 1.5em 0;
+}
+
+.lesson-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1em;
+  background: white;
+  transition: box-shadow 0.18s ease;
+}
+
+.lesson-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.lesson-card h3 {
+  margin: 0.2em 0 0.4em;
+  font-size: 1.1em;
+}
+
+.lesson-card h3 a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+.lesson-card-meta {
+  font-size: 0.78em;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.is-new .lesson-card-meta span:last-child {
+  background: var(--accent);
+  color: white;
+  padding: 0.1em 0.5em;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* lesson table on landing */
+.lesson-table-wrap {
+  overflow-x: auto;
+}
+
+.lesson-index-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.lesson-index-table th {
+  background: var(--bg-soft);
+  text-align: left;
+  padding: 0.6em 0.8em;
+  border-bottom: 2px solid var(--border);
+}
+
+.lesson-index-table td {
+  padding: 0.55em 0.8em;
+  border-bottom: 1px solid var(--border);
+}
+
+.mini-badge {
+  background: var(--accent-light);
+  color: white;
+  font-size: 0.7em;
+  padding: 0.1em 0.5em;
+  border-radius: 999px;
+  margin-left: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* figure captions */
+figure {
+  margin: 1.4em 0;
+  text-align: center;
+}
+
+figure img, figure svg {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+figcaption {
+  font-size: 0.88em;
+  color: var(--muted);
+  margin-top: 0.5em;
+  font-style: italic;
+}
+
+/* equation number alignment */
+.eq-label {
+  float: right;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* exchange blocks */
+.exchange {
+  border-left: 3px solid var(--accent-light);
+  padding: 0.4em 1em;
+  margin: 1em 0;
+  font-size: 0.95em;
+}
+
+.exchange .speaker {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+/* collapsed transcript */
+details.transcript summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5em 0;
+  color: var(--accent-dark);
+}
+
+details.transcript pre {
+  background: var(--bg-soft);
+  padding: 1em;
+  border-radius: 6px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+}

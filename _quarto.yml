@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Linear Algebra Notes"
+  description: "Rigorous distilled notes with embedded lecture video and full transcript for each Saturday session."
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: lessons.qmd
+        text: Lessons
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+    toc-depth: 3
+    code-overflow: wrap
+    html-math-method: mathjax
+    include-in-header:
+      text: |
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>

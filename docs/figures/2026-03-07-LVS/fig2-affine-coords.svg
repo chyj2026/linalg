@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 380" font-family="Georgia, serif" font-size="14">
+  <!-- Geometry:
+       O = (60, 320)
+       c1 displacement = (120, -50)   → tip at (180, 270)
+       c2 displacement = (60, -140)   → tip at (120, 180)
+       v = 2·c1 + 1·c2 displacement = (300, -240) → tip at (360, 80)
+       α·c1 endpoint = (300, 220)
+       Then β·c2 from (300,220) by (60,-140) → tip at (360, 80) = v.
+  -->
+  <defs>
+    <marker id="arrowblue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1a3160"/>
+    </marker>
+    <marker id="arrowred" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <g stroke="#eef0f6" stroke-width="1">
+    <line x1="0" y1="320" x2="460" y2="320"/>
+    <line x1="60" y1="0" x2="60" y2="380"/>
+  </g>
+
+  <!-- origin -->
+  <circle cx="60" cy="320" r="3" fill="#1a3160"/>
+  <text x="44" y="338" fill="#1a3160">O</text>
+
+  <!-- c1 basis vector -->
+  <line x1="60" y1="320" x2="180" y2="270" stroke="#1a3160" stroke-width="2.4" marker-end="url(#arrowblue)"/>
+  <text x="124" y="306" fill="#1a3160" font-style="italic">c₁</text>
+
+  <!-- c2 basis vector -->
+  <line x1="60" y1="320" x2="120" y2="180" stroke="#1a3160" stroke-width="2.4" marker-end="url(#arrowblue)"/>
+  <text x="84" y="244" fill="#1a3160" font-style="italic">c₂</text>
+
+  <!-- α·c1 (α=2): from O to (300,220), parallel to c1 -->
+  <line x1="60" y1="320" x2="300" y2="220" stroke="#1a3160" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/>
+  <text x="180" y="282" fill="#1a3160" font-style="italic">α·c₁</text>
+
+  <!-- β·c2 (β=1): from (300,220) shifted by (60,-140) lands at (360,80) -->
+  <line x1="300" y1="220" x2="360" y2="80" stroke="#1a3160" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.7"/>
+  <text x="328" y="156" fill="#1a3160" font-style="italic">β·c₂</text>
+
+  <!-- Target v (red) -->
+  <line x1="60" y1="320" x2="360" y2="80" stroke="#c0392b" stroke-width="2.4" marker-end="url(#arrowred)"/>
+  <text x="370" y="78" fill="#c0392b" font-style="italic">v</text>
+
+  <!-- caption -->
+  <text x="230" y="362" text-anchor="middle" font-style="italic" fill="#3a3a3a">
+    Affine decomposition:  v = α·c₁ + β·c₂   (here α = 2, β = 1)
+  </text>
+</svg>

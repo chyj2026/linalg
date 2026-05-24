@@ -1,0 +1,83 @@
+---
+title: "Linear Algebra Notes"
+---
+
+```{=html}
+<section class="course-hero">
+  <div>
+    <p class="lesson-kicker">Rigorous Saturday-class notes</p>
+    <h1>Linear Algebra Notes</h1>
+    <p>Distilled lecture notes — symbol dictionaries, theorems formally stated, two independent derivations for key results, verification audits, and the full transcript preserved as appendix. Embedded video for every session.</p>
+  </div>
+  <div class="course-stats" aria-label="Course statistics">
+    <div><strong>29</strong><span>sessions (+1 duplicate)</span></div>
+    <div><strong>1</strong><span>lesson published</span></div>
+  </div>
+</section>
+```
+
+::: {.callout-note}
+**Course scope flag.** The repository name says *linalg*, but the underlying class covers a broader math arc: modular arithmetic & Fermat–Euler (Sep 2025), complex exponentials & Euler's formula (Sep 2025), conic sections (Oct 2025), polynomial graphing & rational functions (Nov 2025), series & ζ-function (Dec 2025 – Jan 2026), and finally linear algebra proper — quadratic forms, eigenvalues, Jordan form, Cayley–Hamilton (Jan – May 2026). Topic tags reflect this; chronological order preserves the spiral teaching pattern.
+:::
+
+## Newly Added Lessons
+
+```{=html}
+<div class="lesson-grid">
+<article class="lesson-card is-new">
+  <div class="lesson-card-meta"><span>Mar 7, 2026 — LVS</span><span>Published</span></div>
+  <h3><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a></h3>
+  <p>Cramer's rule proved from the cofactor formula; equivalence of left and right inverses via the column-space upgrade trick; definition of a linear vector space and proof that <em>ker M</em> is one.</p>
+</article>
+</div>
+```
+
+## Full Lesson Library
+
+The 29 sessions below carry full metadata (title, topics, lead, key theorems, homework, notes) in `manifest.json`. Each link will route to the distilled page when published; until then it shows the draft.
+
+```{=html}
+<div class="lesson-table-wrap">
+<table class="lesson-index-table">
+  <thead><tr><th>Date</th><th>Session</th><th>Topic</th></tr></thead>
+  <tbody>
+<tr><td>2025-09-13</td><td>morning</td><td>Fermat's Little Theorem, Euler Totient, and Cyclicity in Modular Arithmetic <em>(draft)</em></td></tr>
+<tr><td>2025-09-13</td><td>afternoon</td><td>Modular Arithmetic, Roots of Unity, and Symmetry Counts <em>(draft)</em></td></tr>
+<tr><td>2025-09-20</td><td>morning</td><td>Proof of Euler's Formula via Additive and Multiplicative Functional Equations <em>(draft)</em></td></tr>
+<tr><td>2025-09-27</td><td>morning</td><td>Solving cos θ = a and sin θ = a via Complex Exponentials <em>(draft)</em></td></tr>
+<tr><td>2025-10-04</td><td>morning</td><td>Hyperbola Geometry: Foci, Asymptotes, and a² + b² = c² <em>(draft)</em></td></tr>
+<tr><td>2025-10-04</td><td>afternoon</td><td>Eccentricity Definition of Conics; Parabola as the Borderline Case <em>(draft)</em></td></tr>
+<tr><td>2025-10-11</td><td>morning</td><td>Cramer's Rule, Cofactors, and Unique Parabola Through Three Points <em>(draft)</em></td></tr>
+<tr><td>2025-10-11</td><td>afternoon</td><td>Cramer's Rule Completed: Existence/Uniqueness Classification via Determinants <em>(draft)</em></td></tr>
+<tr><td>2025-10-18</td><td>morning</td><td>Quadratic Form Classification of Conics via the Discriminant <em>(draft)</em></td></tr>
+<tr><td>2025-10-18</td><td>afternoon</td><td>Factoring the Quadratic Form ax² + bxy + cy² to Find Asymptotes <em>(draft)</em></td></tr>
+<tr><td>2025-11-01 <sup title="medium">⚠</sup></td><td>morning</td><td>Graphing Polynomials and Rational Functions: Snaking, Asymptotes, Long Division <em>(draft)</em></td></tr>
+<tr><td>2025-11-08</td><td>afternoon</td><td>Solving Cubic Equations: Cardano, Vieta, and Complex Cube Roots <em>(draft)</em></td></tr>
+<tr><td>2025-11-29</td><td>morning</td><td>Asymptotic Analysis: General Principle for Handling Infinitesimals <em>(draft)</em></td></tr>
+<tr><td>2025-12-06</td><td>afternoon</td><td>Full Graph of a 7th/6th-Degree Rational Function <em>(draft)</em></td></tr>
+<tr><td>2025-12-13</td><td>—</td><td>Tangent-Circle Chain (AMC 2015 #25): Gateway to Infinite Series and Binary <em>(draft)</em></td></tr>
+<tr><td>2026-01-03</td><td>morning</td><td>Riemann Zeta: ζ(1+ε) Bound and ζ(2) = π²/6 via sin(x)/x Vieta <em>(draft)</em></td></tr>
+<tr><td>2026-01-10</td><td>morning</td><td>Linear Recursions with Double Roots: Generating-Function Derivation of n·λ^(n-1) <em>(draft)</em></td></tr>
+<tr><td>2026-01-24</td><td>morning</td><td>Diagonalizing the Conic Metric Tensor: Invariants and Eigen-Basis Intro <em>(draft)</em></td></tr>
+<tr><td>2026-02-21 <sup title="medium — filename typo">⚠</sup></td><td>morning</td><td>Eigenvalue Equation det(M-λI)=0; Trace and Determinant from Characteristic Polynomial <em>(draft)</em></td></tr>
+<tr><td>2026-02-21</td><td>afternoon</td><td>Skew-Axis Directions for Elliptical Conics via Complex-Rotated Asymptotes (y → yi) <em>(draft)</em></td></tr>
+<tr><td>2026-02-28 <sup title="unknown date">⚠</sup></td><td>individual</td><td>Conic Diagonalization via M·V = V·Λ; Transition to Eigenvalue/Eigenvector Formalism <em>(draft)</em></td></tr>
+<tr><td>2026-03-07</td><td>LVS</td><td><a href="lessons/2026-03-07-LVS.html">Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces</a> <span class="mini-badge">Published</span></td></tr>
+<tr><td>2026-03-07</td><td>after — Cramer review</td><td>Inverse Matrix is Two-Sided; Kernel and Range as Linear Vector Spaces <em>(draft)</em></td></tr>
+<tr><td>2026-03-28</td><td>morning</td><td>Gram Matrix VᵀV: Rank Tests, Sub-Volume Inequalities, Gauss-Jordan Inverse <em>(draft)</em></td></tr>
+<tr><td>2026-04-04 <sup title="medium">⚠</sup></td><td>morning</td><td>Solving Linear Recursions by Diagonalizing the Companion Matrix; Nilpotent Intro <em>(draft)</em></td></tr>
+<tr><td>2026-04-04</td><td>afternoon (2)</td><td>Powering Jordan Blocks: Binomial Expansion with Nilpotent N <em>(draft)</em></td></tr>
+<tr><td>2026-04-04 <sup title="parallel rerun, unknown date">⚠</sup></td><td>Tuesday rerun</td><td>Linear Recursions via Companion-Matrix Diagonalization (parallel class) <em>(draft)</em></td></tr>
+<tr><td>2026-05-02 <sup title="medium">⚠</sup></td><td>morning</td><td>Cayley–Hamilton via Cyclic Basis: Existence Gap and Four Proof Strategies <em>(draft)</em></td></tr>
+<tr><td>2026-05-16 <sup title="unknown date">⚠</sup></td><td>individual (Elaine)</td><td>Individual Session: Recovering Dot/Cross Product and Shadow-Area Interpretation <em>(draft)</em></td></tr>
+  </tbody>
+</table>
+</div>
+```
+
+::: {.callout-warning collapse="true"}
+## Excluded duplicate
+`Saturday04062026afternoon1.txt` is byte-identical to `Saturday0404morning.txt` — a mislabeled upload. It is recorded in `manifest.json` with `status: "excluded_duplicate"` and is not shown in the index above. The Drive video ID and verbatim transcript are preserved in case the duplicate is informative.
+
+⚠ markers on dates indicate `date_confidence: medium` or `unknown` — filename-only inference; verify against Drive `createdTime` or recording metadata.
+:::

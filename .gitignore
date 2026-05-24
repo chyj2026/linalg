@@ -1,0 +1,11 @@
+/.quarto/
+**/*.quarto_ipynb
+*.mp4
+*.mkv
+*.webm
+*.swp
+.DS_Store
+Thumbs.db
+frames/**/*.jpg
+frames/**/*.png
+!frames/.gitkeep
