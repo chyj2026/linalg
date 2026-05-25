@@ -197,6 +197,8 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#primitive-notions-and-assumptions-retroactive" id="toc-primitive-notions-and-assumptions-retroactive" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions-retroactive">Primitive notions and assumptions (retroactive)</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -422,6 +424,22 @@ Important
 <li><strong>Confidence.</strong> Theorems 64–67: high (textbook standard). The Pythagorean derivation of Lagrange is particularly clean.</li>
 </ul>
 </div>
+</section>
+<section id="primitive-notions-and-assumptions-retroactive" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions-retroactive">Primitive notions and assumptions (retroactive)</h2>
+<p>We work in <span class="math inline">\(\mathbb R^3\)</span> with the standard Euclidean inner product. <strong>Convention:</strong> <strong>right-hand rule</strong> for cross product (declared <em>before</em> signed quantities). Vectors as column vectors. <strong>Imported lemmas:</strong> (i) Law of Cosines (Euclidean geometry); (ii) Lagrange identity <span class="math inline">\(\|u\|^2\|v\|^2 - (u\cdot v)^2 = \|u\times v\|^2\)</span>; (iii) determinant formula for cross product.</p>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Forward (physics, summer):</strong> dot/cross product is the foundation of vector calculus and electromagnetism. Today’s <em>shadow-area interpretation</em> of <span class="math inline">\(u\times v\)</span> as the signed area of the parallelogram projected onto each coordinate plane is the bridge to <strong>flux integrals</strong> and <strong>Stokes’s theorem</strong>.</li>
+<li><strong>Forward (relativity):</strong> the <em>generalised cross product</em> in 4D is the <strong>wedge product</strong> of differential forms (or equivalently, contraction with the 4D volume form). The cross product as we know it is dimension-3-specific.</li>
+<li><strong>Open question:</strong> for which dimensions <span class="math inline">\(n\)</span> does a “cross product” satisfying associativity and bilinearity exist? Answer (Hurwitz): only <span class="math inline">\(n = 1, 3, 7\)</span>. The 7D cross product is exotic; the 3D one is unique among “useful” dimensions.</li>
+<li><strong>Open question:</strong> the <strong>scalar triple product</strong> <span class="math inline">\(u\cdot(v\times w) = \det\begin{pmatrix}u^T \\ v^T \\ w^T\end{pmatrix}\)</span> gives the volume of the parallelepiped. Generalises to higher dimensions as the Gram determinant.</li>
+<li><strong>Connection back to Oct 11 (Vandermonde, Cramer):</strong> the cross product <em>is</em> a determinant (with vector entries — a mnemonic determinant, expanded by the first row). All linear-algebra determinants reappear here as cross / wedge products in disguise.</li>
+<li><strong>Connection back to Feb 21 (eigenvalues):</strong> rotation in 3D has eigenvalues <span class="math inline">\(1, e^{\pm i\theta}\)</span> — the <span class="math inline">\(1\)</span> corresponds to the rotation axis (cross product of two rotated vectors gives a vector along this axis).</li>
+<li><strong>Pedagogical thread (Elaine’s recovery session):</strong> the lesson is structured as <em>recovery from forgetting</em> — go back to fundamentals (definitions), build the algebraic and geometric pictures in parallel, verify the two agree. This is the <em>spirit of the rigor template applied to learning itself</em>. The “two pictures” agreement is mathematical truth.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

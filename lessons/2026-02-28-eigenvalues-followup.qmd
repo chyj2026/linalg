@@ -235,6 +235,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Mar 7):** Cramer's rule re-derived and the cofactor inverse formula proven *rigorously* — today's $\det(M - \lambda I)$ relies on cofactor expansion; Mar 7 makes that explicit.
+- **Forward (Mar 28, Apr 4):** linear recursions reformulated as $a_{n+1} = M \cdot a_n$, eigenvalues of $M$ control the asymptotic growth. The characteristic polynomial derived today *is* the recursion's characteristic equation.
+- **Forward (May 2):** Cayley-Hamilton — every matrix satisfies its characteristic polynomial $p_M(M) = 0$. Today derives $p_M$; May 2 substitutes the matrix into itself.
+- **Open question:** the **trace** and **determinant** are *two* invariants under similarity. For $n\times n$, there are $n$ similarity invariants — the coefficients of the characteristic polynomial. Together they recover the eigenvalues (up to permutation). Forward-pointer: invariant theory and Cayley-Hamilton.
+- **Open question (deeper):** for *non-diagonalisable* matrices, the characteristic polynomial doesn't fully determine the matrix up to similarity. We need the **Jordan canonical form** (Apr 4). The *minimal polynomial* is a finer invariant than the characteristic polynomial.
+- **Connection back to Jan 3 (Vieta on transcendental):** $\det(M - \lambda I)$ is a polynomial in $\lambda$; its roots are eigenvalues. *Vieta on the eigenvalues* gives trace = sum, det = product. Same algebra as Euler's Basel problem at finite dimension.
+- **Pedagogical thread:** two-independent-derivations for trace and determinant (combinatorial expansion in Derivation A; similarity-invariance in Derivation B) — different perspectives, same result. The *equivalence* of the two perspectives is the spectral theorem.
+
 ## Related sessions
 
 - **Precursors:** [2026-02-21 morning](2026-02-21-morning.html) — matrix eigenvalue equation $M E = E \Lambda$ for $n=2$ symmetric case (Theorem 38) is the direct setup. [2025-10-11 afternoon](2025-10-11-afternoon.html) — Cramer's-rule classification (Theorem 24) is the load-bearing import.

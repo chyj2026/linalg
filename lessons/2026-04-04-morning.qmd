@@ -193,6 +193,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Apr 4 afternoon):** explicitly power $(\lambda I + N)^n$ using binomial expansion with nilpotent $N$ — the $k\times k$ Jordan block case.
+- **Forward (May 2):** Cayley-Hamilton — the companion matrix of any polynomial $p$ satisfies $p(C) = 0$ as a matrix identity. Today's companion matrix is the prototype.
+- **Open question:** for *triple* roots and beyond, the Jordan block is $k\times k$ with 1's on the superdiagonal. The nilpotent $N = J_k - \lambda I$ satisfies $N^k = 0$, $N^{k-1} \ne 0$ — the *index of nilpotency* equals the Jordan-block size.
+- **Open question (deeper):** for general matrices, the **Jordan canonical form** $J = $ direct sum of Jordan blocks is the canonical similarity invariant. Algorithmic computation is delicate (numerical instability near degenerate eigenvalues). Replaced in practice by **Schur decomposition** ($M = U T U^*$ with $T$ upper-triangular, $U$ unitary).
+- **Open question:** when do two matrices commute? They share a *common invariant subspace decomposition*. For diagonalisable $M$ and $M'$: they commute iff they share eigenvectors. For non-diagonalisable: share Jordan-block decomposition with matched generalised eigenvectors. Forward-pointer to representation theory.
+- **Connection back to Jan 24:** today's matrix approach recovers the $(A + Bn)\lambda^n$ formula from Jan 24 (telescoping) as a *matrix-power identity*. Same answer, different abstraction level.
+- **Pedagogical thread:** two-independent-routes (matrix powering vs. generating function) for the double-root recursion — *both* give $(A + Bn)\lambda^n$. The equivalence is the *manifestation* of the deeper truth: linear recursions and matrix powers are the same algebraic object.
+
 ## Related sessions
 
 - **Precursors:** [2026-01-10 morning](2026-01-10-morning.html) (stub) — recursion introduction; [2026-01-24 morning](2026-01-24-morning.html) — telescoping $(A+Bn)\lambda^n$ derivation; [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework.

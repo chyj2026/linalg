@@ -226,6 +226,16 @@ is a linear subspace of $\mathbb{R}^n$.
 
 :::
 
+## Explorative directions
+
+- **Next brick (Mar 28):** Gram matrix and Gauss-Jordan algorithm for $M^{-1}$ — computational alternative to the cofactor formula derived here. Same result, $O(n^3)$ vs. $O(n!)$ complexity.
+- **Forward (Apr 4):** *non-diagonalisable* matrices (Jordan blocks) where the cofactor formula still works but eigenvalue analysis requires more care.
+- **Forward (May 2):** Cayley-Hamilton — every $M$ satisfies $p_M(M) = 0$. Today's two-sided inverse $M^{-1} = (\det M)^{-1} \cdot (\text{cofactor})^T$ is a special case where $p_M$ has nonzero constant term ($= \det M$).
+- **Open question:** *Linear vector space* abstracts what we've been doing concretely. Any set with **addition** and **scalar multiplication** satisfying 8 axioms qualifies. Examples: $\mathbb R^n$, polynomial space, function space, matrix space. Future: linear maps between abstract spaces, basis-independent definitions of determinant and trace.
+- **Open question (deeper):** for *infinite-dimensional* vector spaces (function spaces in physics: $L^2$), the cofactor formula breaks down — there is no "$n$-th cofactor" when $n = \infty$. Replaced by *spectral theory* and *Fredholm theory* — forward-pointer to functional analysis.
+- **Connection back to Oct 11:** today's cofactor inverse formula proves a result we *used* in Oct 11 (e.g., uniqueness of parabolic interpolation). Cyclic structure: tools introduced months ago, now rigorously justified.
+- **Pedagogical thread:** the *abstract* linear-vector-space definition (set with addition + scalar multiplication satisfying axioms) is "what survives the concretes" — once you've worked $\mathbb R^n$, $\mathbb R^{m\times n}$, $\mathbb R[x]$ separately, the unifying axioms become *obvious*. Don't introduce abstraction prematurely; let it crystallise.
+
 ## Related sessions
 
 *Auto-generated once additional lessons share topic tags. The previous session on March 7, 2026 (Cramer review) and the prior linear-algebra arc (Oct 11 — Cramer's rule, cofactor structure) develop the prerequisites used here.*

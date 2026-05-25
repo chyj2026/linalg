@@ -201,6 +201,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -463,6 +464,18 @@ Important
 <li><strong>Confidence.</strong> Theorems (sym), 49, 50: high. Theorem 48: high in normalized case; equality conditions subtle.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Apr 4):</strong> linear recursions <span class="math inline">\(\to\)</span> companion matrix <span class="math inline">\(\to\)</span> Jordan canonical form. The Gram matrix and orthonormalisation here set up the <em>foundational</em> tooling.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton — projection matrices (idempotent, <span class="math inline">\(P^2 = P\)</span>) and reflections (involutive, <span class="math inline">\(R^2 = I\)</span>) satisfy simple polynomial identities.</li>
+<li><strong>Open question:</strong> the <strong>Gram-Schmidt process</strong> orthonormalises an arbitrary basis. Numerically unstable; replaced by <strong>QR decomposition</strong> via Householder reflections in practice. Forward-pointer to numerical linear algebra.</li>
+<li><strong>Open question:</strong> <strong>singular value decomposition</strong> <span class="math inline">\(M = U\Sigma V^T\)</span> generalises eigendecomposition to non-square / non-symmetric matrices. Foundation of principal-component analysis, image compression, recommendation systems.</li>
+<li><strong>Open question (deeper):</strong> the <strong>rank-nullity theorem</strong> <span class="math inline">\(\dim(\text{kernel}) + \dim(\text{image}) = n\)</span> relates the singular dichotomy to dimensions. Today’s Gauss-Jordan exposes the rank operationally.</li>
+<li><strong>Connection back to Oct 11:</strong> the cofactor inverse formula and Gauss-Jordan inverse method are <em>two routes to the same matrix</em>. Today shows the second; their equivalence is a theorem.</li>
+<li><strong>Pedagogical thread:</strong> the <em>Gram matrix</em> <span class="math inline">\(G_{ij} = \langle v_i, v_j\rangle\)</span> encodes all mutual inner products. It is positive semi-definite, with <span class="math inline">\(\det G \ge 0\)</span>, and zero iff the vectors are linearly dependent. A scalar summary of an arbitrary set of vectors — useful when you don’t have a basis yet.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

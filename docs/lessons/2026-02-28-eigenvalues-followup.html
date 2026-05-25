@@ -203,6 +203,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -516,6 +517,18 @@ Important
 <li><strong>Confidence.</strong> Theorem 42, 43 + proofs: high. Theorem 44 Derivation A: high (the trace argument needs the combinatorial gloss noted above). Derivation B: high but limited to diagonalisable matrices.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Mar 7):</strong> Cramer’s rule re-derived and the cofactor inverse formula proven <em>rigorously</em> — today’s <span class="math inline">\(\det(M - \lambda I)\)</span> relies on cofactor expansion; Mar 7 makes that explicit.</li>
+<li><strong>Forward (Mar 28, Apr 4):</strong> linear recursions reformulated as <span class="math inline">\(a_{n+1} = M \cdot a_n\)</span>, eigenvalues of <span class="math inline">\(M\)</span> control the asymptotic growth. The characteristic polynomial derived today <em>is</em> the recursion’s characteristic equation.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton — every matrix satisfies its characteristic polynomial <span class="math inline">\(p_M(M) = 0\)</span>. Today derives <span class="math inline">\(p_M\)</span>; May 2 substitutes the matrix into itself.</li>
+<li><strong>Open question:</strong> the <strong>trace</strong> and <strong>determinant</strong> are <em>two</em> invariants under similarity. For <span class="math inline">\(n\times n\)</span>, there are <span class="math inline">\(n\)</span> similarity invariants — the coefficients of the characteristic polynomial. Together they recover the eigenvalues (up to permutation). Forward-pointer: invariant theory and Cayley-Hamilton.</li>
+<li><strong>Open question (deeper):</strong> for <em>non-diagonalisable</em> matrices, the characteristic polynomial doesn’t fully determine the matrix up to similarity. We need the <strong>Jordan canonical form</strong> (Apr 4). The <em>minimal polynomial</em> is a finer invariant than the characteristic polynomial.</li>
+<li><strong>Connection back to Jan 3 (Vieta on transcendental):</strong> <span class="math inline">\(\det(M - \lambda I)\)</span> is a polynomial in <span class="math inline">\(\lambda\)</span>; its roots are eigenvalues. <em>Vieta on the eigenvalues</em> gives trace = sum, det = product. Same algebra as Euler’s Basel problem at finite dimension.</li>
+<li><strong>Pedagogical thread:</strong> two-independent-derivations for trace and determinant (combinatorial expansion in Derivation A; similarity-invariance in Derivation B) — different perspectives, same result. The <em>equivalence</em> of the two perspectives is the spectral theorem.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

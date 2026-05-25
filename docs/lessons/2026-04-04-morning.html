@@ -202,6 +202,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -471,6 +472,18 @@ Important
 <li><strong>Confidence.</strong> Theorems 51, 52, 54: high. Theorem 53: high for <span class="math inline">\(2\times 2\)</span>; general case forward-references.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Apr 4 afternoon):</strong> explicitly power <span class="math inline">\((\lambda I + N)^n\)</span> using binomial expansion with nilpotent <span class="math inline">\(N\)</span> — the <span class="math inline">\(k\times k\)</span> Jordan block case.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton — the companion matrix of any polynomial <span class="math inline">\(p\)</span> satisfies <span class="math inline">\(p(C) = 0\)</span> as a matrix identity. Today’s companion matrix is the prototype.</li>
+<li><strong>Open question:</strong> for <em>triple</em> roots and beyond, the Jordan block is <span class="math inline">\(k\times k\)</span> with 1’s on the superdiagonal. The nilpotent <span class="math inline">\(N = J_k - \lambda I\)</span> satisfies <span class="math inline">\(N^k = 0\)</span>, <span class="math inline">\(N^{k-1} \ne 0\)</span> — the <em>index of nilpotency</em> equals the Jordan-block size.</li>
+<li><strong>Open question (deeper):</strong> for general matrices, the <strong>Jordan canonical form</strong> $J = $ direct sum of Jordan blocks is the canonical similarity invariant. Algorithmic computation is delicate (numerical instability near degenerate eigenvalues). Replaced in practice by <strong>Schur decomposition</strong> (<span class="math inline">\(M = U T U^*\)</span> with <span class="math inline">\(T\)</span> upper-triangular, <span class="math inline">\(U\)</span> unitary).</li>
+<li><strong>Open question:</strong> when do two matrices commute? They share a <em>common invariant subspace decomposition</em>. For diagonalisable <span class="math inline">\(M\)</span> and <span class="math inline">\(M'\)</span>: they commute iff they share eigenvectors. For non-diagonalisable: share Jordan-block decomposition with matched generalised eigenvectors. Forward-pointer to representation theory.</li>
+<li><strong>Connection back to Jan 24:</strong> today’s matrix approach recovers the <span class="math inline">\((A + Bn)\lambda^n\)</span> formula from Jan 24 (telescoping) as a <em>matrix-power identity</em>. Same answer, different abstraction level.</li>
+<li><strong>Pedagogical thread:</strong> two-independent-routes (matrix powering vs.&nbsp;generating function) for the double-root recursion — <em>both</em> give <span class="math inline">\((A + Bn)\lambda^n\)</span>. The equivalence is the <em>manifestation</em> of the deeper truth: linear recursions and matrix powers are the same algebraic object.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

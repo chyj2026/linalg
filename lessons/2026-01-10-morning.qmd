@@ -101,6 +101,19 @@ Diagonal entries depend only on inputs from upper-left triangle (within the box)
 
 :::
 
+## Primitive notions and assumptions (retroactive)
+
+We work over $\mathbb R$ with linear recursions of the form $a_{n+2} = c_1 a_{n+1} + c_2 a_n$, characteristic equation $\lambda^2 - c_1 \lambda - c_2 = 0$. **Imported lemmas:** (i) distinct-root case yields general solution $a_n = A\lambda_1^n + B\lambda_2^n$; (ii) double root requires the second basis element $n\lambda^{n-1}$; (iii) generating function algebra (Dec 13).
+
+## Explorative directions
+
+- **Next brick (Jan 24):** complete the double-root recursion, derive the generating-function identity $1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n$ — provides the *generating-function shadow* of today's $n\lambda^{n-1}$ formula.
+- **Forward (Mar 28 onwards):** when the recursion matrix has *repeated eigenvalues*, the diagonalisation argument fails (we cannot diagonalise to $\text{diag}(\lambda, \lambda)$ alone). Instead we need the **Jordan block** $\begin{pmatrix}\lambda & 1\\ 0 & \lambda\end{pmatrix}$, whose $n$-th power involves $n\lambda^{n-1}$ — exactly today's term.
+- **Forward (Apr 4):** explicit powering of Jordan blocks via binomial expansion with nilpotent matrix $N$. The $n\lambda^{n-1}$ today is the $n=1$ term of the Jordan-power binomial.
+- **Open question:** for triple roots ($\lambda_1 = \lambda_2 = \lambda_3$), the recursion solution involves $\binom{n}{2}\lambda^{n-2}$. Pattern: $r$-fold root gives terms $\binom{n}{k}\lambda^{n-k}$ for $k = 0, 1, \dots, r-1$.
+- **Connection back to Dec 13:** the generating-function technique here is the *continuation* of the self-similar-shift idea applied to recursions with memory length 2 instead of 1.
+- **Pedagogical thread:** *guess-and-check* ("try $a_n = n\lambda^{n-1}$ and verify") is mathematically equivalent to the more rigorous *limit* derivation (let $\lambda_2 \to \lambda_1$ in distinct-root formula). The guess captures the scaling; the limit confirms the coefficient.
+
 ## Related sessions
 
 - **Sequels:** [2026-01-24 morning](2026-01-24-morning.html) (generating function for double-root recursions), [2026-04-04 morning](2026-04-04-morning.html) (companion matrix). Use machinery introduced here.

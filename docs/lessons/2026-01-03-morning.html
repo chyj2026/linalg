@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2026-01-03">
 
-<title>Riemann Zeta ζ(2) = π²/6 via Vieta on sin(x)/x; Σ 1/n^(1+ε) Convergence by Telescoping – Linear Algebra Notes</title>
+<title>ζ(1+ε) Convergence by Telescoping; ζ(2) = π²/6 via Vieta on sin(x)/x – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,14 +184,31 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation-of-theorem-72" id="toc-derivation-of-theorem-72" class="nav-link" data-scroll-target="#derivation-of-theorem-72">Derivation of Theorem 72</a></li>
-  <li><a href="#derivation-of-theorem-73-eulers-product-of-roots-vieta-route" id="toc-derivation-of-theorem-73-eulers-product-of-roots-vieta-route" class="nav-link" data-scroll-target="#derivation-of-theorem-73-eulers-product-of-roots-vieta-route">Derivation of Theorem 73 (Euler’s product-of-roots, Vieta route)</a></li>
-  <li><a href="#derivation-b-lucass-3blue1brown-sketch" id="toc-derivation-b-lucass-3blue1brown-sketch" class="nav-link" data-scroll-target="#derivation-b-lucass-3blue1brown-sketch">Derivation B (Lucas’s 3Blue1Brown sketch)</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-convergence-of-zeta1-varepsilon" id="toc-part-i-convergence-of-zeta1-varepsilon" class="nav-link" data-scroll-target="#part-i-convergence-of-zeta1-varepsilon">Part I — Convergence of <span class="math inline">\(\zeta(1 + \varepsilon)\)</span></a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#derivation-a-telescoping-difference-transcript-method" id="toc-derivation-a-telescoping-difference-transcript-method" class="nav-link" data-scroll-target="#derivation-a-telescoping-difference-transcript-method">1.2 Derivation A — Telescoping difference (transcript method)</a></li>
+  <li><a href="#derivation-b-integral-test-rigorous" id="toc-derivation-b-integral-test-rigorous" class="nav-link" data-scroll-target="#derivation-b-integral-test-rigorous">1.3 Derivation B — Integral test (rigorous)</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">1.4 Verification</a></li>
+  <li><a href="#why-zeta1-diverges" id="toc-why-zeta1-diverges" class="nav-link" data-scroll-target="#why-zeta1-diverges">1.5 Why <span class="math inline">\(\zeta(1)\)</span> diverges</a></li>
+  </ul></li>
+  <li><a href="#part-ii-the-basel-problem-zeta2-pi26" id="toc-part-ii-the-basel-problem-zeta2-pi26" class="nav-link" data-scroll-target="#part-ii-the-basel-problem-zeta2-pi26">Part II — The Basel problem: <span class="math inline">\(\zeta(2) = \pi^2/6\)</span></a>
+  <ul class="collapse">
+  <li><a href="#statement-1" id="toc-statement-1" class="nav-link" data-scroll-target="#statement-1">2.1 Statement</a></li>
+  <li><a href="#derivation-a-eulers-product-of-roots-via-vieta" id="toc-derivation-a-eulers-product-of-roots-via-vieta" class="nav-link" data-scroll-target="#derivation-a-eulers-product-of-roots-via-vieta">2.2 Derivation A — Euler’s product-of-roots via Vieta</a></li>
+  <li><a href="#derivation-b-lucass-3blue1brown-geometric-proof-sketch" id="toc-derivation-b-lucass-3blue1brown-geometric-proof-sketch" class="nav-link" data-scroll-target="#derivation-b-lucass-3blue1brown-geometric-proof-sketch">2.3 Derivation B — Lucas’s 3Blue1Brown geometric proof (sketch)</a></li>
+  <li><a href="#verification-1" id="toc-verification-1" class="nav-link" data-scroll-target="#verification-1">2.4 Verification</a></li>
+  </ul></li>
+  <li><a href="#part-iii-why-zeta2k-has-a-closed-form-but-zeta2k1-doesnt" id="toc-part-iii-why-zeta2k-has-a-closed-form-but-zeta2k1-doesnt" class="nav-link" data-scroll-target="#part-iii-why-zeta2k-has-a-closed-form-but-zeta2k1-doesnt">Part III — Why <span class="math inline">\(\zeta(2k)\)</span> has a closed form but <span class="math inline">\(\zeta(2k+1)\)</span> doesn’t</a></li>
+  <li><a href="#part-iv-connection-arrows" id="toc-part-iv-connection-arrows" class="nav-link" data-scroll-target="#part-iv-connection-arrows">Part IV — Connection arrows</a></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
   <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
-  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -202,7 +219,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Riemann Zeta ζ(2) = π²/6 via Vieta on sin(x)/x; Σ 1/n^(1+ε) Convergence by Telescoping</h1>
+<h1 class="title">ζ(1+ε) Convergence by Telescoping; ζ(2) = π²/6 via Vieta on sin(x)/x</h1>
 </div>
 
 
@@ -227,73 +244,338 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Convergence bound for <span class="math inline">\(\sum 1/n^{1+\varepsilon}\)</span> via telescoping (<span class="math inline">\(\sim 1/\varepsilon\)</span> leading); then <strong>Basel problem</strong> <span class="math inline">\(\zeta(2) = \pi^2/6\)</span> via treating <span class="math inline">\(f(u) = \sin(\sqrt{u})/\sqrt{u}\)</span> as an infinite-degree polynomial in <span class="math inline">\(u\)</span>, applying <strong>Vieta</strong> to its reciprocal-sum of roots.</p>
+<p>Two famous infinite-series results: (i) For any <span class="math inline">\(\varepsilon &gt; 0\)</span>, <span class="math inline">\(\sum 1/n^{1+\varepsilon}\)</span> converges — proven by <strong>telescoping</strong> with a binomial-expansion trick that bounds the sum by <span class="math inline">\(1 + 1/\varepsilon\)</span>. (ii) Euler’s solution to the <strong>Basel problem</strong>: <span class="math inline">\(\zeta(2) = \pi^2/6\)</span>, via treating <span class="math inline">\(f(u) = \sin(\sqrt u)/\sqrt u\)</span> as an infinite-degree polynomial in <span class="math inline">\(u\)</span> and applying <strong>Vieta’s formulas</strong> to extract <span class="math inline">\(\sum 1/u_n\)</span> — where the roots are <span class="math inline">\(u_n = n^2\pi^2\)</span> for <span class="math inline">\(n \ge 1\)</span>.</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\zeta(s)\)</span></td>
+<td>Riemann zeta function <span class="math inline">\(\sum_{n=1}^\infty 1/n^s\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\varepsilon\)</span></td>
+<td>small positive number, <span class="math inline">\(\varepsilon &gt; 0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(f(u)\)</span></td>
+<td>Euler’s auxiliary function <span class="math inline">\(\sin(\sqrt u)/\sqrt u\)</span>, viewed as power series in <span class="math inline">\(u\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(u_n\)</span></td>
+<td>roots of <span class="math inline">\(f\)</span>: <span class="math inline">\(u_n = n^2\pi^2\)</span> for <span class="math inline">\(n = 1, 2, \dots\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a_k\)</span></td>
+<td>coefficient of <span class="math inline">\(u^k\)</span> in Taylor series of <span class="math inline">\(f\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Delta_n\)</span></td>
+<td>difference <span class="math inline">\(1/n^{0.1} - 1/(n-1)^{0.1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work over <span class="math inline">\(\mathbb R\)</span>. <strong>Convention:</strong> <span class="math inline">\(\zeta(s) := \sum_{n=1}^\infty 1/n^s\)</span>; for <span class="math inline">\(s &gt; 1\)</span> the series converges. <strong>Imported lemmas:</strong> (i) <strong>Vieta’s formulas</strong> for any-degree polynomial: <span class="math inline">\(\sum 1/r_k = -a_1/a_0\)</span> when the constant term <span class="math inline">\(a_0 \ne 0\)</span>; (ii) <strong>Weierstrass factorisation</strong> of entire functions — for <span class="math inline">\(\sin z\)</span>: <span class="math inline">\(\sin z = z \prod_{n=1}^\infty (1 - z^2/(n\pi)^2)\)</span> (used informally as Euler did; rigorous justification requires complex analysis); (iii) Taylor series for <span class="math inline">\(\sin\)</span>; (iv) <strong>integral test</strong> for series convergence.</p>
+<hr>
+</section>
+<section id="part-i-convergence-of-zeta1-varepsilon" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-convergence-of-zeta1-varepsilon">Part I — Convergence of <span class="math inline">\(\zeta(1 + \varepsilon)\)</span></h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Convergence bound).</strong> For <span class="math inline">\(\varepsilon &gt; 0\)</span>: <span class="math inline">\(\zeta(1+\varepsilon) &lt; 1 + 1/\varepsilon\)</span>. <span class="math inline">\(\tag{72}\)</span></p>
+<p><strong>(Convergence bound for <span class="math inline">\(\zeta(1+\varepsilon)\)</span>).</strong> For <span class="math inline">\(\varepsilon &gt; 0\)</span>: <span class="math display">\[
+\zeta(1 + \varepsilon) = \sum_{n=1}^{\infty} \frac{1}{n^{1+\varepsilon}} &lt; 1 + \frac{1}{\varepsilon}. \tag{1}
+\]</span> In particular, the series converges to a finite number.</p>
 </div>
+</section>
+<section id="derivation-a-telescoping-difference-transcript-method" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-telescoping-difference-transcript-method">1.2 Derivation A — Telescoping difference (transcript method)</h3>
+<p><strong>Step 1.</strong> For <span class="math inline">\(n \ge 2\)</span>, use the binomial expansion of <span class="math inline">\(n^{-\varepsilon}\)</span> near <span class="math inline">\((n-1)^{-\varepsilon}\)</span>. A more direct route: write each term as a telescoping difference. Specifically, for the special case <span class="math inline">\(\varepsilon = 0.1\)</span>: <span class="math display">\[
+\frac{1}{n^{1.1}} = \frac{1}{n} \cdot \frac{1}{n^{0.1}} &lt; \frac{C}{n - 1} \cdot (\text{something telescoping}). \tag{2}
+\]</span></p>
+<p>The transcript’s specific construction: borrowing the trick from <span class="math inline">\(\zeta(2)\)</span> where <span class="math inline">\(1/n^2 &lt; 1/(n(n-1)) = 1/(n-1) - 1/n\)</span>, try the analogue: <span class="math display">\[
+\frac{1}{n^{1+\varepsilon}} &lt; \frac{1}{\varepsilon}\left(\frac{1}{(n-1)^{\varepsilon}} - \frac{1}{n^{\varepsilon}}\right). \tag{3}
+\]</span></p>
+<p><strong>Step 2 — verify (3) by binomial expansion.</strong> <span class="math display">\[
+\frac{1}{(n-1)^\varepsilon} - \frac{1}{n^\varepsilon} = \frac{1}{n^\varepsilon}\left[\left(\frac{n}{n-1}\right)^\varepsilon - 1\right]. \tag{4}
+\]</span> Approximate <span class="math inline">\((n/(n-1))^\varepsilon = (1 + 1/(n-1))^\varepsilon \approx 1 + \varepsilon/(n-1)\)</span> (first-order Taylor for small <span class="math inline">\(1/n\)</span>). Hence <span class="math display">\[
+\frac{1}{(n-1)^\varepsilon} - \frac{1}{n^\varepsilon} \approx \frac{\varepsilon}{n^\varepsilon (n-1)} \approx \frac{\varepsilon}{n^{1+\varepsilon}}. \tag{5}
+\]</span> Multiplied by <span class="math inline">\(1/\varepsilon\)</span>: <span class="math inline">\((1/(n-1)^\varepsilon - 1/n^\varepsilon)/\varepsilon \approx 1/n^{1+\varepsilon}\)</span>, confirming (3) is approximately equality (it’s an inequality due to the higher-order terms in the binomial expansion).</p>
+<p><strong>Step 3 — sum and telescope.</strong> <span class="math display">\[
+\sum_{n=2}^{\infty} \frac{1}{n^{1+\varepsilon}} &lt; \frac{1}{\varepsilon} \sum_{n=2}^{\infty}\left(\frac{1}{(n-1)^\varepsilon} - \frac{1}{n^\varepsilon}\right) = \frac{1}{\varepsilon}\left(\frac{1}{1^\varepsilon} - \lim_{n\to\infty}\frac{1}{n^\varepsilon}\right) = \frac{1}{\varepsilon}. \tag{6}
+\]</span> (Telescoping: all interior terms cancel; limit term is <span class="math inline">\(0\)</span> for <span class="math inline">\(\varepsilon &gt; 0\)</span>.)</p>
+<p>Adding the <span class="math inline">\(n=1\)</span> term: <span class="math display">\[
+\zeta(1+\varepsilon) = 1 + \sum_{n=2}^\infty \frac{1}{n^{1+\varepsilon}} &lt; 1 + \frac{1}{\varepsilon}. \quad\blacksquare \tag{7}
+\]</span></p>
+<p><strong>Weakest step:</strong> the approximation in Step 2 is non-rigorous — the binomial expansion has higher-order corrections. A fully rigorous proof requires either the <em>integral test</em> (Derivation B) or careful bounding of the binomial expansion. The transcript’s approach is the algebraic shadow of the integral.</p>
+</section>
+<section id="derivation-b-integral-test-rigorous" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-integral-test-rigorous">1.3 Derivation B — Integral test (rigorous)</h3>
+<p>For <span class="math inline">\(n \ge 2\)</span> and the decreasing function <span class="math inline">\(g(x) = x^{-(1+\varepsilon)}\)</span>: <span class="math display">\[
+\frac{1}{n^{1+\varepsilon}} = g(n) &lt; \int_{n-1}^{n} g(x)\,dx. \tag{8}
+\]</span> Summing from <span class="math inline">\(n = 2\)</span>: <span class="math display">\[
+\sum_{n=2}^{\infty} \frac{1}{n^{1+\varepsilon}} &lt; \int_1^\infty x^{-(1+\varepsilon)}\,dx = \left[\frac{-x^{-\varepsilon}}{\varepsilon}\right]_1^\infty = \frac{1}{\varepsilon}. \tag{9}
+\]</span> Hence <span class="math inline">\(\zeta(1+\varepsilon) &lt; 1 + 1/\varepsilon\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Comparison.</strong> A is purely algebraic (telescoping), avoiding calculus; B is one-line via the integral test, the standard textbook approach. Both yield the same bound. A is the <em>historical</em> approach; B is the <em>clean modern</em> approach.</p>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">1.4 Verification</h3>
+<ul>
+<li><span class="math inline">\(\varepsilon = 1\)</span>: <span class="math inline">\(\zeta(2) &lt; 1 + 1 = 2\)</span>. Actual: <span class="math inline">\(\pi^2/6 \approx 1.6449\)</span>. ✓</li>
+<li><span class="math inline">\(\varepsilon = 0.1\)</span>: <span class="math inline">\(\zeta(1.1) &lt; 11\)</span>. Actual: <span class="math inline">\(\approx 10.58\)</span>. ✓</li>
+<li><span class="math inline">\(\varepsilon = 0.01\)</span>: <span class="math inline">\(\zeta(1.01) &lt; 101\)</span>. Actual: <span class="math inline">\(\approx 100.58\)</span>. ✓</li>
+<li><span class="math inline">\(\varepsilon \to 0^+\)</span>: bound <span class="math inline">\(1 + 1/\varepsilon \to \infty\)</span>, matching divergence of $(1) = $ harmonic series. ✓</li>
+</ul>
+</section>
+<section id="why-zeta1-diverges" class="level3">
+<h3 class="anchored" data-anchor-id="why-zeta1-diverges">1.5 Why <span class="math inline">\(\zeta(1)\)</span> diverges</h3>
+<p>For <span class="math inline">\(\varepsilon = 0\)</span>: the bound <span class="math inline">\(1 + 1/\varepsilon\)</span> becomes <span class="math inline">\(1 + \infty = \infty\)</span>. The harmonic series <span class="math inline">\(\sum 1/n\)</span> diverges. The harder bound (proven by grouping terms): <span class="math inline">\(\sum 1/n &gt; \log_2 N\)</span> for partial sum up to <span class="math inline">\(2^N\)</span>. The transition <span class="math inline">\(\varepsilon = 0\)</span> is the <em>boundary</em> of convergence — <span class="math inline">\(\zeta(s)\)</span> converges for <span class="math inline">\(s &gt; 1\)</span> and diverges for <span class="math inline">\(s \le 1\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-the-basel-problem-zeta2-pi26" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-the-basel-problem-zeta2-pi26">Part II — The Basel problem: <span class="math inline">\(\zeta(2) = \pi^2/6\)</span></h2>
+<section id="statement-1" class="level3">
+<h3 class="anchored" data-anchor-id="statement-1">2.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Basel).</strong> <span class="math inline">\(\sum_{n=1}^{\infty} 1/n^2 = \pi^2/6\)</span>. <span class="math inline">\(\tag{73}\)</span></p>
+<p><strong>(Basel).</strong> <span class="math display">\[
+\zeta(2) = \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}. \tag{10}
+\]</span></p>
 </div>
 </section>
-<section id="derivation-of-theorem-72" class="level2">
-<h2 class="anchored" data-anchor-id="derivation-of-theorem-72">Derivation of Theorem 72</h2>
-<p>For <span class="math inline">\(n \ge 2\)</span>, <span class="math inline">\(1/n^{1+\varepsilon} &lt; \int_{n-1}^n x^{-(1+\varepsilon)}dx\)</span> (decreasing integrand). Sum: <span class="math inline">\(\zeta(1+\varepsilon) &lt; 1 + \int_1^\infty x^{-(1+\varepsilon)}dx = 1 + 1/\varepsilon\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-a-eulers-product-of-roots-via-vieta" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-eulers-product-of-roots-via-vieta">2.2 Derivation A — Euler’s product-of-roots via Vieta</h3>
+<p><strong>Step 1: Construct an auxiliary polynomial-like function.</strong></p>
+<p>Recall the Taylor series of <span class="math inline">\(\sin x\)</span>: <span class="math display">\[
+\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots. \tag{11}
+\]</span> Substitute <span class="math inline">\(x = \sqrt u\)</span>: <span class="math display">\[
+\sin\sqrt u = \sqrt u - \frac{(\sqrt u)^3}{6} + \frac{(\sqrt u)^5}{120} - \cdots = \sqrt u\left(1 - \frac{u}{6} + \frac{u^2}{120} - \cdots\right). \tag{12}
+\]</span> Divide by <span class="math inline">\(\sqrt u\)</span>: <span class="math display">\[
+f(u) := \frac{\sin\sqrt u}{\sqrt u} = 1 - \frac{u}{6} + \frac{u^2}{120} - \frac{u^3}{5040} + \cdots = \sum_{k=0}^\infty \frac{(-1)^k u^k}{(2k+1)!}. \tag{13}
+\]</span></p>
+<p><strong>Step 2: Identify the roots of <span class="math inline">\(f\)</span>.</strong></p>
+<p><span class="math inline">\(f(u) = 0 \Leftrightarrow \sin\sqrt u = 0 \Leftrightarrow \sqrt u = n\pi\)</span> for <span class="math inline">\(n \in \mathbb Z\)</span>, <span class="math inline">\(n \ne 0\)</span>. So <span class="math display">\[
+u_n = n^2 \pi^2, \quad n = 1, 2, 3, \dots \tag{14}
+\]</span> (The would-be root at <span class="math inline">\(n = 0\)</span> is <em>removed</em> by the <span class="math inline">\(/\sqrt u\)</span> division: <span class="math inline">\(f(0) = 1\)</span>, not 0.)</p>
+<p><strong>Step 3: Apply Vieta’s reciprocal-sum formula.</strong></p>
+<p>For a polynomial <span class="math inline">\(a_0 + a_1 u + a_2 u^2 + \cdots\)</span> with roots <span class="math inline">\(r_1, r_2, \dots\)</span> (and <span class="math inline">\(a_0 \ne 0\)</span>): <span class="math display">\[
+\sum_n \frac{1}{r_n} = -\frac{a_1}{a_0}. \tag{15}
+\]</span> <em>Proof.</em> Write the polynomial as <span class="math inline">\(a_0 \prod_n (1 - u/r_n)\)</span>. The coefficient of <span class="math inline">\(u^1\)</span> in the expansion is <span class="math inline">\(a_0 \cdot (-\sum 1/r_n)\)</span>. So <span class="math inline">\(a_1 = -a_0 \sum 1/r_n\)</span>, i.e.&nbsp;<span class="math inline">\(\sum 1/r_n = -a_1/a_0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p>For our <span class="math inline">\(f(u)\)</span>: <span class="math inline">\(a_0 = 1\)</span>, <span class="math inline">\(a_1 = -1/6\)</span>. Hence <span class="math display">\[
+\sum_{n=1}^{\infty} \frac{1}{u_n} = -\frac{-1/6}{1} = \frac{1}{6}. \tag{16}
+\]</span></p>
+<p><strong>Step 4: Substitute <span class="math inline">\(u_n = n^2\pi^2\)</span> and isolate <span class="math inline">\(\zeta(2)\)</span>.</strong></p>
+<p><span class="math display">\[
+\sum_{n=1}^\infty \frac{1}{n^2 \pi^2} = \frac{1}{6} \;\Longleftrightarrow\; \frac{1}{\pi^2}\sum_{n=1}^\infty \frac{1}{n^2} = \frac{1}{6} \;\Longleftrightarrow\; \zeta(2) = \frac{\pi^2}{6}. \quad\blacksquare \tag{17}
+\]</span></p>
+<p><strong>Weakest step:</strong> treating <span class="math inline">\(f(u)\)</span> as a polynomial (Step 3 applying Vieta to infinitely many factors). Rigorous justification requires the <strong>Weierstrass factorisation theorem</strong> for entire functions: <span class="math inline">\(\sin z = z \prod_{n=1}^\infty (1 - z^2/(n\pi)^2)\)</span>. Euler did this informally in 1735; full rigour came in the 19th century. The result is correct, but the bootstrap from polynomial Vieta to infinite-product Vieta is a deep step.</p>
 </section>
-<section id="derivation-of-theorem-73-eulers-product-of-roots-vieta-route" class="level2">
-<h2 class="anchored" data-anchor-id="derivation-of-theorem-73-eulers-product-of-roots-vieta-route">Derivation of Theorem 73 (Euler’s product-of-roots, Vieta route)</h2>
-<p><strong>Step 1.</strong> <span class="math inline">\(f(u) = \sin(\sqrt{u})/\sqrt{u} = 1 - u/6 + u^2/120 - u^3/5040 + \cdots = 1 - u/3! + u^2/5! - \cdots\)</span> via substituting <span class="math inline">\(x = \sqrt{u}\)</span> into <span class="math inline">\(\sin\)</span>’s Taylor series and dividing by <span class="math inline">\(\sqrt{u}\)</span>.</p>
-<p><strong>Step 2.</strong> Roots of <span class="math inline">\(f\)</span>: <span class="math inline">\(\sin(\sqrt{u}) = 0\)</span> ⇒ <span class="math inline">\(\sqrt{u} = n\pi\)</span> for <span class="math inline">\(n = 1, 2, \dots\)</span>, so <span class="math inline">\(u_n = n^2\pi^2\)</span> (the <span class="math inline">\(n=0\)</span> root is removed by the <span class="math inline">\(/\sqrt{u}\)</span> division which makes <span class="math inline">\(f(0) = 1\)</span>).</p>
-<p><strong>Step 3.</strong> Vieta on <span class="math inline">\(a_0 + a_1 u + a_2 u^2 + \cdots\)</span>: <span class="math inline">\(\sum 1/r_k = -a_1/a_0\)</span>. Here <span class="math inline">\(a_0 = 1, a_1 = -1/6\)</span>, so <span class="math inline">\(\sum 1/u_n = 1/6\)</span>.</p>
-<p><strong>Step 4.</strong> Substituting <span class="math inline">\(u_n = n^2\pi^2\)</span>: <span class="math inline">\(\sum 1/(n^2\pi^2) = 1/6\)</span>, giving <span class="math inline">\(\zeta(2) = \pi^2/6\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-b-lucass-3blue1brown-geometric-proof-sketch" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-lucass-3blue1brown-geometric-proof-sketch">2.3 Derivation B — Lucas’s 3Blue1Brown geometric proof (sketch)</h3>
+<p>Construct a sequence of circles of geometrically increasing radius, each circumscribing the previous. Place an observer at the bottom and “lighthouses” along the circumferences. Use the <strong>inverse-square law</strong> for light intensity, combined with the geometric fact that the harmonic mean of two distances along a perpendicular equals the geometric mean of altitude segments (Pythagorean-related identity).</p>
+<p>The construction yields: <span class="math display">\[
+\sum_{n=0}^{\infty}\frac{1}{(2n+1)^2} = \frac{\pi^2}{8}, \tag{18}
+\]</span> from which <span class="math inline">\(\zeta(2) = (4/3)\cdot\pi^2/8 = \pi^2/6\)</span> follows (since odd terms are <span class="math inline">\(3/4\)</span> of all terms).</p>
+<p><strong>Comparison.</strong> A (Euler/Vieta) is one-line slick but imports Weierstrass factorisation. B (geometric) is <em>visually rigorous</em> — but stops at <span class="math inline">\(\zeta(2)\)</span> and doesn’t generalise. A extends to <span class="math inline">\(\zeta(4), \zeta(6), \dots\)</span> via more Vieta sums; B doesn’t.</p>
+<p><strong>Weakest step in B:</strong> the inverse-square law for the lighthouse intensity is the key non-elementary import. The geometric harmonic-mean step is elementary (Pythagorean).</p>
 </section>
-<section id="derivation-b-lucass-3blue1brown-sketch" class="level2">
-<h2 class="anchored" data-anchor-id="derivation-b-lucass-3blue1brown-sketch">Derivation B (Lucas’s 3Blue1Brown sketch)</h2>
-<p>Geometric proof via inverse-square light intensity from lighthouses on a circle; subdivision argument. Beautiful but stops at <span class="math inline">\(\zeta(2)\)</span>; Vieta generalises to <span class="math inline">\(\zeta(2k)\)</span> for all <span class="math inline">\(k\)</span>.</p>
+<section id="verification-1" class="level3">
+<h3 class="anchored" data-anchor-id="verification-1">2.4 Verification</h3>
+<ul>
+<li>Coefficient of <span class="math inline">\(u\)</span> in <span class="math inline">\(f(u)\)</span>: <span class="math inline">\(-1/6\)</span>. ✓</li>
+<li>Numerical <span class="math inline">\(\sum_{n=1}^{10} 1/n^2 \approx 1.5498\)</span>; <span class="math inline">\(\pi^2/6 \approx 1.6449\)</span>. Convergence ✓ (slow — characteristic of <span class="math inline">\(1/n^2\)</span>).</li>
+<li><span class="math inline">\(\sum_{n=1}^{100} 1/n^2 \approx 1.6350\)</span>. Closer to <span class="math inline">\(\pi^2/6\)</span>. ✓</li>
+<li>Extension to <span class="math inline">\(\zeta(4)\)</span> via Vieta on <span class="math inline">\(a_2/a_0\)</span>: <span class="math inline">\(a_2/a_0 = (1/120)/1 = 1/120\)</span>. Newton’s identity <span class="math inline">\(\sum 1/r_n^2 = (\sum 1/r_n)^2 - 2\sum_{i&lt;j}1/(r_i r_j)\)</span>. Here <span class="math inline">\(\sum_{i&lt;j}1/(r_i r_j) = a_2/a_0 = 1/120\)</span>. So <span class="math inline">\(\sum 1/u_n^2 = (1/6)^2 - 2(1/120) = 1/36 - 1/60 = (5 - 3)/180 = 1/90\)</span>. Hence <span class="math inline">\(\sum 1/(n^4\pi^4) = 1/90\)</span>, giving <span class="math inline">\(\zeta(4) = \pi^4/90\)</span>. ✓</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-iii-why-zeta2k-has-a-closed-form-but-zeta2k1-doesnt" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-why-zeta2k-has-a-closed-form-but-zeta2k1-doesnt">Part III — Why <span class="math inline">\(\zeta(2k)\)</span> has a closed form but <span class="math inline">\(\zeta(2k+1)\)</span> doesn’t</h2>
+<p>The Vieta technique extends to <span class="math inline">\(\zeta(2k)\)</span> via higher symmetric sums of <span class="math inline">\(1/u_n\)</span> (Newton’s identities express <span class="math inline">\(\sum 1/u_n^k\)</span> in terms of the coefficients <span class="math inline">\(a_0, a_1, \dots, a_k\)</span>). The general formula (Euler): <span class="math display">\[
+\zeta(2k) = \frac{(-1)^{k+1} (2\pi)^{2k} B_{2k}}{2 (2k)!}, \tag{19}
+\]</span> where <span class="math inline">\(B_{2k}\)</span> are <strong>Bernoulli numbers</strong>.</p>
+<p>For <em>odd</em> zeta: <span class="math inline">\(\zeta(3), \zeta(5), \dots\)</span> — no closed form is known. Apéry proved <span class="math inline">\(\zeta(3)\)</span> irrational in 1978; no analogous result for <span class="math inline">\(\zeta(5)\)</span>. The asymmetry between even and odd zeta is one of the great open mysteries of analytic number theory.</p>
+<hr>
+</section>
+<section id="part-iv-connection-arrows" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-connection-arrows">Part IV — Connection arrows</h2>
+<p>This <em>also explains</em> the Vieta-on-cubic technique from Nov 8: treating <span class="math inline">\(\alpha^3, \beta^3\)</span> as roots of a quadratic in <span class="math inline">\(t\)</span>. Same “extract symmetric sums from coefficients” trick, applied at increasing levels of structure.</p>
+<p>This <em>also justifies</em> the asymptotic-analysis principle from Nov 29: when <span class="math inline">\(\varepsilon \to 0^+\)</span>, the bound <span class="math inline">\(1/\varepsilon\)</span> is the <em>exact leading behaviour</em> of <span class="math inline">\(\zeta(1+\varepsilon)\)</span> — the proof here gives the upper bound; lower bounds match. The series <em>diverges logarithmically</em> in <span class="math inline">\(1/\varepsilon\)</span>.</p>
+<p>This <em>previews</em> Jan 10/24 (generating functions): the technique “construct an auxiliary function whose Taylor coefficients encode the desired sum” reappears as generating functions for linear recursions.</p>
+<hr>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{\sum_n \frac{1}{u_n} = -\frac{a_1}{a_0} \quad\text{(Vieta)}}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Power <span class="math inline">\(s\)</span></th>
+<th><span class="math inline">\(\zeta(s)\)</span></th>
+<th>Method</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(1 + \varepsilon\)</span>, <span class="math inline">\(\varepsilon \to 0^+\)</span></td>
+<td><span class="math inline">\(\sim 1/\varepsilon\)</span></td>
+<td>telescoping / integral test</td>
+<td>bound established</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(+\infty\)</span></td>
+<td>harmonic series diverges</td>
+<td>divergent</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(\pi^2/6\)</span></td>
+<td>Vieta on <span class="math inline">\(\sin\sqrt u/\sqrt u\)</span></td>
+<td>closed form (Euler)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(3\)</span></td>
+<td><span class="math inline">\(\approx 1.2021\)</span></td>
+<td>no closed form known</td>
+<td>irrational (Apéry 1978)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(4\)</span></td>
+<td><span class="math inline">\(\pi^4/90\)</span></td>
+<td>Newton’s identities on Vieta</td>
+<td>closed form</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(2k\)</span></td>
+<td><span class="math inline">\((-1)^{k+1}(2\pi)^{2k}B_{2k}/(2(2k)!)\)</span></td>
+<td>iterated Vieta + Bernoulli</td>
+<td>closed form</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2k+1\)</span></td>
+<td>(no closed form)</td>
+<td>open</td>
+<td>open since Euler</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
-<div class="audit">
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\Delta_n, B_{2k}\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(19), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Decreasing function <span class="math inline">\(x^{-(1+\varepsilon)}\)</span> → left-Riemann-sum gives upper bound; sign in Vieta formula <span class="math inline">\(-a_1/a_0\)</span> from binomial coefficient sign. ✓</li>
+<li><strong>Every implication follows?</strong> Each Vieta step explicit (15) → derivation of <span class="math inline">\(\sum 1/r_n\)</span> from <span class="math inline">\(a_0 \prod(1 - u/r_n)\)</span>; integral test (8) → (9) computed. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Vieta’s reciprocal-sum formula derived in (15); integral test imported; Weierstrass factorisation flagged as imported (Step 3 of §2.2). ✓</li>
+<li><strong>Counterexample / source correction.</strong> The transcript’s “<span class="math inline">\(\varepsilon = 0.1\)</span>” specific example computed with bound <span class="math inline">\(11\)</span> verified at <span class="math inline">\(\zeta(1.1) \approx 10.58\)</span>. No errors in transcript noted; clarification added that the bound is an inequality, not equality. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(\varepsilon \in \{1, 0.1, 0.01\}\)</span> for convergence bound; <span class="math inline">\(n \in \{10, 100\}\)</span> for <span class="math inline">\(\zeta(2)\)</span> partial sum; <span class="math inline">\(\zeta(4)\)</span> extension via Newton’s identity. ✓</li>
+<li><strong>Weakest step named?</strong> Done after Derivation A of Theorem 1 (binomial approximation) and Derivation A of Basel (Weierstrass factorisation). ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Binomial approximation in Step 2 of §1.2</td>
+<td>Higher-order terms in expansion ignored</td>
+<td>Derivation B (integral test) is rigorous and gives the same bound</td>
+</tr>
+<tr class="even">
+<td>Treating <span class="math inline">\(f(u)\)</span> as polynomial in §2.2</td>
+<td>Infinite product needs Weierstrass</td>
+<td>Imported; rigorous in complex analysis since 1885</td>
+</tr>
+<tr class="odd">
+<td>Vieta on infinite-degree “polynomial”</td>
+<td>Convergence of infinite sums of reciprocal roots</td>
+<td>Standard for entire functions of finite order with appropriate growth</td>
+</tr>
+<tr class="even">
+<td>3Blue1Brown geometric proof</td>
+<td>Inverse-square law imported</td>
+<td>Physically intuitive; mathematically equivalent to direct calculation</td>
+</tr>
+<tr class="odd">
+<td>Newton’s identities for higher zeta</td>
+<td>Need all symmetric functions of <span class="math inline">\(1/u_n\)</span></td>
+<td>Standard but computationally intensive</td>
+</tr>
+<tr class="even">
+<td>Bernoulli number formula (19)</td>
+<td>Requires recursive definition of <span class="math inline">\(B_{2k}\)</span></td>
+<td>Stated as cited result; not derived here</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><strong>Bound at <span class="math inline">\(\varepsilon=1\)</span>.</strong> <span class="math inline">\(\zeta(2) &lt; 2\)</span>. Actual <span class="math inline">\(\pi^2/6 \approx 1.6449\)</span>. ✓</li>
-<li><strong>Vieta check.</strong> Coefficient of <span class="math inline">\(u\)</span>: <span class="math inline">\(-1/6\)</span>, so <span class="math inline">\(-a_1/a_0 = 1/6\)</span>. ✓</li>
-<li><strong>Numerical sanity.</strong> Partial sum of <span class="math inline">\(1/n^2\)</span> up to <span class="math inline">\(n=10\)</span>: <span class="math inline">\(\approx 1.5498\)</span>. Converges to <span class="math inline">\(1.6449\)</span>. ✓</li>
-<li><strong>Higher zeta.</strong> Newton’s identities on <span class="math inline">\(\sigma_{-k}\)</span> give <span class="math inline">\(\zeta(4) = \pi^4/90\)</span>. ✓</li>
-<li><strong>Dependency.</strong> Telescoping (standard analysis); Taylor + Vieta + Weierstrass factorization (modern rigour). No circularity.</li>
+<li><strong>Next brick (Jan 10):</strong> generating functions for linear recursions — <span class="math inline">\(1/(1 - x - x^2)\)</span> encodes Fibonacci. The “extract coefficients from closed-form generating function” technique mirrors today’s “extract <span class="math inline">\(\sum 1/r_n\)</span> from coefficients of <span class="math inline">\(f\)</span>.”</li>
+<li><strong>Forward (Jan 24):</strong> double-root recursions and generating-function identities like <span class="math inline">\(1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n\)</span>. The structural analog of today’s Vieta game.</li>
+<li><strong>Forward (Feb 21):</strong> characteristic polynomial of a matrix, with <span class="math inline">\(\det(\lambda I - M) = \prod(\lambda - \lambda_i)\)</span> — eigenvalues are roots; Vieta on this gives trace and determinant in terms of eigenvalues. <em>Same Vieta game at higher level.</em></li>
+<li><strong>Open question:</strong> is <span class="math inline">\(\zeta(5)\)</span> irrational? Apéry-style proofs for higher odd zeta are an active research area. <strong>Zudilin (2001)</strong> proved at least one of <span class="math inline">\(\zeta(5), \zeta(7), \zeta(9), \zeta(11)\)</span> is irrational — but doesn’t say which.</li>
+<li><strong>Forward pointer to analytic continuation:</strong> <span class="math inline">\(\zeta(s)\)</span> is defined by the series only for <span class="math inline">\(\text{Re}(s) &gt; 1\)</span>. Riemann (1859) showed it extends to all <span class="math inline">\(s \in \mathbb C \setminus \{1\}\)</span>. The famous <strong>Riemann Hypothesis</strong> (<span class="math inline">\(\zeta(s) = 0\)</span> only at negative even integers or on the line <span class="math inline">\(\text{Re}(s) = 1/2\)</span>) remains open. <strong>$1 million Clay Prize.</strong></li>
+<li><strong>Pedagogical thread:</strong> the teacher emphasises “everything is connected to everything.” Today’s connection: <em>Vieta’s polynomial trick</em> applies to <em>infinite-product representations of transcendental functions</em>. The same algebraic technique scales from degree 2 (Cardano’s resolvent) to degree <span class="math inline">\(\infty\)</span> (Euler’s Basel).</li>
 </ul>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.2/2026-01-03-morning.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  hosted on <a href="https://github.com/chyj2026/linalg/releases/tag/v1.2" target="_blank">GitHub Release v1.2</a>
-  · <a href="https://drive.google.com/file/d/17Aul5MZl4VYAlmOQbrw_moNnr-aFtguE/view" target="_blank">Drive</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.2/2026-01-03-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.2">v1.2</a> · <a href="https://drive.google.com/file/d/17Aul5MZl4VYAlmOQbrw_moNnr-aFtguE/view">Drive</a></p>
 </section>
 <section id="key-frames" class="level2">
 <h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
 <p><img src="../figures/2026-01-03-morning/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Telescoping bound for \zeta(1+\varepsilon)."> <img src="../figures/2026-01-03-morning/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — f(u) = \sin(\sqrt u)/\sqrt u Taylor series."> <img src="../figures/2026-01-03-morning/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Vieta on \sum 1/u_n = 1/6."> <img src="../figures/2026-01-03-morning/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — \zeta(2) = \pi^2/6 recovered."></p>
 </section>
-<section id="fragility-summary" class="level2">
-<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
-<div class="fragility">
-<ul>
-<li><strong>Weakest step.</strong> “Treating <span class="math inline">\(\sin(\sqrt u)/\sqrt u\)</span> as polynomial” needs Weierstrass factorization to be rigorous. Euler did it informally; modern justification: <span class="math inline">\(\sin(z) = z\prod(1 - z^2/(n\pi)^2)\)</span>.</li>
-<li><strong>Closed form for odd zeta.</strong> Same technique doesn’t produce <span class="math inline">\(\zeta(3)\)</span>; no known closed form for odd-argument zeta.</li>
-<li><strong>Confidence.</strong> Theorem 72 high. Theorem 73 high with Weierstrass.</li>
-</ul>
-</div>
-</section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
 <ul>
-<li><strong>Precursor:</strong> <a href="2026-01-10-morning.html">2026-01-10 morning</a> (generating functions).</li>
-<li><strong>Sequel:</strong> <span class="math inline">\(\zeta(4) = \pi^4/90\)</span> via same technique (homework).</li>
+<li><strong>Precursor:</strong> <a href="2025-12-13.html">Dec 13</a> — tangent-circle chain, infinite series via self-similarity; also <span class="math inline">\(\sum 1/n^2\)</span> comparison setup.</li>
+<li><strong>Forward:</strong> <a href="2026-01-10-morning.html">Jan 10 morning</a> — generating functions for linear recursions.</li>
+<li><strong>Forward:</strong> <a href="2026-02-21-morning.html">Feb 21 morning</a> — characteristic polynomial <span class="math inline">\(\det(\lambda I - M)\)</span>: Vieta on eigenvalues.</li>
 </ul>
 </section>
 <section id="full-transcript" class="level2">

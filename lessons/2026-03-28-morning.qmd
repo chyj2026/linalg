@@ -184,6 +184,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Apr 4):** linear recursions $\to$ companion matrix $\to$ Jordan canonical form. The Gram matrix and orthonormalisation here set up the *foundational* tooling.
+- **Forward (May 2):** Cayley-Hamilton — projection matrices (idempotent, $P^2 = P$) and reflections (involutive, $R^2 = I$) satisfy simple polynomial identities.
+- **Open question:** the **Gram-Schmidt process** orthonormalises an arbitrary basis. Numerically unstable; replaced by **QR decomposition** via Householder reflections in practice. Forward-pointer to numerical linear algebra.
+- **Open question:** **singular value decomposition** $M = U\Sigma V^T$ generalises eigendecomposition to non-square / non-symmetric matrices. Foundation of principal-component analysis, image compression, recommendation systems.
+- **Open question (deeper):** the **rank-nullity theorem** $\dim(\text{kernel}) + \dim(\text{image}) = n$ relates the singular dichotomy to dimensions. Today's Gauss-Jordan exposes the rank operationally.
+- **Connection back to Oct 11:** the cofactor inverse formula and Gauss-Jordan inverse method are *two routes to the same matrix*. Today shows the second; their equivalence is a theorem.
+- **Pedagogical thread:** the *Gram matrix* $G_{ij} = \langle v_i, v_j\rangle$ encodes all mutual inner products. It is positive semi-definite, with $\det G \ge 0$, and zero iff the vectors are linearly dependent. A scalar summary of an arbitrary set of vectors — useful when you don't have a basis yet.
+
 ## Related sessions
 
 - **Precursors:** [2026-02-21 morning](2026-02-21-morning.html) + [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework. [2025-10-11 afternoon](2025-10-11-afternoon.html) — Cramer-classification (Theorem 24) is the load-bearing import.

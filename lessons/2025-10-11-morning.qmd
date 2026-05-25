@@ -255,6 +255,15 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Oct 11 PM):** Cramer's rule completed (singular dichotomy, existence/uniqueness classification by $\det M$); cofactor inverse formula proven in full.
+- **Forward (Feb 21, Feb 28):** the determinant reappears as the **characteristic polynomial** $\det(\lambda I - M)$, where eigenvalues are roots. Vieta on these roots gives trace and determinant — the same Vandermonde-to-symmetric-functions move generalised.
+- **Forward (Mar 7):** rigorous proof of $M^{-1} = (\text{cofactor matrix})^T / \det M$; today's three-points-through-parabola motivates the general formula.
+- **Open question:** the Vandermonde determinant is **always nonzero** when $x_i$ distinct ⇒ unique parabolic interpolation always exists for distinct $x$. The polynomial form generalises: $n+1$ distinct $x$-values uniquely determine a degree-$n$ polynomial (Lagrange interpolation). Forward-pointer to numerical analysis.
+- **Pedagogical thread:** the teacher's "I taught snaking three times" motif — *internalisation* requires reflexive deployment, not just one-time understanding. The three-point parabola problem is itself a *test* of whether students remember the Vandermonde determinant from prior sessions.
+- **Connection back to Sep 13 (roots of unity):** the Vandermonde determinant with $x_i = \omega^i$ ($n$-th roots of unity) is the **discrete Fourier transform** matrix's determinant — connecting today's polynomial-fitting setup to the harmonic-analysis arc.
+
 ## Related sessions
 
 - **Continuation:** [2025-10-11 afternoon](2025-10-11-afternoon.html) completes Theorem 16's off-diagonal proof, derives Cramer's rule (15) explicitly, and adds the **classification** of singular systems by determinants.

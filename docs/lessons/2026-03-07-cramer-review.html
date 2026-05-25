@@ -202,6 +202,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -497,6 +498,18 @@ Important
 <li><strong>Confidence.</strong> Theorem 8, 9 statements + proofs: high. Theorem 10 statement: high. Theorem 10 <em>proof completeness</em>: medium-low (sub-case II.b is a known gotcha in textbook treatments of Cramer’s rule).</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Mar 28):</strong> geometric perspective on the singular dichotomy — rows of <span class="math inline">\(M\)</span> are normal vectors of hyperplanes; <span class="math inline">\(\det M = 0\)</span> iff hyperplanes have parallel direction (no transverse intersection).</li>
+<li><strong>Forward (Mar 28, Apr 4):</strong> Gauss-Jordan elimination gives a <em>constructive</em> test for the dichotomy: row-reduce to RREF; consistency is then visually inspectable.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton — provides yet another proof of <span class="math inline">\(M^{-1}\)</span> existence when <span class="math inline">\(\det M \ne 0\)</span>, via the characteristic polynomial having nonzero constant term.</li>
+<li><strong>Open question:</strong> for non-square matrices, “Cramer’s rule” generalises to the <strong>Moore-Penrose pseudoinverse</strong>: <span class="math inline">\(M^+ = (M^T M)^{-1} M^T\)</span> for full-column-rank <span class="math inline">\(M\)</span>. Solves least-squares problems. Forward-pointer to numerical linear algebra.</li>
+<li><strong>Open question (deeper):</strong> the singular case II.b (“infinite solutions”) splits further: the <em>solution space dimension</em> is <span class="math inline">\(n - \text{rank}(M)\)</span>. Forward-pointer to rank-nullity theorem (Mar 28).</li>
+<li><strong>Connection back to Oct 11:</strong> today’s rigorous re-derivation closes the loop on the Cramer’s rule introduction. The Vandermonde-determinant example from Oct 11 is now a special case fully justified.</li>
+<li><strong>Pedagogical thread:</strong> <em>Rouché–Capelli theorem</em> (consistency check via augmented-matrix rank) fills the gap noted in the Fragility summary — distinguishing “no solution” from “infinite solutions” when <span class="math inline">\(\det M = 0\)</span>. Cramer’s rule alone is insufficient; need rank comparison. <strong>The cleanly-stated form of today’s theorem is incomplete without this rank-comparison test.</strong></li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

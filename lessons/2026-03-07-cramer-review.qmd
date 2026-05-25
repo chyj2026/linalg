@@ -229,6 +229,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Mar 28):** geometric perspective on the singular dichotomy — rows of $M$ are normal vectors of hyperplanes; $\det M = 0$ iff hyperplanes have parallel direction (no transverse intersection).
+- **Forward (Mar 28, Apr 4):** Gauss-Jordan elimination gives a *constructive* test for the dichotomy: row-reduce to RREF; consistency is then visually inspectable.
+- **Forward (May 2):** Cayley-Hamilton — provides yet another proof of $M^{-1}$ existence when $\det M \ne 0$, via the characteristic polynomial having nonzero constant term.
+- **Open question:** for non-square matrices, "Cramer's rule" generalises to the **Moore-Penrose pseudoinverse**: $M^+ = (M^T M)^{-1} M^T$ for full-column-rank $M$. Solves least-squares problems. Forward-pointer to numerical linear algebra.
+- **Open question (deeper):** the singular case II.b ("infinite solutions") splits further: the *solution space dimension* is $n - \text{rank}(M)$. Forward-pointer to rank-nullity theorem (Mar 28).
+- **Connection back to Oct 11:** today's rigorous re-derivation closes the loop on the Cramer's rule introduction. The Vandermonde-determinant example from Oct 11 is now a special case fully justified.
+- **Pedagogical thread:** *Rouché–Capelli theorem* (consistency check via augmented-matrix rank) fills the gap noted in the Fragility summary — distinguishing "no solution" from "infinite solutions" when $\det M = 0$. Cramer's rule alone is insufficient; need rank comparison. **The cleanly-stated form of today's theorem is incomplete without this rank-comparison test.**
+
 ## Related sessions
 
 - **Companion lesson same day:** [Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces](2026-03-07-LVS.html) — that session *imports* the cofactor inverse formula; this session proves it.

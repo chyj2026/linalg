@@ -202,6 +202,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -535,6 +536,18 @@ Important
 <li><strong>Confidence.</strong> Theorem <em>statements</em>: high. <em>Proofs as presented</em>: medium-high — load-bearing identities are imported rather than derived. The lesson would survive recasting in a fully self-contained development, with cost equal to the imported lemmas above.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Mar 28):</strong> Gram matrix and Gauss-Jordan algorithm for <span class="math inline">\(M^{-1}\)</span> — computational alternative to the cofactor formula derived here. Same result, <span class="math inline">\(O(n^3)\)</span> vs.&nbsp;<span class="math inline">\(O(n!)\)</span> complexity.</li>
+<li><strong>Forward (Apr 4):</strong> <em>non-diagonalisable</em> matrices (Jordan blocks) where the cofactor formula still works but eigenvalue analysis requires more care.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton — every <span class="math inline">\(M\)</span> satisfies <span class="math inline">\(p_M(M) = 0\)</span>. Today’s two-sided inverse <span class="math inline">\(M^{-1} = (\det M)^{-1} \cdot (\text{cofactor})^T\)</span> is a special case where <span class="math inline">\(p_M\)</span> has nonzero constant term (<span class="math inline">\(= \det M\)</span>).</li>
+<li><strong>Open question:</strong> <em>Linear vector space</em> abstracts what we’ve been doing concretely. Any set with <strong>addition</strong> and <strong>scalar multiplication</strong> satisfying 8 axioms qualifies. Examples: <span class="math inline">\(\mathbb R^n\)</span>, polynomial space, function space, matrix space. Future: linear maps between abstract spaces, basis-independent definitions of determinant and trace.</li>
+<li><strong>Open question (deeper):</strong> for <em>infinite-dimensional</em> vector spaces (function spaces in physics: <span class="math inline">\(L^2\)</span>), the cofactor formula breaks down — there is no “<span class="math inline">\(n\)</span>-th cofactor” when <span class="math inline">\(n = \infty\)</span>. Replaced by <em>spectral theory</em> and <em>Fredholm theory</em> — forward-pointer to functional analysis.</li>
+<li><strong>Connection back to Oct 11:</strong> today’s cofactor inverse formula proves a result we <em>used</em> in Oct 11 (e.g., uniqueness of parabolic interpolation). Cyclic structure: tools introduced months ago, now rigorously justified.</li>
+<li><strong>Pedagogical thread:</strong> the <em>abstract</em> linear-vector-space definition (set with addition + scalar multiplication satisfying axioms) is “what survives the concretes” — once you’ve worked <span class="math inline">\(\mathbb R^n\)</span>, <span class="math inline">\(\mathbb R^{m\times n}\)</span>, <span class="math inline">\(\mathbb R[x]\)</span> separately, the unifying axioms become <em>obvious</em>. Don’t introduce abstraction prematurely; let it crystallise.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

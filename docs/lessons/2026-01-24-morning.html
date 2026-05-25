@@ -201,6 +201,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -536,6 +537,17 @@ Important
 <li><strong>Confidence.</strong> Theorem 27, 28 statements + both derivations: high. Pascal’s-triangle generalisation: high (verified by Lucas’s <span class="math inline">\(r=3\)</span> case; full inductive proof is straightforward).</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Feb 21):</strong> the <em>matrix</em> perspective on linear recursions — companion matrix has the same characteristic polynomial as the recursion, and Jordan-block structure for repeated eigenvalues. The generating-function identity here is the formal shadow of the Jordan-block power formula.</li>
+<li><strong>Forward (Mar 28, Apr 4):</strong> when the companion matrix has a repeated eigenvalue <span class="math inline">\(\lambda\)</span>, it is <em>not</em> diagonalisable — it has a <span class="math inline">\(2\times 2\)</span> Jordan block. Powering the Jordan block via binomial <span class="math inline">\((\lambda I + N)^n\)</span> gives the <span class="math inline">\(n\lambda^{n-1}\)</span> coefficient seen in (27)/(28) here.</li>
+<li><strong>Forward (May 2):</strong> Cayley-Hamilton theorem — every matrix satisfies its own characteristic polynomial. Today’s generating-function identity is the <em>scalar shadow</em> of the matrix-polynomial identity from Cayley-Hamilton.</li>
+<li><strong>Open question:</strong> the identity <span class="math inline">\(1/(1-\lambda x)^2 = \sum(n+1)\lambda^n x^n\)</span> generalises to <span class="math inline">\(1/(1-\lambda x)^k = \sum \binom{n+k-1}{k-1}\lambda^n x^n\)</span>. This is the <strong>negative-power binomial expansion</strong>, derived rigorously from the generating function for compositions of integers into <span class="math inline">\(k\)</span> parts.</li>
+<li><strong>Connection back to Jan 3 (Basel ζ(2)):</strong> Euler’s technique of “extract coefficients from infinite-product representation” is the symbolic mirror of today’s “extract terms from <span class="math inline">\(1/(1-\lambda x)^2\)</span>.” Same trick (Vieta on power series), different setting.</li>
+<li><strong>Pedagogical thread:</strong> two-independent-derivations (telescoping in A, generating function in B) for Theorem 27 — telescoping is the <em>combinatorial</em> path; generating functions are the <em>algebraic</em> path. Both yield the same formula, but generating functions generalise cleanly to higher-order recursions where telescoping becomes unwieldy.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

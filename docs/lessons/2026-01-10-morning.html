@@ -194,6 +194,8 @@ window.Quarto = {
   <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#primitive-notions-and-assumptions-retroactive" id="toc-primitive-notions-and-assumptions-retroactive" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions-retroactive">Primitive notions and assumptions (retroactive)</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -332,6 +334,21 @@ window.Quarto = {
 <li><strong>Confidence.</strong> High.</li>
 </ul>
 </div>
+</section>
+<section id="primitive-notions-and-assumptions-retroactive" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions-retroactive">Primitive notions and assumptions (retroactive)</h2>
+<p>We work over <span class="math inline">\(\mathbb R\)</span> with linear recursions of the form <span class="math inline">\(a_{n+2} = c_1 a_{n+1} + c_2 a_n\)</span>, characteristic equation <span class="math inline">\(\lambda^2 - c_1 \lambda - c_2 = 0\)</span>. <strong>Imported lemmas:</strong> (i) distinct-root case yields general solution <span class="math inline">\(a_n = A\lambda_1^n + B\lambda_2^n\)</span>; (ii) double root requires the second basis element <span class="math inline">\(n\lambda^{n-1}\)</span>; (iii) generating function algebra (Dec 13).</p>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Jan 24):</strong> complete the double-root recursion, derive the generating-function identity <span class="math inline">\(1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n\)</span> — provides the <em>generating-function shadow</em> of today’s <span class="math inline">\(n\lambda^{n-1}\)</span> formula.</li>
+<li><strong>Forward (Mar 28 onwards):</strong> when the recursion matrix has <em>repeated eigenvalues</em>, the diagonalisation argument fails (we cannot diagonalise to <span class="math inline">\(\text{diag}(\lambda, \lambda)\)</span> alone). Instead we need the <strong>Jordan block</strong> <span class="math inline">\(\begin{pmatrix}\lambda &amp; 1\\ 0 &amp; \lambda\end{pmatrix}\)</span>, whose <span class="math inline">\(n\)</span>-th power involves <span class="math inline">\(n\lambda^{n-1}\)</span> — exactly today’s term.</li>
+<li><strong>Forward (Apr 4):</strong> explicit powering of Jordan blocks via binomial expansion with nilpotent matrix <span class="math inline">\(N\)</span>. The <span class="math inline">\(n\lambda^{n-1}\)</span> today is the <span class="math inline">\(n=1\)</span> term of the Jordan-power binomial.</li>
+<li><strong>Open question:</strong> for triple roots (<span class="math inline">\(\lambda_1 = \lambda_2 = \lambda_3\)</span>), the recursion solution involves <span class="math inline">\(\binom{n}{2}\lambda^{n-2}\)</span>. Pattern: <span class="math inline">\(r\)</span>-fold root gives terms <span class="math inline">\(\binom{n}{k}\lambda^{n-k}\)</span> for <span class="math inline">\(k = 0, 1, \dots, r-1\)</span>.</li>
+<li><strong>Connection back to Dec 13:</strong> the generating-function technique here is the <em>continuation</em> of the self-similar-shift idea applied to recursions with memory length 2 instead of 1.</li>
+<li><strong>Pedagogical thread:</strong> <em>guess-and-check</em> (“try <span class="math inline">\(a_n = n\lambda^{n-1}\)</span> and verify”) is mathematically equivalent to the more rigorous <em>limit</em> derivation (let <span class="math inline">\(\lambda_2 \to \lambda_1\)</span> in distinct-root formula). The guess captures the scaling; the limit confirms the coefficient.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

@@ -228,6 +228,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Oct 18 morning):** discriminant classification of conics — the determinant reappears as $\det M$ for symmetric matrix $M = \begin{pmatrix}a & b\\ b & c\end{pmatrix}$, signed by sign of $b^2 - ac$.
+- **Forward (Mar 7):** rigorous re-derivation of the cofactor inverse formula — today's argument is one of two derivations; Mar 7 covers the second.
+- **Forward (Mar 28):** $M^{-1}$ via **Gauss-Jordan elimination** — algorithmic alternative to cofactor formula. Same result; different computational complexity ($O(n^3)$ Gauss-Jordan vs. $O(n!)$ cofactors).
+- **Open question:** for *non-square* matrices, the **Moore-Penrose pseudoinverse** generalises $M^{-1}$. The cofactor formula uses $\det M$, which is undefined for non-square; the pseudoinverse uses singular value decomposition.
+- **Forward pointer (Feb 21):** the singular dichotomy ($\det M = 0$ iff system has either no or infinitely many solutions) becomes the geometric *spectral degeneracy* — eigenvalue zero.
+- **Connection back to Oct 11 morning:** the Vandermonde determinant from morning is one specific case of today's general cofactor expansion. Today's framework subsumes that example.
+- **Pedagogical thread:** two-independent-proofs (Derivation A + Derivation B) for Theorem 23 demonstrates the **resilience** of mathematical truth — multiple proofs confirm not just the *what* but the *why*.
+
 ## Related sessions
 
 - **Precursor:** [2025-10-11 morning](2025-10-11-morning.html) — sets up Cramer's rule and constructs the cofactor inverse formula; the off-diagonal proof started there is *completed here*.

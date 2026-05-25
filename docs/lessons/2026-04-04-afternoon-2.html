@@ -200,6 +200,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -440,6 +441,18 @@ Important
 <li><strong>Confidence.</strong> Theorems 55, 57: high. Theorem 56: high with the Vandermonde import.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (May 2):</strong> Cayley-Hamilton — the Jordan block satisfies its own characteristic polynomial: <span class="math inline">\((J_\lambda - \lambda I)^k = 0\)</span>, i.e.&nbsp;<span class="math inline">\(N^k = 0\)</span>. Today’s binomial powering relies on this nilpotency.</li>
+<li><strong>Forward (May 16):</strong> dot/cross product and rotation matrices — eigenvalues of pure rotation are <span class="math inline">\(\cos\theta \pm i\sin\theta\)</span> (complex). Jordan blocks don’t appear (rotations are diagonalisable over <span class="math inline">\(\mathbb C\)</span>).</li>
+<li><strong>Open question:</strong> the <strong>polynomial-in-<span class="math inline">\(n\)</span> coefficient</strong> of <span class="math inline">\(n^k\)</span> in the <span class="math inline">\(n\)</span>-th term of a recursion equals the Jordan-block size minus 1, for the multiplicity-<span class="math inline">\(k\)</span> eigenvalue case. Predicted by the old algebraic theory and confirmed by Jordan-block power expansion here.</li>
+<li><strong>Open question (deeper):</strong> generalised eigenvectors <span class="math inline">\(v\)</span> satisfying <span class="math inline">\((M - \lambda I)^k v = 0\)</span> but <span class="math inline">\((M - \lambda I)^{k-1} v \ne 0\)</span> form the Jordan-block chain. Forward-pointer to the proof of Jordan canonical form (a deep theorem requiring Hamilton-Cayley + algebraic closure of the field).</li>
+<li><strong>Connection back to Nov 8 (Cardano cube roots):</strong> the three-fold rotation symmetry of cube roots of unity is the <em>complex</em> counterpart of today’s repeated-eigenvalue structure. Pure rotation matrix has eigenvalues on the unit circle.</li>
+<li><strong>Connection back to Sep 13 PM (roots of unity geometry):</strong> the powers <span class="math inline">\((\lambda + N)^n\)</span> with <span class="math inline">\(|\lambda| = 1\)</span> trace out a <em>rotational-plus-shearing</em> trajectory in matrix-space — the matrix analogue of cycling through roots of unity, but with a “memory” component from the nilpotent shear.</li>
+<li><strong>Pedagogical thread:</strong> binomial expansion of <span class="math inline">\((\lambda I + N)^n\)</span> has only <span class="math inline">\(k\)</span> nonzero terms (where <span class="math inline">\(N^k = 0\)</span>). The <em>finite</em> sum is the algebraic miracle that makes Jordan-block computation tractable.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

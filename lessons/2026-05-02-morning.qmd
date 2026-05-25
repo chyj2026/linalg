@@ -174,6 +174,16 @@ Uses $a_k = \operatorname{tr}(\wedge^k M)$ on the $\binom{n}{k}$-dim representat
 
 :::
 
+## Explorative directions
+
+- **Next brick (May 16):** dot/cross product and 3D shadow-area interpretation — uses cross product as a *determinant* (with $\vec i, \vec j, \vec k$ symbols), connecting today's polynomial-in-matrix algebra to 3D vector calculus.
+- **Forward (calculus, physics):** Cayley-Hamilton implies $M^n$ for $n \ge $ matrix dimension can be expressed as a polynomial of lower powers. Critical for matrix exponentials $e^M = \sum M^n/n!$ — truncates / simplifies via Cayley-Hamilton.
+- **Open question:** the **minimal polynomial** $\mu_M(x)$ — the lowest-degree monic polynomial with $\mu_M(M) = 0$ — divides the characteristic polynomial $p_M(x)$. Both have the same roots (with possibly different multiplicities). The Jordan-block sizes determine multiplicities in $\mu_M$.
+- **Open question (deeper):** Cayley-Hamilton fails over rings with nilpotent or non-trivial ideals. Holds over fields (commutative or not). Active research: extending to non-commutative ring contexts and operator-algebra settings.
+- **Open question (cosmological):** Cayley-Hamilton's *philosophical* statement — "every matrix encodes its own algebraic identity" — has analogues in differential equations (an ODE encodes its own structure) and quantum mechanics (operators satisfy their characteristic equation when acting on eigenstates). The recurring pattern is *self-reference in algebraic structure*.
+- **Connection back to Jan 3 (Vieta on transcendental):** Cayley-Hamilton applied to the diagonalisable case immediately recovers Vieta on eigenvalues. The four proofs today are *four different liftings* of Vieta's scalar identity to the matrix level.
+- **Pedagogical thread:** *four proof strategies* (cyclic basis, adjugate-product, generating-function-shadow, induction-on-dimension) for the same theorem — each illuminates a different facet. **The truth is one, but the routes are many.** Mastery means knowing *which* route to use in *which* setting.
+
 ## Related sessions
 
 - **Precursors:** [2026-03-07 cramer-review](2026-03-07-cramer-review.html) (adjugate identity); [2026-04-04 morning](2026-04-04-morning.html) + [afternoon (2)](2026-04-04-afternoon-2.html) (Jordan blocks); [2026-02-28 followup](2026-02-28-eigenvalues-followup.html) (characteristic polynomial).

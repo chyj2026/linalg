@@ -173,6 +173,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (May 2):** Cayley-Hamilton — the Jordan block satisfies its own characteristic polynomial: $(J_\lambda - \lambda I)^k = 0$, i.e. $N^k = 0$. Today's binomial powering relies on this nilpotency.
+- **Forward (May 16):** dot/cross product and rotation matrices — eigenvalues of pure rotation are $\cos\theta \pm i\sin\theta$ (complex). Jordan blocks don't appear (rotations are diagonalisable over $\mathbb C$).
+- **Open question:** the **polynomial-in-$n$ coefficient** of $n^k$ in the $n$-th term of a recursion equals the Jordan-block size minus 1, for the multiplicity-$k$ eigenvalue case. Predicted by the old algebraic theory and confirmed by Jordan-block power expansion here.
+- **Open question (deeper):** generalised eigenvectors $v$ satisfying $(M - \lambda I)^k v = 0$ but $(M - \lambda I)^{k-1} v \ne 0$ form the Jordan-block chain. Forward-pointer to the proof of Jordan canonical form (a deep theorem requiring Hamilton-Cayley + algebraic closure of the field).
+- **Connection back to Nov 8 (Cardano cube roots):** the three-fold rotation symmetry of cube roots of unity is the *complex* counterpart of today's repeated-eigenvalue structure. Pure rotation matrix has eigenvalues on the unit circle.
+- **Connection back to Sep 13 PM (roots of unity geometry):** the powers $(\lambda + N)^n$ with $|\lambda| = 1$ trace out a *rotational-plus-shearing* trajectory in matrix-space — the matrix analogue of cycling through roots of unity, but with a "memory" component from the nilpotent shear.
+- **Pedagogical thread:** binomial expansion of $(\lambda I + N)^n$ has only $k$ nonzero terms (where $N^k = 0$). The *finite* sum is the algebraic miracle that makes Jordan-block computation tractable.
+
 ## Related sessions
 
 - **Precursors:** [Apr 4 morning](2026-04-04-morning.html) — Jordan-block setup. [Jan 24 morning](2026-01-24-morning.html) — telescoping route. [Feb 28 followup](2026-02-28-eigenvalues-followup.html) — eigenvalue framework.

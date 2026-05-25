@@ -118,6 +118,16 @@ $$
 
 :::
 
+## Explorative directions
+
+- **Next brick (Feb 28):** the eigenvalue equation in full generality — today's $y \to iy$ is one specific eigenvector-finding trick; the general theory uses $\det(M - \lambda I) = 0$.
+- **Forward (Mar 28, Apr 4):** rotation matrices have *complex* eigenvalues $\cos\theta \pm i\sin\theta$. The $y \to iy$ technique today is the eigenvector-finding shadow of the complex spectrum of rotations.
+- **Forward (May 16):** dot/cross product Recovery — the rotation-and-inner-product geometry developed here generalises to 3D via cross product.
+- **Open question:** for which functions $f$ does $f(M)$ have the same eigenvectors as $M$ but eigenvalues $f(\lambda_i)$? **Spectral mapping theorem**: this holds for *any* polynomial $f$ (a precursor of Cayley-Hamilton, May 2). The $y \to iy$ substitution today is the special case $f(x) = ix$ for the matrix $M$ corresponding to scaling.
+- **Open question (deeper):** the $y \to iy$ trick *exits* the real plane temporarily and returns. This is **complexification** — a recurring technique in algebra (e.g., proving real polynomials have all real roots when reflection conditions are met). Forward-pointer to representation theory.
+- **Connection back to Oct 4 (Toby's $b \to ib$):** today's $y \to iy$ is the same algebraic substitution at a different level — Oct 4 substituted in the *equation*, today substitutes in the *coordinates*. Same complex-analysis spirit.
+- **Pedagogical thread:** the *two routes to the same identity* ($\tan(2\theta)$ via matrix trace/det invariance vs. via algebraic substitution) demonstrates the **multi-perspective principle** — important results admit multiple proofs, and the *correspondence between proofs* is itself meaningful.
+
 ## Related sessions
 
 - **Companion morning:** [2026-02-21 morning](2026-02-21-morning.html) derives $\tan(2\theta) = 2b/(a-c)$ via trace/det invariance — matrix approach. This afternoon: algebraic $y \to yi$ detour. Two proofs of same identity.

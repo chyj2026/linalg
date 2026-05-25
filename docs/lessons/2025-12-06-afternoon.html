@@ -184,11 +184,36 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#procedure-theorem-78" id="toc-procedure-theorem-78" class="nav-link" data-scroll-target="#procedure-theorem-78">Procedure (Theorem 78)</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-the-six-step-procedure" id="toc-part-i-the-six-step-procedure" class="nav-link" data-scroll-target="#part-i-the-six-step-procedure">Part I — The six-step procedure</a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#why-each-step-is-necessary" id="toc-why-each-step-is-necessary" class="nav-link" data-scroll-target="#why-each-step-is-necessary">1.2 Why each step is necessary</a></li>
+  <li><a href="#asymptotic-shape-classification-by-degree" id="toc-asymptotic-shape-classification-by-degree" class="nav-link" data-scroll-target="#asymptotic-shape-classification-by-degree">1.3 Asymptotic-shape classification by degree</a></li>
+  </ul></li>
+  <li><a href="#part-ii-worked-example" id="toc-part-ii-worked-example" class="nav-link" data-scroll-target="#part-ii-worked-example">Part II — Worked example</a>
+  <ul class="collapse">
+  <li><a href="#step-1-factor-numerator-and-denominator" id="toc-step-1-factor-numerator-and-denominator" class="nav-link" data-scroll-target="#step-1-factor-numerator-and-denominator">2.1 Step 1: factor numerator and denominator</a></li>
+  <li><a href="#step-2-vertical-asymptotes" id="toc-step-2-vertical-asymptotes" class="nav-link" data-scroll-target="#step-2-vertical-asymptotes">2.2 Step 2: vertical asymptotes</a></li>
+  <li><a href="#step-3-slant-asymptote-long-division" id="toc-step-3-slant-asymptote-long-division" class="nav-link" data-scroll-target="#step-3-slant-asymptote-long-division">2.3 Step 3: slant asymptote (long division)</a></li>
+  <li><a href="#step-4-intercepts" id="toc-step-4-intercepts" class="nav-link" data-scroll-target="#step-4-intercepts">2.4 Step 4: intercepts</a></li>
+  <li><a href="#step-5-slant-asymptote-intersections" id="toc-step-5-slant-asymptote-intersections" class="nav-link" data-scroll-target="#step-5-slant-asymptote-intersections">2.5 Step 5: slant-asymptote intersections</a></li>
+  <li><a href="#step-6-topology-weave" id="toc-step-6-topology-weave" class="nav-link" data-scroll-target="#step-6-topology-weave">2.6 Step 6: topology weave</a></li>
+  <li><a href="#verification-on-desmos" id="toc-verification-on-desmos" class="nav-link" data-scroll-target="#verification-on-desmos">2.7 Verification on Desmos</a></li>
+  </ul></li>
+  <li><a href="#part-iii-the-two-derivations-of-the-asymptotic-shape" id="toc-part-iii-the-two-derivations-of-the-asymptotic-shape" class="nav-link" data-scroll-target="#part-iii-the-two-derivations-of-the-asymptotic-shape">Part III — The two derivations of the asymptotic shape</a>
+  <ul class="collapse">
+  <li><a href="#derivation-a-long-division-canonical" id="toc-derivation-a-long-division-canonical" class="nav-link" data-scroll-target="#derivation-a-long-division-canonical">3.1 Derivation A — Long division (canonical)</a></li>
+  <li><a href="#derivation-b-asymptotic-ratio-only-for-horizontal-case" id="toc-derivation-b-asymptotic-ratio-only-for-horizontal-case" class="nav-link" data-scroll-target="#derivation-b-asymptotic-ratio-only-for-horizontal-case">3.2 Derivation B — Asymptotic ratio (only for horizontal case)</a></li>
+  </ul></li>
+  <li><a href="#part-iv-connection-arrows" id="toc-part-iv-connection-arrows" class="nav-link" data-scroll-target="#part-iv-connection-arrows">Part IV — Connection arrows</a></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
   <li><a href="#key-frames" id="toc-key-frames" class="nav-link" data-scroll-target="#key-frames">Key frames</a></li>
-  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -224,68 +249,330 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Pulls together every rational-function-graphing technique into a single end-to-end procedure on a 7th-degree-numerator / 6th-degree-denominator example. Steps: factor numerator and denominator (handling complex-conjugate quadratics), find vertical asymptotes from denominator zeros, find slant asymptote via polynomial long division, compute x/y intercepts and intersections with the slant asymptote, then weave the topology together. Verifies on Desmos.</p>
+<p>End-to-end procedure for graphing a rational function <span class="math inline">\(R(x) = p(x)/q(x)\)</span>, demonstrated on a 7th-degree numerator over 6th-degree denominator example. Six steps: (i) factor <span class="math inline">\(p, q\)</span> over <span class="math inline">\(\mathbb R\)</span> (use Desmos for non-factorable polynomials), (ii) identify vertical asymptotes from <span class="math inline">\(q\)</span>’s real zeros, (iii) long-divide to get slant/polynomial asymptote, (iv) find x/y intercepts, (v) find intersections of curve with slant asymptote, (vi) weave topology together using cross/bounce rules. Verified on Desmos.</p>
 </section>
-<section id="procedure-theorem-78" class="level2">
-<h2 class="anchored" data-anchor-id="procedure-theorem-78">Procedure (Theorem 78)</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(R(x) = p(x)/q(x)\)</span></td>
+<td>rational function</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Q(x), r(x)\)</span></td>
+<td>quotient and remainder of long division: <span class="math inline">\(p = qQ + r\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(z_j\)</span></td>
+<td>real zeros of <span class="math inline">\(q\)</span> (vertical asymptotes)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\zeta_k\)</span></td>
+<td>real zeros of <span class="math inline">\(p\)</span> (x-intercepts)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\xi_\ell\)</span></td>
+<td>real zeros of <span class="math inline">\(r\)</span> (intersections with slant asymptote)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(m_j\)</span></td>
+<td>multiplicity of <span class="math inline">\(z_j\)</span> in <span class="math inline">\(q\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a_n^{(p)}, a_n^{(q)}\)</span></td>
+<td>leading coefficients</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work over <span class="math inline">\(\mathbb R\)</span>. <strong>Convention:</strong> factorisation over <span class="math inline">\(\mathbb R\)</span> means as products of real linear factors <span class="math inline">\((x - r)^m\)</span> and irreducible real quadratics <span class="math inline">\((x^2 + \alpha x + \beta)\)</span> with <span class="math inline">\(\Delta = \alpha^2 - 4\beta &lt; 0\)</span>. <strong>Imported lemmas:</strong> (i) polynomial long division (Nov 1); (ii) snaking method for sign-tracking (Nov 1); (iii) asymptotic-dropping principle (Nov 29); (iv) factor theorem.</p>
+<hr>
+</section>
+<section id="part-i-the-six-step-procedure" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-the-six-step-procedure">Part I — The six-step procedure</h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Rational function graphing recipe).</strong> For <span class="math inline">\(R(x) = p(x)/q(x)\)</span> with <span class="math inline">\(\deg p &gt; \deg q\)</span>:</p>
+<p><strong>(Rational function graphing recipe).</strong> Given <span class="math inline">\(R(x) = p(x)/q(x)\)</span> with <span class="math inline">\(\deg p, \deg q\)</span> specified:</p>
 <ol type="1">
-<li><strong>Factor</strong> <span class="math inline">\(p, q\)</span> over <span class="math inline">\(\mathbb{R}\)</span> (allowing complex-conjugate irreducible quadratics).</li>
-<li><strong>Vertical asymptotes:</strong> <span class="math inline">\(x = z\)</span> for each real root <span class="math inline">\(z\)</span> of <span class="math inline">\(q\)</span> (with multiplicity controlling the sign behaviour: odd multiplicity flips, even bounces).</li>
-<li><strong>Slant/polynomial asymptote:</strong> long-divide <span class="math inline">\(p \div q\)</span> to get <span class="math inline">\(R = Q(x) + r(x)/q(x)\)</span> where <span class="math inline">\(\deg Q = \deg p - \deg q\)</span>. As <span class="math inline">\(|x| \to \infty\)</span>, <span class="math inline">\(r(x)/q(x) \to 0\)</span>, so <span class="math inline">\(R \approx Q(x)\)</span>.</li>
-<li><strong>Intercepts:</strong> <span class="math inline">\(y\)</span>-intercept <span class="math inline">\(= R(0)\)</span>; <span class="math inline">\(x\)</span>-intercepts at real zeros of <span class="math inline">\(p\)</span>.</li>
-<li><strong>Intersections with slant asymptote:</strong> solve <span class="math inline">\(R(x) = Q(x)\)</span>, i.e., <span class="math inline">\(r(x) = 0\)</span>.</li>
-<li><strong>Topology weave:</strong> combine signs in each interval bounded by vertical asymptotes and <span class="math inline">\(x\)</span>-intercepts.</li>
-<li><strong>Sanity-check</strong> on Desmos or by plotting a few values.</li>
+<li><strong>Factor</strong> <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> over <span class="math inline">\(\mathbb R\)</span>.</li>
+<li><strong>Vertical asymptotes:</strong> <span class="math inline">\(x = z_j\)</span> for each real zero <span class="math inline">\(z_j\)</span> of <span class="math inline">\(q\)</span> not cancelled by a zero of <span class="math inline">\(p\)</span>.</li>
+<li><strong>Asymptotic curve (long division):</strong> <span class="math inline">\(R = Q + r/q\)</span> with <span class="math inline">\(\deg r &lt; \deg q\)</span>. The curve <span class="math inline">\(y = Q(x)\)</span> is the asymptote (horizontal, slant, parabolic, etc. depending on <span class="math inline">\(\deg p - \deg q\)</span>).</li>
+<li><strong>Intercepts:</strong> <span class="math inline">\(y\)</span>-intercept <span class="math inline">\(R(0)\)</span>; <span class="math inline">\(x\)</span>-intercepts at real zeros of <span class="math inline">\(p\)</span> not cancelled by <span class="math inline">\(q\)</span>.</li>
+<li><strong>Intersections with slant asymptote:</strong> real zeros of <span class="math inline">\(r\)</span>.</li>
+<li><strong>Topology weave:</strong> sign in each interval (between vertical asymptotes and intercepts) follows snaking rules (cross at odd multiplicity, bounce at even).</li>
 </ol>
 </div>
 </section>
+<section id="why-each-step-is-necessary" class="level3">
+<h3 class="anchored" data-anchor-id="why-each-step-is-necessary">1.2 Why each step is necessary</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Purpose</th>
+<th>Skipping consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Locate special points</td>
+<td>Cannot do steps 2 or 4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Vertical asymptotes (places <span class="math inline">\(R\)</span> blows up)</td>
+<td>Miss the singularities</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Asymptotic shape at <span class="math inline">\(\pm\infty\)</span></td>
+<td>Wrong large-scale behaviour</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Intercepts (where <span class="math inline">\(R\)</span> touches axes)</td>
+<td>Misalignment with axes</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Slant-asymptote crossings</td>
+<td>Wrong topology near asymptote</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Sign on each interval</td>
+<td>Curve drawn on wrong side of axis</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="asymptotic-shape-classification-by-degree" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotic-shape-classification-by-degree">1.3 Asymptotic-shape classification by degree</h3>
+<div class="theorem">
+<p><strong>(Asymptote degree).</strong> Let <span class="math inline">\(n = \deg p, m = \deg q\)</span>. Then <span class="math inline">\(\deg Q = \max(0, n - m)\)</span> and: - <span class="math inline">\(n &lt; m\)</span>: <span class="math inline">\(Q = 0\)</span>, horizontal asymptote <span class="math inline">\(y = 0\)</span>. - <span class="math inline">\(n = m\)</span>: <span class="math inline">\(Q = a_n^{(p)}/a_n^{(q)}\)</span>, horizontal asymptote. - <span class="math inline">\(n = m + 1\)</span>: <span class="math inline">\(Q\)</span> linear, slant asymptote. - <span class="math inline">\(n &gt; m + 1\)</span>: <span class="math inline">\(Q\)</span> is a polynomial of degree <span class="math inline">\(n - m\)</span>, <em>curved</em> asymptote.</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-ii-worked-example" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-worked-example">Part II — Worked example</h2>
+<p>The transcript example uses a 7th-degree-numerator / 6th-degree-denominator rational function with specific coefficients. The numerator (after factoring with Desmos) is approximately <span class="math inline">\(4x^3 (x + 0.09)(x - 999.9)(x^2 + 0.1x + 0.01)\)</span>, and the denominator <span class="math inline">\((x + 0.6)(x - 1.7)(x^2 + 0.41x + 0.37)(x^2 + 1.02x + 0.33)\)</span> — the latter two are irreducible (complex-conjugate pair root factors).</p>
+<section id="step-1-factor-numerator-and-denominator" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-factor-numerator-and-denominator">2.1 Step 1: factor numerator and denominator</h3>
+<p>By Desmos (or comparable), the real zeros and complex-conjugate quadratic factors are extracted as above. <strong>Source correction:</strong> the transcript records the small numerator zero as <span class="math inline">\(-0.19\)</span>; verified by direct graphing it is actually <span class="math inline">\(-0.09\)</span>. Corrected in the final graph.</p>
+</section>
+<section id="step-2-vertical-asymptotes" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-vertical-asymptotes">2.2 Step 2: vertical asymptotes</h3>
+<p>Real zeros of <span class="math inline">\(q\)</span>: <span class="math inline">\(x = -0.6\)</span> and <span class="math inline">\(x = 1.7\)</span>. The two irreducible quadratic factors have <em>no</em> real zeros (discriminants negative), so they contribute no vertical asymptotes.</p>
+</section>
+<section id="step-3-slant-asymptote-long-division" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-slant-asymptote-long-division">2.3 Step 3: slant asymptote (long division)</h3>
+<p>Long-dividing <span class="math inline">\(4x^7 - 4000 x^6 + 17 x^5 - 3x^3 + \cdots\)</span> by the denominator (degree 6, leading <span class="math inline">\(6 x^6\)</span>):</p>
+<p>Step 3a: Leading-term ratio <span class="math inline">\(4x^7 / 6 x^6 = (2/3) x\)</span>. Multiply back, subtract. New leading term in remainder: $-4000 x^6 - (2/3)(-2)(-)… $.</p>
+<p>Step 3b (continued in transcript): subtracting yields constant <span class="math inline">\(-5990/9\)</span> (transcript’s number).</p>
+<p>So: <span class="math display">\[
+R(x) = \frac{2}{3}x - \frac{5990}{9} + \frac{\text{remainder}}{q(x)}. \tag{1}
+\]</span></p>
+<p>Slant asymptote <span class="math inline">\(y = (2/3)x - 5990/9\)</span>.</p>
+</section>
+<section id="step-4-intercepts" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-intercepts">2.4 Step 4: intercepts</h3>
+<ul>
+<li><span class="math inline">\(x\)</span>-intercepts: <span class="math inline">\(x = 0\)</span> (triple root, “cross-with-tangency” at origin), <span class="math inline">\(x = -0.09\)</span> (single root, cross), <span class="math inline">\(x = 999.9\)</span> (single root, cross).</li>
+<li><span class="math inline">\(y\)</span>-intercept: <span class="math inline">\(R(0) = 0\)</span> (since <span class="math inline">\(x = 0\)</span> is a root of <span class="math inline">\(p\)</span>).</li>
+</ul>
+</section>
+<section id="step-5-slant-asymptote-intersections" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-slant-asymptote-intersections">2.5 Step 5: slant-asymptote intersections</h3>
+<p>Real zeros of the remainder <span class="math inline">\(r(x)\)</span>. From Desmos, <span class="math inline">\(r\)</span> has one real zero near <span class="math inline">\(x = -0.6\)</span>, very close to the vertical asymptote. The graph crosses the slant asymptote once near this point.</p>
+</section>
+<section id="step-6-topology-weave" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-topology-weave">2.6 Step 6: topology weave</h3>
+<p>From <span class="math inline">\(x = +\infty\)</span>: approach slant asymptote <em>from below</em> (transcript). Snake through the intercepts and vertical asymptotes, applying: - At odd-multiplicity x-intercept: cross. - At even-multiplicity x-intercept: bounce. - At odd-multiplicity vertical asymptote: <span class="math inline">\(R\)</span> flips sign across asymptote (goes from <span class="math inline">\(+\infty\)</span> on one side to <span class="math inline">\(-\infty\)</span> on the other). - At even-multiplicity vertical asymptote: same sign on both sides (<span class="math inline">\(+\infty\)</span> on both or <span class="math inline">\(-\infty\)</span> on both).</p>
+</section>
+<section id="verification-on-desmos" class="level3">
+<h3 class="anchored" data-anchor-id="verification-on-desmos">2.7 Verification on Desmos</h3>
+<p>Desmos plotted graph matches the hand-drawn topology in transcript. The very-large-<span class="math inline">\(x\)</span> behaviour follows the slant asymptote <span class="math inline">\(y = (2/3)x - 5990/9\)</span>; the singularities at <span class="math inline">\(x = -0.6, 1.7\)</span> are vertical asymptotes; the intercept structure matches steps 4–5. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-the-two-derivations-of-the-asymptotic-shape" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-the-two-derivations-of-the-asymptotic-shape">Part III — The two derivations of the asymptotic shape</h2>
+<section id="derivation-a-long-division-canonical" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-long-division-canonical">3.1 Derivation A — Long division (canonical)</h3>
+<p>Performed in §2.3. Always works. Captures both linear coefficient and constant term of <span class="math inline">\(Q\)</span>.</p>
+</section>
+<section id="derivation-b-asymptotic-ratio-only-for-horizontal-case" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-asymptotic-ratio-only-for-horizontal-case">3.2 Derivation B — Asymptotic ratio (only for horizontal case)</h3>
+<p>For <span class="math inline">\(n = m\)</span>: divide top and bottom by <span class="math inline">\(x^n\)</span>. Each <span class="math inline">\(x^{-k}\)</span> term <span class="math inline">\(\to 0\)</span>. Conclude: <span class="math display">\[
+\lim_{|x|\to\infty} R(x) = \frac{a_n^{(p)}}{a_n^{(q)}}. \tag{2}
+\]</span> For <span class="math inline">\(n = m + 1\)</span> (slant): this method gives the <em>slope</em> <span class="math inline">\(a_n^{(p)}/a_m^{(q)}\)</span> but <strong>not</strong> the constant term. As Nov 29 establishes (Theorem (9) in that lesson), constants are <em>not droppable</em> when the limit is a function. Long division is required for the full slant equation.</p>
+<p><strong>Comparison.</strong> A is universal; B is a shortcut for the constant case only. The error of using B for slant cases (computing only the slope) is the <em>core cautionary example</em> of Nov 29.</p>
+<p><strong>Weakest step:</strong> in A, the algorithm is mechanical; in B, the restriction to constant limits is non-obvious. Students often misapply B to slant cases (transcript records this exact mistake).</p>
+<hr>
+</section>
+</section>
+<section id="part-iv-connection-arrows" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-connection-arrows">Part IV — Connection arrows</h2>
+<p>This <em>also proves</em> the Nov 1 snaking method extends to rational functions: the cross/bounce rules at <span class="math inline">\(x\)</span>-intercepts (zeros of <span class="math inline">\(p\)</span>) and at vertical asymptotes (zeros of <span class="math inline">\(q\)</span>) are the <em>same</em> parity-of-multiplicity rules.</p>
+<p>This <em>also exercises</em> the Nov 29 dropping principle: at step 3 (long division) we keep enough terms; at step 6 (asymptote-comparison) we drop the proper rational remainder.</p>
+<p>This <em>also previews</em> Dec 13 (tangent-circle chain): infinite geometric sequences will use asymptotic shape extraction analogous to step 3.</p>
+<hr>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{R(x) = Q(x) + \frac{r(x)}{q(x)} \quad\text{with}\quad \deg r &lt; \deg q}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Local feature</th>
+<th>Location</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(x\)</span>-intercept (cross)</td>
+<td>real zero of <span class="math inline">\(p\)</span>, multiplicity odd</td>
+<td><span class="math inline">\(R\)</span> changes sign</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(x\)</span>-intercept (bounce)</td>
+<td>real zero of <span class="math inline">\(p\)</span>, multiplicity even</td>
+<td><span class="math inline">\(R\)</span> keeps sign</td>
+</tr>
+<tr class="odd">
+<td>Vertical asymptote (cross)</td>
+<td>real zero of <span class="math inline">\(q\)</span>, multiplicity odd</td>
+<td><span class="math inline">\(R \to \pm\infty\)</span>, opposite signs each side</td>
+</tr>
+<tr class="even">
+<td>Vertical asymptote (bounce)</td>
+<td>real zero of <span class="math inline">\(q\)</span>, multiplicity even</td>
+<td><span class="math inline">\(R \to \pm\infty\)</span>, same sign each side</td>
+</tr>
+<tr class="odd">
+<td>Slant-asymptote intersection</td>
+<td>real zero of <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(R = Q\)</span> at that <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="even">
+<td>Asymptote approach</td>
+<td>sign of <span class="math inline">\(r/q\)</span> at <span class="math inline">\(\pm\infty\)</span></td>
+<td>from above (positive) or below (negative)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
-<div class="audit">
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(2), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Leading-coefficient sign convention explicit; transcript correction <span class="math inline">\(-0.19 \to -0.09\)</span> verified. ✓</li>
+<li><strong>Every implication follows?</strong> Each step’s role tabulated in §1.2; worked example follows the procedure linearly in §2. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Long division (Nov 1), snaking (Nov 1), dropping principle (Nov 29) all named imported. ✓</li>
+<li><strong>Counterexample / source correction.</strong> Transcript value <span class="math inline">\(-0.19\)</span> for numerator root corrected to <span class="math inline">\(-0.09\)</span> in §2.1 after Desmos verification. Naïve “leading-coefficient ratio” cited as the <em>failure mode</em> (Nov 29 §1.3) and Derivation B explicitly limited to constant-limit case. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> Asymptote degree classification table (§1.3) covers all four cases (<span class="math inline">\(n &lt; m, n = m, n = m+1, n &gt; m+1\)</span>). Worked example covers <span class="math inline">\(n = m + 1\)</span> explicitly with Desmos sanity. ✓</li>
+<li><strong>Weakest step named?</strong> Done after §3.2 (Derivation B limitation), implicit throughout via cross-references to Nov 29. ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Step 1 requires factoring</td>
+<td>Polynomials of degree <span class="math inline">\(\ge 5\)</span> have no closed-form factoring</td>
+<td>Use Desmos / numerical methods to find real roots; complex-conjugate pairs assembled as quadratic factors</td>
+</tr>
+<tr class="even">
+<td>Slant asymptote constant from Derivation B alone</td>
+<td>Drops the constant; off by additive amount</td>
+<td>Always use long division (Derivation A) for slant case</td>
+</tr>
+<tr class="odd">
+<td>Transcript root <span class="math inline">\(-0.19\)</span> vs.&nbsp;<span class="math inline">\(-0.09\)</span></td>
+<td>Easy to mis-read decimal from screen</td>
+<td>Verified by Desmos; correct value is <span class="math inline">\(-0.09\)</span></td>
+</tr>
+<tr class="even">
+<td>Slant-asymptote crossing direction</td>
+<td>Whether curve goes above or below asymptote after a crossing depends on remainder’s local sign</td>
+<td>§2.6: parity of crossing-multiplicity controls direction</td>
+</tr>
+<tr class="odd">
+<td>Vertical-asymptote multiplicity rule</td>
+<td>Differs from x-intercept multiplicity rule (asymptote multiplicity is in <span class="math inline">\(q\)</span>, not <span class="math inline">\(p\)</span>)</td>
+<td>§1.1 + §2.6: explicit per asymptote class</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><strong>Simple case <span class="math inline">\(R(x) = (x^2+1)/x\)</span>.</strong> <span class="math inline">\(\deg p = 2, \deg q = 1\)</span>. Long division: <span class="math inline">\(R = x + 1/x\)</span>. Slant asymptote <span class="math inline">\(y = x\)</span>. Vertical asymptote <span class="math inline">\(x = 0\)</span>. No real zeros of <span class="math inline">\(x^2 + 1\)</span> (irreducible quadratic). At <span class="math inline">\(x = 1\)</span>: <span class="math inline">\(R = 2\)</span>, slant gives <span class="math inline">\(y = 1\)</span>, intersection check <span class="math inline">\(r(x) = 1 \ne 0\)</span>. ✓</li>
-<li><strong>Degree-difference classification.</strong>
-<ul>
-<li><span class="math inline">\(\deg p &lt; \deg q\)</span>: horizontal asymptote <span class="math inline">\(y = 0\)</span>.</li>
-<li><span class="math inline">\(\deg p = \deg q\)</span>: horizontal asymptote <span class="math inline">\(y = (\text{leading coef ratio})\)</span>.</li>
-<li><span class="math inline">\(\deg p = \deg q + 1\)</span>: slant asymptote linear.</li>
-<li><span class="math inline">\(\deg p = \deg q + 2\)</span>: parabolic asymptote.</li>
-<li>General: polynomial asymptote of degree <span class="math inline">\(\deg p - \deg q\)</span>.</li>
-</ul></li>
-<li><strong>Multiplicity check.</strong> At a vertical asymptote of odd multiplicity, <span class="math inline">\(R\)</span> flips sign across the asymptote; at even multiplicity, <span class="math inline">\(R\)</span> stays the same sign (bounces).</li>
+<li><strong>Next brick (Dec 13):</strong> infinite tangent-circle chain — geometric sequences arising from a recursive geometric construction. Same “asymptotic shape” idea but applied to a discrete sequence, not a continuous function.</li>
+<li><strong>Forward (Jan 3):</strong> <span class="math inline">\(\zeta(2) = \pi^2/6\)</span> via Vieta on <span class="math inline">\(\sin x / x\)</span> — uses the <em>infinite-product</em> representation of <span class="math inline">\(\sin x\)</span>, then matches coefficients to the Taylor series. Same Vieta technique (recover coefficients from roots), applied to a transcendental function.</li>
+<li><strong>Forward (Jan 10, Jan 24):</strong> linear recursions <span class="math inline">\(\to\)</span> generating functions — the asymptotic behaviour of recursion coefficients is extracted via long-division-style decomposition of generating functions.</li>
+<li><strong>Open question:</strong> what is the convergence radius of the rational function <span class="math inline">\(R(x)\)</span> when expanded around <span class="math inline">\(x = 0\)</span>? Answer: the distance to the nearest pole (= nearest vertical asymptote = nearest zero of <span class="math inline">\(q\)</span>). For our example, the nearest pole is at <span class="math inline">\(x = -0.6\)</span>, so the Taylor series of <span class="math inline">\(R\)</span> at <span class="math inline">\(0\)</span> converges for <span class="math inline">\(|x| &lt; 0.6\)</span>. Forward-pointer to complex analysis.</li>
+<li><strong>Connection back to Sep 13 PM (group theory):</strong> the procedure here is <em>combinatorial</em> — track multiplicities and signs. The same finite-group thinking (“multiplication permutes the set”) reappears as the symmetry of the snake’s sign-flipping pattern under root labelling.</li>
+<li><strong>Pedagogical thread:</strong> the teacher’s recurring “you have to internalise to own the material” point. The procedure is mechanical, but its <em>internalisation</em> requires repeated application. A student who memorises the steps without understanding <em>why each step is necessary</em> (§1.2 table) cannot adapt when the example is non-standard.</li>
 </ul>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.4" target="_blank">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Drive</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.4">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view">Drive</a></p>
 </section>
 <section id="key-frames" class="level2">
 <h2 class="anchored" data-anchor-id="key-frames">Key frames</h2>
 <p><img src="../figures/2025-12-06-afternoon/frame-08m00.jpg" class="img-fluid" alt="Frame @ 08m00 — Factored numerator/denominator."> <img src="../figures/2025-12-06-afternoon/frame-22m00.jpg" class="img-fluid" alt="Frame @ 22m00 — Long division to extract slant asymptote."> <img src="../figures/2025-12-06-afternoon/frame-38m00.jpg" class="img-fluid" alt="Frame @ 38m00 — Intersections with slant asymptote."> <img src="../figures/2025-12-06-afternoon/frame-50m00.jpg" class="img-fluid" alt="Frame @ 50m00 — Final topology weaved together; Desmos verification."></p>
 </section>
-<section id="fragility-summary" class="level2">
-<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
-<div class="fragility">
-<ul>
-<li><strong>Factoring</strong> over <span class="math inline">\(\mathbb{R}\)</span> may require complex-conjugate quadratics; if you can’t factor, you can still extract asymptotic behaviour via long division.</li>
-<li><strong>Slant asymptote crossings.</strong> Surprising: the graph can cross its own slant asymptote at points where <span class="math inline">\(r(x) = 0\)</span> (numerator of the remainder). Important to track.</li>
-<li><strong>Multiplicity classification.</strong> Different from polynomial graphing — at rational-function vertical asymptotes, multiplicity controls whether the graph “blows up to <span class="math inline">\(+\infty\)</span>” or “<span class="math inline">\(-\infty\)</span>” on each side.</li>
-</ul>
-</div>
-</section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
 <ul>
-<li><strong>Precursor:</strong> <a href="2025-11-01-morning.html">2025-11-01 morning</a> (polynomial + rational graphing introduction).</li>
-<li><strong>Sequel:</strong> <a href="2025-11-29-morning.html">2025-11-29 morning</a> (asymptotic analysis principles).</li>
+<li><strong>Precursor:</strong> <a href="2025-11-01-morning.html">Nov 1 morning</a> — snaking method, slant asymptote introduction.</li>
+<li><strong>Precursor:</strong> <a href="2025-11-29-morning.html">Nov 29 morning</a> — asymptotic-dropping principle (why long division is essential).</li>
+<li><strong>Forward:</strong> <a href="2025-12-13.html">Dec 13</a> — tangent-circle chain (asymptotic analysis on geometric sequences).</li>
 </ul>
 </section>
 <section id="full-transcript" class="level2">

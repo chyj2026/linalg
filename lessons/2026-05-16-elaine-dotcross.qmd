@@ -156,6 +156,20 @@ For the $z$-component: cast light along the $z$-axis. The parallelogram projects
 
 :::
 
+## Primitive notions and assumptions (retroactive)
+
+We work in $\mathbb R^3$ with the standard Euclidean inner product. **Convention:** **right-hand rule** for cross product (declared *before* signed quantities). Vectors as column vectors. **Imported lemmas:** (i) Law of Cosines (Euclidean geometry); (ii) Lagrange identity $\|u\|^2\|v\|^2 - (u\cdot v)^2 = \|u\times v\|^2$; (iii) determinant formula for cross product.
+
+## Explorative directions
+
+- **Forward (physics, summer):** dot/cross product is the foundation of vector calculus and electromagnetism. Today's *shadow-area interpretation* of $u\times v$ as the signed area of the parallelogram projected onto each coordinate plane is the bridge to **flux integrals** and **Stokes's theorem**.
+- **Forward (relativity):** the *generalised cross product* in 4D is the **wedge product** of differential forms (or equivalently, contraction with the 4D volume form). The cross product as we know it is dimension-3-specific.
+- **Open question:** for which dimensions $n$ does a "cross product" satisfying associativity and bilinearity exist? Answer (Hurwitz): only $n = 1, 3, 7$. The 7D cross product is exotic; the 3D one is unique among "useful" dimensions.
+- **Open question:** the **scalar triple product** $u\cdot(v\times w) = \det\begin{pmatrix}u^T \\ v^T \\ w^T\end{pmatrix}$ gives the volume of the parallelepiped. Generalises to higher dimensions as the Gram determinant.
+- **Connection back to Oct 11 (Vandermonde, Cramer):** the cross product *is* a determinant (with vector entries — a mnemonic determinant, expanded by the first row). All linear-algebra determinants reappear here as cross / wedge products in disguise.
+- **Connection back to Feb 21 (eigenvalues):** rotation in 3D has eigenvalues $1, e^{\pm i\theta}$ — the $1$ corresponds to the rotation axis (cross product of two rotated vectors gives a vector along this axis).
+- **Pedagogical thread (Elaine's recovery session):** the lesson is structured as *recovery from forgetting* — go back to fundamentals (definitions), build the algebraic and geometric pictures in parallel, verify the two agree. This is the *spirit of the rigor template applied to learning itself*. The "two pictures" agreement is mathematical truth.
+
 ## Related sessions
 
 - **Connection to linear algebra:** Lagrange identity is the $n=2$ Cauchy–Schwarz–Gram case from [Mar 28 Gram matrix lesson](2026-03-28-morning.html) (Theorem 48).

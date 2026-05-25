@@ -258,6 +258,15 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Feb 21):** the *matrix* perspective on linear recursions — companion matrix has the same characteristic polynomial as the recursion, and Jordan-block structure for repeated eigenvalues. The generating-function identity here is the formal shadow of the Jordan-block power formula.
+- **Forward (Mar 28, Apr 4):** when the companion matrix has a repeated eigenvalue $\lambda$, it is *not* diagonalisable — it has a $2\times 2$ Jordan block. Powering the Jordan block via binomial $(\lambda I + N)^n$ gives the $n\lambda^{n-1}$ coefficient seen in (27)/(28) here.
+- **Forward (May 2):** Cayley-Hamilton theorem — every matrix satisfies its own characteristic polynomial. Today's generating-function identity is the *scalar shadow* of the matrix-polynomial identity from Cayley-Hamilton.
+- **Open question:** the identity $1/(1-\lambda x)^2 = \sum(n+1)\lambda^n x^n$ generalises to $1/(1-\lambda x)^k = \sum \binom{n+k-1}{k-1}\lambda^n x^n$. This is the **negative-power binomial expansion**, derived rigorously from the generating function for compositions of integers into $k$ parts.
+- **Connection back to Jan 3 (Basel ζ(2)):** Euler's technique of "extract coefficients from infinite-product representation" is the symbolic mirror of today's "extract terms from $1/(1-\lambda x)^2$." Same trick (Vieta on power series), different setting.
+- **Pedagogical thread:** two-independent-derivations (telescoping in A, generating function in B) for Theorem 27 — telescoping is the *combinatorial* path; generating functions are the *algebraic* path. Both yield the same formula, but generating functions generalise cleanly to higher-order recursions where telescoping becomes unwieldy.
+
 ## Related sessions
 
 - **Precursor:** [2026-01-10 morning](2026-01-10-morning.html) (stub) — introduced the recursion problem and identified the double-root anomaly.

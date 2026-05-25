@@ -202,6 +202,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -533,6 +534,17 @@ Important
 <li><strong>Confidence.</strong> Theorem 14, 15, 16 statements + derivation paths: high. The Vandermonde factor argument is a textbook gem; the cofactor-inverse construction is standard. Numerical worked example: low-medium (see above).</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Oct 11 PM):</strong> Cramer’s rule completed (singular dichotomy, existence/uniqueness classification by <span class="math inline">\(\det M\)</span>); cofactor inverse formula proven in full.</li>
+<li><strong>Forward (Feb 21, Feb 28):</strong> the determinant reappears as the <strong>characteristic polynomial</strong> <span class="math inline">\(\det(\lambda I - M)\)</span>, where eigenvalues are roots. Vieta on these roots gives trace and determinant — the same Vandermonde-to-symmetric-functions move generalised.</li>
+<li><strong>Forward (Mar 7):</strong> rigorous proof of <span class="math inline">\(M^{-1} = (\text{cofactor matrix})^T / \det M\)</span>; today’s three-points-through-parabola motivates the general formula.</li>
+<li><strong>Open question:</strong> the Vandermonde determinant is <strong>always nonzero</strong> when <span class="math inline">\(x_i\)</span> distinct ⇒ unique parabolic interpolation always exists for distinct <span class="math inline">\(x\)</span>. The polynomial form generalises: <span class="math inline">\(n+1\)</span> distinct <span class="math inline">\(x\)</span>-values uniquely determine a degree-<span class="math inline">\(n\)</span> polynomial (Lagrange interpolation). Forward-pointer to numerical analysis.</li>
+<li><strong>Pedagogical thread:</strong> the teacher’s “I taught snaking three times” motif — <em>internalisation</em> requires reflexive deployment, not just one-time understanding. The three-point parabola problem is itself a <em>test</em> of whether students remember the Vandermonde determinant from prior sessions.</li>
+<li><strong>Connection back to Sep 13 (roots of unity):</strong> the Vandermonde determinant with <span class="math inline">\(x_i = \omega^i\)</span> (<span class="math inline">\(n\)</span>-th roots of unity) is the <strong>discrete Fourier transform</strong> matrix’s determinant — connecting today’s polynomial-fitting setup to the harmonic-analysis arc.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

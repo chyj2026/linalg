@@ -197,6 +197,7 @@ window.Quarto = {
   <li><a href="#worked-socratic-exchanges" id="toc-worked-socratic-exchanges" class="nav-link" data-scroll-target="#worked-socratic-exchanges">Worked Socratic exchanges</a></li>
   <li><a href="#exercises-given" id="toc-exercises-given" class="nav-link" data-scroll-target="#exercises-given">Exercises given</a></li>
   <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
@@ -439,6 +440,18 @@ Important
 <li><strong>Confidence.</strong> Derivation A: high. Derivation B: high <em>modulo gap</em>. Derivations C, D: sketched only.</li>
 </ul>
 </div>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (May 16):</strong> dot/cross product and 3D shadow-area interpretation — uses cross product as a <em>determinant</em> (with <span class="math inline">\(\vec i, \vec j, \vec k\)</span> symbols), connecting today’s polynomial-in-matrix algebra to 3D vector calculus.</li>
+<li><strong>Forward (calculus, physics):</strong> Cayley-Hamilton implies <span class="math inline">\(M^n\)</span> for $n $ matrix dimension can be expressed as a polynomial of lower powers. Critical for matrix exponentials <span class="math inline">\(e^M = \sum M^n/n!\)</span> — truncates / simplifies via Cayley-Hamilton.</li>
+<li><strong>Open question:</strong> the <strong>minimal polynomial</strong> <span class="math inline">\(\mu_M(x)\)</span> — the lowest-degree monic polynomial with <span class="math inline">\(\mu_M(M) = 0\)</span> — divides the characteristic polynomial <span class="math inline">\(p_M(x)\)</span>. Both have the same roots (with possibly different multiplicities). The Jordan-block sizes determine multiplicities in <span class="math inline">\(\mu_M\)</span>.</li>
+<li><strong>Open question (deeper):</strong> Cayley-Hamilton fails over rings with nilpotent or non-trivial ideals. Holds over fields (commutative or not). Active research: extending to non-commutative ring contexts and operator-algebra settings.</li>
+<li><strong>Open question (cosmological):</strong> Cayley-Hamilton’s <em>philosophical</em> statement — “every matrix encodes its own algebraic identity” — has analogues in differential equations (an ODE encodes its own structure) and quantum mechanics (operators satisfy their characteristic equation when acting on eigenstates). The recurring pattern is <em>self-reference in algebraic structure</em>.</li>
+<li><strong>Connection back to Jan 3 (Vieta on transcendental):</strong> Cayley-Hamilton applied to the diagonalisable case immediately recovers Vieta on eigenvalues. The four proofs today are <em>four different liftings</em> of Vieta’s scalar identity to the matrix level.</li>
+<li><strong>Pedagogical thread:</strong> <em>four proof strategies</em> (cyclic basis, adjugate-product, generating-function-shadow, induction-on-dimension) for the same theorem — each illuminates a different facet. <strong>The truth is one, but the routes are many.</strong> Mastery means knowing <em>which</em> route to use in <em>which</em> setting.</li>
+</ul>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>

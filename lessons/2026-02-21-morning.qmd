@@ -271,6 +271,16 @@ flowchart TB
 
 :::
 
+## Explorative directions
+
+- **Next brick (Feb 21 afternoon):** apply the $y \to iy$ substitution to extend hyperbola-asymptote techniques to ellipse skew axes — same algebraic substitution, different geometric meaning. Demonstrates today's *algebraic invariance* in action.
+- **Forward (Feb 28):** the eigenvalue equation $\det(M - \lambda I) = 0$ derived end-to-end. Trace and determinant from today are *Vieta on the eigenvalues* — the same algebra at the abstract level.
+- **Forward (Mar 7, Mar 28):** rigorous derivation of similarity invariance: $\text{tr}(P M P^{-1}) = \text{tr}(M)$, $\det(P M P^{-1}) = \det(M)$. The conjugation operation here (rotating to principal axes) is the canonical example.
+- **Open question:** for non-symmetric matrices, the rotation-to-principal-axes argument fails — eigenvalues may be complex even for real $M$. The general spectral theorem applies only to **symmetric** matrices over $\mathbb R$ (or normal matrices over $\mathbb C$). This is the *theorem* hiding behind today's smooth derivation.
+- **Open question:** the discriminant classification ($\Delta < 0$ ellipse, $\Delta > 0$ hyperbola) is equivalent to the *signature* of the quadratic form — number of positive vs. negative eigenvalues. **Sylvester's law of inertia** says the signature is *invariant* under change of basis (not just under orthogonal change). Forward-pointer to bilinear forms.
+- **Connection back to Oct 11 PM:** the cofactor inverse formula and Cramer's rule today reappear as *symbolic* tools — used implicitly when computing the eigenvector via $(M - \lambda I)v = 0$.
+- **Pedagogical thread:** two-derivations for Theorem 37b (determinant invariance) — Derivation A uses the explicit characteristic-polynomial coefficient; Derivation B uses $\det(AB) = \det(A)\det(B)$. The second is one line; the first is illuminating.
+
 ## Related sessions
 
 - **Precursors:**

@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-18">
 
-<title>Quadratic Form Classification of Conics via the Discriminant b^2 - ac – Linear Algebra Notes</title>
+<title>Discriminant Classification of Conics: Why Δ = b² − ac Decides Ellipse / Parabola / Hyperbola – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,10 +184,35 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation-of-theorem-85" id="toc-derivation-of-theorem-85" class="nav-link" data-scroll-target="#derivation-of-theorem-85">Derivation of Theorem 85</a></li>
-  <li><a href="#derivation-of-theorem-87" id="toc-derivation-of-theorem-87" class="nav-link" data-scroll-target="#derivation-of-theorem-87">Derivation of Theorem 87</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-completing-the-square-and-the-quadratic-formula" id="toc-part-i-completing-the-square-and-the-quadratic-formula" class="nav-link" data-scroll-target="#part-i-completing-the-square-and-the-quadratic-formula">Part I — Completing the square and the quadratic formula</a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#derivation-a-completing-the-square" id="toc-derivation-a-completing-the-square" class="nav-link" data-scroll-target="#derivation-a-completing-the-square">1.2 Derivation A — Completing the square</a></li>
+  <li><a href="#derivation-b-vieta-axis-of-symmetry" id="toc-derivation-b-vieta-axis-of-symmetry" class="nav-link" data-scroll-target="#derivation-b-vieta-axis-of-symmetry">1.3 Derivation B — Vieta + axis of symmetry</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">1.4 Verification</a></li>
+  <li><a href="#vertex-of-y-ax2-bx-c" id="toc-vertex-of-y-ax2-bx-c" class="nav-link" data-scroll-target="#vertex-of-y-ax2-bx-c">1.5 Vertex of <span class="math inline">\(y = ax^2 + bx + c\)</span></a></li>
+  <li><a href="#three-point-fitting-transcript-exercise" id="toc-three-point-fitting-transcript-exercise" class="nav-link" data-scroll-target="#three-point-fitting-transcript-exercise">1.6 Three-point fitting (transcript exercise)</a></li>
+  </ul></li>
+  <li><a href="#part-ii-discriminant-classification-of-conics" id="toc-part-ii-discriminant-classification-of-conics" class="nav-link" data-scroll-target="#part-ii-discriminant-classification-of-conics">Part II — Discriminant classification of conics</a>
+  <ul class="collapse">
+  <li><a href="#statement-1" id="toc-statement-1" class="nav-link" data-scroll-target="#statement-1">2.1 Statement</a></li>
+  <li><a href="#derivation-a-factorability-of-the-quadratic-form" id="toc-derivation-a-factorability-of-the-quadratic-form" class="nav-link" data-scroll-target="#derivation-a-factorability-of-the-quadratic-form">2.2 Derivation A — Factorability of the quadratic form</a></li>
+  <li><a href="#derivation-b-eigenvalue-decomposition-forward-pointer-to-feb-21" id="toc-derivation-b-eigenvalue-decomposition-forward-pointer-to-feb-21" class="nav-link" data-scroll-target="#derivation-b-eigenvalue-decomposition-forward-pointer-to-feb-21">2.3 Derivation B — Eigenvalue decomposition (forward pointer to Feb 21)</a></li>
+  <li><a href="#the-degenerate-subcase" id="toc-the-degenerate-subcase" class="nav-link" data-scroll-target="#the-degenerate-subcase">2.4 The degenerate subcase</a></li>
+  <li><a href="#verification-1" id="toc-verification-1" class="nav-link" data-scroll-target="#verification-1">2.5 Verification</a></li>
+  </ul></li>
+  <li><a href="#part-iii-why-the-linear-and-constant-terms-dont-change-the-type" id="toc-part-iii-why-the-linear-and-constant-terms-dont-change-the-type" class="nav-link" data-scroll-target="#part-iii-why-the-linear-and-constant-terms-dont-change-the-type">Part III — Why the linear and constant terms don’t change the type</a>
+  <ul class="collapse">
+  <li><a href="#translation-absorbs-d-f" id="toc-translation-absorbs-d-f" class="nav-link" data-scroll-target="#translation-absorbs-d-f">3.1 Translation absorbs <span class="math inline">\(d, f\)</span></a></li>
+  <li><a href="#constant-g-only-scales-shifts" id="toc-constant-g-only-scales-shifts" class="nav-link" data-scroll-target="#constant-g-only-scales-shifts">3.2 Constant <span class="math inline">\(g\)</span> only scales / shifts</a></li>
+  <li><a href="#connection-to-oct-18-pm" id="toc-connection-to-oct-18-pm" class="nav-link" data-scroll-target="#connection-to-oct-18-pm">3.3 Connection to Oct 18 PM</a></li>
+  </ul></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
@@ -199,7 +224,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quadratic Form Classification of Conics via the Discriminant <span class="math inline">\(b^2 - ac\)</span></h1>
+<h1 class="title">Discriminant Classification of Conics: Why Δ = b² − ac Decides Ellipse / Parabola / Hyperbola</h1>
 </div>
 
 
@@ -224,56 +249,309 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Reviews completing the square and the quadratic formula, then classifies the general conic <span class="math inline">\(ax^2 + 2bxy + cy^2 + dx + ey + g = 0\)</span> by the discriminant <span class="math inline">\(\Delta = b^2 - ac\)</span>: <span class="math inline">\(\Delta &lt; 0\)</span> ellipse, <span class="math inline">\(\Delta = 0\)</span> parabola, <span class="math inline">\(\Delta &gt; 0\)</span> hyperbola.</p>
+<p>Reviews the quadratic formula (via completing the square) and the vertex location of <span class="math inline">\(y = ax^2 + bx + c\)</span>. Then classifies the general conic <span class="math inline">\(ax^2 + 2bxy + cy^2 + dx + fy + g = 0\)</span> by the discriminant <span class="math inline">\(\Delta = b^2 - ac\)</span>: <span class="math inline">\(\Delta &lt; 0 \Rightarrow\)</span> ellipse, <span class="math inline">\(\Delta = 0 \Rightarrow\)</span> parabola, <span class="math inline">\(\Delta &gt; 0 \Rightarrow\)</span> hyperbola. The mechanism is <strong>factorability</strong>: <span class="math inline">\(\Delta &gt; 0\)</span> iff the pure quadratic part factors into two distinct real linear factors (asymptotes); <span class="math inline">\(\Delta = 0\)</span> iff it is a perfect square (degenerate direction = parabolic axis); <span class="math inline">\(\Delta &lt; 0\)</span> iff irreducible over <span class="math inline">\(\mathbb R\)</span> (no real asymptotes ⇒ bounded ellipse).</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a, b, c\)</span></td>
+<td>quadratic-form coefficients <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> (factor of 2 on cross term — symmetric matrix convention)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d, f, g\)</span></td>
+<td>linear and constant coefficients</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta\)</span></td>
+<td>discriminant: <span class="math inline">\(b^2 - 4ac\)</span> (single-variable) or <span class="math inline">\(b^2 - ac\)</span> (quadratic-form)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Phi\)</span></td>
+<td>full polynomial: <span class="math inline">\(ax^2 + 2bxy + cy^2 + dx + fy + g\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lambda_1, \lambda_2\)</span></td>
+<td>roots of the form-defining quadratic in slope</td>
+</tr>
+<tr class="even">
+<td>(x_0, y_0)</td>
+<td>a generic point on the conic</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in <span class="math inline">\(\mathbb R^2\)</span>. <strong>Convention:</strong> quadratic-form cross-term coefficient is <span class="math inline">\(2b\)</span> (matches symmetric-matrix entry); a different textbook may use <span class="math inline">\(b\)</span> directly (no factor of 2) and define <span class="math inline">\(\Delta = b^2 - 4ac\)</span> accordingly. <strong>Definitions:</strong> the <em>single-variable</em> discriminant is the well-known <span class="math inline">\(b^2 - 4ac\)</span>; the <em>quadratic-form</em> discriminant is <span class="math inline">\(b^2 - ac\)</span> (no 4) because of the <span class="math inline">\(2b\)</span> convention. <strong>Imported lemmas:</strong> (i) any quadratic <span class="math inline">\(At^2 + Bt + C\)</span> factors over <span class="math inline">\(\mathbb R\)</span> iff <span class="math inline">\(B^2 - 4AC \ge 0\)</span>; (ii) algebra of completing the square; (iii) geometric definitions of conics (focal property and eccentricity) from Oct 4.</p>
+<hr>
+</section>
+<section id="part-i-completing-the-square-and-the-quadratic-formula" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-completing-the-square-and-the-quadratic-formula">Part I — Completing the square and the quadratic formula</h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Quadratic formula via completing the square).</strong> For <span class="math inline">\(ax^2 + bx + c = 0\)</span>: <span class="math display">\[
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \tag{85}
+<p><strong>(Quadratic formula).</strong> For <span class="math inline">\(ax^2 + bx + c = 0\)</span> with <span class="math inline">\(a \ne 0\)</span>: <span class="math display">\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \tag{1}
 \]</span></p>
 </div>
-<div class="theorem">
-<p><strong>(Vertex of parabola).</strong> <span class="math inline">\(y = ax^2 + bx + c\)</span> has vertex at <span class="math inline">\(x = -b/(2a)\)</span>. <span class="math inline">\(\tag{86}\)</span></p>
-</div>
-<div class="theorem">
-<p><strong>(Discriminant classification of conics).</strong> <span class="math inline">\(ax^2 + 2bxy + cy^2 + \cdots = 0\)</span> describes: <span class="math display">\[
-\Delta = b^2 - ac \begin{cases} &lt; 0 &amp; \text{ellipse}\\ = 0 &amp; \text{parabola}\\ &gt; 0 &amp; \text{hyperbola}\end{cases}. \tag{87}
+</section>
+<section id="derivation-a-completing-the-square" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-completing-the-square">1.2 Derivation A — Completing the square</h3>
+<p>Factor out <span class="math inline">\(a\)</span>: <span class="math display">\[
+a\!\left(x^2 + \frac{b}{a}x\right) + c = 0. \tag{2}
+\]</span> Add and subtract <span class="math inline">\((b/(2a))^2\)</span> inside the parentheses: <span class="math display">\[
+a\!\left[\left(x + \frac{b}{2a}\right)^2 - \frac{b^2}{4a^2}\right] + c = 0. \tag{3}
+\]</span> <span class="math display">\[
+a\!\left(x + \frac{b}{2a}\right)^2 = \frac{b^2}{4a} - c = \frac{b^2 - 4ac}{4a}. \tag{4}
+\]</span> Divide by <span class="math inline">\(a\)</span>: <span class="math display">\[
+\left(x + \frac{b}{2a}\right)^2 = \frac{b^2 - 4ac}{4a^2}. \tag{5}
+\]</span> Take square roots (with <span class="math inline">\(\pm\)</span>): <span class="math display">\[
+x + \frac{b}{2a} = \pm\frac{\sqrt{b^2 - 4ac}}{2a} \;\Longrightarrow\; x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \quad\blacksquare \tag{6}
 \]</span></p>
+<p><strong>Weakest step:</strong> the square-root step in (5)→(6) introduces <span class="math inline">\(\pm\)</span>; both signs are roots. When <span class="math inline">\(b^2 - 4ac &lt; 0\)</span>, no real square root exists ⇒ no real roots (the discriminant’s sign directly classifies the existence of real roots).</p>
+</section>
+<section id="derivation-b-vieta-axis-of-symmetry" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-vieta-axis-of-symmetry">1.3 Derivation B — Vieta + axis of symmetry</h3>
+<p>If <span class="math inline">\(x_1, x_2\)</span> are roots: <span class="math inline">\(x_1 + x_2 = -b/a\)</span> and <span class="math inline">\(x_1 x_2 = c/a\)</span> (Vieta). Hence midpoint of roots is <span class="math inline">\(-b/(2a)\)</span>, which is <em>also</em> the axis of symmetry of <span class="math inline">\(y = ax^2 + bx + c\)</span>. Solving the system <span class="math inline">\(x_1 + x_2 = -b/a\)</span>, <span class="math inline">\(x_1 x_2 = c/a\)</span> symbolically gives the same <span class="math inline">\(\pm\sqrt{\Delta}/(2a)\)</span> deviation from the midpoint. Hence (1). <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Comparison.</strong> A is the standard textbook derivation, mechanical and reliable. B is the “by symmetry” approach — shorter once Vieta is internalised, but Vieta itself requires (1) or a separate proof. The class derived (1) from completing the square (Derivation A); Vieta is a <em>consequence</em>, not a competing starting point.</p>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">1.4 Verification</h3>
+<ul>
+<li><span class="math inline">\(x^2 - 11x + 28 = 0\)</span>: <span class="math inline">\(b^2 - 4ac = 121 - 112 = 9\)</span>; <span class="math inline">\(\sqrt 9 = 3\)</span>; <span class="math inline">\(x = (11 \pm 3)/2 \in \{7, 4\}\)</span>. ✓ Factored: <span class="math inline">\((x-7)(x-4)\)</span>.</li>
+<li><span class="math inline">\(x^2 + 1 = 0\)</span>: <span class="math inline">\(b^2 - 4ac = -4 &lt; 0\)</span>. No real roots. ✓ (complex roots <span class="math inline">\(\pm i\)</span>.)</li>
+</ul>
+</section>
+<section id="vertex-of-y-ax2-bx-c" class="level3">
+<h3 class="anchored" data-anchor-id="vertex-of-y-ax2-bx-c">1.5 Vertex of <span class="math inline">\(y = ax^2 + bx + c\)</span></h3>
+<div class="theorem">
+<p><strong>(Vertex location).</strong> <span class="math inline">\(y = ax^2 + bx + c\)</span> has axis of symmetry <span class="math inline">\(x = -b/(2a)\)</span>, and the vertex is at <span class="math inline">\((-b/(2a), c - b^2/(4a))\)</span>.</p>
+</div>
+<p><em>Derivation.</em> The completed-square form is <span class="math inline">\(y = a(x + b/(2a))^2 + (c - b^2/(4a))\)</span>. The axis <span class="math inline">\(x = -b/(2a)\)</span> makes the squared term zero; at the axis, <span class="math inline">\(y\)</span> takes its minimum (if <span class="math inline">\(a &gt; 0\)</span>) or maximum (if <span class="math inline">\(a &lt; 0\)</span>): <span class="math inline">\(y_\text{vertex} = c - b^2/(4a)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="three-point-fitting-transcript-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="three-point-fitting-transcript-exercise">1.6 Three-point fitting (transcript exercise)</h3>
+<p>Given a quadratic passing through <span class="math inline">\((4, 7), (10, 7), (0, 20)\)</span>: since <span class="math inline">\((4,7)\)</span> and <span class="math inline">\((10,7)\)</span> share <span class="math inline">\(y\)</span>-value, the axis of symmetry is the midpoint <span class="math inline">\(x = 7\)</span>. So <span class="math display">\[
+y = k(x-7)^2 + 7. \tag{7}
+\]</span> Plug <span class="math inline">\((0, 20)\)</span>: <span class="math inline">\(20 = 49k + 7 \Rightarrow k = 13/49\)</span>. <strong>Wait</strong> — recompute: <span class="math inline">\(20 - 7 = 13\)</span>, <span class="math inline">\(13/49\)</span>. So <span class="math display">\[
+y = \frac{13}{49}(x-7)^2 + 7. \tag{8}
+\]</span> <strong>Source correction.</strong> The transcript erroneously concludes <span class="math inline">\(k = 13/40\)</span>; the correct denominator is <span class="math inline">\(49\)</span> (since <span class="math inline">\((0-7)^2 = 49\)</span>, not <span class="math inline">\(40\)</span>). Verified: at <span class="math inline">\(x = 0\)</span>, <span class="math inline">\(y = (13/49)\cdot 49 + 7 = 13 + 7 = 20\)</span> ✓.</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-discriminant-classification-of-conics" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-discriminant-classification-of-conics">Part II — Discriminant classification of conics</h2>
+<section id="statement-1" class="level3">
+<h3 class="anchored" data-anchor-id="statement-1">2.1 Statement</h3>
+<div class="theorem">
+<p><strong>(Discriminant classifies conics).</strong> The conic <span class="math inline">\(\Phi(x,y) = ax^2 + 2bxy + cy^2 + dx + fy + g = 0\)</span> is, up to degeneracy: - <strong>ellipse</strong> if <span class="math inline">\(\Delta := b^2 - ac &lt; 0\)</span>, - <strong>parabola</strong> if <span class="math inline">\(\Delta = 0\)</span>, - <strong>hyperbola</strong> if <span class="math inline">\(\Delta &gt; 0\)</span>.</p>
 </div>
 </section>
-<section id="derivation-of-theorem-85" class="level2">
-<h2 class="anchored" data-anchor-id="derivation-of-theorem-85">Derivation of Theorem 85</h2>
-<p><span class="math inline">\(ax^2 + bx + c = a(x^2 + bx/a) + c = a(x + b/(2a))^2 - b^2/(4a) + c = 0\)</span>. Solve: <span class="math inline">\((x + b/(2a))^2 = (b^2 - 4ac)/(4a^2)\)</span>, so <span class="math inline">\(x = -b/(2a) \pm \sqrt{b^2 - 4ac}/(2a)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-a-factorability-of-the-quadratic-form" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-factorability-of-the-quadratic-form">2.2 Derivation A — Factorability of the quadratic form</h3>
+<p>The shape of the conic depends <em>only</em> on the quadratic part <span class="math inline">\(Q(x,y) := ax^2 + 2bxy + cy^2\)</span> (Emma’s observation); the linear part <span class="math inline">\(dx + fy\)</span> shifts the curve but does not change the type, and <span class="math inline">\(g\)</span> shifts vertically but does not change the type.</p>
+<p><strong>Subcase <span class="math inline">\(\Delta &gt; 0\)</span>.</strong> <span class="math inline">\(Q\)</span> factors into two distinct real linear factors: <span class="math display">\[
+Q(x,y) = c(y - \lambda_1 x)(y - \lambda_2 x), \quad \lambda_{1,2} = \frac{-b\pm\sqrt{\Delta}}{c}. \tag{9}
+\]</span> For large <span class="math inline">\(|x|\)</span>, the equation $= $ const requires the product of the two factors to be bounded; if one factor blows up, the other must shrink — <em>hyperbolic</em> behaviour with two asymptotes <span class="math inline">\(y = \lambda_i x\)</span>.</p>
+<p><strong>Subcase <span class="math inline">\(\Delta = 0\)</span>.</strong> <span class="math inline">\(Q\)</span> is a perfect square: <span class="math display">\[
+Q(x,y) = c(y - \lambda x)^2, \quad \lambda = -b/c. \tag{10}
+\]</span> Only <strong>one</strong> asymptotic direction; the curve is unbounded along it but has no second asymptote — <em>parabolic</em> behaviour.</p>
+<p><strong>Subcase <span class="math inline">\(\Delta &lt; 0\)</span>.</strong> <span class="math inline">\(Q\)</span> has no real linear factors (only complex). For $= $ const, <span class="math inline">\(|x|, |y|\)</span> cannot both blow up because <span class="math inline">\(Q\)</span> is a <em>positive definite</em> (or negative definite, after sign normalisation) form: <span class="math inline">\(Q \ge \lambda_\min(x^2 + y^2)\)</span> where <span class="math inline">\(\lambda_\min &gt; 0\)</span> is the smaller eigenvalue. Hence the curve is bounded — <em>elliptical</em> behaviour.</p>
 </section>
-<section id="derivation-of-theorem-87" class="level2">
-<h2 class="anchored" data-anchor-id="derivation-of-theorem-87">Derivation of Theorem 87</h2>
-<p>The discriminant determines whether the quadratic form <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> factors over <span class="math inline">\(\mathbb{R}\)</span>: if <span class="math inline">\(\Delta &gt; 0\)</span> it factors into two real linear factors (asymptote pair → hyperbola); if <span class="math inline">\(\Delta = 0\)</span> it’s a perfect square (degenerate parabola direction); if <span class="math inline">\(\Delta &lt; 0\)</span> it’s irreducible (ellipse, no real asymptotes). <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-b-eigenvalue-decomposition-forward-pointer-to-feb-21" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-eigenvalue-decomposition-forward-pointer-to-feb-21">2.3 Derivation B — Eigenvalue decomposition (forward pointer to Feb 21)</h3>
+<p>The quadratic form <span class="math inline">\(Q = (x, y)\,M\,(x,y)^T\)</span> where <span class="math inline">\(M = \begin{pmatrix}a &amp; b\\ b &amp; c\end{pmatrix}\)</span>. Eigenvalues <span class="math inline">\(\mu_{1,2}\)</span> of <span class="math inline">\(M\)</span> satisfy <span class="math display">\[
+\mu^2 - (a+c)\mu + (ac - b^2) = 0 \;\Longrightarrow\; \mu_{1,2} = \frac{(a+c) \pm \sqrt{(a-c)^2 + 4b^2}}{2}. \tag{11}
+\]</span> Product: <span class="math inline">\(\mu_1 \mu_2 = ac - b^2 = -\Delta\)</span>. So: - <span class="math inline">\(\Delta &gt; 0 \Leftrightarrow \mu_1 \mu_2 &lt; 0\)</span>: opposite signs ⇒ hyperbola. - <span class="math inline">\(\Delta = 0 \Leftrightarrow \mu_1 \mu_2 = 0\)</span>: one eigenvalue zero ⇒ parabola. - <span class="math inline">\(\Delta &lt; 0 \Leftrightarrow \mu_1 \mu_2 &gt; 0\)</span>: same sign ⇒ ellipse.</p>
+<p><strong>Comparison.</strong> A is the algebraic (factor-form) approach, accessible without linear algebra. B is the spectral approach — one line once eigenvalues are introduced (Feb 21). Both yield the same classification because <span class="math inline">\(\mu_1\mu_2 = \det M = ac - b^2 = -\Delta\)</span>.</p>
+<p><strong>Weakest step in A:</strong> the “factor-form” intuition requires noticing that asymptotes are <em>defined</em> by linear factors of <span class="math inline">\(Q\)</span>. This is the content of Oct 18 PM session — proved there.</p>
+<p><strong>Weakest step in B:</strong> Derivation B requires the <em>spectral theorem</em> for symmetric matrices, imported from Feb 21. Forward-pointer.</p>
+</section>
+<section id="the-degenerate-subcase" class="level3">
+<h3 class="anchored" data-anchor-id="the-degenerate-subcase">2.4 The degenerate subcase</h3>
+<p>If <span class="math inline">\(\Phi\)</span> factors as a product of two linear polynomials (not just <span class="math inline">\(Q\)</span>, but the full polynomial including <span class="math inline">\(dx + fy + g\)</span>), the conic <em>degenerates</em> to two lines. Concretely: <span class="math inline">\(\Phi = (\alpha_1 x + \beta_1 y + \gamma_1)(\alpha_2 x + \beta_2 y + \gamma_2)\)</span>. This happens on a codimension-1 subset of the parameter space; condition is that a <span class="math inline">\(3\times 3\)</span> “extended discriminant” determinant vanishes (a topic for Oct 18 PM).</p>
+</section>
+<section id="verification-1" class="level3">
+<h3 class="anchored" data-anchor-id="verification-1">2.5 Verification</h3>
+<ul>
+<li><strong>Unit circle</strong> <span class="math inline">\(x^2 + y^2 - 1 = 0\)</span>: <span class="math inline">\(a=1, b=0, c=1\)</span>, <span class="math inline">\(\Delta = -1 &lt; 0\)</span> ⇒ ellipse (special case: circle, <span class="math inline">\(\mu_1 = \mu_2\)</span>). ✓</li>
+<li><strong>Unit hyperbola</strong> <span class="math inline">\(x^2 - y^2 = 1\)</span>: <span class="math inline">\(a=1, b=0, c=-1\)</span>, <span class="math inline">\(\Delta = 1 &gt; 0\)</span> ⇒ hyperbola. ✓</li>
+<li><strong>Standard parabola</strong> <span class="math inline">\(y = x^2\)</span>, i.e.&nbsp;<span class="math inline">\(x^2 - y = 0\)</span>: <span class="math inline">\(a=1, b=0, c=0\)</span>, <span class="math inline">\(\Delta = 0\)</span> ⇒ parabola. ✓</li>
+<li><strong>Skew hyperbola</strong> <span class="math inline">\(xy = 1\)</span>: <span class="math inline">\(a=0, b=1/2, c=0\)</span> (using <span class="math inline">\(2b\)</span> convention so <span class="math inline">\(b=1/2\)</span> for cross-term <span class="math inline">\(xy\)</span>), <span class="math inline">\(\Delta = 1/4 - 0 = 1/4 &gt; 0\)</span> ⇒ hyperbola. ✓ (asymptotes are <span class="math inline">\(x = 0\)</span> and <span class="math inline">\(y = 0\)</span> — the coordinate axes.)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-iii-why-the-linear-and-constant-terms-dont-change-the-type" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-why-the-linear-and-constant-terms-dont-change-the-type">Part III — Why the linear and constant terms don’t change the type</h2>
+<section id="translation-absorbs-d-f" class="level3">
+<h3 class="anchored" data-anchor-id="translation-absorbs-d-f">3.1 Translation absorbs <span class="math inline">\(d, f\)</span></h3>
+<p>Setting <span class="math inline">\(x = x' + h\)</span>, <span class="math inline">\(y = y' + k\)</span> for suitable shifts <span class="math inline">\((h, k)\)</span> removes the linear terms (provided the conic has a centre, i.e., <span class="math inline">\(\Delta \ne 0\)</span>). The shifted equation has the form <span class="math inline">\(Q(x', y') + g' = 0\)</span> for a new constant <span class="math inline">\(g'\)</span>. Hence: - For <span class="math inline">\(\Delta \ne 0\)</span>: linear terms always absorbable; only <span class="math inline">\(Q\)</span> and <span class="math inline">\(g'\)</span> matter for type. - For <span class="math inline">\(\Delta = 0\)</span> (parabola): no centre; cannot fully absorb linear terms; one linear term survives (the parabola’s “axial” direction).</p>
+</section>
+<section id="constant-g-only-scales-shifts" class="level3">
+<h3 class="anchored" data-anchor-id="constant-g-only-scales-shifts">3.2 Constant <span class="math inline">\(g\)</span> only scales / shifts</h3>
+<p>For <span class="math inline">\(\Delta \ne 0\)</span> after centering: equation becomes <span class="math inline">\(Q(x', y') = -g'\)</span>. Sign of <span class="math inline">\(g'\)</span> determines whether the conic is “real” (e.g., real ellipse vs.&nbsp;imaginary one) but not its type. For <span class="math inline">\(\Delta &gt; 0\)</span> hyperbola: <span class="math inline">\(g' &gt; 0\)</span> gives one branch pair, <span class="math inline">\(g' = 0\)</span> gives the asymptote pair (degenerate), <span class="math inline">\(g' &lt; 0\)</span> gives the conjugate hyperbola.</p>
+</section>
+<section id="connection-to-oct-18-pm" class="level3">
+<h3 class="anchored" data-anchor-id="connection-to-oct-18-pm">3.3 Connection to Oct 18 PM</h3>
+<p><strong>This <em>also</em> proves</strong> that the Oct 18 PM factoring procedure (writing <span class="math inline">\(\Phi = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + \text{const}\)</span>) is consistent: the <span class="math inline">\(A, B\)</span> shifts absorb <span class="math inline">\(dx + fy\)</span> exactly when <span class="math inline">\(\Delta \ne 0\)</span> (i.e., <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span>), matching the centre-existence condition above.</p>
+<hr>
+</section>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{\Phi(x,y) = 0 \;\xrightarrow{\;\text{type}\;}\; \text{sign of } \Delta = b^2 - ac}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\Delta\)</span></th>
+<th>Algebraic</th>
+<th>Geometric</th>
+<th>Spectral (<span class="math inline">\(\mu_1, \mu_2\)</span> of <span class="math inline">\(M\)</span>)</th>
+<th>Eccentricity <span class="math inline">\(\varepsilon\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(&lt; 0\)</span></td>
+<td><span class="math inline">\(Q\)</span> irreducible over <span class="math inline">\(\mathbb R\)</span></td>
+<td>ellipse (bounded)</td>
+<td>same sign</td>
+<td><span class="math inline">\(&lt; 1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(= 0\)</span></td>
+<td><span class="math inline">\(Q\)</span> perfect square</td>
+<td>parabola (unbounded, 1 axis)</td>
+<td>one zero</td>
+<td><span class="math inline">\(= 1\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(&gt; 0\)</span></td>
+<td><span class="math inline">\(Q\)</span> factors over <span class="math inline">\(\mathbb R\)</span></td>
+<td>hyperbola (2 branches, 2 asymptotes)</td>
+<td>opposite signs</td>
+<td><span class="math inline">\(&gt; 1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(= 0\)</span>, special</td>
+<td>(degenerate factorisation)</td>
+<td>two lines / point</td>
+<td>one zero, special <span class="math inline">\(d, f, g\)</span></td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<p>Three independent classifications — algebraic (factorability), geometric (focal/eccentricity), spectral (eigenvalues) — give the same trichotomy. This is the <strong>spectral theorem for conics</strong>, made fully explicit Feb 21.</p>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
-<div class="audit">
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\Delta, \mu, M, \lambda\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(11), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Cross-term coefficient <span class="math inline">\(2b\)</span> declared; matrix <span class="math inline">\(M\)</span> symmetric by this convention. Determinant convention <span class="math inline">\(\det M = ac - b^2 = -\Delta\)</span> explicit. ✓</li>
+<li><strong>Every implication follows?</strong> Completing the square: each step shown (2)→(6). Factorability ⇔ sign of <span class="math inline">\(\Delta\)</span>: each subcase derived in §2.2. Spectral connection: each step shown (11). ✓</li>
+<li><strong>Advertised axioms verified?</strong> Quadratic formula derived in §1.2; Vieta in §1.3; spectral theorem flagged as imported for Derivation B. ✓</li>
+<li><strong>Counterexample / source correction.</strong> Transcript’s <span class="math inline">\(k = 13/40\)</span> for the parabola through <span class="math inline">\((4,7),(10,7),(0,20)\)</span> corrected to <span class="math inline">\(k = 13/49\)</span> in §1.6, with arithmetic verification. The teacher’s quick computation was wrong; the correct denominator is <span class="math inline">\((0-7)^2 = 49\)</span>, not the mysterious <span class="math inline">\(40\)</span>. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> Circle (<span class="math inline">\(\Delta &lt; 0\)</span>, <span class="math inline">\(\mu_1 = \mu_2\)</span>); unit hyperbola (<span class="math inline">\(\Delta &gt; 0\)</span>); standard parabola (<span class="math inline">\(\Delta = 0\)</span>); skew hyperbola <span class="math inline">\(xy = 1\)</span> (<span class="math inline">\(\Delta = 1/4 &gt; 0\)</span>). All four ✓. ✓</li>
+<li><strong>Weakest step named?</strong> Done after Derivation A (square-root sign) and Derivations A &amp; B of §2.3 (imported lemma flags). ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Convention <span class="math inline">\(2b\)</span> vs <span class="math inline">\(b\)</span> for cross term</td>
+<td>Mixing conventions changes formula for <span class="math inline">\(\Delta\)</span></td>
+<td>Convention declared up front; matrix <span class="math inline">\(M\)</span> entries pinned</td>
+</tr>
+<tr class="even">
+<td>Linear terms always absorbable</td>
+<td>Fails for parabola (<span class="math inline">\(\Delta = 0\)</span>)</td>
+<td>§3.1 explicitly: works for <span class="math inline">\(\Delta \ne 0\)</span> only</td>
+</tr>
+<tr class="odd">
+<td>Sign of <span class="math inline">\(g'\)</span> doesn’t change type</td>
+<td>Can give <em>imaginary</em> conic when sign flips</td>
+<td>True for type; reality of curve depends on sign</td>
+</tr>
+<tr class="even">
+<td>Transcript <span class="math inline">\(k = 13/40\)</span></td>
+<td>Arithmetic slip (should be <span class="math inline">\(49\)</span>)</td>
+<td>§1.6: verified <span class="math inline">\(13/49\)</span> at <span class="math inline">\((0, 20)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Symmetric-matrix eigenvalue product = <span class="math inline">\(-\Delta\)</span></td>
+<td>True only because matrix is symmetric</td>
+<td>Symmetric by the <span class="math inline">\(2b\)</span> convention; explicit</td>
+</tr>
+<tr class="even">
+<td>Parabola’s degenerate <span class="math inline">\(\mu = 0\)</span></td>
+<td>Requires careful interpretation: parabola has <em>one</em> genuine direction + <em>one</em> singular direction</td>
+<td>Spectral theorem rigorous; degeneracy means one principal axis is along the curve’s axis</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><strong>Unit circle.</strong> <span class="math inline">\(x^2 + y^2 - 1 = 0\)</span>: <span class="math inline">\(a=1, b=0, c=1\)</span>, <span class="math inline">\(\Delta = -1 &lt; 0\)</span> → ellipse (degenerate to circle). ✓</li>
-<li><strong>Unit hyperbola.</strong> <span class="math inline">\(x^2 - y^2 = 1\)</span>: <span class="math inline">\(a=1, b=0, c=-1\)</span>, <span class="math inline">\(\Delta = 1 &gt; 0\)</span> → hyperbola. ✓</li>
-<li><strong>Parabola.</strong> <span class="math inline">\(y - x^2 = 0\)</span>: <span class="math inline">\(a=1, b=0, c=0\)</span>, <span class="math inline">\(\Delta = 0\)</span> → parabola. ✓</li>
+<li><strong>Next brick (Oct 18 PM):</strong> factor the full polynomial <span class="math inline">\(\Phi\)</span> into <span class="math inline">\(c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + \text{const}\)</span>, deriving the linear system for <span class="math inline">\((A, B)\)</span> and analysing when it has a unique solution. The afternoon makes the <em>algebraic</em> version of today’s classification explicit.</li>
+<li><strong>Forward (Feb 21):</strong> the spectral theorem for symmetric matrices — diagonalising <span class="math inline">\(M\)</span> rotates the conic to its principal axes. The eigenvalues <span class="math inline">\(\mu_{1,2}\)</span> become the semi-axis lengths squared (in the diagonal form $_1 x’^2 + _2 y’^2 = $ const).</li>
+<li><strong>Homework / deferred:</strong> (i) prove <span class="math inline">\(\det M = ac - b^2\)</span> directly from the quadratic-formula relation between eigenvalues and matrix entries; (ii) classify the conic <span class="math inline">\(4x^2 - 16xy + 7y^2 - 12x + 6y = 0\)</span>: <span class="math inline">\(\Delta = (-16)^2/4 - 4\cdot 7 \cdot 4/4 = 64 - 28 = 36 &gt; 0\)</span> — <strong>hyperbola</strong> (not the ellipse a student might guess from the “<span class="math inline">\(x^2 + 7y^2\)</span>” look).</li>
+<li><strong>Open / forward-pointing:</strong> the discriminant is the <em>square</em> of the difference of eigenvalues, scaled. More precisely, <span class="math inline">\(4\Delta + (a-c)^2 = (\mu_1 - \mu_2)^2 \ge 0\)</span>, with equality iff <span class="math inline">\(a = c\)</span> and <span class="math inline">\(b = 0\)</span> — the circle case. This is the spectral gap.</li>
+<li><strong>Connection back to Oct 4 PM:</strong> the eccentricity classification (<span class="math inline">\(\varepsilon &lt; 1, = 1, &gt; 1\)</span>) is the <strong>geometric</strong> version of today’s discriminant classification. The unifying eigenvalue interpretation (Feb 21) shows both come from the spectrum of <span class="math inline">\(M\)</span>.</li>
+<li><strong>Pedagogical thread:</strong> the teacher’s plea for “build up logical inventory of past lessons” — the discriminant idea was introduced months earlier but forgotten. The fix is <em>active integration</em>: at the end of each lesson, write a one-line summary of what tool was added to your toolbox. This is the explicit purpose of the rigour template’s “Explorative directions” section.</li>
 </ul>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view" target="_blank">Drive</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.8">v1.8</a> · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view">Drive</a></p>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
 <ul>
-<li><strong>Sequel:</strong> <a href="2025-10-18-afternoon.html">2025-10-18 afternoon</a> (asymptote factoring).</li>
-<li><strong>Forward application:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> (diagonalization via eigenvalues).</li>
+<li><strong>Sequel:</strong> <a href="2025-10-18-afternoon.html">Oct 18 afternoon</a> — factor the full polynomial into asymptote form via a <span class="math inline">\(2\times 2\)</span> linear system.</li>
+<li><strong>Forward (Feb 21):</strong> <a href="2026-02-21-afternoon.html">skew-axis ellipse</a> and <a href="2026-02-21-morning.html">eigenvalue diagonalisation</a> — the spectral theorem makes the discriminant classification a <em>consequence</em> of eigenvalue signs.</li>
+<li><strong>Precursor (Oct 4 PM):</strong> <a href="2025-10-04-afternoon.html">eccentricity classification</a> — the same trichotomy from the focal-directrix definition.</li>
 </ul>
 </section>
 <section id="full-transcript" class="level2">
