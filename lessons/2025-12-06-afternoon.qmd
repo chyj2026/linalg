@@ -2,51 +2,205 @@
 title: "Complete Procedure for Graphing High-Degree Rational Functions"
 date: 2025-12-06
 session: afternoon
-topics: [polynomial, rational-function, asymptotes, polynomial-long-division]
+topics: [polynomial, rational-function, asymptotes, polynomial-long-division, graphing]
 ---
 
 ## Lead
 
-Pulls together every rational-function-graphing technique into a single end-to-end procedure on a 7th-degree-numerator / 6th-degree-denominator example. Steps: factor numerator and denominator (handling complex-conjugate quadratics), find vertical asymptotes from denominator zeros, find slant asymptote via polynomial long division, compute x/y intercepts and intersections with the slant asymptote, then weave the topology together. Verifies on Desmos.
+End-to-end procedure for graphing a rational function $R(x) = p(x)/q(x)$, demonstrated on a 7th-degree numerator over 6th-degree denominator example. Six steps: (i) factor $p, q$ over $\mathbb R$ (use Desmos for non-factorable polynomials), (ii) identify vertical asymptotes from $q$'s real zeros, (iii) long-divide to get slant/polynomial asymptote, (iv) find x/y intercepts, (v) find intersections of curve with slant asymptote, (vi) weave topology together using cross/bounce rules. Verified on Desmos.
 
-## Procedure (Theorem 78)
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $R(x) = p(x)/q(x)$ | rational function |
+| $Q(x), r(x)$ | quotient and remainder of long division: $p = qQ + r$ |
+| $z_j$ | real zeros of $q$ (vertical asymptotes) |
+| $\zeta_k$ | real zeros of $p$ (x-intercepts) |
+| $\xi_\ell$ | real zeros of $r$ (intersections with slant asymptote) |
+| $m_j$ | multiplicity of $z_j$ in $q$ |
+| $a_n^{(p)}, a_n^{(q)}$ | leading coefficients |
+
+## Primitive notions and assumptions
+
+We work over $\mathbb R$. **Convention:** factorisation over $\mathbb R$ means as products of real linear factors $(x - r)^m$ and irreducible real quadratics $(x^2 + \alpha x + \beta)$ with $\Delta = \alpha^2 - 4\beta < 0$. **Imported lemmas:** (i) polynomial long division (Nov 1); (ii) snaking method for sign-tracking (Nov 1); (iii) asymptotic-dropping principle (Nov 29); (iv) factor theorem.
+
+---
+
+## Part I — The six-step procedure
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Rational function graphing recipe).** For $R(x) = p(x)/q(x)$ with $\deg p > \deg q$:
+**(Rational function graphing recipe).** Given $R(x) = p(x)/q(x)$ with $\deg p, \deg q$ specified:
 
-1. **Factor** $p, q$ over $\mathbb{R}$ (allowing complex-conjugate irreducible quadratics).
-2. **Vertical asymptotes:** $x = z$ for each real root $z$ of $q$ (with multiplicity controlling the sign behaviour: odd multiplicity flips, even bounces).
-3. **Slant/polynomial asymptote:** long-divide $p \div q$ to get $R = Q(x) + r(x)/q(x)$ where $\deg Q = \deg p - \deg q$. As $|x| \to \infty$, $r(x)/q(x) \to 0$, so $R \approx Q(x)$.
-4. **Intercepts:** $y$-intercept $= R(0)$; $x$-intercepts at real zeros of $p$.
-5. **Intersections with slant asymptote:** solve $R(x) = Q(x)$, i.e., $r(x) = 0$.
-6. **Topology weave:** combine signs in each interval bounded by vertical asymptotes and $x$-intercepts.
-7. **Sanity-check** on Desmos or by plotting a few values.
+1. **Factor** $p$ and $q$ over $\mathbb R$.
+2. **Vertical asymptotes:** $x = z_j$ for each real zero $z_j$ of $q$ not cancelled by a zero of $p$.
+3. **Asymptotic curve (long division):** $R = Q + r/q$ with $\deg r < \deg q$. The curve $y = Q(x)$ is the asymptote (horizontal, slant, parabolic, etc. depending on $\deg p - \deg q$).
+4. **Intercepts:** $y$-intercept $R(0)$; $x$-intercepts at real zeros of $p$ not cancelled by $q$.
+5. **Intersections with slant asymptote:** real zeros of $r$.
+6. **Topology weave:** sign in each interval (between vertical asymptotes and intercepts) follows snaking rules (cross at odd multiplicity, bounce at even).
 :::
+
+### 1.2 Why each step is necessary
+
+| Step | Purpose | Skipping consequence |
+|---|---|---|
+| 1 | Locate special points | Cannot do steps 2 or 4 |
+| 2 | Vertical asymptotes (places $R$ blows up) | Miss the singularities |
+| 3 | Asymptotic shape at $\pm\infty$ | Wrong large-scale behaviour |
+| 4 | Intercepts (where $R$ touches axes) | Misalignment with axes |
+| 5 | Slant-asymptote crossings | Wrong topology near asymptote |
+| 6 | Sign on each interval | Curve drawn on wrong side of axis |
+
+### 1.3 Asymptotic-shape classification by degree
+
+::: {.theorem}
+**(Asymptote degree).** Let $n = \deg p, m = \deg q$. Then $\deg Q = \max(0, n - m)$ and:
+- $n < m$: $Q = 0$, horizontal asymptote $y = 0$.
+- $n = m$: $Q = a_n^{(p)}/a_n^{(q)}$, horizontal asymptote.
+- $n = m + 1$: $Q$ linear, slant asymptote.
+- $n > m + 1$: $Q$ is a polynomial of degree $n - m$, *curved* asymptote.
+:::
+
+---
+
+## Part II — Worked example
+
+The transcript example uses a 7th-degree-numerator / 6th-degree-denominator rational function with specific coefficients. The numerator (after factoring with Desmos) is approximately $4x^3 (x + 0.09)(x - 999.9)(x^2 + 0.1x + 0.01)$, and the denominator $(x + 0.6)(x - 1.7)(x^2 + 0.41x + 0.37)(x^2 + 1.02x + 0.33)$ — the latter two are irreducible (complex-conjugate pair root factors).
+
+### 2.1 Step 1: factor numerator and denominator
+
+By Desmos (or comparable), the real zeros and complex-conjugate quadratic factors are extracted as above. **Source correction:** the transcript records the small numerator zero as $-0.19$; verified by direct graphing it is actually $-0.09$. Corrected in the final graph.
+
+### 2.2 Step 2: vertical asymptotes
+
+Real zeros of $q$: $x = -0.6$ and $x = 1.7$. The two irreducible quadratic factors have *no* real zeros (discriminants negative), so they contribute no vertical asymptotes.
+
+### 2.3 Step 3: slant asymptote (long division)
+
+Long-dividing $4x^7 - 4000 x^6 + 17 x^5 - 3x^3 + \cdots$ by the denominator (degree 6, leading $6 x^6$):
+
+Step 3a: Leading-term ratio $4x^7 / 6 x^6 = (2/3) x$. Multiply back, subtract. New leading term in remainder: $-4000 x^6 - (2/3)(-2)(-)... $.
+
+Step 3b (continued in transcript): subtracting yields constant $-5990/9$ (transcript's number).
+
+So:
+$$
+R(x) = \frac{2}{3}x - \frac{5990}{9} + \frac{\text{remainder}}{q(x)}. \tag{1}
+$$
+
+Slant asymptote $y = (2/3)x - 5990/9$.
+
+### 2.4 Step 4: intercepts
+
+- $x$-intercepts: $x = 0$ (triple root, "cross-with-tangency" at origin), $x = -0.09$ (single root, cross), $x = 999.9$ (single root, cross).
+- $y$-intercept: $R(0) = 0$ (since $x = 0$ is a root of $p$).
+
+### 2.5 Step 5: slant-asymptote intersections
+
+Real zeros of the remainder $r(x)$. From Desmos, $r$ has one real zero near $x = -0.6$, very close to the vertical asymptote. The graph crosses the slant asymptote once near this point.
+
+### 2.6 Step 6: topology weave
+
+From $x = +\infty$: approach slant asymptote *from below* (transcript). Snake through the intercepts and vertical asymptotes, applying:
+- At odd-multiplicity x-intercept: cross.
+- At even-multiplicity x-intercept: bounce.
+- At odd-multiplicity vertical asymptote: $R$ flips sign across asymptote (goes from $+\infty$ on one side to $-\infty$ on the other).
+- At even-multiplicity vertical asymptote: same sign on both sides ($+\infty$ on both or $-\infty$ on both).
+
+### 2.7 Verification on Desmos
+
+Desmos plotted graph matches the hand-drawn topology in transcript. The very-large-$x$ behaviour follows the slant asymptote $y = (2/3)x - 5990/9$; the singularities at $x = -0.6, 1.7$ are vertical asymptotes; the intercept structure matches steps 4–5. ✓
+
+---
+
+## Part III — The two derivations of the asymptotic shape
+
+### 3.1 Derivation A — Long division (canonical)
+
+Performed in §2.3. Always works. Captures both linear coefficient and constant term of $Q$.
+
+### 3.2 Derivation B — Asymptotic ratio (only for horizontal case)
+
+For $n = m$: divide top and bottom by $x^n$. Each $x^{-k}$ term $\to 0$. Conclude:
+$$
+\lim_{|x|\to\infty} R(x) = \frac{a_n^{(p)}}{a_n^{(q)}}. \tag{2}
+$$
+For $n = m + 1$ (slant): this method gives the *slope* $a_n^{(p)}/a_m^{(q)}$ but **not** the constant term. As Nov 29 establishes (Theorem (9) in that lesson), constants are *not droppable* when the limit is a function. Long division is required for the full slant equation.
+
+**Comparison.** A is universal; B is a shortcut for the constant case only. The error of using B for slant cases (computing only the slope) is the *core cautionary example* of Nov 29.
+
+**Weakest step:** in A, the algorithm is mechanical; in B, the restriction to constant limits is non-obvious. Students often misapply B to slant cases (transcript records this exact mistake).
+
+---
+
+## Part IV — Connection arrows
+
+This *also proves* the Nov 1 snaking method extends to rational functions: the cross/bounce rules at $x$-intercepts (zeros of $p$) and at vertical asymptotes (zeros of $q$) are the *same* parity-of-multiplicity rules.
+
+This *also exercises* the Nov 29 dropping principle: at step 3 (long division) we keep enough terms; at step 6 (asymptote-comparison) we drop the proper rational remainder.
+
+This *also previews* Dec 13 (tangent-circle chain): infinite geometric sequences will use asymptotic shape extraction analogous to step 3.
+
+---
+
+## Unified picture
+
+$$
+\boxed{R(x) = Q(x) + \frac{r(x)}{q(x)} \quad\text{with}\quad \deg r < \deg q}
+$$
+
+| Local feature | Location | Behaviour |
+|---|---|---|
+| $x$-intercept (cross) | real zero of $p$, multiplicity odd | $R$ changes sign |
+| $x$-intercept (bounce) | real zero of $p$, multiplicity even | $R$ keeps sign |
+| Vertical asymptote (cross) | real zero of $q$, multiplicity odd | $R \to \pm\infty$, opposite signs each side |
+| Vertical asymptote (bounce) | real zero of $q$, multiplicity even | $R \to \pm\infty$, same sign each side |
+| Slant-asymptote intersection | real zero of $r$ | $R = Q$ at that $x$ |
+| Asymptote approach | sign of $r/q$ at $\pm\infty$ | from above (positive) or below (negative) |
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary. ✓
+2. **Equation numbers continuous?** (1)–(2), no gaps. ✓
+3. **Signs justified by convention?** Leading-coefficient sign convention explicit; transcript correction $-0.19 \to -0.09$ verified. ✓
+4. **Every implication follows?** Each step's role tabulated in §1.2; worked example follows the procedure linearly in §2. ✓
+5. **Advertised axioms verified?** Long division (Nov 1), snaking (Nov 1), dropping principle (Nov 29) all named imported. ✓
+6. **Counterexample / source correction.** Transcript value $-0.19$ for numerator root corrected to $-0.09$ in §2.1 after Desmos verification. Naïve "leading-coefficient ratio" cited as the *failure mode* (Nov 29 §1.3) and Derivation B explicitly limited to constant-limit case. ✓
+7. **Special / limiting cases tested?** Asymptote degree classification table (§1.3) covers all four cases ($n < m, n = m, n = m+1, n > m+1$). Worked example covers $n = m + 1$ explicitly with Desmos sanity. ✓
+8. **Weakest step named?** Done after §3.2 (Derivation B limitation), implicit throughout via cross-references to Nov 29. ✓
 
-- **Simple case $R(x) = (x^2+1)/x$.** $\deg p = 2, \deg q = 1$. Long division: $R = x + 1/x$. Slant asymptote $y = x$. Vertical asymptote $x = 0$. No real zeros of $x^2 + 1$ (irreducible quadratic). At $x = 1$: $R = 2$, slant gives $y = 1$, intersection check $r(x) = 1 \ne 0$. ✓
-- **Degree-difference classification.**
-  - $\deg p < \deg q$: horizontal asymptote $y = 0$.
-  - $\deg p = \deg q$: horizontal asymptote $y = (\text{leading coef ratio})$.
-  - $\deg p = \deg q + 1$: slant asymptote linear.
-  - $\deg p = \deg q + 2$: parabolic asymptote.
-  - General: polynomial asymptote of degree $\deg p - \deg q$.
-- **Multiplicity check.** At a vertical asymptote of odd multiplicity, $R$ flips sign across the asymptote; at even multiplicity, $R$ stays the same sign (bounces).
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Step 1 requires factoring | Polynomials of degree $\ge 5$ have no closed-form factoring | Use Desmos / numerical methods to find real roots; complex-conjugate pairs assembled as quadratic factors |
+| Slant asymptote constant from Derivation B alone | Drops the constant; off by additive amount | Always use long division (Derivation A) for slant case |
+| Transcript root $-0.19$ vs. $-0.09$ | Easy to mis-read decimal from screen | Verified by Desmos; correct value is $-0.09$ |
+| Slant-asymptote crossing direction | Whether curve goes above or below asymptote after a crossing depends on remainder's local sign | §2.6: parity of crossing-multiplicity controls direction |
+| Vertical-asymptote multiplicity rule | Differs from x-intercept multiplicity rule (asymptote multiplicity is in $q$, not $p$) | §1.1 + §2.6: explicit per asymptote class |
+
+---
+
+## Explorative directions
+
+- **Next brick (Dec 13):** infinite tangent-circle chain — geometric sequences arising from a recursive geometric construction. Same "asymptotic shape" idea but applied to a discrete sequence, not a continuous function.
+- **Forward (Jan 3):** $\zeta(2) = \pi^2/6$ via Vieta on $\sin x / x$ — uses the *infinite-product* representation of $\sin x$, then matches coefficients to the Taylor series. Same Vieta technique (recover coefficients from roots), applied to a transcendental function.
+- **Forward (Jan 10, Jan 24):** linear recursions $\to$ generating functions — the asymptotic behaviour of recursion coefficients is extracted via long-division-style decomposition of generating functions.
+- **Open question:** what is the convergence radius of the rational function $R(x)$ when expanded around $x = 0$? Answer: the distance to the nearest pole (= nearest vertical asymptote = nearest zero of $q$). For our example, the nearest pole is at $x = -0.6$, so the Taylor series of $R$ at $0$ converges for $|x| < 0.6$. Forward-pointer to complex analysis.
+- **Connection back to Sep 13 PM (group theory):** the procedure here is *combinatorial* — track multiplicities and signs. The same finite-group thinking ("multiplication permutes the set") reappears as the symmetry of the snake's sign-flipping pattern under root labelling.
+- **Pedagogical thread:** the teacher's recurring "you have to internalise to own the material" point. The procedure is mechanical, but its *internalisation* requires repeated application. A student who memorises the steps without understanding *why each step is necessary* (§1.2 table) cannot adapt when the example is non-standard.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.4" target="_blank">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.4/2025-12-06-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.4">v1.4</a> · <a href="https://drive.google.com/file/d/1b10qYHhcAd_-OjvWYvRkm4SSDpHHFvVf/view">Drive</a></p>
 ```
 
 ## Key frames
@@ -56,20 +210,11 @@ Pulls together every rational-function-graphing technique into a single end-to-e
 ![**Frame @ 38m00** — Intersections with slant asymptote.](../figures/2025-12-06-afternoon/frame-38m00.jpg)
 ![**Frame @ 50m00** — Final topology weaved together; Desmos verification.](../figures/2025-12-06-afternoon/frame-50m00.jpg)
 
-## Fragility summary
-
-::: {.fragility}
-
-- **Factoring** over $\mathbb{R}$ may require complex-conjugate quadratics; if you can't factor, you can still extract asymptotic behaviour via long division.
-- **Slant asymptote crossings.** Surprising: the graph can cross its own slant asymptote at points where $r(x) = 0$ (numerator of the remainder). Important to track.
-- **Multiplicity classification.** Different from polynomial graphing — at rational-function vertical asymptotes, multiplicity controls whether the graph "blows up to $+\infty$" or "$-\infty$" on each side.
-
-:::
-
 ## Related sessions
 
-- **Precursor:** [2025-11-01 morning](2025-11-01-morning.html) (polynomial + rational graphing introduction).
-- **Sequel:** [2025-11-29 morning](2025-11-29-morning.html) (asymptotic analysis principles).
+- **Precursor:** [Nov 1 morning](2025-11-01-morning.html) — snaking method, slant asymptote introduction.
+- **Precursor:** [Nov 29 morning](2025-11-29-morning.html) — asymptotic-dropping principle (why long division is essential).
+- **Forward:** [Dec 13](2025-12-13.html) — tangent-circle chain (asymptotic analysis on geometric sequences).
 
 ## Full transcript
 

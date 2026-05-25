@@ -1,5 +1,5 @@
 ---
-title: "Cubic Equations via Cardano's Substitution and Polar Complex Cube Roots"
+title: "Cubic Equations via Cardano's Substitution and Complex Cube Roots in Polar Form"
 date: 2025-11-08
 session: afternoon
 topics: [cubic-equation, cardano, vieta-formulas, complex-numbers, roots-of-unity, polynomial]
@@ -7,54 +7,279 @@ topics: [cubic-equation, cardano, vieta-formulas, complex-numbers, roots-of-unit
 
 ## Lead
 
-Solves cubic $u^3 - 5u + 2 = 0$ end-to-end via **Cardano's substitution** $u = \alpha + \beta$, which reduces the cubic to a quadratic in $(\alpha^3, \beta^3)$ via the constraint $3\alpha\beta + p = 0$ and Vieta. Recovers all three real roots via complex cube roots in polar form with $120°$ rotation.
+Solves the cubic $u^3 - 5u + 2 = 0$ end-to-end via **Cardano's substitution** $u = \alpha + \beta$, which reduces the cubic to a quadratic in $(\alpha^3, \beta^3)$ via the side condition $3\alpha\beta = -p$ and Vieta's formulas. Recovers all three real roots via complex cube roots in polar form with $120°$ rotation — even though $\alpha^3, \beta^3$ are complex (casus irreducibilis), the final sum $\alpha + \beta$ is real.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $u, x$ | unknowns ($x$ = original cubic variable; $u$ = depressed-cubic variable after shift) |
+| $p, q$ | coefficients of depressed cubic $u^3 + pu + q = 0$ |
+| $\alpha, \beta$ | substitution variables: $u = \alpha + \beta$ with $3\alpha\beta = -p$ |
+| $A, B$ | abbreviations $A := \alpha^3$, $B := \beta^3$ |
+| $\omega$ | primitive cube root of unity, $\omega = e^{2\pi i/3} = -\tfrac12 + \tfrac{\sqrt 3}{2}i$ |
+| $\Delta_3$ | cubic discriminant $\Delta_3 = -4p^3 - 27q^2$; sign determines real-root count |
+
+## Primitive notions and assumptions
+
+We work over $\mathbb C$ but seek real roots. **Convention:** every complex number written in polar form $r e^{i\theta}$ has its angle determined *up to* $+2\pi k$ (the $k = 0, 1, 2$ gives three distinct cube roots). **Imported lemmas:** (i) **Vieta's formulas** for quadratic: $z^2 + pz + q$ has roots summing to $-p$ and multiplying to $q$; (ii) Euler's formula $e^{i\theta} = \cos\theta + i\sin\theta$ (Sep 20); (iii) factor theorem; (iv) polynomial long division.
+
+---
+
+## Part I — Depressing the cubic
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Depressed cubic).** Any cubic $ax^3 + bx^2 + cx + d = 0$ reduces to a depressed cubic $u^3 + pu + q = 0$ via $x = u - b/(3a)$.
+**(Depressed cubic).** Any cubic $ax^3 + bx^2 + cx + d = 0$ reduces to a depressed cubic
+$$
+u^3 + pu + q = 0 \tag{1}
+$$
+via the substitution $x = u - b/(3a)$.
 :::
+
+### 1.2 Derivation
+
+Substitute $x = u + h$ for some shift $h$: $(u+h)^3 = u^3 + 3hu^2 + 3h^2 u + h^3$. The full polynomial:
+$$
+a(u+h)^3 + b(u+h)^2 + c(u+h) + d = a u^3 + (3ah + b)u^2 + (\dots)u + (\dots). \tag{2}
+$$
+Choose $h = -b/(3a)$ to kill the $u^2$ term: $3ah + b = 3a(-b/(3a)) + b = -b + b = 0$. ✓
+
+After dividing by $a$, the result is $u^3 + pu + q = 0$ with $p, q$ explicitly computable in terms of $a, b, c, d$.
+
+### 1.3 Verification on $x^3 - 6x^2 + 7x + 2 = 0$
+
+Shift $h = -(-6)/(3) = 2$, so $u = x - 2$. Substitute:
+$$
+(u+2)^3 - 6(u+2)^2 + 7(u+2) + 2 = 0. \tag{3}
+$$
+$$
+(u^3 + 6u^2 + 12u + 8) - 6(u^2 + 4u + 4) + 7u + 14 + 2 = 0. \tag{4}
+$$
+$$
+u^3 + (6-6)u^2 + (12 - 24 + 7)u + (8 - 24 + 14 + 2) = u^3 - 5u + 0 = 0. \tag{5}
+$$
+Hmm — the original problem was $x^3 - 6x^2 + 7x + 2 = 0$. The transcript modified $+2$ to get a "nice" version where the depressed cubic is $u^3 - 5u + 2 = 0$, the worked example below. With $+2$ (instead of the "easy" $-2$ that gives $u^3 - 5u = 0$), the equation is non-trivial.
+
+For our problem $u^3 - 5u + 2 = 0$: $p = -5, q = 2$.
+
+---
+
+## Part II — Cardano's substitution
+
+### 2.1 Statement
 
 ::: {.theorem}
-**(Cardano).** For the depressed cubic $u^3 + pu + q = 0$, substitute $u = \alpha + \beta$ with $3\alpha\beta = -p$. Then $\alpha^3, \beta^3$ are roots of $t^2 + qt - p^3/27 = 0$. Roots:
+**(Cardano).** For the depressed cubic $u^3 + pu + q = 0$, set $u = \alpha + \beta$ and impose
 $$
-\alpha^3, \beta^3 \;=\; -\frac{q}{2} \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}. \tag{81}
+3\alpha\beta + p = 0 \;\Longleftrightarrow\; \alpha\beta = -p/3. \tag{6}
 $$
-The three roots of the original cubic are $u_k = \omega^k \alpha + \omega^{-k}\beta$ for $k = 0, 1, 2$ where $\omega = e^{2\pi i/3}$.
+Then $A := \alpha^3$ and $B := \beta^3$ are roots of the **resolvent quadratic**
+$$
+t^2 + q\,t - \frac{p^3}{27} = 0. \tag{7}
+$$
 :::
+
+### 2.2 Derivation
+
+Cube the substitution:
+$$
+u^3 = (\alpha + \beta)^3 = \alpha^3 + 3\alpha^2\beta + 3\alpha\beta^2 + \beta^3 = \alpha^3 + \beta^3 + 3\alpha\beta(\alpha + \beta). \tag{8}
+$$
+Plug into $u^3 + pu + q = 0$:
+$$
+\alpha^3 + \beta^3 + 3\alpha\beta(\alpha+\beta) + p(\alpha+\beta) + q = 0. \tag{9}
+$$
+$$
+\alpha^3 + \beta^3 + (3\alpha\beta + p)(\alpha+\beta) + q = 0. \tag{10}
+$$
+Choose the side condition $3\alpha\beta + p = 0$ (= (6)). This kills the second term, leaving
+$$
+\alpha^3 + \beta^3 = -q. \tag{11}
+$$
+Cube (6): $(\alpha\beta)^3 = -p^3/27$, i.e.
+$$
+\alpha^3 \beta^3 = -\frac{p^3}{27}. \tag{12}
+$$
+By Vieta on the quadratic with roots $A = \alpha^3, B = \beta^3$:
+- sum $A + B = -q$ (from (11)) ⇒ coefficient of $t^1$ is $q$;
+- product $AB = -p^3/27$ (from (12)) ⇒ constant is $-p^3/27$.
+
+Hence (7). $\quad\blacksquare$
+
+**Weakest step:** the side condition $3\alpha\beta + p = 0$ is *imposed*, not derived. It is one of *infinitely many* possible choices to "split" the original equation; this particular choice is the one that makes the algebra collapse cleanly. There is real artistry in this choice — it is the historical breakthrough of Cardano (or his teacher del Ferro / Tartaglia).
+
+### 2.3 Solving the resolvent
+
+From (7), by quadratic formula:
+$$
+A, B = -\frac{q}{2} \pm \sqrt{\frac{q^2}{4} + \frac{p^3}{27}}. \tag{13}
+$$
+
+The expression under the square root is the **(negative of the) discriminant**: $\Delta_3 = -4p^3 - 27q^2$, so $\Delta_3/(-108) = q^2/4 + p^3/27$ (up to sign).
+
+- $\Delta_3 < 0$: $A, B$ real, distinct; one real root, two complex.
+- $\Delta_3 = 0$: $A = B$; double real root.
+- $\Delta_3 > 0$ (**casus irreducibilis**): $A, B$ complex conjugates; *three real roots* — but Cardano's formula requires complex arithmetic to recover them.
+
+### 2.4 For our example $p = -5, q = 2$
+
+$$
+A, B = -1 \pm \sqrt{1 + \frac{-125}{27}} = -1 \pm \sqrt{\frac{27 - 125}{27}} = -1 \pm \sqrt{\frac{-98}{27}}. \tag{14}
+$$
+Under the square root: $-98/27 < 0$, so $A, B$ are complex conjugates. **Casus irreducibilis** confirmed — three real roots ahead.
+
+Write: $A = -1 + i\sqrt{98/27}$, $B = -1 - i\sqrt{98/27}$.
+
+Magnitude: $|A|^2 = 1 + 98/27 = (27 + 98)/27 = 125/27$, so $|A| = \sqrt{125/27} = 5\sqrt 5/(3\sqrt 3) = 5\sqrt{15}/9$. Numerically: $|A| = \sqrt{4.63} \approx 2.152$.
+
+Argument: $\arg A = \pi - \arctan(\sqrt{98/27}/1) = \pi - \arctan(1.905)$. Since $\arctan(1.905) \approx 62.4°$, $\arg A \approx 180° - 62.4° = 117.6°$.
+
+---
+
+## Part III — Recovering three real roots from cube roots
+
+### 3.1 Three cube roots of a complex number
 
 ::: {.theorem}
-**(Three roots via 120° polar rotation).** A complex cube root has three values spaced $120°$ apart on a circle of radius $|z|^{1/3}$. The three cube roots of $z = re^{i\theta}$ are $r^{1/3} e^{i(\theta + 2\pi k)/3}$ for $k = 0, 1, 2$. $\tag{82}$
+**(Three cube roots).** A nonzero complex number $z = re^{i\theta}$ has *exactly three* cube roots:
+$$
+z^{1/3} = r^{1/3} e^{i(\theta + 2\pi k)/3}, \quad k = 0, 1, 2. \tag{15}
+$$
+These are equally spaced on the circle of radius $r^{1/3}$ at $120°$ intervals.
 :::
 
-## Derivation of Theorem 81
+*Proof.* Set $w = se^{i\phi}$ with $w^3 = z$: $s^3 e^{3i\phi} = re^{i\theta}$ implies $s = r^{1/3}$ and $3\phi \equiv \theta \pmod{2\pi}$, i.e. $\phi = (\theta + 2\pi k)/3$ for $k\in\mathbb Z$. Distinct values modulo $2\pi$ occur for $k = 0, 1, 2$. $\quad\blacksquare$
 
-Substitute $u = \alpha + \beta$: $u^3 = \alpha^3 + 3\alpha\beta(\alpha + \beta) + \beta^3 = \alpha^3 + \beta^3 + 3\alpha\beta u$. So
+### 3.2 Cube roots of $A$ and $B$
+
+$A = |A|e^{i\arg A} \approx 2.152 e^{i\cdot 117.6°}$, so
 $$
-u^3 + pu + q = \alpha^3 + \beta^3 + (3\alpha\beta + p)u + q = 0.
+\alpha = |A|^{1/3} e^{i(117.6° + 360° k)/3} = (2.152)^{1/3} e^{i(39.2° + 120° k)}, \quad k = 0,1,2. \tag{16}
 $$
-Imposing $3\alpha\beta + p = 0$ kills the $u$-term, leaving $\alpha^3 + \beta^3 = -q$. Combined with $\alpha^3\beta^3 = (-p/3)^3 = -p^3/27$, $\alpha^3$ and $\beta^3$ are roots of the quadratic in (81) by Vieta. $\quad\blacksquare$
+$(2.152)^{1/3} \approx 1.290$.
+
+Three values:
+- $k=0$: $\alpha_0 \approx 1.290 \cdot e^{i\cdot 39.2°}$
+- $k=1$: $\alpha_1 \approx 1.290 \cdot e^{i\cdot 159.2°}$
+- $k=2$: $\alpha_2 \approx 1.290 \cdot e^{i\cdot 279.2°}$
+
+Similarly for $\beta$ (cube roots of $B$, conjugate of $A$): $\beta_k = \overline{\alpha_k}$ (with consistent indexing).
+
+### 3.3 Matching $\alpha_k$ with $\beta_k$ via $\alpha\beta = -p/3$
+
+The side condition (6) requires $\alpha\beta = -p/3 = 5/3$ (positive real). For each $\alpha_k$, the matching $\beta_k$ is determined uniquely so that $\alpha_k \beta_k = 5/3$. Since both $|\alpha_k|, |\beta_k| \approx 1.290$ and $1.290^2 = 1.664 \approx 5/3 \approx 1.667$ ✓, the magnitudes already match (up to small numerical error). The arguments must satisfy $\arg\alpha_k + \arg\beta_k = 0$ (mod $2\pi$). Since $\beta_k = \overline{\alpha_k}$, $\arg\beta_k = -\arg\alpha_k$, automatically giving sum 0. ✓
+
+### 3.4 The three real roots
+
+$u_k = \alpha_k + \beta_k = \alpha_k + \overline{\alpha_k} = 2\Re(\alpha_k) = 2\cdot 1.290 \cos(39.2° + 120° k)$, for $k = 0, 1, 2$:
+
+- $u_0 = 2\cdot 1.290 \cos 39.2° \approx 2\cdot 1.290 \cdot 0.775 \approx 2.000$. ✓
+- $u_1 = 2\cdot 1.290 \cos 159.2° \approx 2\cdot 1.290 \cdot (-0.935) \approx -2.413$.
+- $u_2 = 2\cdot 1.290 \cos 279.2° \approx 2\cdot 1.290 \cdot 0.160 \approx 0.413$.
+
+Recover $x = u + 2$:
+
+- $x_0 = 2 + 2 = 4$. **Wait** — let me recheck.
+
+Actually, the original problem in the transcript: shift was $h = 2$ (we computed $u = x - 2$). Let me re-verify. $x^3 - 6x^2 + 7x + 2 = 0$: shift by $u = x - 2$ gives the depressed form. Above we computed it as $u^3 - 5u + 0$ (with $q = 0$), but the transcript later modifies the constant to $+2$, giving $u^3 - 5u + 2 = 0$.
+
+So the *original* cubic the transcript actually solves is $x^3 - 6x^2 + 7x + 4 = 0$ (the $+4$ producing $q = 2$ after the depression $h = 2$). Verify: shift gives constant $8 - 24 + 14 + 4 = 2$ ✓. So the original cubic is $x^3 - 6x^2 + 7x + 4 = 0$, with roots $x = u + 2$.
+
+- $x_0 = 2.000 + 2 = 4$. Check $4^3 - 6\cdot 16 + 28 + 4 = 64 - 96 + 28 + 4 = 0$. ✓
+- $x_1 = -2.413 + 2 = -0.413$. Check: $(-0.413)^3 - 6(0.171) + 7(-0.413) + 4 = -0.0705 - 1.025 - 2.891 + 4 \approx 0.013$ — small error, accept (numerical). Wait the answer should be exactly $-1 + \sqrt 2$ per transcript. $\sqrt 2 \approx 1.414$, so $-1+\sqrt 2 \approx 0.414$. Sign mismatch — actually $-2.413 + 2 = -0.413$, but the transcript says one root is $-1 - \sqrt 2 \approx -2.414$. Maybe my arithmetic of $x_0 = 4$ is wrong.
+
+Let me recheck whether $x = 4$ satisfies. $4^3 - 6\cdot 4^2 + 7\cdot 4 + 4 = 64 - 96 + 28 + 4 = 0$. ✓ So $x = 4$ is a root.
+
+But the transcript says one root is "$x = 2$" (the easy one for the variant $x^3 - 6x^2 + 7x + 2$, not for the $+4$ variant). I was confusing two variants. Let me clarify in the lesson.
+
+### 3.5 The two variants in the transcript
+
+**Variant 1: $x^3 - 6x^2 + 7x + 2 = 0$.** Shift gives $u^3 - 5u = 0 = u(u^2 - 5)$, roots $u = 0, \pm\sqrt 5$, so $x = 2, 2 \pm \sqrt 5 \approx 2, 4.236, -0.236$. Easy — no Cardano needed.
+
+**Variant 2: $x^3 - 6x^2 + 7x + 4 = 0$.** Shift gives $u^3 - 5u + 2 = 0$, which Cardano solves. Roots: $u = 2, -1 \pm \sqrt 2$. Hence $x = 4, 1 - \sqrt 2 \approx -0.414, 1 + \sqrt 2 \approx 2.414$.
+
+Verify variant 2 has root $x = 4$: $64 - 96 + 28 + 4 = 0$ ✓. And $x \approx 2.414$: $14.07 - 35.0 + 16.9 + 4 \approx 0.0$ (within rounding). ✓
+
+### 3.6 Numerical sanity for $u^3 - 5u + 2 = 0$
+
+By Vieta on $u^3 + 0\cdot u^2 - 5u + 2$: sum of roots $= 0$ (no $u^2$); sum of products of pairs $= -5$; product $= -2$.
+
+Computed roots $u = 2, -1+\sqrt 2, -1-\sqrt 2$:
+- Sum: $2 + (-1+\sqrt 2) + (-1-\sqrt 2) = 0$. ✓
+- Product: $2 \cdot (-1+\sqrt 2)(-1-\sqrt 2) = 2 \cdot (1 - 2) = -2$. ✓
+- Sum of products of pairs: $2(-1+\sqrt 2) + 2(-1-\sqrt 2) + (-1+\sqrt 2)(-1-\sqrt 2) = -4 + (-1) = -5$. ✓
+
+---
+
+## Part IV — Why three real roots require complex arithmetic (Galois)
+
+For $\Delta_3 > 0$ (three real roots), $A, B$ in (13) are complex conjugates: $\sqrt{q^2/4 + p^3/27}$ is purely imaginary. Cardano's formula gives the roots as $u = \alpha + \beta$ where $\alpha = A^{1/3}, \beta = B^{1/3}$ are cube roots of *complex* numbers.
+
+**Theorem (Galois, 1830s).** There is **no** real algebraic formula (involving only real arithmetic operations $+, -, \times, \div, \sqrt[n]{\,}$) expressing the three real roots in this case. This is the **casus irreducibilis** — the obstruction is that the Galois group is the full $S_3$, not solvable by real radicals.
+
+This is a deep result; here we just *use* the complex form and convert back to real numbers at the end via $u_k = 2\Re(\alpha_k)$.
+
+---
+
+## Unified picture
+
+$$
+\boxed{\text{Cubic} \xrightarrow{x = u - b/(3a)} \text{depressed} \xrightarrow{u = \alpha+\beta,\ 3\alpha\beta = -p} \text{resolvent quadratic in } A = \alpha^3, B = \beta^3 \xrightarrow{\text{cube root}} \text{three roots via 120° rotation}}
+$$
+
+| Step | Substitution | Output |
+|---|---|---|
+| 1. Depress | $x = u - b/(3a)$ | $u^3 + pu + q = 0$ |
+| 2. Cardano | $u = \alpha + \beta$ with $3\alpha\beta = -p$ | $\alpha^3 + \beta^3 = -q,\ \alpha^3\beta^3 = -p^3/27$ |
+| 3. Resolvent | Vieta on $\alpha^3, \beta^3$ | $t^2 + qt - p^3/27 = 0$ |
+| 4. Solve | quadratic formula | $A, B$ explicit |
+| 5. Cube roots | $\alpha = A^{1/3}, \beta = B^{1/3}$ | three pairs $(\alpha_k, \beta_k)$ |
+| 6. Recover | $u_k = \alpha_k + \beta_k$ | three roots of cubic |
+| 7. Un-depress | $x_k = u_k + 2$ (or whatever shift) | three roots of original |
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary including $\Delta_3, \omega$. ✓
+2. **Equation numbers continuous?** (1)–(16), no gaps. ✓
+3. **Signs justified by convention?** Choice of side condition $3\alpha\beta + p = 0$ flagged as *imposed* (the artistry); $\sqrt{q^2/4 + p^3/27}$ branch for complex case explicit. ✓
+4. **Every implication follows?** Vieta-on-resolvent step (12) → (7) explicit; cube-root construction in (15) proven. ✓
+5. **Advertised axioms verified?** Vieta, Euler's formula, factor theorem, polynomial division — all imported and named. Galois's casus-irreducibilis result imported as Theorem (Part IV). ✓
+6. **Counterexample / source correction.** Transcript conflates two variants of the original cubic (with constants $+2$ vs. $+4$). §3.5 clarifies: the "easy" variant has constant $+2$ (Cardano not needed); the genuinely non-trivial variant has constant $+4$ (requires Cardano). Roots match Vieta sanity. ✓
+7. **Special / limiting cases tested?** Numerical sanity for all three roots via Vieta in §3.6. ✓
+8. **Weakest step named?** Done after §2.2 (side condition imposed, not derived). Also in Part IV: Galois obstruction explicit. ✓
 
-- **Worked example $u^3 - 5u + 2 = 0$.** $p = -5, q = 2$. $\alpha^3, \beta^3 = -1 \pm \sqrt{1 - 125/27} = -1 \pm \sqrt{-98/27}$ — complex! Use polar form. $|\alpha^3| = \sqrt{1 + 98/27} = \sqrt{125/27} = 5/\sqrt{27}\cdot \sqrt{5}$... numerically $\alpha^3 \approx -1 + 1.905i$, $|\alpha^3| \approx 2.152$, $\arg \approx 117.4°$. Cube roots at $39.1°, 159.1°, 279.1°$ — three real-pair sums giving real $u$ values. ✓ (See transcript for the worked details.)
-- **Cross-check via Vieta on cubic.** Sum of roots $= 0$ (depressed cubic has no $u^2$ term). Sum of products $= p = -5$. Product $= -q = -2$. Roots numerically: $\approx -2.414, 0.414, 2$. Sum $= 0$ ✓. Product $= -2$ ✓. Sum of products $= -5$ ✓.
-- **Worked $x^3 - 6x^2 + 7x + 2 = 0$.** Root $x = 2$ (by rational root theorem). Long division: $x^3 - 6x^2 + 7x + 2 = (x-2)(x^2 - 4x - 1)$, remaining roots $x = 2 \pm \sqrt{5}$. ✓
-- **120° rotation sanity.** Three cube roots of $8 = 8e^{i\cdot 0}$: $2, 2e^{i \cdot 120°}, 2e^{i \cdot 240°}$. $2^3 = 8$, $(2e^{i\cdot 120°})^3 = 8 e^{i\cdot 360°} = 8$. ✓
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Side condition $3\alpha\beta + p = 0$ | One of many possible splits — why this one? | §2.2: the *artistry*; this choice makes the algebra collapse cleanly. Other choices fail to reduce to a quadratic |
+| Casus irreducibilis | Real roots require complex arithmetic | §2.4 + Part IV: Galois forbids real radical formula; complex detour unavoidable |
+| Cube root branch matching | Three values of $\alpha$, three of $\beta$ — must pair correctly | §3.3: $\alpha\beta = -p/3$ pins the pairing; equivalently $\beta_k = \overline{\alpha_k}$ |
+| Numerical rounding | $\cos 39.2°, \cos 159.2°, \cos 279.2°$ give roots only approximately | §3.6: Vieta sanity-checks the exact roots $u = 2, -1 \pm \sqrt 2$ |
+| Confusion between variants ($+2$ vs $+4$) | Transcript switches partway through | §3.5: clarified both variants |
+
+---
+
+## Explorative directions
+
+- **Next brick:** the *quartic* (degree 4) is also solvable by radicals via Ferrari's resolvent (1540s). Then Galois proved no general formula for degree 5 and above (1830s) — this is the foundation of modern algebra.
+- **Forward (Nov 29, Dec 6):** these polynomial-graphing sessions use the *roots* — Cardano gives the closed form for cubic roots when factoring fails.
+- **Forward (Jan 3):** $\zeta(2) = \pi^2/6$ via Vieta on $\sin x / x$. Same Vieta technique (recovering coefficients from roots) at a *transcendental* level.
+- **Open question:** for casus irreducibilis ($\Delta_3 > 0$), the three real roots have the **trigonometric form**: $u_k = 2\sqrt{-p/3}\cos\left[\tfrac{1}{3}\arccos\left(\tfrac{3q}{2p}\sqrt{-3/p}\right) - \tfrac{2\pi k}{3}\right]$. This is the "trigonometric Cardano formula" — avoids complex arithmetic but uses inverse trig. Equivalent to §3.4 here.
+- **Connection back to Sep 13 PM:** the cube roots of unity $1, \omega, \omega^2$ played a starring role there. Here they appear again — the three values of $A^{1/3}$ differ by $\omega^k$ multiplication. The geometry of *$n$-th roots of unity* is the unifying thread between the Sep complex-numbers arc and the Nov polynomial arc.
+- **Pedagogical thread:** the teacher uses *eyeballable* variants (with constant $+2$) to motivate the *non-eyeballable* variant ($+4$). The point: develop the machine on a hard example, sanity-check on the easy one. Don't trust formulas you haven't verified against a known answer.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.6/2025-11-08-afternoon.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.6" target="_blank">v1.6</a> · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.6/2025-11-08-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.6">v1.6</a> · <a href="https://drive.google.com/file/d/1-EXmMQIkPk7_7GhH0WOTOhXLC3iNkb_p/view">Drive</a></p>
 ```
 
 ## Key frames
@@ -64,20 +289,12 @@ Imposing $3\alpha\beta + p = 0$ kills the $u$-term, leaving $\alpha^3 + \beta^3 
 ![**Frame @ 38m00** — Complex cube root: three values 120° apart.](../figures/2025-11-08-afternoon/frame-38m00.jpg)
 ![**Frame @ 50m00** — Three real roots recovered from conjugate pairs.](../figures/2025-11-08-afternoon/frame-50m00.jpg)
 
-## Fragility summary
-
-::: {.fragility}
-
-- **Casus irreducibilis.** When $q^2/4 + p^3/27 < 0$ (three real roots), $\alpha^3, \beta^3$ are complex; Cardano's formula then *requires* complex arithmetic to recover the real roots. There's no purely real algebraic expression for the three real roots when the discriminant is negative — proved by Galois theory.
-- **Imported facts.** Vieta's formulas; complex polar form $e^{i\theta}$; existence of $n$-th roots in $\mathbb{C}$.
-- **Confidence.** Theorems 81, 82: high (centuries-old, well-tested).
-
-:::
-
 ## Related sessions
 
-- **Precursor:** complex-number arc ([2025-09-13 afternoon](2025-09-13-afternoon.html), [2025-09-20 morning](2025-09-20-morning.html)).
-- **Sequel:** polynomial graphing ([2025-11-01 morning](2025-11-01-morning.html)).
+- **Precursor:** [Sep 13 afternoon](2025-09-13-afternoon.html) — roots of unity, cube root geometry.
+- **Precursor:** [Sep 20 morning](2025-09-20-morning.html) — Euler's formula, polar form.
+- **Forward:** [Nov 1 morning](2025-11-01-morning.html) — polynomial snaking (related machinery for graphing).
+- **Forward:** [Jan 3 morning](2026-01-03-morning.html) — Vieta on transcendental function $\sin x / x$.
 
 ## Full transcript
 
@@ -85,6 +302,11 @@ Imposing $3\alpha\beta + p = 0$ kills the $u$-term, leaving $\alpha^3 + \beta^3 
 ## Verbatim transcript of the session
 
 ```{.txt}
+cat: 'C:/Users/elaine/linalg/transcripts/Saturday1108afternoon.txt': No such file or directory
+cat: 'C:/Users/elaine/linalg/transcripts/Saturday11082025afternoon.txt': No such file or directory
+
+```
+:::
 Definitely going to ask you for the recording, Elaine. Could I have your video, please? We're going to actually continue with what we did in the morning. We were in the middle of trying to figure out. We we found a way to solve any cubic equation now. But before I go on to discuss how do we get three roots instead of just one, and let's actually practice, get a sense of how we can solve a cubic equation. And I'm not going to give you a very simple one, meaning you can't really eyeball what the solution is.So let me actually look at x cube. The let's say minus two x. No, let me be kind here. I'm going to actually do minus six x squared, and then plus seven x. This is a cubic equation. We're going to solve.We could start by completing the cube. All right. Oh, sorry. And yeah, let's actually start by completing the cube. Hold, hold on.Actually, want to give you a nice enough answer, and let me see. Okay. Oh, yeah, that's fine. All right, so go ahead, Elaine. You can take charge.How do we complete the cube? I'm still working on it. Okay, the floor is open, Holmes. You can feel free to say it too.嗯。嗯。Go ahead and talk me through this.
 Steps, you don't need to work out all the final conclusions. I know that the first term has to be like x minus something. And what term do we actually determine? What's the criteria? We actually want to after you expand out, you want to match the quadratic term, right? Yeah. And what number do we throw in there?是 x 减二。 Yes, it's just one third thereof. Because when you do the expansion, this term will be expanded three times. So, like completing the square, you half the middle term. Now, completing the cube, you trisect the second coefficient. Perfect. So, if I do so, what would be the subsequent terms now? These two terms are bound to fit. No need to be concerned with them. anymore， and then we are left with the linear term. We force it into x minus two already, but we're really making sure that the coefficient will fit to give me the seven, correct? But what is the linear term we have already got by expanding this out?呃，十二x， beautiful， and then minus eight。 We should minus what? There's an extra negative eight, right? Yeah, correct. So, in fact, we're adding twelve x now and minus eight. Now we need to cancel them. So we subtract.呃，5x啊， brilliant。 Now add 10. And wait a second, though. Oh. Because automatically, automatically, I'm gonna actually keep that bundle. In the future, we shall do that as a new variable. So we don't write it just minus 5x. Now we write minus 5x minus 2. Oh. And then finally, what do we do? I know you already said you.Want to add back in the eight? That's how you said we add ten, but.Isn't it just x minus two cubed minus five x minus two? Yeah, because here we.Also, added ten, we have to subtract back out by ten. Yeah. So, in fact, that was. Now you see, it's really powerful to compute the cubic. The problem solved. Can we solve it? This one doesn't even use that to reduce the cubic formula. But I'm I'm trying to give you one case where the equal the solutions are simple. And in a second, I'm going to tweak it a little bit, and let's see what's going to happen. Then we do need a whole machinery to use a whole machinery now.
 One minus two, right? Yeah. So fundamentally, we have actually this now. X minus two, I pull it out inside. I have x minus two squared minus five equal to zero. So, what are the three roots, please? Well, definitely the first one is just two. What about x two and three?是100根5加2。Yeah，所以你才。Right, actually, getting the two plus or minus root five. Remember, Elaine, we're never taking the square root; always plus minus. Oh, yeah. Done. Well done. However, I'm not going to make it so easy for you because I actually want to practice that machinery. So instead of adding a two now, I'm adding a four. That's the equation I first gave you because I wanted you to actually see the power of completing the cube. So I changed that number. I'm going to change it back now. So we have to add two to it, right? So this is actually.Q B方程， again， we're not done， and you can't eyeball answer right now。 So I'm gonna actually just to abbreviate my notation。 I'll call this u here the new variable， that is equal to x minus two。 We're gonna focus on solving the Q B方程 concerning u here， just u cube the minus five u plus two equal to zero。 We want to solve this one。 And here we do need the whole machinery right now。 So I would like one of you to talk me through it。 There involves substitute求解， with a pair of variable, and then solve that quadratic equation resulting from it by using the Viet backward. And on top of that, finally, we shall get into how do we recover all of the three roots instead of just one. I'm waiting for either one of you. Just go ahead and take charge.嗯。嗯。嗯。

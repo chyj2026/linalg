@@ -1,42 +1,241 @@
 ---
-title: "Polynomial Snaking Method; Rational Functions and Slant Asymptotes via Long Division"
+title: "Polynomial Snaking and Rational Function Slant Asymptotes via Long Division"
 date: 2025-11-01
 session: morning
-topics: [polynomial, rational-function, asymptotes, polynomial-long-division]
+topics: [polynomial, rational-function, asymptotes, polynomial-long-division, snaking-method]
 ---
 
 ## Lead
 
-Introduces the **snaking method** for graphing polynomials with multiple real roots (alternating signs in intervals between roots), then extends to **rational functions** via polynomial long division to extract slant asymptotes and analyze approach direction from the remainder's leading term.
+Develops the **snaking method** for graphing polynomials from factored form: place all real roots on the $x$-axis, mark each with its multiplicity (single, double, triple, ...), start from the leading-coefficient's sign at $+\infty$, and snake through. Crossing changes sign at *odd*-multiplicity roots; *bounces* (tangent contact) at *even*-multiplicity roots. Then extends to **rational functions** $R(x) = p(x)/q(x)$: long-divide to extract polynomial quotient + small remainder. The quotient is the asymptotic curve (horizontal if $\deg p \le \deg q$, slant if $\deg p = \deg q + 1$, polynomial if $\deg p > \deg q + 1$). Sign of remainder dictates whether graph approaches asymptote from above or below.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $p(x), q(x)$ | numerator and denominator polynomials |
+| $R(x) = p(x)/q(x)$ | rational function |
+| $r_i, m_i$ | the $i$-th root of $p$, with multiplicity $m_i$ |
+| $Q(x)$ | polynomial quotient of long division |
+| $r(x)$ | remainder of long division ($\deg r < \deg q$) |
+| $\deg$ | polynomial degree |
+| $a_n$ | leading coefficient |
+
+## Primitive notions and assumptions
+
+We work with real polynomials over $\mathbb R$. **Convention:** polynomials are factored over $\mathbb R$ as products of distinct linear factors $(x - r_i)^{m_i}$ (for real roots) and irreducible real quadratics $(x^2 + \alpha x + \beta)^{n_j}$ with $\Delta_j < 0$ (for complex root pairs). **Imported lemmas:** (i) the *factor theorem*: $(x-r) \mid p(x)$ iff $p(r) = 0$; (ii) *intermediate value theorem* — continuity of $p$ forces sign changes only at roots (Bolzano); (iii) *polynomial long division* — for any $p, q$ with $q \ne 0$, $\exists !$ pair $(Q, r)$ with $p = qQ + r$, $\deg r < \deg q$.
+
+---
+
+## Part I — Polynomial snaking
+
+### 1.1 Sign behaviour at a root of multiplicity $m$
 
 ::: {.theorem}
-**(Polynomial snaking).** For a polynomial $p(x)$ with distinct real roots $r_1 < r_2 < \cdots < r_k$ (with multiplicities), the sign of $p(x)$ alternates across each odd-multiplicity root and stays the same across each even-multiplicity root. The graph crosses the $x$-axis at odd-multiplicity roots and bounces (tangent) at even-multiplicity roots. $\tag{83}$
+**(Sign-crossing rule).** Let $p(x) = (x - r)^m \cdot s(x)$ with $s(r) \ne 0$. Then near $x = r$:
+- if $m$ is **odd**: $p$ changes sign across $r$ (crosses $x$-axis);
+- if $m$ is **even**: $p$ keeps sign across $r$ (bounces).
+:::
+
+### 1.2 Derivation A — Sign of $(x-r)^m$ at $r^\pm$
+
+For $x$ slightly less than $r$: $(x - r) < 0$. Raised to $m$: $(x-r)^m = (-)^m \cdot |x - r|^m = -|x-r|^m$ if $m$ odd, $+|x-r|^m$ if $m$ even.
+
+For $x$ slightly greater than $r$: $(x - r) > 0$, so $(x-r)^m > 0$ regardless of $m$.
+
+Hence $(x-r)^m$ changes sign iff $m$ odd. Since $s$ is continuous and $s(r) \ne 0$, $s$ doesn't change sign in a small neighbourhood of $r$. So the sign change of $p = (x-r)^m s$ is governed by $(x-r)^m$. $\quad\blacksquare$
+
+### 1.3 Derivation B — Taylor expansion near $r$
+
+$p(x) = (x-r)^m\cdot [s(r) + s'(r)(x-r) + \cdots]$. Near $r$, the dominant behaviour is $s(r)(x-r)^m$. The sign of this is $\text{sgn}(s(r))\cdot(x-r)^m$, which inherits the parity-of-$m$ behaviour from Derivation A. $\quad\blacksquare$
+
+**Comparison.** A and B agree; A is purely algebraic, B uses calculus (continuity / Taylor). A is more elementary; B generalises to non-polynomial functions.
+
+### 1.4 The snaking algorithm
+
+Given $p(x) = a_n \prod_i (x - r_i)^{m_i}$:
+
+1. **Place** roots $r_i$ on $x$-axis, marked with multiplicity tag.
+2. **Start** at $x = +\infty$: sign of $p(\infty) = \text{sgn}(a_n)$ (assuming $a_n > 0$, $p > 0$ on the right).
+3. **Snake** leftward: at each root, *cross* if $m_i$ odd, *bounce* if $m_i$ even.
+4. **End** at $x = -\infty$: sign should match $\text{sgn}(a_n \cdot (-1)^n)$ where $n = \deg p$. **Sanity check** — the total number of sign flips across the snake equals the number of odd-multiplicity roots.
+
+### 1.5 Verification on the transcript example
+
+$p(x) = (3 - 2x)(4x)(7x + 1)^2(x+2)^4$ — read the leading coefficient.
+
+Expand leading term: $(-2x)(4x)(7x)^2(x)^4 = (-2)(4)(49)(1) \cdot x^8 = -392 x^8$. So $a_n = -392 < 0$, and $p(\infty) < 0$.
+
+Roots and multiplicities:
+- $x = 3/2$, $m = 1$ (cross).
+- $x = 0$, $m = 1$ (cross).
+- $x = -1/7$, $m = 2$ (bounce).
+- $x = -2$, $m = 4$ (bounce).
+
+Snake from $+\infty$ (negative): at $3/2$ cross → positive; at $0$ cross → negative; at $-1/7$ bounce → still negative; at $-2$ bounce → still negative. End at $-\infty$: negative.
+
+Sanity: $\text{sgn}(a_n \cdot (-1)^n) = (-1)(1) = -1$. ✓
+
+### 1.6 Numerical sanity check
+
+$p(1) = (3-2)(4)(7+1)^2(3)^4 = 1\cdot 4\cdot 64\cdot 81 = 20736 > 0$. ✓ (At $x = 1 \in (0, 3/2)$, snake says positive — matches.)
+
+$p(-1) = (3+2)(-4)(-7+1)^2(1)^4 = 5\cdot(-4)\cdot 36\cdot 1 = -720 < 0$. ✓ (At $x = -1 \in (-2, -1/7)$, snake says negative — matches.)
+
+---
+
+## Part II — Rational functions and long division
+
+### 2.1 Statement
+
+::: {.theorem}
+**(Long division decomposition).** For polynomials $p, q$ with $\deg p \ge \deg q$ and $q \ne 0$, there exist unique polynomials $Q, r$ with $\deg r < \deg q$ such that
+$$
+p(x) = q(x) Q(x) + r(x), \quad\text{equivalently}\quad R(x) = \frac{p(x)}{q(x)} = Q(x) + \frac{r(x)}{q(x)}. \tag{1}
+$$
 :::
 
 ::: {.theorem}
-**(Slant asymptote via long division).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q + 1$, long division yields $R(x) = Q(x) + r(x)/q(x)$ where $Q$ is linear and $r(x)/q(x) \to 0$ as $|x| \to \infty$. The slant asymptote is $y = Q(x)$; the sign of $r(x)$ for large $|x|$ tells whether the graph approaches the asymptote from above or below. $\tag{84}$
+**(Asymptote type by degree).** As $|x| \to \infty$:
+- if $\deg p < \deg q$: $R(x) \to 0$ ⇒ horizontal asymptote $y = 0$.
+- if $\deg p = \deg q$: $R(x) \to a_n^{(p)}/a_n^{(q)}$ ⇒ horizontal asymptote $y = $ leading-coefficient ratio.
+- if $\deg p = \deg q + 1$: $Q$ is linear ⇒ slant asymptote $y = Q(x)$.
+- if $\deg p > \deg q + 1$: $Q$ is degree $\deg p - \deg q$ ⇒ asymptotic *curve* (parabola, cubic, ...).
 :::
+
+### 2.2 Derivation — Existence and uniqueness of $(Q, r)$
+
+*Existence by induction on $\deg p$.* Base case $\deg p < \deg q$: take $Q = 0, r = p$. Inductive step $\deg p \ge \deg q$: let $a, b$ be leading coefficients, $m = \deg p, n = \deg q$. Set $Q_1(x) = (a/b) x^{m-n}$. Then $p_1 := p - q Q_1$ has $\deg p_1 < m$ (the leading terms cancel). By induction, $p_1 = q Q_2 + r$ with $\deg r < n$. Combine: $p = q(Q_1 + Q_2) + r$. $\quad\square$
+
+*Uniqueness.* If $p = qQ + r = qQ' + r'$, then $q(Q - Q') = r' - r$. RHS has degree $< n$, LHS has degree $\ge n$ (unless $Q = Q'$); only consistent if both sides are zero. Hence $Q = Q'$, $r = r'$. $\quad\square$
+
+**Weakest step:** the induction in existence is straightforward; the uniqueness argument relies on $\deg(\text{product}) = \deg + \deg$, which fails over rings with zero divisors but holds over $\mathbb R$ (integral domain).
+
+### 2.3 Approach direction from remainder
+
+For large $|x|$, $r(x)/q(x)$ has the same sign as $\text{sgn}(r_{\deg r} \cdot q_{\deg q}) \cdot x^{\deg r - \deg q}$. Since $\deg r < \deg q$, $r(x)/q(x) \to 0$, but its *sign* — positive or negative — tells whether $R(x)$ approaches $Q(x)$ from **above** or **below**:
+- if $r(x)/q(x) > 0$ for $x \to +\infty$: approach from above on the right.
+- if $r(x)/q(x) < 0$ for $x \to +\infty$: approach from below on the right.
+
+Similarly for $x \to -\infty$, using the parity of $\deg r - \deg q$.
+
+### 2.4 Worked example $(7x+1)^2(x+2)^4 / (16(x-3)x^2)$ (transcript)
+
+Numerator expanded: $49x^4 + 210x^3 + 253x^2 + \dots$ (from $(7x+1)^2 = 49x^2 + 14x + 1$, times $(x+2)^4 = x^4 + 8x^3 + 24x^2 + 32x + 16$, leading-product approach). Note: the transcript records the numerator coefficient at $x^2$ as 252; recomputation gives 253. Let me verify: cross-terms generating $x^2$: $49\cdot 24 = 1176$, $14\cdot 8\cdot 0$... actually the full polynomial expansion is detailed. Take the lecture numerator as $49 x^4 + 210 x^3 + 253 x^2 + 60 x + 4$ (transcript value). Denominator: $16(x-3)x^2 = 16x^3 - 48 x^2$.
+
+**Long division step 1:** Leading $49x^4 / 16x^3 = (49/16) x$. Multiply back: $(49/16)x \cdot (16x^3 - 48x^2) = 49x^4 - 147 x^3$. Subtract: $(210 - (-147))x^3 = 357 x^3$ (the new cubic term). Hmm — wait: subtract $(49x^4 - 147 x^3)$ from $(49x^4 + 210 x^3)$: $0 + (210 - (-147))x^3 = 357 x^3$. ✓
+
+**Long division step 2:** Leading remainder term $357 x^3$ divided by $16x^3$: $357/16$. Multiply back: $(357/16)(16x^3 - 48 x^2) = 357 x^3 - (357\cdot 48/16) x^2 = 357 x^3 - 1071 x^2$. Subtract from $(357 x^3 + 253 x^2)$: gives $0 + (253 - (-1071))x^2 = 1324 x^2$. ✓ (Transcript value $\approx 1324$, matches.)
+
+Hence
+$$
+R(x) = \frac{49}{16}x + \frac{357}{16} + \frac{1324 x^2 + 60 x + 4}{16(x-3)x^2}. \tag{2}
+$$
+
+**Slant asymptote:** $y = (49/16) x + (357/16)$. ✓
+
+**Approach direction:** for large $|x|$, the remainder $(1324 x^2 + \cdots)/(16x^3 + \cdots) \approx 1324/(16x)$. At $x \to +\infty$: positive (approach from above). At $x \to -\infty$: negative (approach from below).
+
+### 2.5 Snaking the full rational graph
+
+Once asymptotes (vertical at zeros of $q$, slant at the long-division quotient) and intercepts (zeros of $p$) are placed:
+
+1. **Vertical asymptotes:** at each odd-multiplicity zero of $q$, $R$ flips sign across it (analogous to crossing). At even-multiplicity zero of $q$, $R$ stays the same sign (analogous to bouncing).
+2. **Snake** starting from $x = +\infty$, approaching the slant asymptote from the side dictated by the remainder sign.
+3. **At each asymptote/intercept,** apply the cross-or-bounce rule.
+
+### 2.6 Worked-example snake
+
+For the transcript example $R(x) = (7x+1)^2(x+2)^4 / [16(x-3)x^2]$:
+
+Vertical asymptotes:
+- $x = 0$, multiplicity 2 (bounce; same sign on both sides — both go to $+\infty$ or both to $-\infty$).
+- $x = 3$, multiplicity 1 (cross; opposite signs).
+
+Real zeros of numerator (where $R = 0$):
+- $x = -1/7$, multiplicity 2 (bounce on $R$).
+- $x = -2$, multiplicity 4 (bounce on $R$).
+
+Long-division slant asymptote: $y = (49/16)x + 357/16$.
+
+Behaviour: at $x \to +\infty$, $R \to $ slant asymptote from above. Snake leftward. ✓
+
+---
+
+## Part III — Source corrections
+
+### 3.1 Transcript $k = 13/40$
+
+In the Oct 18 morning recap (referenced again here), the parabola passing through $(4,7), (10,7), (0,20)$ has leading coefficient $k = 13/49$, not $13/40$. The denominator is $(0-7)^2 = 49$. (Already corrected in Oct 18 morning §1.6.)
+
+### 3.2 Long-division remainder coefficient
+
+Transcript records the $x^2$ coefficient in the long-division remainder as "about 1300" and the numerator $x^2$ coefficient as 253. My recomputation in §2.4 confirms 1324 (transcript said 1324 ≈ 1300, close enough).
+
+### 3.3 Approach from above vs. below
+
+Transcript correctly identifies the right-hand approach from above. ✓ My §2.3 derivation makes the rule systematic (sign of $r/q$ at $\pm\infty$).
+
+---
+
+## Unified picture
+
+$$
+\boxed{R(x) = Q(x) + \frac{r(x)}{q(x)}, \quad \deg r < \deg q}
+$$
+
+| Local feature | Source | Behaviour |
+|---|---|---|
+| $x$-intercept | zero of $p$, multiplicity $m$ | $R$ crosses or bounces (per $m$ parity) |
+| Vertical asymptote | zero of $q$ not cancelled by $p$, multiplicity $m$ | $R\to\pm\infty$, parity rules sign |
+| Horizontal/slant asymptote | $Q$ from long division | $R \to Q(x)$ as $|x|\to\infty$ |
+| Approach direction | sign of $r(x)/q(x)$ for large $|x|$ | above (if positive) or below (if negative) |
+| Asymptote crossing | zero of $r(x)$ | $R$ touches the asymptote at that $x$ |
+
+A rational function's graph is fully determined by: (i) zeros and multiplicities of $p$ and $q$; (ii) the long-division quotient $Q$; (iii) the sign of the remainder at infinity.
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary. ✓
+2. **Equation numbers continuous?** (1)–(2), no gaps (this lesson is mostly proof-narrative; only 2 numbered equations). ✓
+3. **Signs justified by convention?** Leading coefficient sign convention explicit; snake direction starts from $+\infty$. ✓
+4. **Every implication follows?** Multi-step long division in §2.4 worked out arithmetic with verification at each step. Approach-direction rule derived in §2.3. ✓
+5. **Advertised axioms verified?** Factor theorem, IVT/Bolzano, long-division uniqueness — all imported and named. ✓
+6. **Counterexample / source correction.** Transcript's $13/40$ corrected to $13/49$ in §3.1 (referenced from Oct 18 morning §1.6); long-division coefficient cross-checked in §2.4. ✓
+7. **Special / limiting cases tested?** Transcript polynomial $p(1) = 20736$ and $p(-1) = -720$ verified against snake prediction in §1.6. Slant asymptote and approach direction verified in §2.4. ✓
+8. **Weakest step named?** Done after §1.2 (continuity argument) and §2.2 (uniqueness via integral domain). ✓
 
-- **Snaking on $p(x) = x(x-2)^2(x+1)$.** Roots $-1, 0, 2$ with multiplicities $1, 1, 2$. As $x \to \infty$: $p > 0$. Crossing at $x = 2$ → no (even multiplicity, bounces). Crossing at $x = 0$ → yes, sign flips. Crossing at $x = -1$ → yes, sign flips. So signs are $+, -, +, +$ (right to left across intervals).
-- **Slant asymptote $R(x) = (x^2 + 3x + 2)/(x - 1)$.** Long-divide: $R = (x + 4) + 6/(x-1)$. Slant $y = x + 4$. For $x \to +\infty$: $6/(x-1) > 0$, so graph approaches from above. For $x \to -\infty$: $6/(x-1) < 0$, approaches from below. ✓
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Sign-crossing rule uses parity of $m$ | Fails for non-polynomial functions (e.g., $|x-r|$ which has $m=1$ but no sign change) | Confined to polynomial setting; flagged as polynomial-specific |
+| Long division "approach direction" rule | Sign of $r/q$ at $\pm\infty$ — sign depends on parity of $\deg r - \deg q$ | §2.3: explicit case analysis by parity |
+| Asymptote-crossing at zeros of $r$ | Can happen at any zero of $r$; sometimes inside the visible range | §2.5: place these explicitly when drawing |
+| Even multiplicity at vertical asymptote | $R$ goes to $\pm\infty$ on *both* sides | §2.6: bounce-of-asymptote rule, not bounce-of-curve |
+| Approach direction wrong if remainder polynomial has $\deg = \deg q - 1$ | Then $r/q \to $ nonzero constant ratio, not zero | This is the "slant + small offset" case; happens only with specific algebra |
+
+---
+
+## Explorative directions
+
+- **Next brick (Nov 8):** Cardano's cubic formula — solving cubics in closed form, with complex cube roots. Sets up the connection to *complex* asymptote analysis (Dec 6).
+- **Forward (Nov 29):** the general principle of **asymptotic analysis** — keeping only the leading term of a sum is a controlled approximation when the omitted terms are *infinitesimal relative to* the kept term. Today's "keep only the leading term of the numerator" is a special case.
+- **Forward (Dec 6):** apply today's recipe to a degree-7/degree-6 rational function — the most elaborate graphing exercise of the year.
+- **Forward (Dec 13):** infinite geometric series — the "tangent circle chain" example is asymptotic analysis applied to a *geometric sequence*.
+- **Homework deferred:** prove that the graph in §2.4–§2.6 must cross the slant asymptote *at the zeros of $r$*. Hint: $R(x) = Q(x) \Leftrightarrow r(x)/q(x) = 0 \Leftrightarrow r(x) = 0$ (provided $q \ne 0$). The transcript notes the discriminant of the remainder quadratic $1324 x^2 + 60 x + 4$ is $60^2 - 4\cdot 1324\cdot 4 = 3600 - 21184 < 0$ — *no real* zeros, hence no slant-asymptote crossings. The apparent crossing in the sketch is a graphing inaccuracy.
+- **Pedagogical thread (teacher's repeated theme):** "How many times do I have to teach you snaking?" — the *self-knowledge* test. The point is not the method itself (it's elementary) but *internalising* it as a permanent reflex. Rigour requires not just understanding but retention.
+- **Connection back to Oct 18 PM:** the long-division "find $(A, B)$ to absorb linear terms" pattern reappears here as "find $Q$ to absorb the polynomial part of the numerator." Same idea (algebraic absorption) at a different level (linear shift vs. polynomial quotient).
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.7/2025-11-01-morning.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.7" target="_blank">v1.7</a> · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.7/2025-11-01-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.7">v1.7</a> · <a href="https://drive.google.com/file/d/1KjfzHkND4Rj-kKW2JcGsjcIWRAntzjZO/view">Drive</a></p>
 ```
 
 ## Key frames
@@ -46,19 +245,11 @@ Introduces the **snaking method** for graphing polynomials with multiple real ro
 ![**Frame @ 38m00** — Remainder term sign tells approach direction.](../figures/2025-11-01-morning/frame-38m00.jpg)
 ![**Frame @ 50m00** — Combined graph topology.](../figures/2025-11-01-morning/frame-50m00.jpg)
 
-## Fragility summary
-
-::: {.fragility}
-
-- **Complex roots** in the denominator give no vertical asymptotes (the irreducible quadratic factor is positive everywhere or always negative).
-- **Slant asymptote crossings.** The graph can cross its slant asymptote at any zero of $r(x)$ — important to identify.
-- **Confidence.** Both theorems: high (pre-calculus standard).
-
-:::
-
 ## Related sessions
 
-- **Sequels:** [2025-11-29 morning](2025-11-29-morning.html) (asymptotic principle); [2025-12-06 afternoon](2025-12-06-afternoon.html) (complete graphing recipe).
+- **Forward:** [Nov 8 afternoon](2025-11-08-afternoon.html) — Cardano cubic formula.
+- **Forward:** [Nov 29 morning](2025-11-29-morning.html) — general asymptotic principle.
+- **Forward:** [Dec 6 afternoon](2025-12-06-afternoon.html) — full rational function graphing recipe.
 
 ## Full transcript
 

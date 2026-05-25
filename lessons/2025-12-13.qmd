@@ -1,71 +1,288 @@
 ---
-title: "Tangent-Circle Chain: Self-Similar Infinite Series and the Binary Factorization 1 + x + x² + ... = ∏(1 + x^(2^k))"
+title: "Tangent-Circle Chain (AMC 2015 #25): Self-Similar Infinite Series and the Binary Product Identity"
 date: 2025-12-13
 session: morning
-topics: [polynomial, geometric-series, infinite-products, binary-representation, tangent-circles]
+topics: [polynomial, geometric-series, infinite-products, binary-representation, tangent-circles, self-similar]
 ---
 
 ## Lead
 
-An AMC 2015 #25 tangent-circle problem opens the chapter on **infinite series**. Two circles tangent to a common line, with radii $R$ and $r$, have tangency-point separation $s = 2\sqrt{Rr}$. The lesson uses a *self-similar* generating-sum argument to obtain the geometric series closed form, then **(Lucas's observation)** factors the geometric series via binary representation: $1 + x + x^2 + \cdots = \prod_{k=0}^{\infty}(1 + x^{2^k})$. The product unfolds because every non-negative integer has a *unique* binary representation.
+Opens with AMC 2015 #25 (tangent-circle chain). Establishes the elementary lemma $s = 2\sqrt{Rr}$ for tangency-point separation of two circles of radii $R, r$ tangent to a common line. Derives the **geometric series closed form** $\sum_{n\ge 0}x^n = 1/(1-x)$ via *self-similar shift* ($S = 1 + xS$). Then Lucas's observation: the same sum equals the **infinite product** $\prod_{k\ge 0}(1 + x^{2^k})$ — the proof unfolds via uniqueness of binary representation. Closes with Kummer's theorem (homework) on the parity of $\binom{n}{k}$ via binary-carries counting.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $R, r$ | radii of two circles |
+| $s$ | tangency-point separation along the common tangent |
+| $S$ | geometric sum $1 + x + x^2 + \cdots$ |
+| $x$ | series ratio, $|x| < 1$ for convergence |
+| $S_n$ | binary representation set: $n = \sum_{k\in S_n} 2^k$ |
+| $\binom{n}{k}$ | binomial coefficient $\frac{n!}{k!(n-k)!}$ |
+| $\nu_p(n)$ | $p$-adic valuation: largest $e$ with $p^e \mid n$ |
+
+## Primitive notions and assumptions
+
+We work in $\mathbb R$ (real-analytic, geometric) and over $\mathbb Z_{\ge 0}$ (combinatorial). **Convention:** circles are tangent *externally* to each other (centres on the same side of the tangent line); $|x|<1$ for series convergence. **Imported lemmas:** (i) Pythagorean theorem; (ii) **uniqueness of binary representation** — every $n \in \mathbb Z_{\ge 0}$ has a *unique* expression as a sum of distinct powers of 2; (iii) algebra of formal power series.
+
+---
+
+## Part I — Tangent-circle separation
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Tangent-circle separation).** Two circles tangent to a common line and externally tangent to each other, with radii $R, r$: tangency-point separation $s = 2\sqrt{Rr}$. $\tag{75}$
+**(Tangent-circle separation).** Two circles externally tangent to each other and to a common line, with radii $R$ and $r$: tangency-point separation
+$$
+s = 2\sqrt{R\,r}. \tag{1}
+$$
 :::
+
+### 1.2 Derivation
+
+Place the tangent line as $y = 0$. Centres at $(x_1, R)$ and $(x_2, r)$. External-tangency condition: distance between centres equals $R + r$:
+$$
+\sqrt{(x_2 - x_1)^2 + (r - R)^2} = R + r. \tag{2}
+$$
+Square:
+$$
+(x_2 - x_1)^2 + (R - r)^2 = (R + r)^2. \tag{3}
+$$
+$$
+(x_2 - x_1)^2 = (R+r)^2 - (R-r)^2 = 4Rr. \tag{4}
+$$
+Take square root:
+$$
+|x_2 - x_1| = 2\sqrt{Rr}. \tag{5}
+$$
+Tangency points lie directly below centres at $(x_1, 0), (x_2, 0)$, so $s = |x_2 - x_1| = 2\sqrt{Rr}$. $\quad\blacksquare$
+
+**Weakest step:** sign choice $|x_2 - x_1|$ in (5) — we discard the case $x_1 = x_2$ (which would mean the circles are concentric or one above the other, not the geometric configuration intended).
+
+### 1.3 Verification: $R = 4, r = 1$
+
+$s = 2\sqrt{4} = 4$. Centres at $(0, 4), (4, 1)$. Distance $= \sqrt{16 + 9} = 5 = R + r$. ✓
+
+---
+
+## Part II — Geometric series via self-similar shift
+
+### 2.1 Statement
 
 ::: {.theorem}
-**(Geometric series, closed form).** For $|x| < 1$:
+**(Geometric series).** For $|x| < 1$:
 $$
-\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}. \tag{76}
+\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}. \tag{6}
 $$
 :::
+
+### 2.2 Derivation A — Self-similar shift
+
+Let $S = \sum_{n=0}^\infty x^n = 1 + x + x^2 + \cdots$. Multiply by $x$:
+$$
+xS = x + x^2 + x^3 + \cdots = S - 1. \tag{7}
+$$
+(The series after multiplying is the *same* as $S$ but starting one term later — *self-similarity*.) So:
+$$
+xS = S - 1 \;\Longleftrightarrow\; S(1 - x) = 1 \;\Longleftrightarrow\; S = \frac{1}{1-x}. \quad\blacksquare \tag{8}
+$$
+
+**Weakest step:** the manipulation $xS = S - 1$ assumes convergence — the identity $1 + x + x^2 + \cdots = $ (some number) requires this number to exist. For $|x| \ge 1$, the partial sums diverge. The full rigorous justification requires $\lim_{N\to\infty}(1 + x + \cdots + x^N) = 1/(1-x)$ for $|x|<1$, which follows from the partial-sum identity $1 + x + \cdots + x^{N-1} = (1-x^N)/(1-x)$ and $x^N\to 0$.
+
+### 2.3 Derivation B — Telescoping partial sum
+
+Compute the partial sum directly:
+$$
+(1-x)(1 + x + x^2 + \cdots + x^{N-1}) = 1 - x^N. \tag{9}
+$$
+*Proof of (9):* expand the product, every cross-term cancels (telescoping) except the leading $1$ and the trailing $-x^N$.
+
+Hence
+$$
+1 + x + \cdots + x^{N-1} = \frac{1 - x^N}{1 - x}. \tag{10}
+$$
+For $|x| < 1$: $x^N \to 0$ as $N \to \infty$, so $S = 1/(1-x)$. $\quad\blacksquare$
+
+**Comparison.** A is one-line slick; B is the rigorous version that exposes both the *closed form for any $N$* (10) and the convergence condition. A *assumes* convergence; B *proves* it.
+
+### 2.4 Verification
+
+- $x = 1/2$: $S = 1/(1-1/2) = 2$. Sum $1 + 1/2 + 1/4 + \cdots = 2$. ✓
+- $x = 1/3$: $S = 3/2 = 1.5$. Sum $1 + 1/3 + 1/9 + \cdots = 1 + 1/2 = 3/2$. ✓
+- $x = -1/2$: $S = 1/(3/2) = 2/3$. Sum $1 - 1/2 + 1/4 - 1/8 + \cdots = 1/(1-(-1/2)) = 2/3$. ✓
+- $x = 1$: formally $S = 1/0$, undefined; sum diverges to $+\infty$. ✓ Consistent with the singularity at $x = 1$.
+
+---
+
+## Part III — Lucas's binary product identity
+
+### 3.1 Statement
 
 ::: {.theorem}
-**(Binary factorization of geometric series).** For $|x| < 1$:
+**(Binary product).** For $|x| < 1$:
 $$
-\sum_{n=0}^{\infty} x^n = \prod_{k=0}^{\infty} (1 + x^{2^k}) \;=\; (1+x)(1+x^2)(1+x^4)(1+x^8)\cdots \tag{77}
+\sum_{n=0}^{\infty} x^n = \prod_{k=0}^{\infty} (1 + x^{2^k}) = (1+x)(1+x^2)(1+x^4)(1+x^8)\cdots. \tag{11}
 $$
 :::
 
-## Derivation of Theorem 75
+### 3.2 Derivation — Unfolding the product
 
-Place the common tangent line as $y = 0$ with circles' centers at $(x_1, R)$ and $(x_2, r)$. Centers' distance equals $R + r$ (external tangency). So $\sqrt{(x_2 - x_1)^2 + (r - R)^2} = R + r$. Squaring: $(x_2 - x_1)^2 = (R+r)^2 - (R-r)^2 = 4Rr$, giving $|x_2 - x_1| = 2\sqrt{Rr}$ — which is the tangency-point separation along the line. $\quad\blacksquare$
-
-## Derivation of Theorem 76
-
-Let $S = 1 + x + x^2 + \cdots$. Then $xS = x + x^2 + x^3 + \cdots = S - 1$, so $S(1 - x) = 1$, giving $S = 1/(1-x)$. (Convergence requires $|x| < 1$.) $\quad\blacksquare$
-
-## Derivation of Theorem 77 (binary unfolding)
-
-Expand the product $\prod_{k=0}^{\infty}(1 + x^{2^k})$ term-by-term: each factor contributes either 1 or $x^{2^k}$ when multiplied out. So the product equals
+Expand the product. Each factor $(1 + x^{2^k})$ contributes *either* the term $1$ *or* the term $x^{2^k}$ to the product. So the full expansion is:
 $$
-\sum_{S \subseteq \{0,1,2,\dots\}\text{ finite}} x^{\sum_{k \in S} 2^k}.
+\prod_{k=0}^{\infty}(1 + x^{2^k}) = \sum_{S \subseteq \mathbb Z_{\ge 0}, \text{ finite}} x^{\sum_{k\in S} 2^k}. \tag{12}
 $$
-The exponents range over $\sum_{k \in S} 2^k$ — but every non-negative integer $n$ has a **unique binary representation** $n = \sum_{k \in S_n} 2^k$. So the exponents cover each non-negative integer exactly once, and the product equals $\sum_{n \ge 0} x^n$. $\quad\blacksquare$
+(The sum is over all *finite* subsets $S$ of $\{0, 1, 2, \dots\}$; the exponent is the sum of powers of 2 indexed by $S$.)
+
+By **uniqueness of binary representation**, every $n \in \mathbb Z_{\ge 0}$ corresponds to a *unique* finite subset $S_n$ such that $n = \sum_{k\in S_n} 2^k$. The map $S \mapsto \sum_{k\in S} 2^k$ is a bijection between finite subsets of $\mathbb Z_{\ge 0}$ and non-negative integers. Hence:
+$$
+\prod_{k=0}^{\infty}(1 + x^{2^k}) = \sum_{n=0}^{\infty} x^n. \quad\blacksquare \tag{13}
+$$
+
+**Weakest step:** *uniqueness* of binary representation. This is elementary (proof: by induction on $n$; or by considering the largest $2^k \le n$ as forced) but *non-trivial*. Without uniqueness, two finite subsets could give the same sum, double-counting some integers and skipping others.
+
+### 3.3 Verification at $x = 1/2$
+
+Product: $(1+1/2)(1+1/4)(1+1/16)(1+1/256)\cdots = (3/2)(5/4)(17/16)(257/256)\cdots$.
+
+Partial products:
+- $(3/2) = 1.5$
+- $(3/2)(5/4) = 15/8 = 1.875$
+- $(3/2)(5/4)(17/16) = 255/128 = 1.9921875$
+- $(3/2)(5/4)(17/16)(257/256) = 65535/32768 = 1.99996948...$
+
+Each successive product gets one more digit closer to 2. Sum from (6) at $x = 1/2$ is 2. ✓
+
+### 3.4 Verification at $x = 1/3$
+
+Product partial: $(1+1/3)(1+1/9)(1+1/81) = (4/3)(10/9)(82/81)$.
+- $(4/3)(10/9) = 40/27 \approx 1.481$
+- $\cdot (82/81) = 3280/2187 \approx 1.4998$
+
+Approaching $S = 3/2 = 1.5$. ✓
+
+### 3.5 Generalisation to base $b$
+
+The same argument with *base $b$* gives:
+$$
+\sum_{n=0}^{\infty} x^n = \prod_{k=0}^{\infty}(1 + x^{b^k} + x^{2\cdot b^k} + \cdots + x^{(b-1)b^k}). \tag{14}
+$$
+Uniqueness of base-$b$ representation handles each non-negative integer exactly once. The binary case ($b=2$) is special because each factor has only two terms.
+
+---
+
+## Part IV — Application: Kummer's theorem (homework)
+
+### 4.1 Statement
+
+::: {.theorem}
+**(Kummer, 1852).** The $p$-adic valuation of $\binom{n}{k}$ equals the number of *carries* when $k$ and $n - k$ are added in base $p$. Equivalently:
+$$
+\nu_p\binom{n}{k} = \text{(number of carries in } k + (n-k) = n \text{, base } p\text{)}. \tag{15}
+$$
+:::
+
+### 4.2 Specialisation $p = 2$
+
+$\binom{n}{k}$ is **odd** iff there are *no* carries in binary addition $k + (n-k) = n$. Equivalently, $\binom{n}{k}$ is odd iff every binary digit of $k$ is $\le$ the corresponding binary digit of $n$.
+
+### 4.3 Worked example $\binom{211}{143}$
+
+$143 = 10001111_2$ (binary), $68 = 1000100_2$. Sum $211 = 11010011_2$.
+
+Verify $143 + 68 = 211$ in binary:
+
+```
+  10001111
++  1000100
+----------
+```
+Carry analysis (right to left):
+- bit 0: $1 + 0 = 1$, no carry.
+- bit 1: $1 + 0 = 1$, no carry.
+- bit 2: $1 + 1 = 10$, **carry** to bit 3.
+- bit 3: $1 + 0 + \text{carry } 1 = 10$, **carry** to bit 4.
+- bit 4: $0 + 0 + \text{carry } 1 = 1$, no carry.
+- bit 5: $0 + 0 = 0$, no carry.
+- bit 6: $0 + 1 = 1$, no carry.
+- bit 7: $1 + 0 = 1$, no carry.
+
+Total carries: **2**. By Kummer, $\nu_2\binom{211}{143} = 2$, i.e., $4 \mid \binom{211}{143}$ but $8 \nmid$. Hence $\binom{211}{143}$ is **even** (and divisible by $4$ but not $8$).
+
+**Verification by symmetry.** $\binom{211}{143} = \binom{211}{68}$ (since $211 - 143 = 68$). Either way, same answer. ✓
+
+---
+
+## Part V — Connection to generating functions (forward pointer)
+
+The identity (11) is the prototype of an **infinite-product generating function**. Many combinatorial counts have such product expressions:
+
+| Sequence | Generating function |
+|---|---|
+| All integers (binary digits) | $\prod(1 + x^{2^k})$ |
+| Partitions into distinct parts | $\prod(1 + x^k)$ |
+| Partitions into any parts | $\prod 1/(1 - x^k)$ |
+| Compositions | $1/(1 - 2x)$ |
+
+The self-similar / shift trick of §2.2 generalises to: if a generating function $f(x)$ satisfies $f(x) = a(x) + b(x)\cdot f(x)$, then $f(x) = a(x)/(1 - b(x))$. Forward-pointer to Jan 10/24 (linear recursions and generating functions for the Fibonacci-like sequences).
+
+---
+
+## Unified picture
+
+$$
+\boxed{\sum_{n=0}^{\infty} x^n = \frac{1}{1-x} = \prod_{k=0}^{\infty}(1 + x^{2^k})}
+$$
+
+| Identity | Mechanism | Key idea |
+|---|---|---|
+| $S = 1 + xS$ | self-similar shift | recursion under translation |
+| $S = 1/(1-x)$ | telescoping cancellation | partial-fraction inverse |
+| $S = \prod(1+x^{2^k})$ | binary uniqueness | each integer has unique digit decomposition |
+| $\binom{n}{k}$ via Kummer | binary digit comparison | additive carries count $p$-adic valuation |
+
+All four identities are different *windows* into the same underlying object: the sequence of non-negative integers, encoded as exponents of a formal power series.
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary including $\nu_p, \binom{\cdot}{\cdot}, S_n$. ✓
+2. **Equation numbers continuous?** (1)–(15), no gaps. ✓
+3. **Signs justified by convention?** External tangency (centres on same side); $|x|<1$ for convergence; binary representation uses unique non-negative integer encoding. ✓
+4. **Every implication follows?** Self-similar shift (7)→(8) explicit; binary uniqueness in (12)→(13) explicit; Kummer carries in §4.3 enumerated. ✓
+5. **Advertised axioms verified?** Pythagorean theorem (§1.2), binary uniqueness (§3.2), formal power series algebra. All named. ✓
+6. **Counterexample / source correction.** The transcript records the binary expansion of 143 as $10001111$; verified correct. Carries in the addition: independently re-counted in §4.3 and confirmed at 2. ✓
+7. **Special / limiting cases tested?** $R = 4, r = 1$ for tangent circles (§1.3); $x \in \{1/2, 1/3, -1/2\}$ for geometric series (§2.4); $x \in \{1/2, 1/3\}$ for binary product (§3.3, §3.4); $\binom{211}{143}$ for Kummer (§4.3). ✓
+8. **Weakest step named?** Done after §1.2 (sign choice), §2.2 (convergence assumed), §3.2 (binary uniqueness imported). ✓
 
-- **Tangent circles $R=4, r=1$.** $s = 2\sqrt{4\cdot 1} = 4$. ✓
-- **Geometric at $x = 1/2$.** $S = 1/(1-1/2) = 2$. Sum $1 + 1/2 + 1/4 + \cdots = 2$. ✓
-- **Binary factorization at $x = 1/2$.** $(1+1/2)(1+1/4)(1+1/16)\cdots = (3/2)(5/4)(17/16)(257/256)\cdots$. Numerically: $1.5 \cdot 1.25 = 1.875$; $\cdot 1.0625 = 1.9921875$; $\cdot 1.00390625 \approx 1.9999...$; converges to 2. ✓
-- **Truncated check at $x = 1/3$.** $(1+1/3)(1+1/9)(1+1/81) = (4/3)(10/9)(82/81) = 3280/2187 \approx 1.500$; geometric: $1/(1-1/3) = 1.5$. ✓
-- **Dependency.** Thm 75: Pythagorean. Thm 76: self-similar shift. Thm 77: unique binary representation. No circularity.
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Self-similar shift $xS = S - 1$ | Assumes convergence | §2.3 Derivation B proves convergence via partial-sum formula |
+| Binary product convergence | Need $|x|<1$ for both sides | Stated in theorem; partial-product check in §3.3 demonstrates convergence numerically |
+| Uniqueness of binary | "Elementary" but non-trivial; proof by induction on $n$ | Imported; full proof in any number-theory text |
+| Kummer's theorem | Powerful generalisation; classical proof uses Legendre's $\nu_p(n!) = \sum \lfloor n/p^k\rfloor$ | §4.1 stated; §4.3 specialised to binary case with worked example |
+| Generalisation to base $b$ in §3.5 | Each factor now has $b$ terms, not 2 | Standard generalisation; verified by analogue of (12)→(13) |
+
+---
+
+## Explorative directions
+
+- **Next brick (Jan 3):** $\zeta(2) = \pi^2/6$ via Vieta on $\sin x / x$. The same "infinite-product encoding" idea (the sin function as a product over its roots) underlies Euler's solution to the Basel problem.
+- **Forward (Jan 10, Jan 24):** generating functions for linear recursions. The self-similar shift trick here ($S = 1 + xS$) generalises to recursions $a_n = c_1 a_{n-1} + c_2 a_{n-2}$, where the generating function satisfies a polynomial-coefficient relation.
+- **Open question (number theory):** the binary product identity has a fascinating analogue at $x = -1$: formally $\sum (-1)^n$ doesn't converge, but $\prod(1 + (-1)^{2^k}) = \prod 2 = \infty$. The "regularised" value is $1/2$ (Abel summation) — a sneak preview of analytic continuation.
+- **Open question (combinatorics):** **Stern-Brocot tree** and the Calkin-Wilf sequence enumerate the rationals using a binary-tree structure isomorphic to the binary representation of integers. Same uniqueness lemma at the bottom.
+- **Pedagogical thread:** the teacher's emphasis on "self-similarity is a powerful pattern." Self-similar arguments (where $S$ contains a scaled copy of itself) appear throughout mathematics — fixed-point theorems, fractals, recursion theory. Recognising the pattern is more important than mastering any specific instance.
+- **Connection back to Sep 13 PM:** the *uniqueness* lemma for binary representation here is the same logical move as the *uniqueness of permutation* in the Fermat / Euler proof — both rely on "every element appears exactly once in the enumeration." Different settings (number theory vs. group theory), same proof shape.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.3/2025-12-13.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.3" target="_blank">v1.3</a> · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.3/2025-12-13.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.3">v1.3</a> · <a href="https://drive.google.com/file/d/1KWR-UH-h1bPtVasJVoyf4GmOP5ddcVCh/view">Drive</a></p>
 ```
 
 ## Key frames
@@ -75,25 +292,17 @@ The exponents range over $\sum_{k \in S} 2^k$ — but every non-negative integer
 ![**Frame @ 38m00** — Lucas's binary factorization insight.](../figures/2025-12-13/frame-38m00.jpg)
 ![**Frame @ 50m00** — Uniqueness of binary representation.](../figures/2025-12-13/frame-50m00.jpg)
 
-## Fragility summary
-
-::: {.fragility}
-
-- **Convergence requires $|x| < 1$** for both series and product to make sense.
-- **Binary uniqueness** is the bottom-line import; deep result of number theory (Stern-Brocot tree, base representation theory) but accepted as elementary.
-- **Confidence.** All three theorems: high.
-
-:::
-
 ## Exercises given
 
 ::: {.callout-important}
-**Homework.** Determine whether $\binom{211}{143}$ is even or odd using **Kummer's theorem** (count carries in binary addition of $143 + 68 = 211$).
+**Homework.** Determine whether $\binom{211}{143}$ is even or odd using **Kummer's theorem** (count carries in binary addition of $143 + 68 = 211$). Answer in §4.3: **even**, with $\nu_2 = 2$, so divisible by 4 but not 8.
 :::
 
 ## Related sessions
 
-- **Sequels:** [2026-01-03 morning](2026-01-03-morning.html) (Basel ζ(2)). [2026-01-10 morning](2026-01-10-morning.html) (Catalan + generating functions).
+- **Forward:** [Jan 3 morning](2026-01-03-morning.html) — $\zeta(2) = \pi^2/6$ via Vieta on transcendental functions.
+- **Forward:** [Jan 10 morning](2026-01-10-morning.html), [Jan 24 morning](2026-01-24-morning.html) — generating functions for linear recursions.
+- **Precursor:** [Nov 1 morning](2025-11-01-morning.html), [Nov 29 morning](2025-11-29-morning.html) — polynomial / rational asymptotic analysis.
 
 ## Full transcript
 

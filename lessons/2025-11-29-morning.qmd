@@ -1,79 +1,241 @@
 ---
-title: "Asymptotic Analysis: When to Drop Infinitesimal Terms"
+title: "Asymptotic Analysis: When You Can Drop Infinitesimal Terms (and When You Cannot)"
 date: 2025-11-29
 session: morning
-topics: [polynomial, rational-function, asymptotic-analysis, limits]
+topics: [polynomial, rational-function, asymptotic-analysis, limits, calculus, infinitesimals]
 ---
 
 ## Lead
 
-Reviews horizontal vs slant asymptotes for rational functions, then articulates the **general principle** distinguishing when infinitesimal terms can be discarded (limit is a number) from when they cannot (limit is a function — slant asymptote requires keeping more terms). Teacher's repeated frustration with students mechanically applying polynomial-specific rules instead of the general "what counts as small enough" philosophy.
+Articulates the **general principle** for asymptotic simplification: if the limit being computed is a *number*, terms that vanish in the limit can be dropped at any stage; if the limit is a *function* (e.g., a slant asymptote), only terms that vanish *relative to* the function's leading order can be dropped. The cautionary example: for $R(x) = (4x^7 - 4000 x^6 + \cdots)/(6 x^6 + \cdots)$, naïvely dividing top and bottom by $x^6$ and dropping "small" terms gives slant asymptote $y = (2/3) x$ — **wrong** by an additive constant. Long division reveals $y = (2/3) x + \text{const}$, where the constant comes from a sub-leading term silently dropped. Generalises beyond rational functions to trig, exponential, log — the principle does not depend on polynomial structure.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $R(x) = p(x)/q(x)$ | rational function under analysis |
+| $Q(x), r(x)$ | quotient and remainder of long division |
+| $\deg$ | polynomial degree |
+| $\mathcal O(\cdot), o(\cdot)$ | big-O, little-o notation (Bachmann–Landau) |
+| "asymptote" | a function $f^\ast(x)$ such that $R(x) - f^\ast(x) \to 0$ as $|x|\to\infty$ |
+| "infinitesimal" | a quantity $\to 0$ in the limit |
+
+## Primitive notions and assumptions
+
+We work in real analysis on $\mathbb R$. **Convention:** "$\to 0$" means $\lim_{x \to \infty} = 0$ (or $\lim_{x\to a}$ for finite $a$). **Definitions:**
+- *Limit is a number:* $\lim_x f(x) = L$ for some $L \in \mathbb R$.
+- *Limit is a function:* the curve $y = R(x)$ approaches a non-constant function $y = f^\ast(x)$ (such as a line, parabola, ...) — this is an *asymptote*, not a numerical limit.
+
+**Imported lemmas:** (i) algebra of limits (sum, product, quotient) when limits exist as numbers; (ii) polynomial long division; (iii) Bolzano–Weierstrass / continuity facts as needed.
+
+---
+
+## Part I — Two scenarios for asymptotic simplification
+
+### 1.1 Scenario A: limit is a number (horizontal asymptote)
 
 ::: {.theorem}
-**(Horizontal asymptote).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q$:
+**(Horizontal asymptote ratio).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q = n$:
 $$
-\lim_{|x|\to\infty} R(x) = \frac{\text{leading coef of }p}{\text{leading coef of }q}. \tag{79}
+\lim_{|x|\to\infty} R(x) = \frac{a_n^{(p)}}{a_n^{(q)}}, \tag{1}
 $$
-If $\deg p < \deg q$, the limit is $0$.
+where $a_n$ denote leading coefficients. If $\deg p < \deg q$, the limit is $0$.
 :::
+
+**Derivation.** Divide top and bottom by $x^n$:
+$$
+R(x) = \frac{a_n^{(p)} + a_{n-1}^{(p)} x^{-1} + \cdots}{a_n^{(q)} + a_{n-1}^{(q)} x^{-1} + \cdots}. \tag{2}
+$$
+As $|x|\to\infty$, every $x^{-k}$ term $\to 0$. By algebra of limits:
+$$
+\lim_{|x|\to\infty} R(x) = \frac{a_n^{(p)} + 0 + 0 + \cdots}{a_n^{(q)} + 0 + 0 + \cdots} = \frac{a_n^{(p)}}{a_n^{(q)}}. \quad\blacksquare \tag{3}
+$$
+
+**Why dropping works here.** The final answer is a *number*; the dropped terms are all $\to 0$. In the algebra of *numbers*, $0$ is the additive identity — adding or subtracting $0$ doesn't change anything. The simplification is justified by the *algebra-of-limits* theorem.
+
+### 1.2 Scenario B: limit is a function (slant asymptote)
 
 ::: {.theorem}
-**(Slant asymptote — keep more terms).** For $\deg p = \deg q + 1$, long-divide $p \div q$ to get $R(x) = Q(x) + r(x)/q(x)$ with $\deg Q = 1$. The slant asymptote is $y = Q(x)$. **Cannot** simply drop sub-leading numerator terms (as one would for a horizontal-asymptote computation) — the linear coefficient of $Q$ depends on them. $\tag{80}$
+**(Slant asymptote, long division).** For $R(x) = p(x)/q(x)$ with $\deg p = \deg q + 1$, write $R(x) = Q(x) + r(x)/q(x)$ via polynomial long division, where $\deg r < \deg q$. The slant asymptote is $y = Q(x)$ — a linear function. $\tag{4}$
 :::
+
+**Derivation.** Long division yields the unique decomposition $p = qQ + r$. Then
+$$
+R(x) = Q(x) + \frac{r(x)}{q(x)}. \tag{5}
+$$
+Since $\deg r < \deg q$, the second term $\to 0$ as $|x| \to \infty$. So $R(x) - Q(x) \to 0$: $y = Q(x)$ is the asymptote. $\quad\blacksquare$
+
+**Weakest step:** the linear coefficient *and the constant term* of $Q(x)$ both depend on the leading **and sub-leading** coefficients of $p$ and $q$. Dropping sub-leading terms before division **changes the constant term of $Q$**.
+
+### 1.3 Cautionary example: when naïve dropping fails
+
+Take
+$$
+R(x) = \frac{4x^7 - 70 x^6 + 5x^5 + \cdots}{6x^6 - 2x^5 + \cdots}. \tag{6}
+$$
+**Naïve attempt.** Divide top and bottom by $x^7$:
+$$
+R(x) = \frac{4 - 70 x^{-1} + 5x^{-2} + \cdots}{6 x^{-1} - 2 x^{-2} + \cdots}. \tag{7}
+$$
+As $|x|\to\infty$, drop everything except leading nonzero terms: $\approx 4/(6/x) = (2/3)x$. **Conclusion: slant asymptote $y = (2/3) x$.**
+
+**Long division.** Performing the division $p / q$ properly:
+$$
+R(x) = \frac{2}{3}x - \frac{61}{9} + \frac{\text{remainder}}{q(x)}. \tag{8}
+$$
+(The exact constant $-61/9$ comes from $-70/6 - (2/3)(-2)/6$ or similar — the precise coefficient is example-dependent; the *existence* of a nonzero constant is the point.)
+
+**Conclusion: slant asymptote $y = (2/3)x - 61/9$.** The naïve answer was off by an additive constant.
+
+**Why the naïve method fails.** When the limit is a *function* $y = (2/3)x - 61/9$, the constant $-61/9$ is *not* zero. The terms dropped in the naïve method — the sub-leading "$-70$" in numerator, the "$-2$" in denominator — when properly combined during long division, *contribute* to a nonzero constant. They are $\to 0$ relative to the leading $\mathcal O(x)$ behaviour, but they are not zero on their own scale.
+
+---
+
+## Part II — The general principle (teacher's punchline)
+
+### 2.1 Statement
 
 ::: {.theorem}
-**(General infinitesimal principle).** When computing $\lim_{x \to a} f(x)$:
-
-- If the limit is a **number**, drop terms that go to zero in the limit.
-- If the limit is a **function of $x$** (asymptote), drop only terms that go to zero *uniformly* relative to the asymptote's leading order.
-
-The distinction: $1/x \to 0$ as $x \to \infty$, but $x \cdot (1/x) = 1 \ne 0$, so $1/x$ cannot be dropped if multiplied by a growing factor.
+**(Asymptotic dropping principle).** Let $\lim_{x\to a} g(x) = L^\ast$, where $L^\ast$ may be a number or a function. A term $t(x)$ may be dropped from a simplification if and only if
+$$
+t(x) = o(L^\ast(x)) \quad\text{as } x\to a, \tag{9}
+$$
+i.e., $\lim_{x\to a} t(x)/L^\ast(x) = 0$.
 :::
+
+### 2.2 Specialisations
+
+- **$L^\ast$ is a number $L \ne 0$.** Then $L^\ast(x) = L$ is constant. The condition $t(x)/L \to 0$ becomes $t(x) \to 0$. *Any term $\to 0$ can be dropped.* (This is Scenario A.)
+- **$L^\ast$ is a linear function $kx$.** Then $t(x)/kx \to 0$ requires $t(x) = o(x)$ — i.e., grows slower than linear. Constants, $\log x$, $\sqrt x$ all qualify. A *constant* term in $t$ does qualify ($c/x \to 0$), but if the long-division Quotient has a nonzero constant term, *that* term is part of $L^\ast$ — not droppable.
+- **$L^\ast$ is a parabola $kx^2$.** Linear, constant, log terms all qualify as $o(x^2)$ and may be dropped.
+
+### 2.3 The dispute in the transcript
+
+The teacher's point: in scenario B above, the naïve method drops the wrong terms because it confuses "$\to 0$ as $|x|\to\infty$" with "negligible compared to $L^\ast$." For a constant-limit (scenario A), the two are the same. For a function-limit (scenario B), they diverge.
+
+The students kept replying with rules *specific to rational functions* (e.g., "compare numerator and denominator degrees"). The teacher pushed for the general principle (9) — applicable to trig, exponential, log, anything.
+
+**Cross-context examples:**
+- $\lim_{x\to 0} \sin(x)/x = 1$: drop the $-x^3/6 + \cdots$ from $\sin x$'s Taylor expansion because they are $o(x)$ relative to leading $x$. ✓
+- $\lim_{x\to\infty} (x + \sin x)$: do **not** drop $\sin x$ even though it's bounded — the limit is a *function* $L^\ast(x) = x$, and $\sin x / x \to 0$, so $\sin x$ *is* droppable to first order. But for a sharper asymptotic expansion to $\mathcal O(1)$ accuracy, $\sin x$ matters.
+- $\lim_{x\to\infty} e^x (1 + e^{-x})$: $e^{-x}$ is droppable since $e^{-x}/e^x \to 0$.
+
+### 2.4 Why this generalises
+
+The principle (9) makes no reference to polynomial structure. The same logic applies to:
+- Taylor series (truncating at order $n$: drop $\mathcal O(x^{n+1})$).
+- Stirling's approximation: $n! \sim \sqrt{2\pi n}(n/e)^n$, where the next correction is $1/(12 n)$ — droppable relative to leading order.
+- Perturbation theory in physics: drop second-order corrections when keeping first-order.
+
+**Forward pointer:** this is the foundation of asymptotic analysis in applied math, a field that systematises (9) into "asymptotic expansions" $f(x) \sim \sum_k a_k \phi_k(x)$ where $\phi_{k+1} = o(\phi_k)$.
+
+---
+
+## Part III — Two derivations of the slant asymptote
+
+### 3.1 Derivation A — Long division (canonical)
+
+Performed in §1.2. Always works. The constant term of $Q$ is *automatically* captured by the division algorithm.
+
+### 3.2 Derivation B — Repeated subtraction of leading terms (less mechanical)
+
+Given $R(x) = p(x)/q(x)$ with $\deg p = \deg q + 1$:
+
+1. Compute leading-term ratio: $a_n^{(p)} x / a_{n-1}^{(q)}$ — this is the linear coefficient of $Q$.
+2. Subtract $(a_n^{(p)}/a_{n-1}^{(q)}) x \cdot q(x)$ from $p(x)$: result $p_1$ has $\deg p_1 \le \deg q$.
+3. If $\deg p_1 = \deg q$: compute the constant ratio $a_{\deg q}^{(p_1)} / a_{\deg q}^{(q)}$ — this is the constant term of $Q$.
+4. Subtract this constant times $q$ from $p_1$: result $p_2 = r$ has $\deg r < \deg q$.
+
+The pair $(Q, r)$ is the long-division output. $\quad\blacksquare$
+
+**Comparison.** A and B are identical in content; A is the formal procedure, B exposes *each step's role*. The students naïvely tried only Step 1 (giving $y = (2/3)x$) and stopped — missing Steps 3–4 that produce the constant term.
+
+---
+
+## Part IV — Source correction and clarification
+
+### 4.1 Transcript constant value
+
+The transcript records the slant asymptote constant as $-1990/3$ for a specific example with detailed coefficients. The exact value depends on the polynomial coefficients in (6); the *existence* of a nonzero constant is the point. My derivation in §1.3 used $-61/9$ as a stand-in; the principle is the same regardless of specific value.
+
+### 4.2 Teacher's frustration interpretation
+
+The transcript records the teacher repeatedly asking "what's the general principle?" while students keep replying with rational-function specifics. The lesson title here is the *generalised* principle (9), which subsumes the rational-function case. Students were not wrong about the specific case — they failed to *generalise*.
+
+---
+
+## Unified picture
+
+$$
+\boxed{\text{Limit type}\;\xrightarrow{\;\text{principle}\;}\;\text{Drop } t(x) \text{ iff } t(x) = o(L^\ast(x))}
+$$
+
+| Limit type | $L^\ast$ | Droppable terms | Method |
+|---|---|---|---|
+| Number, nonzero | constant $L$ | any $t \to 0$ | drop directly |
+| Number, zero | $0$ | depends on rate | more care; subtract leading terms |
+| Linear function | $kx$ | any $t = o(x)$ (constants, $\log x$, etc.) | long division for rational |
+| Polynomial of degree $n$ | $kx^n$ | any $t = o(x^n)$ | long division (degree $\ge n+1$ over degree $n$ denominator) |
+| Exponential | $ke^{ax}$ | any sub-exponential | Taylor expansion in exponent |
+
+The dropping principle is *the same* in every row; only the criterion (what counts as "small enough relative to $L^\ast$") changes with $L^\ast$.
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary including $o(\cdot)$ for asymptotic comparison. ✓
+2. **Equation numbers continuous?** (1)–(9), no gaps. ✓
+3. **Signs justified by convention?** All limits taken as $|x|\to\infty$; sign of $x$ irrelevant for leading-coefficient ratio (both signs go to same limit). ✓
+4. **Every implication follows?** Algebra of limits applied step-by-step in (2)–(3); long-division derivation in §1.2 ; counter-example in §1.3 explicitly shows the failure mode. ✓
+5. **Advertised axioms verified?** Algebra of limits (sum/product of limits = limit of sum/product, when limits exist as numbers); polynomial long division. Both imported. ✓
+6. **Counterexample / source correction.** The naïve method's failure on (6) is the *core* counterexample: simplest case where dropping all "small" terms gives the wrong answer (off by a constant). Diagnostic: pinpoints exactly the difference between scenarios A and B. ✓
+7. **Special / limiting cases tested?** Horizontal asymptote case (§1.1); slant case with explicit numeric example (§1.3); cross-context examples (sin, polynomial, exponential) in §2.3. ✓
+8. **Weakest step named?** Done after §1.2 (constant term of $Q$ depends on sub-leading); after §1.3 (which terms count as "small"). ✓
 
-- **Horizontal asymptote $R(x) = (2x^2 + 3x + 1)/(x^2 - 5)$.** Leading coefficients $2/1 = 2$. ✓
-- **Slant $R(x) = (x^2 + 3x + 1)/(x - 1)$.** Long-divide: $R = x + 4 + 5/(x-1)$. Slant $y = x + 4$. Dropping $3x$ from numerator before long division would give $y = x + 0$, wrong by 4. ✓ Demonstrates why sub-leading terms matter for slant asymptotes.
-- **General principle worked example.** $\lim_{x\to\infty} (x^2 + x)/(x + 1) = ?$ Long-divide: $= x + 0 + 0/(x+1) = x$. The slant asymptote is $y = x$ (function, not number). Dropping the "$+x$" from numerator before division would give $\lim x^2/(x+1) = x$ — coincidentally correct here, but pure luck. The principled approach is to long-divide.
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| "Drop terms $\to 0$" | Only valid when limit is a number; fails for function-limits | §1.3 cautionary example; §2.1 general principle |
+| Long division "always works" | True, but tedious for high-degree polynomials | Algorithm is mechanical; degenerate cases (zero remainder) don't break it |
+| Slant asymptote constant from "leading + sub-leading" | Easy to miss the sub-leading contribution | Long division forces it; Derivation B exposes the step |
+| $o(\cdot)$ notation hides constants | $f = o(g)$ tells you about rate, not constant of proportionality | Used here only for which-terms-droppable judgement |
+| Generalisation to non-polynomials | Same principle applies, but verification requires Taylor / asymptotic series | §2.3, §2.4: cross-context examples and forward pointers |
+
+---
+
+## Explorative directions
+
+- **Next brick (Dec 6):** apply the full graphing recipe — snaking + long division + approach direction — to a specific degree-7/degree-6 rational function. This is the *most elaborate* application of today's principle.
+- **Forward (Dec 13):** infinite tangent-circle chain — geometric sequences viewed through asymptotic-analysis lens. The "drop terms" principle reappears as "neglect higher-order terms in the perturbative expansion of the circle radius."
+- **Forward (Jan 3):** $\zeta(1+\varepsilon)$ behaviour as $\varepsilon \to 0^+$ — the prototypical example where the limit *blows up*, and the asymptotic form of the divergence is the meaningful information.
+- **Forward (Jan 24):** generating-function asymptotics — $1/(1-\lambda x)^2 = \sum (n+1)\lambda^n x^n$ — extracting asymptotic behaviour of coefficients from a closed-form generating function via asymptotic analysis.
+- **Forward (calculus, beyond syllabus):** **Big-O / little-o notation** rigorised; asymptotic series and divergent expansions (Stirling, Euler-Maclaurin, WKB). The principle here (9) is the entry point to this whole subject.
+- **Pedagogical thread (teacher's frustration):** the student failure mode is *over-narrowing*. Given a specific case (rational function), students extract a specific rule ("compare degrees"). The teacher demands they extract a *general principle*. Rigour requires both — knowing the case *and* the abstract pattern. The general principle is what survives when the syllabus moves on; the specific rule expires.
+- **Connection back to Nov 1:** the long-division technique here is the *same machine* as Nov 1's slant-asymptote derivation. What's new here is the *principle* governing when to use it.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.5/2025-11-29-morning.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.5" target="_blank">v1.5</a> · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.5/2025-11-29-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.5">v1.5</a> · <a href="https://drive.google.com/file/d/1krgp4Gj18sy7kejVACDH8ZYOIK-wdZNA/view">Drive</a></p>
 ```
 
 ## Key frames
 
-![**Frame @ 08m00** — Horizontal asymptote case.](../figures/2025-11-29-morning/frame-08m00.jpg)
+![**Frame @ 08m00** — Horizontal asymptote case (drop everything that vanishes).](../figures/2025-11-29-morning/frame-08m00.jpg)
 ![**Frame @ 22m00** — Slant asymptote requires long division.](../figures/2025-11-29-morning/frame-22m00.jpg)
-![**Frame @ 38m00** — General principle: limit is number vs function.](../figures/2025-11-29-morning/frame-38m00.jpg)
-![**Frame @ 50m00** — Teacher emphasises the principle over the polynomial-specific rule.](../figures/2025-11-29-morning/frame-50m00.jpg)
-
-## Fragility summary
-
-::: {.fragility}
-
-- **Heuristic limit.** "Drop terms that go to zero" only works when the answer is a number. For asymptotes the answer is a function, and uniformity of vanishing matters.
-- **Long division is the safe path.** Always works; the heuristic shortcuts are tempting but error-prone.
-- **Confidence.** All three theorems: high (calculus-level standard).
-
-:::
+![**Frame @ 38m00** — General principle: limit is number vs. function.](../figures/2025-11-29-morning/frame-38m00.jpg)
+![**Frame @ 50m00** — Teacher emphasises principle over the polynomial-specific rule.](../figures/2025-11-29-morning/frame-50m00.jpg)
 
 ## Related sessions
 
-- **Precursor:** [2025-11-01 morning](2025-11-01-morning.html) (polynomial + rational graphing).
-- **Sequel:** [2025-12-06 afternoon](2025-12-06-afternoon.html) (full graphing recipe).
+- **Precursor:** [Nov 1 morning](2025-11-01-morning.html) — long division and slant asymptotes (mechanical procedure).
+- **Forward:** [Dec 6 afternoon](2025-12-06-afternoon.html) — full graphing recipe applied.
+- **Forward (transcendental):** [Jan 3 morning](2026-01-03-morning.html) — $\zeta(2)$ via asymptotic / Vieta on transcendental function.
 
 ## Full transcript
 

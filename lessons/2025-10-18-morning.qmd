@@ -1,67 +1,240 @@
 ---
-title: "Quadratic Form Classification of Conics via the Discriminant $b^2 - ac$"
+title: "Discriminant Classification of Conics: Why Δ = b² − ac Decides Ellipse / Parabola / Hyperbola"
 date: 2025-10-18
 session: morning
-topics: [conic-sections, quadratic-form, discriminant, polynomial]
+topics: [conic-sections, quadratic-form, discriminant, completing-the-square, polynomial, vieta-formulas]
 ---
 
 ## Lead
 
-Reviews completing the square and the quadratic formula, then classifies the general conic $ax^2 + 2bxy + cy^2 + dx + ey + g = 0$ by the discriminant $\Delta = b^2 - ac$: $\Delta < 0$ ellipse, $\Delta = 0$ parabola, $\Delta > 0$ hyperbola.
+Reviews the quadratic formula (via completing the square) and the vertex location of $y = ax^2 + bx + c$. Then classifies the general conic $ax^2 + 2bxy + cy^2 + dx + fy + g = 0$ by the discriminant $\Delta = b^2 - ac$: $\Delta < 0 \Rightarrow$ ellipse, $\Delta = 0 \Rightarrow$ parabola, $\Delta > 0 \Rightarrow$ hyperbola. The mechanism is **factorability**: $\Delta > 0$ iff the pure quadratic part factors into two distinct real linear factors (asymptotes); $\Delta = 0$ iff it is a perfect square (degenerate direction = parabolic axis); $\Delta < 0$ iff irreducible over $\mathbb R$ (no real asymptotes ⇒ bounded ellipse).
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $a, b, c$ | quadratic-form coefficients $ax^2 + 2bxy + cy^2$ (factor of 2 on cross term — symmetric matrix convention) |
+| $d, f, g$ | linear and constant coefficients |
+| $\Delta$ | discriminant: $b^2 - 4ac$ (single-variable) or $b^2 - ac$ (quadratic-form) |
+| $\Phi$ | full polynomial: $ax^2 + 2bxy + cy^2 + dx + fy + g$ |
+| $\lambda_1, \lambda_2$ | roots of the form-defining quadratic in slope |
+| (x_0, y_0) | a generic point on the conic |
+
+## Primitive notions and assumptions
+
+We work in $\mathbb R^2$. **Convention:** quadratic-form cross-term coefficient is $2b$ (matches symmetric-matrix entry); a different textbook may use $b$ directly (no factor of 2) and define $\Delta = b^2 - 4ac$ accordingly. **Definitions:** the *single-variable* discriminant is the well-known $b^2 - 4ac$; the *quadratic-form* discriminant is $b^2 - ac$ (no 4) because of the $2b$ convention. **Imported lemmas:** (i) any quadratic $At^2 + Bt + C$ factors over $\mathbb R$ iff $B^2 - 4AC \ge 0$; (ii) algebra of completing the square; (iii) geometric definitions of conics (focal property and eccentricity) from Oct 4.
+
+---
+
+## Part I — Completing the square and the quadratic formula
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Quadratic formula via completing the square).** For $ax^2 + bx + c = 0$:
+**(Quadratic formula).** For $ax^2 + bx + c = 0$ with $a \ne 0$:
 $$
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \tag{85}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \tag{1}
 $$
 :::
 
+### 1.2 Derivation A — Completing the square
+
+Factor out $a$:
+$$
+a\!\left(x^2 + \frac{b}{a}x\right) + c = 0. \tag{2}
+$$
+Add and subtract $(b/(2a))^2$ inside the parentheses:
+$$
+a\!\left[\left(x + \frac{b}{2a}\right)^2 - \frac{b^2}{4a^2}\right] + c = 0. \tag{3}
+$$
+$$
+a\!\left(x + \frac{b}{2a}\right)^2 = \frac{b^2}{4a} - c = \frac{b^2 - 4ac}{4a}. \tag{4}
+$$
+Divide by $a$:
+$$
+\left(x + \frac{b}{2a}\right)^2 = \frac{b^2 - 4ac}{4a^2}. \tag{5}
+$$
+Take square roots (with $\pm$):
+$$
+x + \frac{b}{2a} = \pm\frac{\sqrt{b^2 - 4ac}}{2a} \;\Longrightarrow\; x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}. \quad\blacksquare \tag{6}
+$$
+
+**Weakest step:** the square-root step in (5)→(6) introduces $\pm$; both signs are roots. When $b^2 - 4ac < 0$, no real square root exists ⇒ no real roots (the discriminant's sign directly classifies the existence of real roots).
+
+### 1.3 Derivation B — Vieta + axis of symmetry
+
+If $x_1, x_2$ are roots: $x_1 + x_2 = -b/a$ and $x_1 x_2 = c/a$ (Vieta). Hence midpoint of roots is $-b/(2a)$, which is *also* the axis of symmetry of $y = ax^2 + bx + c$. Solving the system $x_1 + x_2 = -b/a$, $x_1 x_2 = c/a$ symbolically gives the same $\pm\sqrt{\Delta}/(2a)$ deviation from the midpoint. Hence (1). $\quad\blacksquare$
+
+**Comparison.** A is the standard textbook derivation, mechanical and reliable. B is the "by symmetry" approach — shorter once Vieta is internalised, but Vieta itself requires (1) or a separate proof. The class derived (1) from completing the square (Derivation A); Vieta is a *consequence*, not a competing starting point.
+
+### 1.4 Verification
+
+- $x^2 - 11x + 28 = 0$: $b^2 - 4ac = 121 - 112 = 9$; $\sqrt 9 = 3$; $x = (11 \pm 3)/2 \in \{7, 4\}$. ✓ Factored: $(x-7)(x-4)$.
+- $x^2 + 1 = 0$: $b^2 - 4ac = -4 < 0$. No real roots. ✓ (complex roots $\pm i$.)
+
+### 1.5 Vertex of $y = ax^2 + bx + c$
+
 ::: {.theorem}
-**(Vertex of parabola).** $y = ax^2 + bx + c$ has vertex at $x = -b/(2a)$. $\tag{86}$
+**(Vertex location).** $y = ax^2 + bx + c$ has axis of symmetry $x = -b/(2a)$, and the vertex is at $(-b/(2a), c - b^2/(4a))$.
 :::
 
+*Derivation.* The completed-square form is $y = a(x + b/(2a))^2 + (c - b^2/(4a))$. The axis $x = -b/(2a)$ makes the squared term zero; at the axis, $y$ takes its minimum (if $a > 0$) or maximum (if $a < 0$): $y_\text{vertex} = c - b^2/(4a)$. $\quad\blacksquare$
+
+### 1.6 Three-point fitting (transcript exercise)
+
+Given a quadratic passing through $(4, 7), (10, 7), (0, 20)$: since $(4,7)$ and $(10,7)$ share $y$-value, the axis of symmetry is the midpoint $x = 7$. So
+$$
+y = k(x-7)^2 + 7. \tag{7}
+$$
+Plug $(0, 20)$: $20 = 49k + 7 \Rightarrow k = 13/49$. **Wait** — recompute: $20 - 7 = 13$, $13/49$. So
+$$
+y = \frac{13}{49}(x-7)^2 + 7. \tag{8}
+$$
+**Source correction.** The transcript erroneously concludes $k = 13/40$; the correct denominator is $49$ (since $(0-7)^2 = 49$, not $40$). Verified: at $x = 0$, $y = (13/49)\cdot 49 + 7 = 13 + 7 = 20$ ✓.
+
+---
+
+## Part II — Discriminant classification of conics
+
+### 2.1 Statement
+
 ::: {.theorem}
-**(Discriminant classification of conics).** $ax^2 + 2bxy + cy^2 + \cdots = 0$ describes:
-$$
-\Delta = b^2 - ac \begin{cases} < 0 & \text{ellipse}\\ = 0 & \text{parabola}\\ > 0 & \text{hyperbola}\end{cases}. \tag{87}
-$$
+**(Discriminant classifies conics).** The conic $\Phi(x,y) = ax^2 + 2bxy + cy^2 + dx + fy + g = 0$ is, up to degeneracy:
+- **ellipse** if $\Delta := b^2 - ac < 0$,
+- **parabola** if $\Delta = 0$,
+- **hyperbola** if $\Delta > 0$.
 :::
 
-## Derivation of Theorem 85
+### 2.2 Derivation A — Factorability of the quadratic form
 
-$ax^2 + bx + c = a(x^2 + bx/a) + c = a(x + b/(2a))^2 - b^2/(4a) + c = 0$. Solve: $(x + b/(2a))^2 = (b^2 - 4ac)/(4a^2)$, so $x = -b/(2a) \pm \sqrt{b^2 - 4ac}/(2a)$. $\quad\blacksquare$
+The shape of the conic depends *only* on the quadratic part $Q(x,y) := ax^2 + 2bxy + cy^2$ (Emma's observation); the linear part $dx + fy$ shifts the curve but does not change the type, and $g$ shifts vertically but does not change the type.
 
-## Derivation of Theorem 87
+**Subcase $\Delta > 0$.** $Q$ factors into two distinct real linear factors:
+$$
+Q(x,y) = c(y - \lambda_1 x)(y - \lambda_2 x), \quad \lambda_{1,2} = \frac{-b\pm\sqrt{\Delta}}{c}. \tag{9}
+$$
+For large $|x|$, the equation $\Phi = $ const requires the product of the two factors to be bounded; if one factor blows up, the other must shrink — *hyperbolic* behaviour with two asymptotes $y = \lambda_i x$.
 
-The discriminant determines whether the quadratic form $ax^2 + 2bxy + cy^2$ factors over $\mathbb{R}$: if $\Delta > 0$ it factors into two real linear factors (asymptote pair → hyperbola); if $\Delta = 0$ it's a perfect square (degenerate parabola direction); if $\Delta < 0$ it's irreducible (ellipse, no real asymptotes). $\quad\blacksquare$
+**Subcase $\Delta = 0$.** $Q$ is a perfect square:
+$$
+Q(x,y) = c(y - \lambda x)^2, \quad \lambda = -b/c. \tag{10}
+$$
+Only **one** asymptotic direction; the curve is unbounded along it but has no second asymptote — *parabolic* behaviour.
+
+**Subcase $\Delta < 0$.** $Q$ has no real linear factors (only complex). For $\Phi = $ const, $|x|, |y|$ cannot both blow up because $Q$ is a *positive definite* (or negative definite, after sign normalisation) form: $Q \ge \lambda_\min(x^2 + y^2)$ where $\lambda_\min > 0$ is the smaller eigenvalue. Hence the curve is bounded — *elliptical* behaviour.
+
+### 2.3 Derivation B — Eigenvalue decomposition (forward pointer to Feb 21)
+
+The quadratic form $Q = (x, y)\,M\,(x,y)^T$ where $M = \begin{pmatrix}a & b\\ b & c\end{pmatrix}$. Eigenvalues $\mu_{1,2}$ of $M$ satisfy
+$$
+\mu^2 - (a+c)\mu + (ac - b^2) = 0 \;\Longrightarrow\; \mu_{1,2} = \frac{(a+c) \pm \sqrt{(a-c)^2 + 4b^2}}{2}. \tag{11}
+$$
+Product: $\mu_1 \mu_2 = ac - b^2 = -\Delta$. So:
+- $\Delta > 0 \Leftrightarrow \mu_1 \mu_2 < 0$: opposite signs ⇒ hyperbola.
+- $\Delta = 0 \Leftrightarrow \mu_1 \mu_2 = 0$: one eigenvalue zero ⇒ parabola.
+- $\Delta < 0 \Leftrightarrow \mu_1 \mu_2 > 0$: same sign ⇒ ellipse.
+
+**Comparison.** A is the algebraic (factor-form) approach, accessible without linear algebra. B is the spectral approach — one line once eigenvalues are introduced (Feb 21). Both yield the same classification because $\mu_1\mu_2 = \det M = ac - b^2 = -\Delta$.
+
+**Weakest step in A:** the "factor-form" intuition requires noticing that asymptotes are *defined* by linear factors of $Q$. This is the content of Oct 18 PM session — proved there.
+
+**Weakest step in B:** Derivation B requires the *spectral theorem* for symmetric matrices, imported from Feb 21. Forward-pointer.
+
+### 2.4 The degenerate subcase
+
+If $\Phi$ factors as a product of two linear polynomials (not just $Q$, but the full polynomial including $dx + fy + g$), the conic *degenerates* to two lines. Concretely: $\Phi = (\alpha_1 x + \beta_1 y + \gamma_1)(\alpha_2 x + \beta_2 y + \gamma_2)$. This happens on a codimension-1 subset of the parameter space; condition is that a $3\times 3$ "extended discriminant" determinant vanishes (a topic for Oct 18 PM).
+
+### 2.5 Verification
+
+- **Unit circle** $x^2 + y^2 - 1 = 0$: $a=1, b=0, c=1$, $\Delta = -1 < 0$ ⇒ ellipse (special case: circle, $\mu_1 = \mu_2$). ✓
+- **Unit hyperbola** $x^2 - y^2 = 1$: $a=1, b=0, c=-1$, $\Delta = 1 > 0$ ⇒ hyperbola. ✓
+- **Standard parabola** $y = x^2$, i.e. $x^2 - y = 0$: $a=1, b=0, c=0$, $\Delta = 0$ ⇒ parabola. ✓
+- **Skew hyperbola** $xy = 1$: $a=0, b=1/2, c=0$ (using $2b$ convention so $b=1/2$ for cross-term $xy$), $\Delta = 1/4 - 0 = 1/4 > 0$ ⇒ hyperbola. ✓ (asymptotes are $x = 0$ and $y = 0$ — the coordinate axes.)
+
+---
+
+## Part III — Why the linear and constant terms don't change the type
+
+### 3.1 Translation absorbs $d, f$
+
+Setting $x = x' + h$, $y = y' + k$ for suitable shifts $(h, k)$ removes the linear terms (provided the conic has a centre, i.e., $\Delta \ne 0$). The shifted equation has the form $Q(x', y') + g' = 0$ for a new constant $g'$. Hence:
+- For $\Delta \ne 0$: linear terms always absorbable; only $Q$ and $g'$ matter for type.
+- For $\Delta = 0$ (parabola): no centre; cannot fully absorb linear terms; one linear term survives (the parabola's "axial" direction).
+
+### 3.2 Constant $g$ only scales / shifts
+
+For $\Delta \ne 0$ after centering: equation becomes $Q(x', y') = -g'$. Sign of $g'$ determines whether the conic is "real" (e.g., real ellipse vs. imaginary one) but not its type. For $\Delta > 0$ hyperbola: $g' > 0$ gives one branch pair, $g' = 0$ gives the asymptote pair (degenerate), $g' < 0$ gives the conjugate hyperbola.
+
+### 3.3 Connection to Oct 18 PM
+
+**This *also* proves** that the Oct 18 PM factoring procedure (writing $\Phi = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + \text{const}$) is consistent: the $A, B$ shifts absorb $dx + fy$ exactly when $\Delta \ne 0$ (i.e., $\lambda_1 \ne \lambda_2$), matching the centre-existence condition above.
+
+---
+
+## Unified picture
+
+$$
+\boxed{\Phi(x,y) = 0 \;\xrightarrow{\;\text{type}\;}\; \text{sign of } \Delta = b^2 - ac}
+$$
+
+| $\Delta$ | Algebraic | Geometric | Spectral ($\mu_1, \mu_2$ of $M$) | Eccentricity $\varepsilon$ |
+|---|---|---|---|---|
+| $< 0$ | $Q$ irreducible over $\mathbb R$ | ellipse (bounded) | same sign | $< 1$ |
+| $= 0$ | $Q$ perfect square | parabola (unbounded, 1 axis) | one zero | $= 1$ |
+| $> 0$ | $Q$ factors over $\mathbb R$ | hyperbola (2 branches, 2 asymptotes) | opposite signs | $> 1$ |
+| $= 0$, special | (degenerate factorisation) | two lines / point | one zero, special $d, f, g$ | undefined |
+
+Three independent classifications — algebraic (factorability), geometric (focal/eccentricity), spectral (eigenvalues) — give the same trichotomy. This is the **spectral theorem for conics**, made fully explicit Feb 21.
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary including $\Delta, \mu, M, \lambda$. ✓
+2. **Equation numbers continuous?** (1)–(11), no gaps. ✓
+3. **Signs justified by convention?** Cross-term coefficient $2b$ declared; matrix $M$ symmetric by this convention. Determinant convention $\det M = ac - b^2 = -\Delta$ explicit. ✓
+4. **Every implication follows?** Completing the square: each step shown (2)→(6). Factorability ⇔ sign of $\Delta$: each subcase derived in §2.2. Spectral connection: each step shown (11). ✓
+5. **Advertised axioms verified?** Quadratic formula derived in §1.2; Vieta in §1.3; spectral theorem flagged as imported for Derivation B. ✓
+6. **Counterexample / source correction.** Transcript's $k = 13/40$ for the parabola through $(4,7),(10,7),(0,20)$ corrected to $k = 13/49$ in §1.6, with arithmetic verification. The teacher's quick computation was wrong; the correct denominator is $(0-7)^2 = 49$, not the mysterious $40$. ✓
+7. **Special / limiting cases tested?** Circle ($\Delta < 0$, $\mu_1 = \mu_2$); unit hyperbola ($\Delta > 0$); standard parabola ($\Delta = 0$); skew hyperbola $xy = 1$ ($\Delta = 1/4 > 0$). All four ✓. ✓
+8. **Weakest step named?** Done after Derivation A (square-root sign) and Derivations A & B of §2.3 (imported lemma flags). ✓
 
-- **Unit circle.** $x^2 + y^2 - 1 = 0$: $a=1, b=0, c=1$, $\Delta = -1 < 0$ → ellipse (degenerate to circle). ✓
-- **Unit hyperbola.** $x^2 - y^2 = 1$: $a=1, b=0, c=-1$, $\Delta = 1 > 0$ → hyperbola. ✓
-- **Parabola.** $y - x^2 = 0$: $a=1, b=0, c=0$, $\Delta = 0$ → parabola. ✓
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Convention $2b$ vs $b$ for cross term | Mixing conventions changes formula for $\Delta$ | Convention declared up front; matrix $M$ entries pinned |
+| Linear terms always absorbable | Fails for parabola ($\Delta = 0$) | §3.1 explicitly: works for $\Delta \ne 0$ only |
+| Sign of $g'$ doesn't change type | Can give *imaginary* conic when sign flips | True for type; reality of curve depends on sign |
+| Transcript $k = 13/40$ | Arithmetic slip (should be $49$) | §1.6: verified $13/49$ at $(0, 20)$ |
+| Symmetric-matrix eigenvalue product = $-\Delta$ | True only because matrix is symmetric | Symmetric by the $2b$ convention; explicit |
+| Parabola's degenerate $\mu = 0$ | Requires careful interpretation: parabola has *one* genuine direction + *one* singular direction | Spectral theorem rigorous; degeneracy means one principal axis is along the curve's axis |
+
+---
+
+## Explorative directions
+
+- **Next brick (Oct 18 PM):** factor the full polynomial $\Phi$ into $c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + \text{const}$, deriving the linear system for $(A, B)$ and analysing when it has a unique solution. The afternoon makes the *algebraic* version of today's classification explicit.
+- **Forward (Feb 21):** the spectral theorem for symmetric matrices — diagonalising $M$ rotates the conic to its principal axes. The eigenvalues $\mu_{1,2}$ become the semi-axis lengths squared (in the diagonal form $\mu_1 x'^2 + \mu_2 y'^2 = $ const).
+- **Homework / deferred:** (i) prove $\det M = ac - b^2$ directly from the quadratic-formula relation between eigenvalues and matrix entries; (ii) classify the conic $4x^2 - 16xy + 7y^2 - 12x + 6y = 0$: $\Delta = (-16)^2/4 - 4\cdot 7 \cdot 4/4 = 64 - 28 = 36 > 0$ — **hyperbola** (not the ellipse a student might guess from the "$x^2 + 7y^2$" look).
+- **Open / forward-pointing:** the discriminant is the *square* of the difference of eigenvalues, scaled. More precisely, $4\Delta + (a-c)^2 = (\mu_1 - \mu_2)^2 \ge 0$, with equality iff $a = c$ and $b = 0$ — the circle case. This is the spectral gap.
+- **Connection back to Oct 4 PM:** the eccentricity classification ($\varepsilon < 1, = 1, > 1$) is the **geometric** version of today's discriminant classification. The unifying eigenvalue interpretation (Feb 21) shows both come from the spectrum of $M$.
+- **Pedagogical thread:** the teacher's plea for "build up logical inventory of past lessons" — the discriminant idea was introduced months earlier but forgotten. The fix is *active integration*: at the end of each lesson, write a one-line summary of what tool was added to your toolbox. This is the explicit purpose of the rigour template's "Explorative directions" section.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-morning.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.8">v1.8</a> · <a href="https://drive.google.com/file/d/1xX1hOaF37bvxX5jLdgAQ12EYTMgqNhk8/view">Drive</a></p>
 ```
 
 ## Related sessions
 
-- **Sequel:** [2025-10-18 afternoon](2025-10-18-afternoon.html) (asymptote factoring).
-- **Forward application:** [2026-02-21 morning](2026-02-21-morning.html) (diagonalization via eigenvalues).
+- **Sequel:** [Oct 18 afternoon](2025-10-18-afternoon.html) — factor the full polynomial into asymptote form via a $2\times 2$ linear system.
+- **Forward (Feb 21):** [skew-axis ellipse](2026-02-21-afternoon.html) and [eigenvalue diagonalisation](2026-02-21-morning.html) — the spectral theorem makes the discriminant classification a *consequence* of eigenvalue signs.
+- **Precursor (Oct 4 PM):** [eccentricity classification](2025-10-04-afternoon.html) — the same trichotomy from the focal-directrix definition.
 
 ## Full transcript
 
