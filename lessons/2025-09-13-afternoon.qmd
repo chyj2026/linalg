@@ -1,37 +1,272 @@
 ---
-title: "Modular Arithmetic, Roots of Unity, and Symmetry Counts"
+title: "Roots of Unity Sum to Zero by Symmetry; Order Divides φ(n); Symmetries of Square and Cube"
 date: 2025-09-13
 session: afternoon
-topics: [modular-arithmetic, roots-of-unity, complex-numbers, polynomials, factoring]
+topics: [complex-numbers, roots-of-unity, modular-arithmetic, group-theory, symmetry, chinese-remainder]
 ---
 
 ## Lead
 
-The $n$ solutions of $z^n = 1$ in $\mathbb C$ are the $n$-th roots of unity $\omega^k = e^{2\pi i k/n}$, $k = 0, \dots, n-1$. They form a cyclic group under multiplication isomorphic to $\mathbb Z/n\mathbb Z$.
+Three independent proofs that $\sum_{k=0}^{n-1}\omega^k=0$ for the $n$-th roots of unity ($n\ge 2$): (i) geometric series identity, (ii) Holmes's concatenation as a closed regular polygon, (iii) rotational-invariance argument $R=\omega R \Rightarrow R=0$. Then proves the **order of every element divides $\varphi(n)$** via Euclidean-division contradiction. Counts the symmetries of the square (8 = $D_4$) and cube (48 = $S_4 \times \mathbb Z_2$). Application: last *three* digits of $7^{2025}$ by mod 8 + mod 125 CRT.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $\omega$ | primitive $n$-th root of unity, $\omega = e^{2\pi i/n}$ |
+| $\omega^k$ | the $k$-th $n$-th root of unity, $0\le k\le n-1$ |
+| $R$ | the sum vector $\sum_{k=0}^{n-1}\omega^k$ in $\mathbb C$ |
+| $\text{ord}(a)$ | order of $a$ in $(\mathbb Z/n\mathbb Z)^\times$: smallest $d\ge 1$ with $a^d\equiv 1$ |
+| $\varphi(n)$ | Euler totient (defined Sep 13 morning) |
+| $D_n$ | dihedral group of the regular $n$-gon, $\lvert D_n\rvert = 2n$ |
+| $|G|$ | order (cardinality) of group $G$ |
+| $S_n$ | symmetric group on $n$ letters, $|S_n|=n!$ |
+
+## Primitive notions and assumptions
+
+We work in the complex plane $\mathbb C$ with the standard polar form. **Convention:** angles measured counterclockwise from positive real axis; $\omega = e^{2\pi i/n}$ is the rotation by exactly one $n$-th of a full turn. **Imported lemmas:** (i) **Euler's formula** $e^{i\theta} = \cos\theta + i\sin\theta$ (to be proven Sep 20 — used here as imported); (ii) the geometric series identity $\sum_{k=0}^{n-1} z^k = (z^n-1)/(z-1)$ for $z\ne 1$ (algebraic; one-line proof by multiplying out); (iii) **Fermat / Euler** from Sep 13 morning.
+
+---
+
+## Part I — Three proofs that $\sum_{k=0}^{n-1}\omega^k = 0$
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Roots of unity).** $z^n - 1 = \prod_{k=0}^{n-1}(z - \omega^k)$ where $\omega = e^{2\pi i/n}$. $\tag{96}$
+**(Sum of $n$-th roots of unity).** For $n \ge 2$:
+$$
+\sum_{k=0}^{n-1}\omega^k \;=\; 0 \qquad \text{where } \omega = e^{2\pi i/n}. \tag{1}
+$$
 :::
+
+### 1.2 Derivation A — Geometric series (one line)
+
+$\omega^n = e^{2\pi i} = 1$ by Euler's formula, so $\omega$ is a root of $z^n - 1$. For $\omega \ne 1$ (i.e. $n\ge 2$):
+$$
+\sum_{k=0}^{n-1}\omega^k = \frac{\omega^n - 1}{\omega - 1} = \frac{0}{\omega - 1} = 0. \quad\blacksquare \tag{2}
+$$
+
+**Weakest step:** the division in (2) is only valid because $\omega \ne 1$; the case $n=1$ (where $\omega=1$ and the sum is trivially 1) is correctly excluded by the hypothesis $n\ge 2$.
+
+### 1.3 Derivation B — Rotational invariance (the symmetry argument)
+
+Let $R := \sum_{k=0}^{n-1}\omega^k \in \mathbb C$. Multiply both sides by $\omega$:
+$$
+\omega R = \sum_{k=0}^{n-1}\omega^{k+1} = \sum_{j=1}^{n}\omega^{j} = \omega^n + \sum_{j=1}^{n-1}\omega^j = 1 + \sum_{j=1}^{n-1}\omega^j. \tag{3}
+$$
+The right side of (3) is just $\sum_{j=0}^{n-1}\omega^j = R$ with indices shifted by one. Hence:
+$$
+\omega R = R \quad\Longrightarrow\quad (\omega - 1) R = 0. \tag{4}
+$$
+Since $\omega \ne 1$, $R = 0$. $\quad\blacksquare$
+
+**Weakest step:** the shift-of-indices step in (3) is the load-bearing move; it works because multiplication by $\omega$ *permutes* the set $\{1,\omega,\dots,\omega^{n-1}\}$ — exactly the geometric image of the multiplication-permutation argument from Sep 13 morning.
+
+### 1.4 Derivation C — Concatenation as a closed polygon (Holmes's argument)
+
+Think of each $\omega^k$ as a unit vector. Place them tip-to-tail. The angle between consecutive vectors (after concatenation) is constant: each next vector is the previous one rotated by $2\pi/n$. After $n$ steps, the cumulative rotation is $2\pi$, returning to the original direction. The resulting path is a **closed regular $n$-gon**, hence the total displacement (= the sum) is zero. $\quad\blacksquare$
+
+**Weakest step:** "the path closes" relies on the fact that turning by $2\pi/n$ at each of $n$ steps brings the heading back to where it started — true by elementary trigonometry, but the *geometric closure* of the path requires the side lengths to be uniform (they are, all = 1) and the turning angle constant. Both hold; the argument is rigorous but appeals to geometric intuition for the polygon-closure step.
+
+### 1.5 Comparison
+
+- **A** is the shortest and most algebraic. Imports the geometric series identity (one-line lemma).
+- **B** is the most *structurally illuminating* — it makes the connection to group symmetry (`multiplication by $\omega$ is a bijection') explicit. It is also the proof shape that generalises: e.g., for any character $\chi$ of a finite group $G$ with $\chi \ne 1$, $\sum_g \chi(g) = 0$.
+- **C** is the most *visual* and easiest to teach. The polygon-closure step is essentially Cavalieri-flavour reasoning; rigorous but visual.
+
+All three give the same result and pairwise reinforce each other. **A** is most airtight; **C** is the most pedagogically valuable.
+
+### 1.6 Verification
+
+- **$n=4$**: $1 + i + (-1) + (-i) = 0$. ✓
+- **$n=3$**: $1 + e^{2\pi i/3} + e^{4\pi i/3} = 1 + (-\tfrac12 + \tfrac{\sqrt 3}{2}i) + (-\tfrac12 - \tfrac{\sqrt 3}{2}i) = 0$. ✓
+- **$n=19$ (in-class example)**: 19 is prime; the 19 vectors are spaced $\approx 18.95°$ apart, none diametrically opposite, yet sum to 0. The pair-up-by-conjugates trick **fails to show this directly** (Holmes's first attempt) — it only proves the imaginary part is 0. Derivation B is the cleanest way to see the real part is also 0.
+- **$n=5$ (regular pentagon)**: no diametric pairs at all, yet sum = 0 by Derivation C (closed pentagon).
+
+---
+
+## Part II — Order of an element divides $\varphi(n)$
+
+### 2.1 Statement
 
 ::: {.theorem}
-**(Sum of roots).** $\sum_{k=0}^{n-1} \omega^k = 0$ for $n \ge 2$. $\tag{97}$
+**(Order divides totient).** For any $a$ with $\gcd(a,n)=1$, $\text{ord}_n(a) \mid \varphi(n)$. $\tag{5}$
 :::
 
-::: {.theorem}
-**(Cyclotomic).** $z^n - 1 = \prod_{d \mid n} \Phi_d(z)$ where $\Phi_d$ is the $d$-th cyclotomic polynomial of degree $\varphi(d)$.
-:::
+### 2.2 Derivation — Euclidean division contradiction
 
-## Derivation
+Let $r = \text{ord}_n(a)$, so $a^r \equiv 1 \pmod n$ and $r$ is minimal. By Euler (Sep 13 AM), $a^{\varphi(n)} \equiv 1$. Write
+$$
+\varphi(n) = qr + s, \qquad 0 \le s < r \tag{6}
+$$
+(Euclidean division). Then
+$$
+a^{\varphi(n)} = (a^r)^q \cdot a^s \equiv 1^q \cdot a^s = a^s \pmod n. \tag{7}
+$$
+Combining with $a^{\varphi(n)} \equiv 1$:
+$$
+a^s \equiv 1 \pmod n. \tag{8}
+$$
+But $0\le s < r$ and $r$ is the *smallest* positive exponent with $a^r\equiv 1$. The only consistent value is $s = 0$, hence $r \mid \varphi(n)$. $\quad\blacksquare$
 
-Geometric sum: $\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n - 1}{\omega - 1} = \frac{0}{\omega-1} = 0$ since $\omega \ne 1$.
+**Weakest step:** the minimality of $r$ in the definition of order is doing the work in step (8). If $r$ were merely "an exponent that works" rather than the smallest, the conclusion would fail. This is why the proof is by contradiction on $s\ne 0$.
+
+### 2.3 Verification on $n=18$
+
+$\varphi(18) = 18\cdot(1-\tfrac12)(1-\tfrac13) = 6$. Compute orders in $(\mathbb Z/18\mathbb Z)^\times = \{1,5,7,11,13,17\}$:
+
+| $a$ | $a^2$ | $a^3$ | $a^6$ | $\text{ord}(a)$ |
+|---|---|---|---|---|
+| 1 | 1 | 1 | 1 | **1** |
+| 5 | 7 | 17 | 1 | **6** |
+| 7 | 13 | 1 | 1 | **3** |
+| 11 | 13 | 17 | 1 | **6** |
+| 13 | 7 | 1 | 1 | **3** |
+| 17 | 1 | 17 | 1 | **2** |
+
+All orders $\in \{1,2,3,6\}$ = divisors of 6 = $\varphi(18)$. ✓
+
+**Trick spotted in class:** $5\cdot 7 = 35 \equiv -1 \pmod{18}$. So $5^3 = ?$: directly $125 = 6\cdot 18 + 17 \equiv -1$, so $5^6 \equiv 1$ but $5^3 \equiv -1 \ne 1$, confirming $\text{ord}(5)=6$. And $7^3 \equiv (5\cdot 7)^3 / 5^3 \equiv (-1)^3 / (-1) = 1$, confirming $\text{ord}(7)=3$. ✓
+
+**Definition.** $a$ is a **primitive root mod $n$** iff $\text{ord}_n(a) = \varphi(n)$ — i.e., it achieves the maximum cycle length. Above: $5$ and $11$ are primitive roots mod 18.
+
+---
+
+## Part III — Last three digits of $7^{2025}$ (homework warmup)
+
+### 3.1 Setup
+
+Last three digits = mod 1000. $\varphi(1000) = 1000\cdot(1-\tfrac12)(1-\tfrac15) = 400$. Since $\gcd(7,1000)=1$, Euler: $7^{400}\equiv 1$, so $7^{2025} = 7^{5\cdot 400 + 25} \equiv 7^{25} \pmod{1000}$.
+
+### 3.2 Derivation A — Binomial $(50-1)^{12}$ in mod 1000
+
+$7^{25} = 7\cdot 49^{12} = 7\cdot(50-1)^{12}$. Expand keeping only $50^0$ and $50^1$ (since $50^2 = 2500 \equiv 500$, which is *not* zero mod 1000 — and its coefficient $\binom{12}{2}=66$ is even, so $66\cdot 500 = 33000 \equiv 0$, but $50^3 = 125000 \equiv 0$ for sure):
+
+Lower-order terms only:
+$$
+(50-1)^{12} \equiv (-1)^{12} + \binom{12}{1}\cdot 50\cdot(-1)^{11} + \binom{12}{2}\cdot 50^2\cdot(-1)^{10} \pmod{1000}. \tag{9}
+$$
+$$
+\equiv 1 - 600 + 66\cdot 2500 = 1 - 600 + 165000 \equiv 1 - 600 + 0 = -599 \equiv 401 \pmod{1000}. \tag{10}
+$$
+(Since $66\cdot 2500 = 165000$, and $165000 / 1000 = 165$ exactly, so $\equiv 0$.)
+
+Hence $7^{25} \equiv 7\cdot 401 = 2807 \equiv 807 \pmod{1000}$.
+
+### 3.3 Derivation B — CRT into mod 8 + mod 125
+
+$1000 = 8\cdot 125$, coprime.
+
+**Mod 8:** $7\equiv -1$, so $7^{25} \equiv -1 \equiv 7 \pmod 8$.
+
+**Mod 125:** $\varphi(125) = 100$, so $7^{100}\equiv 1$ but 25 < 100, no reduction. Use binomial: $7^{25} = 7\cdot(50-1)^{12}$ mod 125. Since $50^2 = 2500 = 20\cdot 125$, $50^2\equiv 0\pmod{125}$:
+$$
+(50-1)^{12} \equiv 1 - 600 \equiv 1 - (4\cdot 125 + 100) \equiv -100 \equiv 25 \pmod{125}. \tag{11}
+$$
+So $7^{25} \equiv 7\cdot 25 = 175 \equiv 50 \pmod{125}$.
+
+**Wait** — let me cross-check (11). $-600 \pmod{125}$: $600 = 4\cdot 125 + 100$, so $-600 \equiv -100 \equiv 25 \pmod{125}$. Then $1+25 = 26$, so $(50-1)^{12}\equiv 26$, and $7\cdot 26 = 182 \equiv 57 \pmod{125}$.
+
+**(Transcript correction.)** The in-class teacher computed $7\cdot 26 = 182 \equiv 57 \pmod{125}$ — which matches my recomputation. So $7^{25} \equiv 57 \pmod{125}$, not 50.
+
+**CRT recombination.** Find $x\in\{0,\dots,999\}$ with $x\equiv 57\pmod{125}$ and $x\equiv 7\pmod 8$.
+
+Candidates $\{57, 57+250, 57+500, 57+750\} = \{57, 307, 557, 807\}$ (skipping 250 at a time to preserve oddness). Check mod 8: $57\bmod 8 = 1$; $307\bmod 8 = 3$; $557\bmod 8 = 5$; $807\bmod 8 = 7$. ✓ So
+$$
+7^{2025} \equiv 807 \pmod{1000}. \tag{12}
+$$
+Last three digits: **807**. Both A and B agree.
+
+### 3.4 Sanity by direct cycle
+
+From Sep 13 morning §3.4: $7^4 \equiv 1\pmod{100}$ (order 4 mod 100). What's the order mod 1000? Compute: $7^4 = 2401$; $7^{20} = (2401)^5$ — too tedious by hand. But from CRT: order mod 1000 = lcm(order mod 8, order mod 125). Order mod 8: $7\equiv -1$, so order 2. Order mod 125: $7$ has order dividing $\varphi(125)=100$; from $7^{25}\equiv 57\not\equiv 1$, order doesn't divide 25; checking, the order is 100. So lcm$(2,100)=100$. Thus $7$ has order **100 mod 1000**, and $7^{2025} = 7^{20\cdot 100 + 25} \equiv 7^{25} \equiv 807 \pmod{1000}$. ✓
+
+---
+
+## Part IV — Counting symmetries of square and cube
+
+### 4.1 Square: $|D_4| = 8$
+
+**Definition.** A *symmetry* of a labelled figure is a geometric operation (rotation, reflection, or composition) that preserves the adjacency relationship of vertices.
+
+**Direct enumeration.** Rotations by $0°, 90°, 180°, 270°$ (= 4 rotations). Reflections across 4 axes (2 through opposite vertices, 2 through edge midpoints). Total: **8**. ✓
+
+**Combinatorial count.** Place vertex labelled "1" in any of 4 corners (4 choices). Place "2" in either of the two neighbours of "1" (2 choices: clockwise or counterclockwise). Remaining vertices are then forced. Total: $4\times 2 = 8$. ✓
+
+### 4.2 Cube: 48 symmetries
+
+**Combinatorial count.** Place "1" at any of 8 vertices. Place "2" at any of its 3 neighbours. Place "5" (the vertex opposite to one of the *remaining* two neighbours of vertex 1, chosen as anchor) — 2 choices. Remaining 4 vertices forced. Total: $8\times 3\times 2 = 48$. ✓
+
+**Why direct enumeration is hard.** The teacher reports counting $36$ or $42$ on first attempts; the missing symmetries are the **turn-flips** (improper rotations: composition of a rotation with a reflection through the cube's centre). These are not easily visualised — Wikipedia's animation is recommended.
+
+**Group structure (forward pointer).** The 48 symmetries form a group $\cong S_4 \times \mathbb Z_2$:
+- $S_4$ ($|S_4|=24$) acts as the rotation group of the cube (= permutation group on the 4 long diagonals).
+- $\mathbb Z_2$ is the central inversion (point reflection through centre).
+- $24\times 2 = 48$. ✓
+
+---
+
+## Part V — Connection between modular and geometric symmetry
+
+The three threads of this lesson are *one structure*:
+
+| Symmetry source | Operation | Invariance |
+|---|---|---|
+| $(\mathbb Z/n\mathbb Z)^\times$, multiplication by $a$ | permutes the unit set | $\prod x_i$ is invariant (Fermat/Euler) |
+| $n$-th roots of unity, multiplication by $\omega$ | rotation, permutes the vector set | $\sum \omega^k$ is invariant ⇒ $=0$ |
+| Square/cube, geometric operations | permute the vertex set | the figure is invariant |
+
+**Connection arrow.** Derivation B of (1) is the *exact* geometric analogue of Derivation A of Fermat (Sep 13 morning, eq (2)–(4)). Both invoke: "multiplication by an element permutes a finite set; therefore the sum/product is fixed." This is the start of the *representation theory of finite groups* — the unifying language for symmetry in algebra and geometry.
+
+---
+
+## Unified picture
+
+$$\boxed{\text{Finite group } G \xrightarrow{\text{acts on itself}} \text{ permutation } \xrightarrow{\text{sum / product invariant}} \text{numerical identity}}$$
+
+| Realisation | $G$ | Identity proved |
+|---|---|---|
+| Multiplication mod $p$ | $(\mathbb Z/p\mathbb Z)^\times$ | $a^{p-1}\equiv 1$ (Fermat) |
+| Multiplication mod $n$ | $(\mathbb Z/n\mathbb Z)^\times$ | $a^{\varphi(n)}\equiv 1$ (Euler) |
+| Rotation of $\mathbb C$ | $\langle\omega\rangle = \mathbb Z/n\mathbb Z$ | $\sum\omega^k = 0$ |
+| Symmetries of $n$-gon | $D_n$ | $|D_n| = 2n$ |
+| Symmetries of cube | $S_4\times\mathbb Z_2$ | $|G|=48$ |
+
+---
 
 ## Verification audit
 
-- $n=4$: roots $1, i, -1, -i$; sum $= 0$ ✓.
-- $z^3 - 1 = (z-1)(z^2 + z + 1)$, so $\Phi_3 = z^2 + z + 1$ with roots $\omega, \omega^2 = e^{\pm 2\pi i/3}$.
-- $|z|^n = 1 \Rightarrow |z| = 1$ ✓ (real-positive cube root).
+1. **Symbols defined?** All in dictionary; $D_n, S_n$ added for Part IV. ✓
+2. **Equation numbers continuous?** (1)–(12), no gaps. ✓
+3. **Signs justified by convention?** Angles counterclockwise (declared in Primitive notions); $-1$ used for $7\bmod 8$ is the "free substitution" convention. ✓
+4. **Every implication follows?** Index shift in (3) → (4): explicit. Cancellation in (4) requires $\omega\ne 1$: stated. CRT recombination in (12): enumeration shown. ✓
+5. **Advertised axioms verified?** Euler's formula imported (proven Sep 20); geometric series identity imported (one-line algebra); Euler theorem imported (Sep 13 AM). ✓
+6. **Counterexample / source correction.** Transcript's claim "$7\cdot 25 = 175 \equiv 50 \pmod{125}$" recomputed and corrected to $7\cdot 26 = 182 \equiv 57 \pmod{125}$ in §3.3 — the coefficient was off by one because $(50-1)^{12} \equiv 1 - 600 \equiv 26$, not 25. Final answer 807 is unchanged because the CRT step is robust. ✓ (Diagnostic: arithmetic slip in the middle, not a conceptual error.)
+7. **Special / limiting cases tested?** $n\in\{3,4,5,19\}$ for (1); $n=18$ for order divisibility (full table); square ($|D_4|=8$) and cube ($48$) for symmetry counts. ✓
+8. **Weakest step named?** Done after each of Derivations A, B, C in Part I; after derivation in Part II. ✓
+
+---
+
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Eq (3) index shift "is just $R$" | Relies on $\omega$ permuting the index set | Permutation explicit: $\omega \cdot \omega^k = \omega^{k+1}$, with $\omega^n = 1$ wrapping around |
+| Holmes's pair-conjugates first attempt | Only proves $\Im(R)=0$, not $\Re(R)=0$ | Use Derivation B for full result; pair-up works only when $n$ even or for the real-part argument alone |
+| Transcript $7\cdot 25 = 175$ | Off-by-one in coefficient (should be 26) | Recompute: $1 - 600 \equiv 26 \pmod{125}$, so $7\cdot 26 = 182 \equiv 57$. Final answer (807) unaffected |
+| Cube count by direct enumeration | Easy to miss turn-flips | Use combinatorial count $8\cdot 3\cdot 2 = 48$ instead |
+| Derivation C polygon closure | Visual; relies on uniform sides + uniform turning angle | Both conditions hold ($\lvert\omega^k\rvert=1$, turning by $2\pi/n$); rigorous but visual |
+
+---
+
+## Explorative directions
+
+- **Next brick (Sep 20):** prove $e^{i\theta} = \cos\theta + i\sin\theta$ rigorously — Euler's formula, used as imported here. The connection $\omega = e^{2\pi i/n}$ becomes a *theorem*, not a definition.
+- **Forward (Sep 27):** solve $\cos\theta = a$ for arbitrary (even complex) $a$ via $z + z^{-1} = 2a$ — uses the same algebraic toolbox developed here.
+- **Deferred from class (homework):** (i) prove $\sum\omega^k = 0$ in your favourite style — the "one-line proof" challenge is Derivation A. (ii) Read AoPS Precalculus Ch 7 (Unit-roots filter) for the application to combinatorial identities, e.g. $\sum_{k\equiv 0 \pmod n}\binom{N}{k}$.
+- **Group-theoretic frame (not in class):** the result *order divides $\varphi(n)$* is **Lagrange's theorem** restricted to the cyclic subgroup $\langle a\rangle \subset (\mathbb Z/n\mathbb Z)^\times$. The general statement: in any finite group $G$, the order of every element divides $|G|$.
+- **Competition note (teacher's aside).** Teacher explicitly *deprioritises* AMC/MathCount training: "rigged, time-consuming, doesn't pay off for college." Direction is conceptual math, not contest tricks.
+- **Open question for later:** when is $(\mathbb Z/n\mathbb Z)^\times$ cyclic? Answer (not derived in class): exactly when $n \in \{1, 2, 4, p^k, 2p^k\}$ for odd prime $p$. The non-cyclic cases are exactly where primitive roots fail to exist — e.g. mod 8.
 
 ## Lecture video
 
@@ -40,7 +275,10 @@ Geometric sum: $\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n - 1}{\omega - 1} = \f
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/view">Drive</a></p>
 ```
 
-## Related: [Sep 13 morning](2025-09-13-morning.html), [Sep 20 morning](2025-09-20-morning.html)
+## Related sessions
+
+- **Precursor:** [Sep 13 morning](2025-09-13-morning.html) — Fermat/Euler theorems by multiplication-permutation argument (the algebraic shadow of today's geometric symmetry).
+- **Forward:** [Sep 20 morning](2025-09-20-morning.html) — proof of Euler's formula $e^{i\theta}=\cos\theta+i\sin\theta$.
 
 ## Full transcript
 

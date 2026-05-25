@@ -1,40 +1,255 @@
 ---
-title: "Proof of Euler's Formula via Additive and Multiplicative Functional Equations"
+title: "Proof of Euler's Formula via Additive Functional Equation and the Logarithm Bridge"
 date: 2025-09-20
 session: morning
-topics: [complex-numbers, euler-formula, exponential, functional-equation]
+topics: [complex-numbers, euler-formula, functional-equation, continuity, logarithm, exponential]
 ---
 
 ## Lead
 
-Proves $e^{i\theta} = \cos\theta + i\sin\theta$ by showing both sides satisfy the same functional equation $f(\alpha+\beta) = f(\alpha)f(\beta)$ with $f(0)=1$ and $f'(0) = i$, then invoking uniqueness.
+Proves $e^{i\theta} = \cos\theta + i\sin\theta$ from first principles by: (i) deriving that every continuous additive function $L: \mathbb R\to\mathbb R$ has the form $L(\theta)=k\theta$; (ii) recasting $z(\theta) := \cos\theta + i\sin\theta$ as multiplicative ($z(\theta+\phi)=z(\theta)z(\phi)$) using trig angle-addition; (iii) bridging multiplicative to additive via natural log; (iv) pinning down the constant $k=i$ via infinitesimal expansion at $\theta=0$.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $\theta, \phi$ | real angles (radians) |
+| $z(\theta)$ | unit complex number with angle $\theta$: $\cos\theta + i\sin\theta$ |
+| $L(\theta)$ | a generic additive real-valued function $\mathbb R \to \mathbb R$ |
+| $f(\theta) := \log z(\theta)$ | composite of natural log with $z$ |
+| $\ln, \log$ | natural logarithm (base $e$) |
+| $C(\mathbb R)$ | space of continuous functions on $\mathbb R$ |
+| $k$ | scalar constant in $L(\theta)=k\theta$ and $z(\theta)=e^{k\theta}$ |
+| $d\theta$ | infinitesimal angle increment (heuristic) |
+
+## Primitive notions and assumptions
+
+We work over the real line $\mathbb R$ and the complex plane $\mathbb C$. **Convention:** angles are in radians, measured counterclockwise from the positive real axis. **Definitions:** $\cos\theta, \sin\theta$ are defined *geometrically* as the $x,y$-coordinates of the point on the unit circle at angle $\theta$. The exponential $e^x$ is taken as defined via the limit $e^x = \lim_{n\to\infty}(1+x/n)^n$ (continuous compounding) or equivalently the power series $\sum x^n/n!$. **Not yet assumed:** that $e^{i\theta}$ has *any* meaning when the exponent is imaginary — proving that is the whole point.
+
+**Imported lemmas:**
+1. **Trig angle-addition formulas:**
+$$
+\cos(\theta+\phi) = \cos\theta\cos\phi - \sin\theta\sin\phi,\qquad \sin(\theta+\phi)=\sin\theta\cos\phi+\cos\theta\sin\phi. \tag{1}
+$$
+Proven geometrically by dropping an altitude in a triangle with two given angles on the unit circle (homework). Imported here.
+2. **Rationals are dense in $\mathbb R$:** every real number is the limit of a Cauchy sequence of rationals (decimal expansion).
+3. **Logarithm functional equation:** $\log(ab) = \log a + \log b$, proven by setting $a=e^x$, $b=e^y$ and computing $ab = e^{x+y}$ (single-page derivation).
+
+---
+
+## Part I — Additive functions are linear
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Euler's formula).** For $\theta \in \mathbb R$:
+**(Cauchy's functional equation, continuous case).** If $L:\mathbb R\to\mathbb R$ satisfies
 $$
-e^{i\theta} = \cos\theta + i\sin\theta. \tag{98}
+L(\theta+\phi) = L(\theta) + L(\phi) \quad\text{for all }\theta,\phi\in\mathbb R \tag{2}
+$$
+and $L \in C(\mathbb R)$, then there exists $k\in\mathbb R$ such that
+$$
+L(\theta) = k\theta. \tag{3}
 $$
 :::
 
+### 1.2 Derivation — Six-step climb (integers → rationals → reals)
+
+**Step 1 — $L(0) = 0$.** Set $\theta=\phi=0$ in (2): $L(0)+L(0)=L(0)$, so $L(0)=0$. $\tag{4}$
+
+**Step 2 — $L$ is odd.** Set $\phi = -\theta$ in (2): $L(\theta)+L(-\theta)=L(0)=0$, so $L(-\theta)=-L(\theta)$. $\tag{5}$
+
+**Step 3 — Integer multiples.** Iterating (2): $L(2\theta) = L(\theta)+L(\theta)=2L(\theta)$, and inductively
+$$
+L(n\theta) = n L(\theta) \qquad \text{for } n \in \mathbb Z_{\ge 0}. \tag{6}
+$$
+By (5), this extends to all $n \in \mathbb Z$.
+
+**Step 4 — Rational multiples.** Set $\theta^\star = n\theta$ in (6), so $\theta = \theta^\star/n$. Then $L(\theta^\star) = n L(\theta^\star/n)$, i.e.
+$$
+L(\theta^\star/n) = \frac{1}{n} L(\theta^\star). \tag{7}
+$$
+Combining (6) and (7) with $\theta^\star$ arbitrary: for any rational $q = m/n$ and any $\theta$,
+$$
+L(q\theta) = q L(\theta). \tag{8}
+$$
+
+**Step 5 — Define $k$.** Setting $\theta=1$ in (8): $L(q) = q L(1)$. Define $k := L(1)$. Then
+$$
+L(q) = kq \qquad \text{for all }q\in\mathbb Q. \tag{9}
+$$
+
+**Step 6 — Pass to the reals via continuity (Lucas's argument).** For any $x\in\mathbb R$, pick a sequence of rationals $q_n \to x$ (e.g. truncated decimal expansion: $\pi \approx 3, 3.1, 3.14, 3.141, \dots$). Then by continuity of $L$:
+$$
+L(x) = \lim_{n\to\infty} L(q_n) = \lim_{n\to\infty} k q_n = k \lim_{n\to\infty} q_n = kx. \quad\blacksquare \tag{10}
+$$
+
+**Weakest step:** Step 6 is the only one that uses continuity. *Without* the continuity assumption, the theorem is false — there exist (using the Axiom of Choice) wild solutions to (2) whose graph is dense in $\mathbb R^2$. The continuity hypothesis is *load-bearing*, not cosmetic.
+
+### 1.3 Alternative Derivation B — Constant-difference argument (Toby's initial attempt)
+
+Define $\Delta(\phi) := L(\theta+\phi) - L(\theta)$. From (2): $\Delta(\phi) = L(\phi)$, independent of $\theta$. Hence $L$ has constant "first difference" — but this only shows the *integer* version. Toby's argument got stuck at Step 3 (integers); the rational/real extension still requires Steps 4–6. The teacher's six-step climb (Derivation A) is more systematic.
+
+**Comparison.** A is the textbook proof; clean, complete. B is the intuition-first approach (Toby's instinct: "constant rate of change"), which is correct but doesn't finish the proof — it shows linearity on a *lattice*, not on $\mathbb R$. The continuity step is missing.
+
+---
+
+## Part II — From multiplicative $z(\theta)$ to additive $\log z(\theta)$
+
+### 2.1 The multiplicative property
+
 ::: {.theorem}
-**(De Moivre).** $(\cos\theta + i\sin\theta)^n = \cos n\theta + i\sin n\theta$, immediate from (98).
+**(Multiplicativity of unit complex numbers).** With $z(\theta) := \cos\theta + i\sin\theta$,
+$$
+z(\theta+\phi) = z(\theta)\,z(\phi). \tag{11}
+$$
 :::
 
-## Derivation
+*Proof.* Multiply directly:
+$$
+z(\theta)z(\phi) = (\cos\theta + i\sin\theta)(\cos\phi+i\sin\phi). \tag{12}
+$$
+$$
+= (\cos\theta\cos\phi - \sin\theta\sin\phi) + i(\sin\theta\cos\phi + \cos\theta\sin\phi). \tag{13}
+$$
+Apply trig angle-addition (1): $= \cos(\theta+\phi) + i\sin(\theta+\phi) = z(\theta+\phi)$. $\quad\blacksquare$
 
-Let $f(\theta) = \cos\theta + i\sin\theta$. Trig sum formulas give $f(\alpha+\beta) = f(\alpha)f(\beta)$:
+### 2.2 Logarithm bridge
+
+Define $f(\theta) := \log z(\theta)$ (provisional — we choose a branch where $z(0)=1$ gives $f(0)=0$). Apply $\log$ to (11):
 $$
-(\cos\alpha + i\sin\alpha)(\cos\beta + i\sin\beta) = \cos(\alpha+\beta) + i\sin(\alpha+\beta). \tag{99}
+\log z(\theta+\phi) = \log[z(\theta)z(\phi)] = \log z(\theta) + \log z(\phi). \tag{14}
 $$
-And $f(0) = 1$, $f'(0) = -\sin 0 + i\cos 0 = i$. The unique solution of $g'(\theta) = ig(\theta)$, $g(0)=1$, is $g(\theta) = e^{i\theta}$. So $f = g$. $\quad\blacksquare$
+I.e.
+$$
+f(\theta+\phi) = f(\theta) + f(\phi). \tag{15}
+$$
+$f$ is additive; continuous (composition of continuous $\log$ with continuous $z$). By Theorem in §1.1, $f(\theta) = k\theta$ for some $k$, i.e.
+$$
+\log z(\theta) = k\theta \quad\Longleftrightarrow\quad z(\theta) = e^{k\theta}. \tag{16}
+$$
+
+**Weakest step:** the use of $\log$ on a complex-valued $z$ implicitly assumes a branch choice. For unit complex numbers with continuous variation of $\theta$, this is unambiguous if we take $\log z(0)=0$ and follow $\theta$ continuously. Branch consistency is a subtle point glossed over in class but technically required.
+
+### 2.3 Verification of (16) at $\theta=0$
+
+$z(0) = \cos 0 + i\sin 0 = 1$. RHS: $e^{k\cdot 0} = e^0 = 1$. ✓
+
+---
+
+## Part III — Determining $k = i$ via infinitesimal expansion
+
+### 3.1 Setup
+
+Expand both sides of $z(\theta) = e^{k\theta}$ near $\theta = 0$ using a small increment $d\theta$:
+$$
+e^{k\,d\theta} = 1 + k\,d\theta + \frac{(k\,d\theta)^2}{2!} + \cdots \tag{17}
+$$
+Keep only first-order terms in $d\theta$ (higher orders are negligible as $d\theta\to 0$):
+$$
+e^{k\,d\theta} \approx 1 + k\,d\theta. \tag{18}
+$$
+
+### 3.2 Geometric expansion of $z(d\theta)$
+
+On the unit circle: $z(d\theta)$ is the unit vector at angle $d\theta$ from $z(0)=1$. As $d\theta\to 0$:
+- Magnitude of $z(d\theta) - z(0)$ equals the chord, which $\to$ the arc length $= d\theta$ (radian).
+- Direction is **perpendicular** to $z(0)$ on the unit circle — i.e., straight up the imaginary axis.
+
+Hence
+$$
+z(d\theta) \approx 1 + i\,d\theta. \tag{19}
+$$
+
+### 3.3 Equate (18) and (19)
+
+From $z(d\theta) = e^{k\,d\theta}$:
+$$
+1 + k\,d\theta = 1 + i\,d\theta. \tag{20}
+$$
+Cancel the $1$, divide by $d\theta$ (nonzero):
+$$
+k = i. \quad\blacksquare \tag{21}
+$$
+
+**Weakest step:** The geometric claim in §3.2 that "the chord length $\approx$ arc length for small $d\theta$" is the small-angle limit, valid up to error $O(d\theta^3)$. The "direction perpendicular to $z(0)$" relies on the radius-perpendicular-to-tangent property of the circle (Euclidean geometry).
+
+### 3.4 Conclusion
+
+::: {.theorem}
+**(Euler's formula).** For all $\theta \in \mathbb R$:
+$$
+e^{i\theta} = \cos\theta + i\sin\theta. \tag{22}
+$$
+:::
+
+Substituting $k=i$ into (16). $\quad\blacksquare$
+
+### 3.5 Verification
+
+- $\theta = 0$: $e^{0} = 1 = \cos 0 + i\sin 0$. ✓
+- $\theta = \pi/2$: $e^{i\pi/2} = ?$ Should equal $\cos(\pi/2)+i\sin(\pi/2) = i$. From the multiplicative property: $(e^{i\pi/2})^2 = e^{i\pi} = -1$ (Euler's identity), so $e^{i\pi/2}$ is a square root of $-1$ on the unit circle — i.e., $\pm i$. Continuous variation from $\theta=0$ ($z=1$) through $\theta=\pi/2$ traverses the upper half, so $e^{i\pi/2} = +i$. ✓
+- $\theta = \pi$: $e^{i\pi} = \cos\pi + i\sin\pi = -1$. ✓ — **Euler's identity** $e^{i\pi} + 1 = 0$.
+- $\theta = 2\pi$: $e^{2\pi i} = 1$. ✓ — periodicity matches geometric "full turn."
+
+---
+
+## Part IV — Alternative proof via ODE (forward pointer, not used in class)
+
+The condition $z'(\theta) = iz(\theta)$ with $z(0)=1$ has a unique solution $z(\theta) = e^{i\theta}$ (standard ODE theory). Differentiate $z(\theta) = \cos\theta + i\sin\theta$:
+$$
+z'(\theta) = -\sin\theta + i\cos\theta = i(\cos\theta + i\sin\theta) = i\,z(\theta). \tag{23}
+$$
+And $z(0)=1$. By uniqueness, $\cos\theta + i\sin\theta = e^{i\theta}$. $\quad\blacksquare$
+
+**Comparison with Part III's proof.** The ODE proof is one line if you know ODE uniqueness; the functional-equation proof of Parts I–III is conceptually richer (it reveals *why* additive structure forces linearity, and how continuity bridges rationals to reals). The class chose the latter for pedagogical depth.
+
+---
+
+## Unified picture
+
+| Function class | Defining equation | Forced form (continuous case) |
+|---|---|---|
+| Additive $L:\mathbb R\to\mathbb R$ | $L(x+y)=L(x)+L(y)$ | $L(x)=kx$ |
+| Multiplicative $M:\mathbb R\to\mathbb R_{>0}$ | $M(x+y)=M(x)M(y)$ | $M(x)=e^{kx}$ |
+| Unit complex $z:\mathbb R\to S^1$ | $z(\theta+\phi)=z(\theta)z(\phi)$, $|z|=1$ | $z(\theta)=e^{i\theta}$ |
+
+The logarithm is the **dictionary** between additive and multiplicative. Once you know this, every multiplicative functional equation reduces to additivity, which by continuity reduces to linearity.
+
+---
 
 ## Verification audit
 
-- $\theta = \pi$: $e^{i\pi} = -1 + 0i = -1$ ✓ (Euler's identity).
-- $\theta = \pi/2$: $e^{i\pi/2} = i$ ✓.
-- Multiplication of magnitudes: $|e^{i\alpha}| \cdot |e^{i\beta}| = 1 \cdot 1 = 1 = |e^{i(\alpha+\beta)}|$ ✓.
+1. **Symbols defined?** All in dictionary, including $f, L, k, C(\mathbb R)$. ✓
+2. **Equation numbers continuous?** (1)–(23), no gaps. ✓
+3. **Signs justified by convention?** Counterclockwise angle convention declared in Primitive notions; the sign of $i\,d\theta$ in (19) follows from "upper half of unit circle" — verified at $\theta=\pi/2$ giving $+i$, not $-i$. ✓
+4. **Every implication follows?** Cauchy's functional eq → linear: six explicit steps. Multiplicative → additive: via $\log$, one line. Determining $k$: equate two expansions. ✓
+5. **Advertised axioms verified?** Trig angle-addition imported (proven in homework); rationals dense in reals (standard); log functional eq (one-page derivation, imported). All flagged. ✓
+6. **Counterexample minimal?** Wild additive functions (without continuity) exist — flagged in §1.2 weakest step. Shows continuity is genuinely load-bearing. ✓
+7. **Special / limiting cases tested?** $\theta\in\{0,\pi/2,\pi,2\pi\}$ all verified. ✓
+8. **Weakest step named?** Done after Theorem 1.1 derivation, after §2.2 (branch choice), after §3.2 (chord-arc approximation). ✓
+
+---
+
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Step 6 in (10): rationals → reals via continuity | Without continuity hypothesis, theorem is false (wild Cauchy solutions exist) | Continuity is a load-bearing axiom; explicitly required, not optional |
+| $\log z(\theta)$ in (14) | Complex log is multi-valued | Branch chosen by $\log z(0)=0$ + continuous variation; consistent on a simply-connected angle range |
+| Chord ≈ arc in §3.2 | True only as $d\theta\to 0$ | Higher-order terms in (17) drop out *because* of small-$d\theta$ limit; the approximation is the limit itself |
+| Direction of $z(d\theta)-1$ is $+i$ not $-i$ | Sign convention dependent | Counterclockwise convention (declared up front) gives $+i$; verified at $\theta=\pi/2$ where $e^{i\pi/2}=+i$ |
+| Toby's "binomial expansion" phrasing | Slightly imprecise; meant "power-series expansion of $e^x$" | Same content, correctly named |
+
+---
+
+## Explorative directions
+
+- **Next brick (Sep 27):** apply Euler's formula to solve $\cos\theta = a$ (and even $\cos\theta = 2$, complex case) by setting $z = e^{i\theta}$ and reducing to a quadratic in $z$.
+- **Homework deferred:** (i) complete the proof by writing out the determination of $k=i$ on paper; (ii) prove the trig angle-addition formulas (1) geometrically via altitude-drop on the unit circle.
+- **Forward pointer:** all linear recursions (Jan 2026 arc) will use $e^{i\theta}$ as the eigenfunction of the shift operator, via $\lambda^n$ with complex $\lambda$. Eigenvalue theory (Feb 2026) inherits this complex-rotation language.
+- **Open question (not in class):** the functional-equation proof here generalises to Banach-space valued $z$ — the same Cauchy + log + linearise argument gives the matrix exponential $e^{tA}$ for any square matrix $A$. This is the bridge to the *one-parameter group* perspective, central to Lie theory.
+- **Pedagogical thread:** the teacher emphasised "use what you've already proved." Don't re-derive $e^x = \sum x^n/n!$ from scratch every time. Mathematics is cumulative — secure a brick, then build on it.
+- **Continuity at the boundary:** the proof of Cauchy's functional equation used continuity on *one point* (any point suffices, since shifts preserve additivity). This is the *weakest* hypothesis that makes the theorem work — measurability is enough; pointwise continuity at the origin is enough.
 
 ## Lecture video
 
@@ -43,7 +258,10 @@ And $f(0) = 1$, $f'(0) = -\sin 0 + i\cos 0 = i$. The unique solution of $g'(\the
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/view">Drive</a></p>
 ```
 
-## Related: [Sep 27 morning](2025-09-27-morning.html)
+## Related sessions
+
+- **Precursor:** [Sep 13 afternoon](2025-09-13-afternoon.html) — used $e^{i\theta}$ as the definition of $\omega$; this session *proves* that definition is justified.
+- **Forward:** [Sep 27 morning](2025-09-27-morning.html) — applications of Euler's formula to trigonometric equations.
 
 ## Full transcript
 

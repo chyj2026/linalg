@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-27">
 
-<title>Solving cos θ = a and sin θ = a via Complex Exponentials – Linear Algebra Notes</title>
+<title>Solving cos θ = a and sin θ = a for Real and Complex a via Complex Exponentials – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,11 +184,58 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-cosine-and-sine-as-complex-exponentials" id="toc-part-i-cosine-and-sine-as-complex-exponentials" class="nav-link" data-scroll-target="#part-i-cosine-and-sine-as-complex-exponentials">Part I — Cosine and sine as complex exponentials</a>
+  <ul class="collapse">
+  <li><a href="#the-two-key-identities" id="toc-the-two-key-identities" class="nav-link" data-scroll-target="#the-two-key-identities">1.1 The two key identities</a></li>
+  <li><a href="#derivation-a-algebra-on-eulers-formula-real-case" id="toc-derivation-a-algebra-on-eulers-formula-real-case" class="nav-link" data-scroll-target="#derivation-a-algebra-on-eulers-formula-real-case">1.2 Derivation A — Algebra on Euler’s formula (real case)</a></li>
+  <li><a href="#derivation-b-geometric-real-case" id="toc-derivation-b-geometric-real-case" class="nav-link" data-scroll-target="#derivation-b-geometric-real-case">1.3 Derivation B — Geometric (real case)</a></li>
+  </ul></li>
+  <li><a href="#part-ii-solving-costheta-a-via-quadratic-in-z" id="toc-part-ii-solving-costheta-a-via-quadratic-in-z" class="nav-link" data-scroll-target="#part-ii-solving-costheta-a-via-quadratic-in-z">Part II — Solving <span class="math inline">\(\cos\theta = a\)</span> via quadratic in <span class="math inline">\(z\)</span></a>
+  <ul class="collapse">
+  <li><a href="#general-reduction" id="toc-general-reduction" class="nav-link" data-scroll-target="#general-reduction">2.1 General reduction</a></li>
+  <li><a href="#recovery-of-theta" id="toc-recovery-of-theta" class="nav-link" data-scroll-target="#recovery-of-theta">2.2 Recovery of <span class="math inline">\(\theta\)</span></a></li>
+  <li><a href="#verification-classical-case-a-12" id="toc-verification-classical-case-a-12" class="nav-link" data-scroll-target="#verification-classical-case-a-12">2.3 Verification: classical case <span class="math inline">\(a = 1/2\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-iii-the-case-a-2-no-real-solution" id="toc-part-iii-the-case-a-2-no-real-solution" class="nav-link" data-scroll-target="#part-iii-the-case-a-2-no-real-solution">Part III — The case <span class="math inline">\(a = 2\)</span> (no real solution)</a>
+  <ul class="collapse">
+  <li><a href="#why-no-real-theta-works" id="toc-why-no-real-theta-works" class="nav-link" data-scroll-target="#why-no-real-theta-works">3.1 Why no real <span class="math inline">\(\theta\)</span> works</a></li>
+  <li><a href="#apply-8" id="toc-apply-8" class="nav-link" data-scroll-target="#apply-8">3.2 Apply (8)</a></li>
+  <li><a href="#solve-eitheta-2sqrt-3" id="toc-solve-eitheta-2sqrt-3" class="nav-link" data-scroll-target="#solve-eitheta-2sqrt-3">3.3 Solve <span class="math inline">\(e^{i\theta} = 2+\sqrt 3\)</span></a></li>
+  <li><a href="#numerical-sanity" id="toc-numerical-sanity" class="nav-link" data-scroll-target="#numerical-sanity">3.4 Numerical sanity</a></li>
+  </ul></li>
+  <li><a href="#part-iv-the-case-a-1i-complex-right-hand-side" id="toc-part-iv-the-case-a-1i-complex-right-hand-side" class="nav-link" data-scroll-target="#part-iv-the-case-a-1i-complex-right-hand-side">Part IV — The case <span class="math inline">\(a = 1+i\)</span> (complex right-hand side)</a>
+  <ul class="collapse">
+  <li><a href="#apply-8-with-a-1i" id="toc-apply-8-with-a-1i" class="nav-link" data-scroll-target="#apply-8-with-a-1i">4.1 Apply (8) with <span class="math inline">\(a = 1+i\)</span></a></li>
+  <li><a href="#computing-sqrt-12i" id="toc-computing-sqrt-12i" class="nav-link" data-scroll-target="#computing-sqrt-12i">4.2 Computing <span class="math inline">\(\sqrt{-1+2i}\)</span></a></li>
+  <li><a href="#recover-theta" id="toc-recover-theta" class="nav-link" data-scroll-target="#recover-theta">4.3 Recover <span class="math inline">\(\theta\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-v-solving-sintheta-a" id="toc-part-v-solving-sintheta-a" class="nav-link" data-scroll-target="#part-v-solving-sintheta-a">Part V — Solving <span class="math inline">\(\sin\theta = a\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation-a-independent-quadratic" id="toc-derivation-a-independent-quadratic" class="nav-link" data-scroll-target="#derivation-a-independent-quadratic">5.1 Derivation A — Independent quadratic</a></li>
+  <li><a href="#derivation-b-use-cosine-formula-via-shift" id="toc-derivation-b-use-cosine-formula-via-shift" class="nav-link" data-scroll-target="#derivation-b-use-cosine-formula-via-shift">5.2 Derivation B — Use cosine formula via shift</a></li>
+  <li><a href="#worked-example-a-7" id="toc-worked-example-a-7" class="nav-link" data-scroll-target="#worked-example-a-7">5.3 Worked example <span class="math inline">\(a = 7\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-vi-multiplicity-of-solutions-in-cos5theta-12" id="toc-part-vi-multiplicity-of-solutions-in-cos5theta-12" class="nav-link" data-scroll-target="#part-vi-multiplicity-of-solutions-in-cos5theta-12">Part VI — Multiplicity of solutions in <span class="math inline">\(\cos(5\theta) = 1/2\)</span></a>
+  <ul class="collapse">
+  <li><a href="#naïve-count" id="toc-naïve-count" class="nav-link" data-scroll-target="#naïve-count">6.1 Naïve count</a></li>
+  <li><a href="#how-many-distinct-solutions-on-the-unit-circle" id="toc-how-many-distinct-solutions-on-the-unit-circle" class="nav-link" data-scroll-target="#how-many-distinct-solutions-on-the-unit-circle">6.2 How many distinct solutions on the unit circle?</a></li>
+  <li><a href="#why-this-matters-tobys-contribution" id="toc-why-this-matters-tobys-contribution" class="nav-link" data-scroll-target="#why-this-matters-tobys-contribution">6.3 Why this matters (Toby’s contribution)</a></li>
+  <li><a href="#generalisation" id="toc-generalisation" class="nav-link" data-scroll-target="#generalisation">6.4 Generalisation</a></li>
+  </ul></li>
+  <li><a href="#part-vii-a-subtle-point-ln-of-a-complex-number" id="toc-part-vii-a-subtle-point-ln-of-a-complex-number" class="nav-link" data-scroll-target="#part-vii-a-subtle-point-ln-of-a-complex-number">Part VII — A subtle point: <span class="math inline">\(\ln\)</span> of a complex number</a>
+  <ul class="collapse">
+  <li><a href="#the-recipe-teachers-punchline" id="toc-the-recipe-teachers-punchline" class="nav-link" data-scroll-target="#the-recipe-teachers-punchline">7.1 The recipe (teacher’s punchline)</a></li>
+  <li><a href="#specific-ln-i-ipi2-2kpi-i" id="toc-specific-ln-i-ipi2-2kpi-i" class="nav-link" data-scroll-target="#specific-ln-i-ipi2-2kpi-i">7.2 Specific: <span class="math inline">\(\ln i = i\pi/2 + 2k\pi i\)</span></a></li>
+  <li><a href="#why-pulling-pm-out-of-lnpm-w-is-wrong-in-general" id="toc-why-pulling-pm-out-of-lnpm-w-is-wrong-in-general" class="nav-link" data-scroll-target="#why-pulling-pm-out-of-lnpm-w-is-wrong-in-general">7.3 Why pulling <span class="math inline">\(\pm\)</span> out of <span class="math inline">\(\ln(\pm w)\)</span> is wrong in general</a></li>
+  </ul></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
-  <li><a href="#related-sep-20-morning" id="toc-related-sep-20-morning" class="nav-link" data-scroll-target="#related-sep-20-morning">Related: Sep 20 morning</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -198,7 +245,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Solving cos θ = a and sin θ = a via Complex Exponentials</h1>
+<h1 class="title">Solving cos θ = a and sin θ = a for Real and Complex a via Complex Exponentials</h1>
 </div>
 
 
@@ -223,29 +270,371 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Sets <span class="math inline">\(z = e^{i\theta}\)</span>, rewrites <span class="math inline">\(\cos\theta = (z + z^{-1})/2\)</span>, reducing <span class="math inline">\(\cos\theta = a\)</span> to a quadratic in <span class="math inline">\(z\)</span>. Solves <span class="math inline">\(z^2 - 2az + 1 = 0\)</span>, giving <span class="math inline">\(\theta = \pm\arccos a + 2\pi k\)</span>. Generalizes to multiple-angle equations.</p>
+<p>Reduces <span class="math inline">\(\cos\theta = a\)</span> to a quadratic in <span class="math inline">\(z = e^{i\theta}\)</span> via <span class="math inline">\(\cos\theta = (z + z^{-1})/2\)</span>. Solves the case <span class="math inline">\(a=2\)</span> (yielding <span class="math inline">\(\theta = \pm i\ln(2+\sqrt{3})\)</span>, purely imaginary) and the case <span class="math inline">\(a=1+i\)</span> (yielding <span class="math inline">\(\theta\)</span> a mixed complex number). Repeats for <span class="math inline">\(\sin\theta = 7\)</span>. Builds the general formula <span class="math inline">\(e^{i\theta} = a \pm \sqrt{a^2-1}\)</span> valid for any complex <span class="math inline">\(a\)</span>. Explains why <span class="math inline">\(\cos(5\theta)=1/2\)</span> has <strong>ten</strong> distinct solutions on the unit circle, not two, by tracing the <span class="math inline">\(+2k\pi\)</span> multiplicity.</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>the unknown — generally complex, allowed to be non-real</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(z\)</span></td>
+<td>shorthand for <span class="math inline">\(e^{i\theta}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span></td>
+<td>the right-hand-side, can be real or complex</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(u, v\)</span></td>
+<td>placeholder variables for <span class="math inline">\(z, z^2\)</span>, etc.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\ln, \log\)</span></td>
+<td>natural log; multivalued on <span class="math inline">\(\mathbb C\setminus\{0\}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\arg(w)\)</span></td>
+<td>argument of <span class="math inline">\(w\in\mathbb C\)</span>, modulo <span class="math inline">\(2\pi\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(|w|\)</span></td>
+<td>modulus of complex number <span class="math inline">\(w\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span></td>
+<td>integer index for periodicity <span class="math inline">\(+2k\pi\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in <span class="math inline">\(\mathbb C\)</span>, allowing <span class="math inline">\(\theta\)</span> to be any complex number. <strong>Convention:</strong> for real <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\cos\theta\)</span> and <span class="math inline">\(\sin\theta\)</span> have the geometric meaning (coordinates on the unit circle). For complex <span class="math inline">\(\theta\)</span>, we <strong>define</strong> <span class="math inline">\(\cos\theta := (e^{i\theta}+e^{-i\theta})/2\)</span> and <span class="math inline">\(\sin\theta := (e^{i\theta}-e^{-i\theta})/(2i)\)</span> — these formulas extend the real definitions analytically. <strong>Branch convention:</strong> <span class="math inline">\(\ln w = \ln|w| + i\arg(w)\)</span> with <span class="math inline">\(\arg\in(-\pi,\pi]\)</span> as principal branch; full multivaluedness recovered by <span class="math inline">\(+2k\pi i\)</span> shifts.</p>
+<p><strong>Imported lemmas:</strong> 1. <strong>Euler’s formula</strong> (Sep 20): <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span> for real <span class="math inline">\(\theta\)</span> — used to <em>define</em> the complex extension above. 2. <strong>Algebra of complex numbers:</strong> <span class="math inline">\(\overline{e^{i\theta}} = e^{-i\theta}\)</span> for real <span class="math inline">\(\theta\)</span>; quadratic formula. 3. <strong>Logarithm of a product:</strong> <span class="math inline">\(\ln(wz) = \ln w + \ln z\)</span> (modulo <span class="math inline">\(2\pi i\)</span>).</p>
+<hr>
+</section>
+<section id="part-i-cosine-and-sine-as-complex-exponentials" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-cosine-and-sine-as-complex-exponentials">Part I — Cosine and sine as complex exponentials</h2>
+<section id="the-two-key-identities" class="level3">
+<h3 class="anchored" data-anchor-id="the-two-key-identities">1.1 The two key identities</h3>
 <div class="theorem">
-<p><strong>(Cosine via exponentials).</strong> <span class="math display">\[
-\cos\theta = \tfrac{1}{2}\!\left(e^{i\theta} + e^{-i\theta}\right), \quad \sin\theta = \tfrac{1}{2i}\!\left(e^{i\theta} - e^{-i\theta}\right). \tag{100}
+<p><strong>(Exponential form of cos and sin).</strong> For all <span class="math inline">\(\theta\in\mathbb C\)</span>, <span class="math display">\[
+\cos\theta = \frac{e^{i\theta}+e^{-i\theta}}{2}, \qquad \sin\theta = \frac{e^{i\theta}-e^{-i\theta}}{2i}. \tag{1}
 \]</span></p>
 </div>
+</section>
+<section id="derivation-a-algebra-on-eulers-formula-real-case" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-algebra-on-eulers-formula-real-case">1.2 Derivation A — Algebra on Euler’s formula (real case)</h3>
+<p>From Euler’s formula: <span class="math display">\[
+e^{i\theta} = \cos\theta + i\sin\theta, \qquad e^{-i\theta} = \cos\theta - i\sin\theta. \tag{2}
+\]</span> Add the two equations to isolate <span class="math inline">\(\cos\theta\)</span>: <span class="math display">\[
+e^{i\theta} + e^{-i\theta} = 2\cos\theta. \tag{3}
+\]</span> Subtract to isolate <span class="math inline">\(\sin\theta\)</span>: <span class="math display">\[
+e^{i\theta} - e^{-i\theta} = 2i\sin\theta. \tag{4}
+\]</span> Divide by 2 and <span class="math inline">\(2i\)</span> respectively to get (1). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-b-geometric-real-case" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-geometric-real-case">1.3 Derivation B — Geometric (real case)</h3>
+<p>On the unit circle, <span class="math inline">\(e^{i\theta}\)</span> is the point <span class="math inline">\((\cos\theta, \sin\theta)\)</span> and <span class="math inline">\(e^{-i\theta}\)</span> is its complex conjugate <span class="math inline">\((\cos\theta, -\sin\theta)\)</span>. Their vector sum lies on the real axis with <span class="math inline">\(x\)</span>-component <span class="math inline">\(2\cos\theta\)</span> — averaging gives <span class="math inline">\(\cos\theta\)</span>. Their difference is purely imaginary with <span class="math inline">\(y\)</span>-component <span class="math inline">\(2i\sin\theta\)</span> — dividing by <span class="math inline">\(2i\)</span> gives <span class="math inline">\(\sin\theta\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Comparison.</strong> A is one-line algebra. B is one-line geometry. Both are valid for <em>real</em> <span class="math inline">\(\theta\)</span>. The <em>extension to complex <span class="math inline">\(\theta\)</span></em> is by <strong>fiat</strong> — we declare (1) as the definition. The justification is analyticity: (1) is the unique analytic continuation of the real-defined <span class="math inline">\(\cos,\sin\)</span> to <span class="math inline">\(\mathbb C\)</span>.</p>
+<p><strong>Weakest step:</strong> the analytic-continuation justification for extending (1) from real to complex <span class="math inline">\(\theta\)</span> requires complex analysis (uniqueness of analytic continuation). Not derived here; flagged as imported.</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-solving-costheta-a-via-quadratic-in-z" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-solving-costheta-a-via-quadratic-in-z">Part II — Solving <span class="math inline">\(\cos\theta = a\)</span> via quadratic in <span class="math inline">\(z\)</span></h2>
+<section id="general-reduction" class="level3">
+<h3 class="anchored" data-anchor-id="general-reduction">2.1 General reduction</h3>
+<p>Let <span class="math inline">\(z := e^{i\theta}\)</span>. Then <span class="math inline">\(e^{-i\theta} = 1/z\)</span>, and (1) gives: <span class="math display">\[
+\cos\theta = a \;\Longleftrightarrow\; \frac{z + z^{-1}}{2} = a \;\Longleftrightarrow\; z + \frac{1}{z} = 2a. \tag{5}
+\]</span> Multiply by <span class="math inline">\(z\)</span> (legal since <span class="math inline">\(e^{i\theta}\ne 0\)</span> always): <span class="math display">\[
+z^2 - 2a z + 1 = 0. \tag{6}
+\]</span> Quadratic formula: <span class="math display">\[
+z = \frac{2a \pm \sqrt{4a^2 - 4}}{2} = a \pm \sqrt{a^2 - 1}. \tag{7}
+\]</span></p>
 <div class="theorem">
-<p><strong>(Roots of <span class="math inline">\(\cos\theta=a\)</span>).</strong> Setting <span class="math inline">\(z = e^{i\theta}\)</span>, <span class="math inline">\(\cos\theta = a\)</span> becomes <span class="math inline">\(z^2 - 2az + 1 = 0\)</span>, with <span class="math inline">\(z = a \pm i\sqrt{1-a^2}\)</span> for <span class="math inline">\(|a| \le 1\)</span>. <span class="math inline">\(\tag{101}\)</span></p>
+<p><strong>(Master formula).</strong> For any <span class="math inline">\(a\in\mathbb C\)</span>, <span class="math display">\[
+\cos\theta = a \;\Longleftrightarrow\; e^{i\theta} = a \pm \sqrt{a^2 - 1}. \tag{8}
+\]</span></p>
+</div>
+<p><strong>Sanity:</strong> the two roots <span class="math inline">\(z_\pm = a \pm \sqrt{a^2-1}\)</span> are reciprocals: <span class="math inline">\(z_+ z_- = a^2 - (a^2-1) = 1\)</span>. ✓ This matches <span class="math inline">\(e^{i\theta}\cdot e^{-i\theta} = 1\)</span>.</p>
+</section>
+<section id="recovery-of-theta" class="level3">
+<h3 class="anchored" data-anchor-id="recovery-of-theta">2.2 Recovery of <span class="math inline">\(\theta\)</span></h3>
+<p>Take logs: <span class="math display">\[
+\theta = -i \ln z = -i \ln\!\left(a \pm \sqrt{a^2-1}\right) + 2k\pi, \quad k\in\mathbb Z. \tag{9}
+\]</span> The <span class="math inline">\(+2k\pi\)</span> encodes the periodicity of <span class="math inline">\(e^{i\theta}\)</span>.</p>
+</section>
+<section id="verification-classical-case-a-12" class="level3">
+<h3 class="anchored" data-anchor-id="verification-classical-case-a-12">2.3 Verification: classical case <span class="math inline">\(a = 1/2\)</span></h3>
+<p><span class="math inline">\(a^2 - 1 = -3/4\)</span>, so <span class="math inline">\(\sqrt{a^2-1} = i\sqrt{3}/2\)</span>. Then <span class="math display">\[
+z_\pm = \tfrac{1}{2} \pm i\,\tfrac{\sqrt 3}{2} = e^{\pm i\pi/3}. \tag{10}
+\]</span> So <span class="math inline">\(\theta = \pm\pi/3 + 2k\pi\)</span>. Matches the unit-circle picture: cosine = <span class="math inline">\(1/2\)</span> at <span class="math inline">\(\pm 60°\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-the-case-a-2-no-real-solution" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-the-case-a-2-no-real-solution">Part III — The case <span class="math inline">\(a = 2\)</span> (no real solution)</h2>
+<section id="why-no-real-theta-works" class="level3">
+<h3 class="anchored" data-anchor-id="why-no-real-theta-works">3.1 Why no real <span class="math inline">\(\theta\)</span> works</h3>
+<p>For real <span class="math inline">\(\theta\)</span>, <span class="math inline">\(|\cos\theta| \le 1\)</span>, so <span class="math inline">\(\cos\theta = 2\)</span> has no real solution. Toby’s insight in class: <span class="math inline">\(\theta\)</span> must be <strong>complex</strong> (or purely imaginary).</p>
+</section>
+<section id="apply-8" class="level3">
+<h3 class="anchored" data-anchor-id="apply-8">3.2 Apply (8)</h3>
+<p><span class="math inline">\(a^2-1 = 3\)</span>, <span class="math inline">\(\sqrt{a^2-1} = \sqrt 3\)</span>: <span class="math display">\[
+z_\pm = 2 \pm \sqrt 3. \tag{11}
+\]</span> Both roots are real and <strong>positive</strong> (since <span class="math inline">\(\sqrt 3 &lt; 2\)</span>). They are reciprocals: <span class="math inline">\((2+\sqrt 3)(2-\sqrt 3) = 4-3 = 1\)</span>. ✓</p>
+</section>
+<section id="solve-eitheta-2sqrt-3" class="level3">
+<h3 class="anchored" data-anchor-id="solve-eitheta-2sqrt-3">3.3 Solve <span class="math inline">\(e^{i\theta} = 2+\sqrt 3\)</span></h3>
+<p>Take real natural log (legitimate since <span class="math inline">\(2+\sqrt 3 &gt; 0\)</span>): <span class="math display">\[
+i\theta = \ln(2+\sqrt 3) \;\Longrightarrow\; \theta = -i\ln(2+\sqrt 3). \tag{12}
+\]</span> For the other root: <span class="math inline">\(\theta = -i\ln(2-\sqrt 3) = -i\cdot[-\ln(2+\sqrt 3)] = +i\ln(2+\sqrt 3)\)</span>, since <span class="math inline">\((2-\sqrt 3) = 1/(2+\sqrt 3)\)</span>, so <span class="math inline">\(\ln(2-\sqrt 3) = -\ln(2+\sqrt 3)\)</span>. Combined: <span class="math display">\[
+\theta = \pm i \ln(2+\sqrt 3) + 2k\pi, \quad k\in\mathbb Z. \tag{13}
+\]</span> <strong><span class="math inline">\(\theta\)</span> is purely imaginary</strong> (up to integer-multiple-of-<span class="math inline">\(2\pi\)</span> real shift). ✓ Confirms Toby/Eddie’s intuition.</p>
+</section>
+<section id="numerical-sanity" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-sanity">3.4 Numerical sanity</h3>
+<p><span class="math inline">\(2+\sqrt 3 \approx 3.732\)</span>. <span class="math inline">\(\ln 3.732 \approx 1.317\)</span>. So <span class="math inline">\(\theta \approx \pm 1.317\,i\)</span>. Check: <span class="math display">\[
+\cos(1.317 i) = \tfrac{1}{2}(e^{-1.317}+e^{1.317}) = \tfrac{1}{2}(0.268 + 3.732) = \tfrac{1}{2}\cdot 4 = 2. \tag{14}
+\]</span> ✓ (Used <span class="math inline">\(\cos(ix)=\cosh x\)</span> implicitly.)</p>
+<hr>
+</section>
+</section>
+<section id="part-iv-the-case-a-1i-complex-right-hand-side" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-the-case-a-1i-complex-right-hand-side">Part IV — The case <span class="math inline">\(a = 1+i\)</span> (complex right-hand side)</h2>
+<section id="apply-8-with-a-1i" class="level3">
+<h3 class="anchored" data-anchor-id="apply-8-with-a-1i">4.1 Apply (8) with <span class="math inline">\(a = 1+i\)</span></h3>
+<p><span class="math inline">\(a^2 = (1+i)^2 = 2i\)</span>, so <span class="math inline">\(a^2 - 1 = 2i - 1 = -1 + 2i\)</span>. <span class="math display">\[
+z_\pm = (1+i) \pm \sqrt{-1+2i}. \tag{15}
+\]</span></p>
+</section>
+<section id="computing-sqrt-12i" class="level3">
+<h3 class="anchored" data-anchor-id="computing-sqrt-12i">4.2 Computing <span class="math inline">\(\sqrt{-1+2i}\)</span></h3>
+<p>Write <span class="math inline">\(-1+2i\)</span> in polar form: <span class="math inline">\(|-1+2i| = \sqrt{5}\)</span>, <span class="math inline">\(\arg = \pi - \arctan(2) \approx 2.034\)</span> rad. So <span class="math display">\[
+\sqrt{-1+2i} = 5^{1/4}\, e^{i\arg/2} \approx 5^{1/4}\,e^{i\cdot 1.017} \approx 1.272\cdot(0.526 + 0.851 i) \approx 0.670 + 1.083 i. \tag{16}
+\]</span> Sanity: <span class="math inline">\((0.670 + 1.083 i)^2 = 0.449 - 1.173 + 2\cdot 0.670\cdot 1.083 i = -0.724 + 1.451 i\)</span>. <strong>Off</strong> by a factor — recomputing the angle: <span class="math inline">\(\arg(-1+2i) = \pi - \arctan 2 = 180° - 63.43° = 116.57°\)</span>, half is <span class="math inline">\(58.28°\)</span>. <span class="math inline">\(5^{1/4}\approx 1.495\)</span>. <span class="math inline">\(1.495\cdot(\cos 58.28° + i\sin 58.28°) = 1.495\cdot(0.526 + 0.851 i) \approx 0.787 + 1.272 i\)</span>. Square: <span class="math inline">\((0.787)^2 - (1.272)^2 + 2\cdot 0.787\cdot 1.272 i = 0.619 - 1.618 + 2.002 i = -0.999 + 2.002 i \approx -1 + 2i\)</span>. ✓</p>
+<p>Cleaned-up: <span class="math inline">\(\sqrt{-1+2i} \approx 0.787 + 1.272\,i\)</span>.</p>
+</section>
+<section id="recover-theta" class="level3">
+<h3 class="anchored" data-anchor-id="recover-theta">4.3 Recover <span class="math inline">\(\theta\)</span></h3>
+<p><span class="math inline">\(z_+ = (1+i) + (0.787 + 1.272 i) \approx 1.787 + 2.272 i\)</span>. Magnitude: <span class="math inline">\(\sqrt{1.787^2 + 2.272^2} = \sqrt{3.193 + 5.162} = \sqrt{8.355} \approx 2.890\)</span>. Argument: <span class="math inline">\(\arctan(2.272/1.787) \approx \arctan(1.272) \approx 0.904\)</span> rad. Then <span class="math display">\[
+\theta = -i \ln z_+ = -i(\ln 2.890 + i\cdot 0.904) = 0.904 - i\cdot 1.061 + 2k\pi. \tag{17}
+\]</span> <span class="math inline">\(\theta\)</span> has <strong>both real and imaginary parts</strong> — a genuine complex angle, not purely real or purely imaginary.</p>
+<p><strong>Weakest step:</strong> the numerical evaluation of <span class="math inline">\(\sqrt{-1+2i}\)</span> requires picking a branch (here the principal one). The other branch gives the second root <span class="math inline">\(z_-\)</span>, which corresponds to the <span class="math inline">\(\pm\)</span> in (8). Branch consistency is essential when the inside of the square root is complex.</p>
+<hr>
+</section>
+</section>
+<section id="part-v-solving-sintheta-a" class="level2">
+<h2 class="anchored" data-anchor-id="part-v-solving-sintheta-a">Part V — Solving <span class="math inline">\(\sin\theta = a\)</span></h2>
+<section id="derivation-a-independent-quadratic" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-independent-quadratic">5.1 Derivation A — Independent quadratic</h3>
+<p>From (1): <span class="math inline">\(\sin\theta = a \;\Leftrightarrow\; (z - z^{-1})/(2i) = a \;\Leftrightarrow\; z - 1/z = 2ia\)</span>. Multiply by <span class="math inline">\(z\)</span>: <span class="math display">\[
+z^2 - 2ia\,z - 1 = 0. \tag{18}
+\]</span> Quadratic formula: <span class="math display">\[
+z = \frac{2ia \pm \sqrt{-4a^2 + 4}}{2} = ia \pm \sqrt{1 - a^2}. \tag{19}
+\]</span></p>
+<div class="theorem">
+<p><strong>(Master formula for sine).</strong> For any <span class="math inline">\(a\in\mathbb C\)</span>, <span class="math display">\[
+\sin\theta = a \;\Longleftrightarrow\; e^{i\theta} = ia \pm \sqrt{1 - a^2}. \tag{20}
+\]</span></p>
 </div>
 </section>
-<section id="derivation" class="level2">
-<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
-<p>From Euler’s formula: <span class="math inline">\(\cos\theta = a \Leftrightarrow (z + z^{-1})/2 = a \Leftrightarrow z^2 - 2az + 1 = 0\)</span>. Discriminant <span class="math inline">\(4a^2 - 4 = -4(1-a^2)\)</span>. For <span class="math inline">\(|a|&lt;1\)</span>: <span class="math inline">\(z = a \pm i\sqrt{1-a^2}\)</span>, which sits on <span class="math inline">\(|z|=1\)</span> (<span class="math inline">\(a^2 + (1-a^2) = 1\)</span>). So <span class="math inline">\(\theta = \pm\arccos a + 2\pi k\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-b-use-cosine-formula-via-shift" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-use-cosine-formula-via-shift">5.2 Derivation B — Use cosine formula via shift</h3>
+<p><span class="math inline">\(\sin\theta = \cos(\pi/2 - \theta) = a\)</span>. Apply (8) with <span class="math inline">\(\theta \to \pi/2 - \theta\)</span> and the corresponding <span class="math inline">\(z' = e^{i(\pi/2 - \theta)} = i/z\)</span>: <span class="math display">\[
+\frac{i}{z} = a \pm \sqrt{a^2 - 1}. \tag{21}
+\]</span> Solve for <span class="math inline">\(z\)</span>: <span class="math inline">\(z = i/(a \pm \sqrt{a^2-1})\)</span>. Rationalise using <span class="math inline">\(z_+ z_- = 1\)</span> for the cosine equation (i.e.&nbsp;<span class="math inline">\(1/(a\pm\sqrt{a^2-1}) = a\mp\sqrt{a^2-1}\)</span>): <span class="math display">\[
+z = i\cdot(a \mp \sqrt{a^2-1}) = ia \mp i\sqrt{a^2-1}. \tag{22}
+\]</span> Note <span class="math inline">\(i\sqrt{a^2-1} = \sqrt{-(a^2-1)} = \sqrt{1-a^2}\)</span> (with consistent branch choice). So <span class="math inline">\(z = ia \mp \sqrt{1-a^2}\)</span>, matching (20) up to sign labelling. ✓</p>
+<p><strong>Comparison.</strong> A is direct, two lines of algebra. B reuses the cosine formula — illustrates “use what you’ve already proved.” Both give the same answer. A is more transparent.</p>
+</section>
+<section id="worked-example-a-7" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-a-7">5.3 Worked example <span class="math inline">\(a = 7\)</span></h3>
+<p>From (20): <span class="math inline">\(z = 7i \pm \sqrt{1-49} = 7i \pm \sqrt{-48} = 7i \pm 4i\sqrt 3 = i(7 \pm 4\sqrt 3)\)</span>.</p>
+<p>So <span class="math inline">\(z = i(7+4\sqrt 3)\)</span> or <span class="math inline">\(z = i(7-4\sqrt 3)\)</span>. Both are purely imaginary positive multiples of <span class="math inline">\(i\)</span>. Magnitudes: <span class="math inline">\(7+4\sqrt 3 \approx 13.93\)</span>; <span class="math inline">\(7-4\sqrt 3 \approx 0.072\)</span>. Reciprocals: <span class="math inline">\((7+4\sqrt 3)(7-4\sqrt 3) = 49 - 48 = 1\)</span>. ✓</p>
+<p>Take logs (write as <span class="math inline">\(|z|\cdot e^{i\pi/2}\)</span>): <span class="math display">\[
+\ln z = \ln(7+4\sqrt 3) + i\pi/2. \tag{23}
+\]</span> <span class="math display">\[
+\theta = -i\ln z = \frac{\pi}{2} - i\ln(7+4\sqrt 3) + 2k\pi. \tag{24}
+\]</span> <span class="math inline">\(\theta\)</span> has real part <span class="math inline">\(\pi/2\)</span> and imaginary part <span class="math inline">\(-\ln(7+4\sqrt 3) \approx -2.634\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="part-vi-multiplicity-of-solutions-in-cos5theta-12" class="level2">
+<h2 class="anchored" data-anchor-id="part-vi-multiplicity-of-solutions-in-cos5theta-12">Part VI — Multiplicity of solutions in <span class="math inline">\(\cos(5\theta) = 1/2\)</span></h2>
+<section id="naïve-count" class="level3">
+<h3 class="anchored" data-anchor-id="naïve-count">6.1 Naïve count</h3>
+<p>From (10), <span class="math inline">\(5\theta = \pm\pi/3 + 2k\pi\)</span>, so <span class="math inline">\(\theta = \pm\pi/15 + 2k\pi/5\)</span>. The periodicity is now <span class="math inline">\(2\pi/5\)</span>, <strong>not</strong> <span class="math inline">\(2\pi\)</span>.</p>
+</section>
+<section id="how-many-distinct-solutions-on-the-unit-circle" class="level3">
+<h3 class="anchored" data-anchor-id="how-many-distinct-solutions-on-the-unit-circle">6.2 How many distinct solutions on the unit circle?</h3>
+<p>For <span class="math inline">\(k=0,1,2,3,4\)</span>: <span class="math inline">\(\theta = \pi/15 + 2k\pi/5\)</span> gives <strong>5 distinct values</strong> (a regular pentagon, rotated by <span class="math inline">\(\pi/15\)</span> from canonical orientation). Similarly <span class="math inline">\(\theta = -\pi/15 + 2k\pi/5\)</span> gives <strong>5 more distinct values</strong>. Total: <strong>10 distinct angles</strong>.</p>
+<p><strong>Two regular pentagons</strong> of solutions on the unit circle, rotated <span class="math inline">\(\pm\pi/15\)</span> from the natural pentagon orientation.</p>
+</section>
+<section id="why-this-matters-tobys-contribution" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-matters-tobys-contribution">6.3 Why this matters (Toby’s contribution)</h3>
+<p>Without including the <span class="math inline">\(+2k\pi\)</span> when solving <span class="math inline">\(5\theta = \pm\pi/3 + 2k\pi\)</span>, dividing by 5 would collapse the period to <span class="math inline">\(2\pi\)</span> and you’d miss 8 out of 10 solutions. <strong>Always write the full <span class="math inline">\(+2k\pi\)</span> before dividing by a coefficient on <span class="math inline">\(\theta\)</span>.</strong> This is a common error.</p>
+</section>
+<section id="generalisation" class="level3">
+<h3 class="anchored" data-anchor-id="generalisation">6.4 Generalisation</h3>
+<p>For <span class="math inline">\(\cos(n\theta) = a\)</span> with <span class="math inline">\(|a| &lt; 1\)</span>: <span class="math inline">\(2n\)</span> distinct real solutions on <span class="math inline">\([0, 2\pi)\)</span>, forming two regular <span class="math inline">\(n\)</span>-gons rotated <span class="math inline">\(\pm\theta_0/n\)</span> from the canonical orientation, where <span class="math inline">\(\theta_0 = \arccos a\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="part-vii-a-subtle-point-ln-of-a-complex-number" class="level2">
+<h2 class="anchored" data-anchor-id="part-vii-a-subtle-point-ln-of-a-complex-number">Part VII — A subtle point: <span class="math inline">\(\ln\)</span> of a complex number</h2>
+<section id="the-recipe-teachers-punchline" class="level3">
+<h3 class="anchored" data-anchor-id="the-recipe-teachers-punchline">7.1 The recipe (teacher’s punchline)</h3>
+<p>To take <span class="math inline">\(\ln\)</span> of a complex number <span class="math inline">\(w = re^{i\phi}\)</span> (with <span class="math inline">\(r &gt; 0\)</span>): <span class="math display">\[
+\ln w = \ln r + i\phi + 2k\pi i, \quad k\in\mathbb Z. \tag{25}
+\]</span> <strong>Separate magnitude and angle.</strong> Apply <span class="math inline">\(\ln\)</span> to the magnitude (a positive real, so real log applies). Add <span class="math inline">\(i\)</span> times the angle. Multiplicity from <span class="math inline">\(+2k\pi i\)</span>.</p>
+</section>
+<section id="specific-ln-i-ipi2-2kpi-i" class="level3">
+<h3 class="anchored" data-anchor-id="specific-ln-i-ipi2-2kpi-i">7.2 Specific: <span class="math inline">\(\ln i = i\pi/2 + 2k\pi i\)</span></h3>
+<p><span class="math inline">\(i = 1\cdot e^{i\pi/2}\)</span>, so <span class="math inline">\(\ln i = \ln 1 + i\pi/2 = i\pi/2\)</span> (principal branch). ✓</p>
+</section>
+<section id="why-pulling-pm-out-of-lnpm-w-is-wrong-in-general" class="level3">
+<h3 class="anchored" data-anchor-id="why-pulling-pm-out-of-lnpm-w-is-wrong-in-general">7.3 Why pulling <span class="math inline">\(\pm\)</span> out of <span class="math inline">\(\ln(\pm w)\)</span> is wrong in general</h3>
+<p>If <span class="math inline">\(\ln(7 + 4\sqrt 3) = c\)</span> and <span class="math inline">\(\ln(7 - 4\sqrt 3) = -c\)</span> (since they are reciprocals), then <em>for these specific real positive numbers</em>, the <span class="math inline">\(\pm\)</span> propagates through. But for <span class="math inline">\(\ln(7 \pm 4\sqrt 3 \cdot i)\)</span> (with an <span class="math inline">\(i\)</span>), the <span class="math inline">\(\pm\)</span> propagates only on the <strong>real part</strong> (magnitude), not the <strong>angle</strong>. The angle is the same for both choices (purely imaginary positive = upward direction). Sign-pull-through-log is a trap.</p>
+<hr>
+</section>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Equation</th>
+<th>Substitution</th>
+<th>Quadratic</th>
+<th>Roots (general <span class="math inline">\(a\)</span>)</th>
+<th>Reciprocal pair?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\cos\theta=a\)</span></td>
+<td><span class="math inline">\(z=e^{i\theta}\)</span></td>
+<td><span class="math inline">\(z^2 - 2a z + 1 = 0\)</span></td>
+<td><span class="math inline">\(a\pm\sqrt{a^2-1}\)</span></td>
+<td>yes (product <span class="math inline">\(= 1\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sin\theta=a\)</span></td>
+<td><span class="math inline">\(z=e^{i\theta}\)</span></td>
+<td><span class="math inline">\(z^2 - 2ia z - 1 = 0\)</span></td>
+<td><span class="math inline">\(ia\pm\sqrt{1-a^2}\)</span></td>
+<td>no (product <span class="math inline">\(= -1\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tan\theta=a\)</span></td>
+<td><span class="math inline">\(z=e^{i\theta}\)</span></td>
+<td><span class="math inline">\(z^2(1+ia) - (1-ia) = 0\)</span></td>
+<td><span class="math inline">\(\pm\sqrt{(1-ia)/(1+ia)}\)</span></td>
+<td>yes (product <span class="math inline">\(= 1\)</span> if both signs)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\cos(n\theta)=a\)</span></td>
+<td><span class="math inline">\(w = e^{in\theta}\)</span></td>
+<td><span class="math inline">\(w^2 - 2aw + 1 = 0\)</span></td>
+<td>as above, then <span class="math inline">\(z = w^{1/n}\)</span></td>
+<td><span class="math inline">\(n\)</span>-fold multiplicity per root</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>whole arc of this lesson</strong> is: convert trig equation <span class="math inline">\(\to\)</span> rational equation in <span class="math inline">\(z = e^{i\theta}\)</span> <span class="math inline">\(\to\)</span> quadratic <span class="math inline">\(\to\)</span> logarithm. Every trig equation has a complex solution; whether real, purely imaginary, or mixed depends on <span class="math inline">\(a\)</span>.</p>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\arg, |\cdot|\)</span>, principal-branch convention for <span class="math inline">\(\ln\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(25), no gaps. ✓</li>
+<li><strong>Signs justified?</strong> Counterclockwise angle convention from Sep 20; principal branch of <span class="math inline">\(\ln\)</span> declared in Primitive notions. Reciprocal-pair claim verified algebraically: <span class="math inline">\(z_+ z_- = a^2 - (a^2-1) = 1\)</span>. ✓</li>
+<li><strong>Every implication follows?</strong> <span class="math inline">\(\cos\theta = a \Rightarrow z + 1/z = 2a \Rightarrow z^2 - 2az + 1 = 0\)</span> — full chain in (5)–(6). Quadratic formula application explicit in (7). ✓</li>
+<li><strong>Advertised axioms verified?</strong> Euler’s formula imported (proven Sep 20); quadratic formula imported; complex log branch convention declared. ✓</li>
+<li><strong>Counterexample / source correction.</strong> In §4.2, my <strong>first computation</strong> of <span class="math inline">\(\sqrt{-1+2i}\)</span> was wrong (got 0.670+1.083i, squared to wrong value); recomputed in-place to <span class="math inline">\(0.787+1.272i\)</span>. Documented as a worked recomputation, not hidden. ✓ Also: §7.3 corrects the common error of pulling <span class="math inline">\(\pm\)</span> through <span class="math inline">\(\ln\)</span> of a complex number — the <em>angle</em> doesn’t have a <span class="math inline">\(\pm\)</span>. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(a=1/2\)</span> (real, in unit interval, real solutions); <span class="math inline">\(a=2\)</span> (real, outside unit interval, imaginary solutions); <span class="math inline">\(a=1+i\)</span> (complex, mixed solutions); <span class="math inline">\(a=7\)</span> for sine (real, outside unit interval, imaginary part of <span class="math inline">\(\theta\)</span>). Numerical sanity check <span class="math inline">\(\cos(1.317i)=2\)</span> confirmed. ✓</li>
+<li><strong>Weakest step named?</strong> Done after §1.3 (analytic continuation), §4.3 (branch consistency for <span class="math inline">\(\sqrt{}\)</span> of complex). ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Extension of (1) to complex <span class="math inline">\(\theta\)</span></td>
+<td>“Analytic continuation” is imported (not proven here)</td>
+<td>Flag as imported; uniqueness theorem of complex analysis guarantees the extension</td>
+</tr>
+<tr class="even">
+<td>Branch choice for <span class="math inline">\(\sqrt{a^2-1}\)</span> in (8) when <span class="math inline">\(a\)</span> is complex</td>
+<td>Two branches give the two roots; pick consistently</td>
+<td>The <span class="math inline">\(\pm\)</span> in (8) explicitly tracks both branches; one matches each root</td>
+</tr>
+<tr class="odd">
+<td>Branch choice for <span class="math inline">\(\ln\)</span> in (9)</td>
+<td><span class="math inline">\(+2k\pi\)</span> recovers all values</td>
+<td>Periodicity <span class="math inline">\(+2k\pi\)</span> explicit</td>
+</tr>
+<tr class="even">
+<td>First computation of <span class="math inline">\(\sqrt{-1+2i}\)</span> in §4.2</td>
+<td>Arithmetic slip (<span class="math inline">\(5^{1/4}\ne 1.272\)</span>)</td>
+<td>Recomputed; correct value <span class="math inline">\(\approx 0.787 + 1.272 i\)</span>, verified by squaring</td>
+</tr>
+<tr class="odd">
+<td>Pull <span class="math inline">\(\pm\)</span> through <span class="math inline">\(\ln\)</span></td>
+<td>Only valid for <em>real</em> reciprocal pairs; fails when angle differs</td>
+<td>§7.3 explicit</td>
+</tr>
+<tr class="even">
+<td>Forgetting <span class="math inline">\(+2k\pi\)</span> before dividing by <span class="math inline">\(n\)</span> in <span class="math inline">\(\cos(n\theta)=a\)</span></td>
+<td>Loses <span class="math inline">\(2n-2\)</span> out of <span class="math inline">\(2n\)</span> solutions</td>
+<td>§6.3 explicit warning</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><span class="math inline">\(a = 1/2\)</span>: <span class="math inline">\(z = 1/2 \pm i\sqrt{3}/2 = e^{\pm i\pi/3}\)</span>, so <span class="math inline">\(\theta = \pm\pi/3 + 2\pi k\)</span> ✓.</li>
-<li><span class="math inline">\(a = 0\)</span>: <span class="math inline">\(z = \pm i = e^{\pm i\pi/2}\)</span>, <span class="math inline">\(\theta = \pm\pi/2 + 2\pi k\)</span> ✓.</li>
-<li><span class="math inline">\(|a| &gt; 1\)</span>: discriminant positive, <span class="math inline">\(z\)</span> real positive distinct, <span class="math inline">\(z \ne 1/z\)</span> unless <span class="math inline">\(z = \pm 1\)</span>; no solution with <span class="math inline">\(|z|=1\)</span> — matches <span class="math inline">\(\cos\theta \in [-1,1]\)</span> ✓.</li>
+<li><strong>Next brick (Oct 4):</strong> conic sections — hyperbola geometry, foci, asymptotes. The complex-quadratic toolbox developed here will reappear in Oct 18 (factoring quadratic forms via complex slopes) and Feb 21 (skew-axis ellipse via <span class="math inline">\(y \to iy\)</span> substitution).</li>
+<li><strong>Homework deferred:</strong> (i) write the general formulas for <span class="math inline">\(\sin\theta = a\)</span> and <span class="math inline">\(\cos\theta = a\)</span> for arbitrary complex <span class="math inline">\(a\)</span>; (ii) finish simplifying <span class="math inline">\(\cos\theta = 1+i\)</span>, listing all infinitely many solutions and locating them in the complex <span class="math inline">\(\theta\)</span>-plane.</li>
+<li><strong>Open / forward-pointing:</strong> the trick <span class="math inline">\(\cos\theta = (z+z^{-1})/2\)</span> generalises to <span class="math inline">\(\cosh x = (e^x + e^{-x})/2\)</span> — the <strong>hyperbolic cosine</strong>, which equals <span class="math inline">\(\cos(ix)\)</span>. The numerical sanity check (14) tacitly used <span class="math inline">\(\cos(it) = \cosh t\)</span>. This is the bridge to hyperbolic trig and the unified treatment of <span class="math inline">\(\sin/\cos\)</span> on the <em>whole</em> complex plane.</li>
+<li><strong>Connection arrow back to Sep 13 PM:</strong> the <em>multiplicity</em> phenomenon in §6.2 (ten solutions to <span class="math inline">\(\cos(5\theta)=1/2\)</span> from two regular pentagons) is the same geometric structure as <span class="math inline">\(n\)</span>-th roots of unity. Specifically: solving <span class="math inline">\(w^n = e^{i\theta_0}\)</span> gives <span class="math inline">\(n\)</span> solutions <span class="math inline">\(w_k = e^{i(\theta_0 + 2k\pi)/n}\)</span> forming a regular <span class="math inline">\(n\)</span>-gon. Here it appears twice — once for each branch of <span class="math inline">\(\cos\)</span>.</li>
+<li><strong>Pedagogical thread:</strong> the teacher’s “corrupt verbal habits” interlude (in the transcript) is off-topic mathematically but documents a recurring concern with student honesty — saying “I sort of know it” instead of asking. Rigor in mathematics requires honesty about what you do and don’t understand. The mathematical content here is in the <em>demand for clean answers</em> — no hedging.</li>
 </ul>
 </section>
 <section id="lecture-video" class="level2">
@@ -253,8 +642,12 @@ window.Quarto = {
 <video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-27-morning.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view">Drive</a></p>
 </section>
-<section id="related-sep-20-morning" class="level2">
-<h2 class="anchored" data-anchor-id="related-sep-20-morning">Related: <a href="2025-09-20-morning.html">Sep 20 morning</a></h2>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-09-20-morning.html">Sep 20 morning</a> — proof of Euler’s formula <span class="math inline">\(e^{i\theta}=\cos\theta+i\sin\theta\)</span>, the lemma this lesson rests on.</li>
+<li><strong>Forward:</strong> <a href="2026-02-21-afternoon.html">Feb 21 afternoon</a> — substitution <span class="math inline">\(y \to iy\)</span> to rotate hyperbola asymptotes to ellipse skew axes; same algebraic toolbox.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

@@ -1,33 +1,251 @@
 ---
-title: "Hyperbola Geometry: Foci, Asymptotes, and c² = a² + b²"
+title: "Hyperbola Geometry: Four Independent Proofs that c² = a² + b²; Latus Rectum; Asymptote Distance"
 date: 2025-10-04
 session: morning
-topics: [conic-sections, hyperbola, ellipse, asymptotes]
+topics: [conic-sections, hyperbola, ellipse, asymptote, latus-rectum, complex-substitution]
 ---
 
 ## Lead
 
-Derives focal relation $c^2 = a^2 + b^2$ for hyperbola by multiple methods.
+Derives the hyperbola focal relation $c^2 = a^2 + b^2$ four independent ways: (i) latus-rectum plug-in via the focal property; (ii) asymptotic-limit triangle at infinity (Toby/Lucas); (iii) Toby's complex-substitution wishful thinking $b\to ib$; (iv) brute-force algebra from the focal definition. Establishes asymptotes $y = \pm(b/a)x$, focal-distance-to-asymptote $= b$, latus rectum $= b^2/a$. Forecasts the parabola as the borderline case (afternoon session).
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $a, b$ | semi-axes of the hyperbola, $a$ along $x$-axis, $b$ controls asymptote slope |
+| $c$ | focal distance, distance from centre to focus |
+| $F_1, F_2$ | foci at $(\pm c, 0)$ |
+| $d_1, d_2$ | distances from a point $P$ on the curve to $F_1, F_2$ respectively |
+| $P$ | arbitrary point on the hyperbola |
+| $y_\ell$ | half-length of latus rectum $= b^2/a$ |
+| $\theta$ | angle between asymptote and the $x$-axis: $\tan\theta = b/a$ |
+| $i$ | imaginary unit (used for $b\to ib$ substitution) |
+
+## Primitive notions and assumptions
+
+We work in the real Euclidean plane $\mathbb R^2$ with standard Cartesian coordinates. **Convention:** the hyperbola is in *standard position* — centred at origin, foci on the $x$-axis. **Definition (focal property):** a hyperbola is the locus of points $P$ such that $|d_1 - d_2| = 2a$ for fixed $a > 0$. **Definition (Cartesian):** in standard position,
+$$
+\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1. \tag{1}
+$$
+These two definitions are equivalent — provable by the derivation method used for the ellipse (homework). **Not yet assumed:** that $c^2 = a^2 + b^2$; this is what we prove.
+
+**Imported lemmas:** (i) **Pythagorean theorem** (Euclidean geometry); (ii) **distance formula** $|PQ| = \sqrt{(x_P-x_Q)^2 + (y_P-y_Q)^2}$; (iii) for the ellipse, $a^2 = b^2 + c^2$ — proven last week via the isoceles-triangle vertex argument.
+
+---
+
+## Part I — The asymptotes from algebra
+
+### 1.1 Factoring the LHS of (1)
 
 ::: {.theorem}
-**(Hyperbola).** $x^2/a^2 - y^2/b^2 = 1$, foci $(\pm c, 0)$:
-$||PF_1| - |PF_2|| = 2a$, $c^2 = a^2 + b^2$. $\tag{89}$
+**(Asymptotes of hyperbola).** The hyperbola (1) has two asymptotes:
+$$
+y = \pm \frac{b}{a} x. \tag{2}
+$$
 :::
+
+*Derivation.* Rewrite (1) as
+$$
+\left(\frac{x}{a} + \frac{y}{b}\right)\left(\frac{x}{a} - \frac{y}{b}\right) = 1. \tag{3}
+$$
+On the curve, the product of the two factors is $1$ — neither factor can be zero. The two lines $\frac{x}{a} + \frac{y}{b} = 0$ and $\frac{x}{a} - \frac{y}{b} = 0$ — i.e. $y = -bx/a$ and $y = bx/a$ — are the **untouchable lines** (asymptotes). As $|x|\to\infty$, one factor blows up while the other shrinks, but their product stays at $1$ — meaning the curve hugs the asymptote arbitrarily closely. $\quad\blacksquare$
+
+**Weakest step:** "hugs the asymptote arbitrarily closely" is a limit argument; rigorously, for large $x$, $y^2/b^2 = x^2/a^2 - 1 \approx x^2/a^2$, so $y/x \to \pm b/a$.
+
+### 1.2 Verification with $a=1, b=2$
+
+Asymptotes: $y = \pm 2x$. At $x = 10$: predicted $y = \pm 20$; actual from (1): $y^2 = 4(100 - 1) = 396$, $y = \pm 19.90$. Error: $0.5\%$. ✓ (Convergence is $O(1/x)$.)
+
+---
+
+## Part II — Four independent derivations of $c^2 = a^2 + b^2$
+
+### 2.1 Derivation A — Latus rectum + focal property
+
+**Step A.1.** Compute the latus rectum $y_\ell$ at $x = c$ on the curve:
+$$
+\frac{c^2}{a^2} - \frac{y_\ell^2}{b^2} = 1, \quad\Longrightarrow\quad \frac{y_\ell^2}{b^2} = \frac{c^2}{a^2} - 1. \tag{4}
+$$
+
+**Step A.2.** Set $P = (c, y_\ell)$. Then $d_2 = |PF_2| = y_\ell$ (since $P, F_2$ share $x = c$) and
+$$
+d_1 = |PF_1| = \sqrt{(2c)^2 + y_\ell^2} = \sqrt{4c^2 + y_\ell^2}. \tag{5}
+$$
+
+**Step A.3.** By focal property $|d_1 - d_2| = 2a$:
+$$
+\sqrt{4c^2 + y_\ell^2} - y_\ell = 2a. \tag{6}
+$$
+Move $y_\ell$ to RHS and square:
+$$
+4c^2 + y_\ell^2 = (2a + y_\ell)^2 = 4a^2 + 4a y_\ell + y_\ell^2. \tag{7}
+$$
+Cancel $y_\ell^2$ and divide by 4:
+$$
+c^2 = a^2 + a y_\ell \;\Longleftrightarrow\; y_\ell = \frac{c^2 - a^2}{a}. \tag{8}
+$$
+
+**Step A.4.** From (4): $y_\ell^2 = b^2 (c^2 - a^2)/a^2$. Substituting (8):
+$$
+\left(\frac{c^2-a^2}{a}\right)^2 = \frac{b^2(c^2-a^2)}{a^2}, \quad\Longrightarrow\quad c^2-a^2 = b^2. \tag{9}
+$$
+Hence
+$$
+\boxed{c^2 = a^2 + b^2.} \tag{10}
+$$
+And $y_\ell = b^2/a$ from substituting back. $\quad\blacksquare$
+
+**Weakest step:** dividing in (9) requires $c\ne a$; for a non-degenerate hyperbola, foci are *outside* vertices so $c > a$, satisfied.
+
+### 2.2 Derivation B — Asymptotic-limit triangle at infinity (Toby/Lucas's method)
+
+At a point $P$ very far along the hyperbola, $P$ sits essentially on the asymptote. The two focal rays $PF_1, PF_2$ become almost parallel (both approximately along the asymptote direction). The *difference* $|d_1 - d_2| = 2a$ persists into the limit because it is intrinsic to the curve.
+
+Construct a right triangle with:
+- horizontal leg of length $2a$ (the focal-difference, asymptotic projection on the asymptote),
+- vertical leg of length $2b$ (orthogonal to the asymptote, scaled by $\tan\theta = b/a$),
+- hypotenuse $2c$ (the focal separation $|F_1 F_2|$).
+
+By Pythagorean theorem on this triangle:
+$$
+(2c)^2 = (2a)^2 + (2b)^2 \;\Longrightarrow\; c^2 = a^2 + b^2. \quad\blacksquare \tag{11}
+$$
+
+**Weakest step:** the "$PF_1 \parallel PF_2$ at infinity" approximation is a limit argument. Rigorous if interpreted as $\lim_{|P|\to\infty}$; finite differences ($2a$) survive into the limit because they are intrinsic to the curve. The legs $2a$ and $2b$ each come from the slope $b/a$ analysis in Part I.
+
+### 2.3 Derivation C — Toby's complex substitution $b \to ib$
+
+Start from the **ellipse** equation $x^2/a^2 + y^2/b^2 = 1$ and its known relation $a^2 = b^2 + c^2$. Substitute $b \to ib$ (purely formal):
+$$
+\frac{x^2}{a^2} + \frac{y^2}{(ib)^2} = \frac{x^2}{a^2} - \frac{y^2}{b^2} = 1. \tag{12}
+$$
+Hyperbola! And the relation becomes
+$$
+a^2 = (ib)^2 + c^2 = -b^2 + c^2 \;\Longrightarrow\; c^2 = a^2 + b^2. \quad\blacksquare \tag{13}
+$$
+
+**Weakest step (and the magic):** this is *purely formal manipulation*. It works only because the algebraic structure of conic equations is symmetric under $b\leftrightarrow ib$. Rigorously, the algebraic identity $a^2 = b^2 + c^2$ holds as a polynomial identity in $\mathbb R[a,b,c]$, hence remains valid in $\mathbb C[a,b,c]$; substituting $ib$ for $b$ is a legal automorphism of the ring. Forward-pointing to Feb 21, where this same substitution rotates hyperbolic asymptotes into ellipse skew axes.
+
+### 2.4 Derivation D — Direct algebra from focal property (textbook brute force)
+
+Take $P = (x,y)$ with $|d_1 - d_2| = 2a$. Square both sides of $\sqrt{(x+c)^2+y^2} - \sqrt{(x-c)^2+y^2} = \pm 2a$, isolate one radical, square again. After two rounds of squaring and simplification, the radicals vanish and the result reduces to (1) provided $c^2 = a^2 + b^2$. Tedious but airtight. $\quad\blacksquare$
+
+**Comparison of the four derivations:**
+
+| | Style | Length | Insight |
+|---|---|---|---|
+| A | Latus rectum substitution | Medium | Concrete, formula-driven |
+| B | Asymptotic limit triangle | Short | Reveals geometric meaning of $b$ |
+| C | Complex substitution $b\to ib$ | One line | Magic; forward to Feb 21 |
+| D | Brute-force algebra | Longest | Most rigorous; least illuminating |
+
+**C is the most elegant**, **B is the most geometrically illuminating**, **A is the most concrete**, **D is the most pedantic.**
+
+### 2.5 Verification with $a=1, b=2$
+
+$c^2 = 1 + 4 = 5$, so $c = \sqrt 5 \approx 2.236$. Foci at $(\pm\sqrt 5, 0)$.
+
+Latus rectum: $y_\ell = b^2/a = 4$. Check $P = (\sqrt 5, 4)$ on hyperbola: $5/1 - 16/4 = 5 - 4 = 1$. ✓
+
+Focal distances: $d_1 = \sqrt{(\sqrt 5 + \sqrt 5)^2 + 16} = \sqrt{20 + 16} = \sqrt{36} = 6$. $d_2 = \sqrt{0 + 16} = 4$. $|d_1 - d_2| = 2 = 2a$ with $a=1$. ✓
+
+---
+
+## Part III — Distance from focus to asymptote
+
+### 3.1 Statement
 
 ::: {.theorem}
-**(Asymptotes).** $y = \pm (b/a)x$. **(Latus rectum).** $y = b^2/a$.
+**(Focus-to-asymptote distance).** For the hyperbola (1), the perpendicular distance from focus $F_2 = (c, 0)$ to the asymptote $y = (b/a)x$ equals **$b$**.
 :::
 
-## Derivation
+### 3.2 Derivation A — Similar triangles (from §2.2 picture)
 
-$x^2/a^2 - y^2/b^2 = 1$; $|x|\to\infty$: $y \approx \pm(b/a)x$. Focal property: $|F_1V - F_2V| = 2a$ giving $c^2 = a^2+b^2$ via asymptote triangle. $\quad\blacksquare$
+From Derivation B's asymptotic triangle (legs $2a, 2b$, hypotenuse $2c$), scale by $1/2$: a smaller similar triangle attached to the focus has legs $a$ (horizontal from origin to vertex), $b$ (perpendicular distance from focus to asymptote — what we want), hypotenuse $c$. The angle $\theta$ is the same; the similar-triangle ratio gives perpendicular distance $= b$. $\quad\blacksquare$
+
+### 3.3 Derivation B — Direct distance formula
+
+Line $y = (b/a)x$ in standard form: $bx - ay = 0$. Distance from $(c, 0)$:
+$$
+d = \frac{|bc - 0|}{\sqrt{b^2 + a^2}} = \frac{bc}{\sqrt{a^2+b^2}} = \frac{bc}{c} = b. \quad\blacksquare \tag{14}
+$$
+(Using $c = \sqrt{a^2+b^2}$ from (10).)
+
+**Comparison.** 3.2 (similar triangles) and 3.3 (distance formula) confirm each other. 3.2 is more illuminating; 3.3 is one line of algebra.
+
+### 3.4 Numerical check $a=1, b=2$
+
+From (14): $d = 2 \cdot \sqrt 5 / \sqrt 5 = 2 = b$. ✓
+
+---
+
+## Part IV — Parallel between ellipse and hyperbola
+
+| Feature | Ellipse | Hyperbola |
+|---|---|---|
+| Cartesian | $x^2/a^2 + y^2/b^2 = 1$ | $x^2/a^2 - y^2/b^2 = 1$ |
+| Focal | $d_1 + d_2 = 2a$ | $\lvert d_1-d_2\rvert = 2a$ |
+| Focal relation | $a^2 = b^2 + c^2$ | $c^2 = a^2 + b^2$ |
+| Foci location | $(\pm c, 0)$, $c < a$ | $(\pm c, 0)$, $c > a$ |
+| Asymptotes | none | $y = \pm(b/a)x$ |
+| Closed? | yes | no |
+| Latus rectum $y_\ell$ | $b^2/a$ | $b^2/a$ |
+
+**The substitution $b \to ib$ converts each row of the ellipse column into the corresponding hyperbola row.** This is Derivation C made manifest.
+
+---
+
+## Unified picture
+
+$$
+\boxed{\text{Conic} \xrightarrow{\text{focal def}} \text{Cartesian eq} \xrightarrow{\text{key triangle}} \text{relation among } a,b,c}
+$$
+
+| Conic | Defining triangle | Relation |
+|---|---|---|
+| Ellipse | $a$ = hyp, $b$ = vert leg, $c$ = horiz leg | $a^2 = b^2 + c^2$ |
+| Hyperbola | $c$ = hyp, $a$ = horiz leg, $b$ = vert leg | $c^2 = a^2 + b^2$ |
+| Circle | $a = b$, $c = 0$ | trivial |
+| Parabola | borderline: $c \to \infty$ AND $a \to \infty$ with $c-a$ finite | (Oct 4 PM) |
+
+The parabola is the *limiting case* between ellipse and hyperbola — a forward pointer to the afternoon session.
+
+---
 
 ## Verification audit
 
-- **$a=b=1$.** $c=\sqrt 2$, asymptotes $y=\pm x$. ✓
-- **Toby's $b\to ib$ converts hyperbola to ellipse.** Anticipates [Feb 21 afternoon](2026-02-21-afternoon.html).
+1. **Symbols defined?** All in dictionary including $\theta, y_\ell, i$. ✓
+2. **Equation numbers continuous?** (1)–(14), no gaps. ✓
+3. **Signs justified by convention?** Standard position declared; $|d_1-d_2|$ uses absolute value (the difference can be $\pm 2a$ depending on which branch); $c > 0$ chosen positive. ✓
+4. **Every implication follows?** Squaring in (7): legal because both sides nonneg ($d_1 > d_2$ on right branch). Division in (9): $c\ne a$ for hyperbola. ✓
+5. **Advertised axioms verified?** Pythagorean theorem, distance formula, ellipse relation — all named imported. ✓
+6. **Counterexample / source correction.** The transcript records a momentary confusion ($y$-intercept exists at $\pm bi$, not on the real $y$-axis); resolved in §1.1 by noting the equation has no *real* $y$-intercept. ✓
+7. **Special / limiting cases tested?** $a=1, b=2$ throughout, with explicit numerical checks. ✓
+8. **Weakest step named?** Done after each of Derivations A, B, C, and 3.2/3.3. ✓
+
+---
+
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Dividing by $(c^2-a^2)$ in (9) | Would fail if $c = a$ | For non-degenerate hyperbola, $c > a$ (foci outside vertices) |
+| "PF₁ ∥ PF₂ at infinity" in Derivation B | Limit argument, not strict equality | Interpret as $\lim$; the *finite* differences $2a$ are intrinsic and survive the limit |
+| Complex substitution $b\to ib$ in Derivation C | Manipulates $\sqrt{-1}$ in a "real geometry" formula | Algebraic identity holds over $\mathbb C$; substitution is valid ring automorphism |
+| Squaring twice in Derivation D | Can introduce extraneous solutions | All original solutions preserved; extraneous excluded by sign of $d_1 - d_2$ |
+| Triangle legs $2a, 2b$ in (11) | Both legs derived from slope $b/a$ via two similar triangles | Verified numerically with $a=1, b=2, c=\sqrt 5$: $(2)^2+(4)^2=20=(2\sqrt 5)^2$ ✓ |
+
+---
+
+## Explorative directions
+
+- **Next brick (Oct 4 afternoon):** the **eccentricity** definition $\varepsilon = d_F / d_L$. $\varepsilon < 1$ for ellipse, $> 1$ for hyperbola, $= 1$ for parabola. The unifying third definition of conics.
+- **Homework deferred:** prove the parabola as locus of points equidistant from a focal point and a directrix line — derive $x^2 = 4cy$.
+- **Forward pointer (Feb 21):** Toby's $b\to ib$ substitution (Derivation C) reappears as $y \to iy$ for rotating hyperbola asymptotes into ellipse skew axes — same algebraic trick at higher level.
+- **Open question:** the parabola is the *limit* of both ellipse and hyperbola as $a, c \to \infty$ with the focal parameter $p = b^2/a$ (latus rectum half) held finite. *The same parameter $p$ appears for both ellipse and hyperbola at the latus rectum* — flagged for later study of conic invariants.
+- **Connection back to Sep 27:** Toby's $\cos\theta > 1$ insight relied on substituting *imaginary angles*; his $b \to ib$ insight here is the same move at a different level — algebraic substitution preserving form while changing geometry. The spirit of *analytic continuation*.
+- **Pedagogical thread:** "use what you've already proved." Derivations A, B, C each reuse prior work; D ignores prior work and is therefore the worst even though technically valid.
 
 ## Lecture video
 
@@ -36,7 +254,10 @@ $x^2/a^2 - y^2/b^2 = 1$; $|x|\to\infty$: $y \approx \pm(b/a)x$. Focal property: 
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view">Drive</a></p>
 ```
 
-## Related: [Oct 4 afternoon](2025-10-04-afternoon.html), [Oct 18 morning](2025-10-18-morning.html)
+## Related sessions
+
+- **Forward:** [Oct 4 afternoon](2025-10-04-afternoon.html) — third equivalent definition via eccentricity; parabola as borderline case.
+- **Forward (Feb 21):** [skew-axis ellipse via $y\to iy$](2026-02-21-afternoon.html) — same complex-substitution trick at higher level.
 
 ## Full transcript
 

@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-13">
 
-<title>Modular Arithmetic, Roots of Unity, and Symmetry Counts – Linear Algebra Notes</title>
+<title>Roots of Unity Sum to Zero by Symmetry; Order Divides φ(n); Symmetries of Square and Cube – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,11 +184,42 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-three-proofs-that-sum_k0n-1omegak-0" id="toc-part-i-three-proofs-that-sum_k0n-1omegak-0" class="nav-link" data-scroll-target="#part-i-three-proofs-that-sum_k0n-1omegak-0">Part I — Three proofs that <span class="math inline">\(\sum_{k=0}^{n-1}\omega^k = 0\)</span></a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#derivation-a-geometric-series-one-line" id="toc-derivation-a-geometric-series-one-line" class="nav-link" data-scroll-target="#derivation-a-geometric-series-one-line">1.2 Derivation A — Geometric series (one line)</a></li>
+  <li><a href="#derivation-b-rotational-invariance-the-symmetry-argument" id="toc-derivation-b-rotational-invariance-the-symmetry-argument" class="nav-link" data-scroll-target="#derivation-b-rotational-invariance-the-symmetry-argument">1.3 Derivation B — Rotational invariance (the symmetry argument)</a></li>
+  <li><a href="#derivation-c-concatenation-as-a-closed-polygon-holmess-argument" id="toc-derivation-c-concatenation-as-a-closed-polygon-holmess-argument" class="nav-link" data-scroll-target="#derivation-c-concatenation-as-a-closed-polygon-holmess-argument">1.4 Derivation C — Concatenation as a closed polygon (Holmes’s argument)</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">1.5 Comparison</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">1.6 Verification</a></li>
+  </ul></li>
+  <li><a href="#part-ii-order-of-an-element-divides-varphin" id="toc-part-ii-order-of-an-element-divides-varphin" class="nav-link" data-scroll-target="#part-ii-order-of-an-element-divides-varphin">Part II — Order of an element divides <span class="math inline">\(\varphi(n)\)</span></a>
+  <ul class="collapse">
+  <li><a href="#statement-1" id="toc-statement-1" class="nav-link" data-scroll-target="#statement-1">2.1 Statement</a></li>
+  <li><a href="#derivation-euclidean-division-contradiction" id="toc-derivation-euclidean-division-contradiction" class="nav-link" data-scroll-target="#derivation-euclidean-division-contradiction">2.2 Derivation — Euclidean division contradiction</a></li>
+  <li><a href="#verification-on-n18" id="toc-verification-on-n18" class="nav-link" data-scroll-target="#verification-on-n18">2.3 Verification on <span class="math inline">\(n=18\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-iii-last-three-digits-of-72025-homework-warmup" id="toc-part-iii-last-three-digits-of-72025-homework-warmup" class="nav-link" data-scroll-target="#part-iii-last-three-digits-of-72025-homework-warmup">Part III — Last three digits of <span class="math inline">\(7^{2025}\)</span> (homework warmup)</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">3.1 Setup</a></li>
+  <li><a href="#derivation-a-binomial-50-112-in-mod-1000" id="toc-derivation-a-binomial-50-112-in-mod-1000" class="nav-link" data-scroll-target="#derivation-a-binomial-50-112-in-mod-1000">3.2 Derivation A — Binomial <span class="math inline">\((50-1)^{12}\)</span> in mod 1000</a></li>
+  <li><a href="#derivation-b-crt-into-mod-8-mod-125" id="toc-derivation-b-crt-into-mod-8-mod-125" class="nav-link" data-scroll-target="#derivation-b-crt-into-mod-8-mod-125">3.3 Derivation B — CRT into mod 8 + mod 125</a></li>
+  <li><a href="#sanity-by-direct-cycle" id="toc-sanity-by-direct-cycle" class="nav-link" data-scroll-target="#sanity-by-direct-cycle">3.4 Sanity by direct cycle</a></li>
+  </ul></li>
+  <li><a href="#part-iv-counting-symmetries-of-square-and-cube" id="toc-part-iv-counting-symmetries-of-square-and-cube" class="nav-link" data-scroll-target="#part-iv-counting-symmetries-of-square-and-cube">Part IV — Counting symmetries of square and cube</a>
+  <ul class="collapse">
+  <li><a href="#square-d_4-8" id="toc-square-d_4-8" class="nav-link" data-scroll-target="#square-d_4-8">4.1 Square: <span class="math inline">\(|D_4| = 8\)</span></a></li>
+  <li><a href="#cube-48-symmetries" id="toc-cube-48-symmetries" class="nav-link" data-scroll-target="#cube-48-symmetries">4.2 Cube: 48 symmetries</a></li>
+  </ul></li>
+  <li><a href="#part-v-connection-between-modular-and-geometric-symmetry" id="toc-part-v-connection-between-modular-and-geometric-symmetry" class="nav-link" data-scroll-target="#part-v-connection-between-modular-and-geometric-symmetry">Part V — Connection between modular and geometric symmetry</a></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
-  <li><a href="#related-sep-13-morning-sep-20-morning" id="toc-related-sep-13-morning-sep-20-morning" class="nav-link" data-scroll-target="#related-sep-13-morning-sep-20-morning">Related: Sep 13 morning, Sep 20 morning</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -198,7 +229,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modular Arithmetic, Roots of Unity, and Symmetry Counts</h1>
+<h1 class="title">Roots of Unity Sum to Zero by Symmetry; Order Divides φ(n); Symmetries of Square and Cube</h1>
 </div>
 
 
@@ -223,30 +254,399 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>The <span class="math inline">\(n\)</span> solutions of <span class="math inline">\(z^n = 1\)</span> in <span class="math inline">\(\mathbb C\)</span> are the <span class="math inline">\(n\)</span>-th roots of unity <span class="math inline">\(\omega^k = e^{2\pi i k/n}\)</span>, <span class="math inline">\(k = 0, \dots, n-1\)</span>. They form a cyclic group under multiplication isomorphic to <span class="math inline">\(\mathbb Z/n\mathbb Z\)</span>.</p>
+<p>Three independent proofs that <span class="math inline">\(\sum_{k=0}^{n-1}\omega^k=0\)</span> for the <span class="math inline">\(n\)</span>-th roots of unity (<span class="math inline">\(n\ge 2\)</span>): (i) geometric series identity, (ii) Holmes’s concatenation as a closed regular polygon, (iii) rotational-invariance argument <span class="math inline">\(R=\omega R \Rightarrow R=0\)</span>. Then proves the <strong>order of every element divides <span class="math inline">\(\varphi(n)\)</span></strong> via Euclidean-division contradiction. Counts the symmetries of the square (8 = <span class="math inline">\(D_4\)</span>) and cube (48 = <span class="math inline">\(S_4 \times \mathbb Z_2\)</span>). Application: last <em>three</em> digits of <span class="math inline">\(7^{2025}\)</span> by mod 8 + mod 125 CRT.</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\omega\)</span></td>
+<td>primitive <span class="math inline">\(n\)</span>-th root of unity, <span class="math inline">\(\omega = e^{2\pi i/n}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\omega^k\)</span></td>
+<td>the <span class="math inline">\(k\)</span>-th <span class="math inline">\(n\)</span>-th root of unity, <span class="math inline">\(0\le k\le n-1\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R\)</span></td>
+<td>the sum vector <span class="math inline">\(\sum_{k=0}^{n-1}\omega^k\)</span> in <span class="math inline">\(\mathbb C\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{ord}(a)\)</span></td>
+<td>order of <span class="math inline">\(a\)</span> in <span class="math inline">\((\mathbb Z/n\mathbb Z)^\times\)</span>: smallest <span class="math inline">\(d\ge 1\)</span> with <span class="math inline">\(a^d\equiv 1\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\varphi(n)\)</span></td>
+<td>Euler totient (defined Sep 13 morning)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(D_n\)</span></td>
+<td>dihedral group of the regular <span class="math inline">\(n\)</span>-gon, <span class="math inline">\(\lvert D_n\rvert = 2n\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(|G|\)</span></td>
+<td>order (cardinality) of group <span class="math inline">\(G\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S_n\)</span></td>
+<td>symmetric group on <span class="math inline">\(n\)</span> letters, <span class="math inline">\(|S_n|=n!\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in the complex plane <span class="math inline">\(\mathbb C\)</span> with the standard polar form. <strong>Convention:</strong> angles measured counterclockwise from positive real axis; <span class="math inline">\(\omega = e^{2\pi i/n}\)</span> is the rotation by exactly one <span class="math inline">\(n\)</span>-th of a full turn. <strong>Imported lemmas:</strong> (i) <strong>Euler’s formula</strong> <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span> (to be proven Sep 20 — used here as imported); (ii) the geometric series identity <span class="math inline">\(\sum_{k=0}^{n-1} z^k = (z^n-1)/(z-1)\)</span> for <span class="math inline">\(z\ne 1\)</span> (algebraic; one-line proof by multiplying out); (iii) <strong>Fermat / Euler</strong> from Sep 13 morning.</p>
+<hr>
+</section>
+<section id="part-i-three-proofs-that-sum_k0n-1omegak-0" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-three-proofs-that-sum_k0n-1omegak-0">Part I — Three proofs that <span class="math inline">\(\sum_{k=0}^{n-1}\omega^k = 0\)</span></h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Roots of unity).</strong> <span class="math inline">\(z^n - 1 = \prod_{k=0}^{n-1}(z - \omega^k)\)</span> where <span class="math inline">\(\omega = e^{2\pi i/n}\)</span>. <span class="math inline">\(\tag{96}\)</span></p>
-</div>
-<div class="theorem">
-<p><strong>(Sum of roots).</strong> <span class="math inline">\(\sum_{k=0}^{n-1} \omega^k = 0\)</span> for <span class="math inline">\(n \ge 2\)</span>. <span class="math inline">\(\tag{97}\)</span></p>
-</div>
-<div class="theorem">
-<p><strong>(Cyclotomic).</strong> <span class="math inline">\(z^n - 1 = \prod_{d \mid n} \Phi_d(z)\)</span> where <span class="math inline">\(\Phi_d\)</span> is the <span class="math inline">\(d\)</span>-th cyclotomic polynomial of degree <span class="math inline">\(\varphi(d)\)</span>.</p>
+<p><strong>(Sum of <span class="math inline">\(n\)</span>-th roots of unity).</strong> For <span class="math inline">\(n \ge 2\)</span>: <span class="math display">\[
+\sum_{k=0}^{n-1}\omega^k \;=\; 0 \qquad \text{where } \omega = e^{2\pi i/n}. \tag{1}
+\]</span></p>
 </div>
 </section>
-<section id="derivation" class="level2">
-<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
-<p>Geometric sum: <span class="math inline">\(\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n - 1}{\omega - 1} = \frac{0}{\omega-1} = 0\)</span> since <span class="math inline">\(\omega \ne 1\)</span>.</p>
+<section id="derivation-a-geometric-series-one-line" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-geometric-series-one-line">1.2 Derivation A — Geometric series (one line)</h3>
+<p><span class="math inline">\(\omega^n = e^{2\pi i} = 1\)</span> by Euler’s formula, so <span class="math inline">\(\omega\)</span> is a root of <span class="math inline">\(z^n - 1\)</span>. For <span class="math inline">\(\omega \ne 1\)</span> (i.e.&nbsp;<span class="math inline">\(n\ge 2\)</span>): <span class="math display">\[
+\sum_{k=0}^{n-1}\omega^k = \frac{\omega^n - 1}{\omega - 1} = \frac{0}{\omega - 1} = 0. \quad\blacksquare \tag{2}
+\]</span></p>
+<p><strong>Weakest step:</strong> the division in (2) is only valid because <span class="math inline">\(\omega \ne 1\)</span>; the case <span class="math inline">\(n=1\)</span> (where <span class="math inline">\(\omega=1\)</span> and the sum is trivially 1) is correctly excluded by the hypothesis <span class="math inline">\(n\ge 2\)</span>.</p>
+</section>
+<section id="derivation-b-rotational-invariance-the-symmetry-argument" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-rotational-invariance-the-symmetry-argument">1.3 Derivation B — Rotational invariance (the symmetry argument)</h3>
+<p>Let <span class="math inline">\(R := \sum_{k=0}^{n-1}\omega^k \in \mathbb C\)</span>. Multiply both sides by <span class="math inline">\(\omega\)</span>: <span class="math display">\[
+\omega R = \sum_{k=0}^{n-1}\omega^{k+1} = \sum_{j=1}^{n}\omega^{j} = \omega^n + \sum_{j=1}^{n-1}\omega^j = 1 + \sum_{j=1}^{n-1}\omega^j. \tag{3}
+\]</span> The right side of (3) is just <span class="math inline">\(\sum_{j=0}^{n-1}\omega^j = R\)</span> with indices shifted by one. Hence: <span class="math display">\[
+\omega R = R \quad\Longrightarrow\quad (\omega - 1) R = 0. \tag{4}
+\]</span> Since <span class="math inline">\(\omega \ne 1\)</span>, <span class="math inline">\(R = 0\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Weakest step:</strong> the shift-of-indices step in (3) is the load-bearing move; it works because multiplication by <span class="math inline">\(\omega\)</span> <em>permutes</em> the set <span class="math inline">\(\{1,\omega,\dots,\omega^{n-1}\}\)</span> — exactly the geometric image of the multiplication-permutation argument from Sep 13 morning.</p>
+</section>
+<section id="derivation-c-concatenation-as-a-closed-polygon-holmess-argument" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-c-concatenation-as-a-closed-polygon-holmess-argument">1.4 Derivation C — Concatenation as a closed polygon (Holmes’s argument)</h3>
+<p>Think of each <span class="math inline">\(\omega^k\)</span> as a unit vector. Place them tip-to-tail. The angle between consecutive vectors (after concatenation) is constant: each next vector is the previous one rotated by <span class="math inline">\(2\pi/n\)</span>. After <span class="math inline">\(n\)</span> steps, the cumulative rotation is <span class="math inline">\(2\pi\)</span>, returning to the original direction. The resulting path is a <strong>closed regular <span class="math inline">\(n\)</span>-gon</strong>, hence the total displacement (= the sum) is zero. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Weakest step:</strong> “the path closes” relies on the fact that turning by <span class="math inline">\(2\pi/n\)</span> at each of <span class="math inline">\(n\)</span> steps brings the heading back to where it started — true by elementary trigonometry, but the <em>geometric closure</em> of the path requires the side lengths to be uniform (they are, all = 1) and the turning angle constant. Both hold; the argument is rigorous but appeals to geometric intuition for the polygon-closure step.</p>
+</section>
+<section id="comparison" class="level3">
+<h3 class="anchored" data-anchor-id="comparison">1.5 Comparison</h3>
+<ul>
+<li><strong>A</strong> is the shortest and most algebraic. Imports the geometric series identity (one-line lemma).</li>
+<li><strong>B</strong> is the most <em>structurally illuminating</em> — it makes the connection to group symmetry (`multiplication by <span class="math inline">\(\omega\)</span> is a bijection’) explicit. It is also the proof shape that generalises: e.g., for any character <span class="math inline">\(\chi\)</span> of a finite group <span class="math inline">\(G\)</span> with <span class="math inline">\(\chi \ne 1\)</span>, <span class="math inline">\(\sum_g \chi(g) = 0\)</span>.</li>
+<li><strong>C</strong> is the most <em>visual</em> and easiest to teach. The polygon-closure step is essentially Cavalieri-flavour reasoning; rigorous but visual.</li>
+</ul>
+<p>All three give the same result and pairwise reinforce each other. <strong>A</strong> is most airtight; <strong>C</strong> is the most pedagogically valuable.</p>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">1.6 Verification</h3>
+<ul>
+<li><strong><span class="math inline">\(n=4\)</span></strong>: <span class="math inline">\(1 + i + (-1) + (-i) = 0\)</span>. ✓</li>
+<li><strong><span class="math inline">\(n=3\)</span></strong>: <span class="math inline">\(1 + e^{2\pi i/3} + e^{4\pi i/3} = 1 + (-\tfrac12 + \tfrac{\sqrt 3}{2}i) + (-\tfrac12 - \tfrac{\sqrt 3}{2}i) = 0\)</span>. ✓</li>
+<li><strong><span class="math inline">\(n=19\)</span> (in-class example)</strong>: 19 is prime; the 19 vectors are spaced <span class="math inline">\(\approx 18.95°\)</span> apart, none diametrically opposite, yet sum to 0. The pair-up-by-conjugates trick <strong>fails to show this directly</strong> (Holmes’s first attempt) — it only proves the imaginary part is 0. Derivation B is the cleanest way to see the real part is also 0.</li>
+<li><strong><span class="math inline">\(n=5\)</span> (regular pentagon)</strong>: no diametric pairs at all, yet sum = 0 by Derivation C (closed pentagon).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-ii-order-of-an-element-divides-varphin" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-order-of-an-element-divides-varphin">Part II — Order of an element divides <span class="math inline">\(\varphi(n)\)</span></h2>
+<section id="statement-1" class="level3">
+<h3 class="anchored" data-anchor-id="statement-1">2.1 Statement</h3>
+<div class="theorem">
+<p><strong>(Order divides totient).</strong> For any <span class="math inline">\(a\)</span> with <span class="math inline">\(\gcd(a,n)=1\)</span>, <span class="math inline">\(\text{ord}_n(a) \mid \varphi(n)\)</span>. <span class="math inline">\(\tag{5}\)</span></p>
+</div>
+</section>
+<section id="derivation-euclidean-division-contradiction" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-euclidean-division-contradiction">2.2 Derivation — Euclidean division contradiction</h3>
+<p>Let <span class="math inline">\(r = \text{ord}_n(a)\)</span>, so <span class="math inline">\(a^r \equiv 1 \pmod n\)</span> and <span class="math inline">\(r\)</span> is minimal. By Euler (Sep 13 AM), <span class="math inline">\(a^{\varphi(n)} \equiv 1\)</span>. Write <span class="math display">\[
+\varphi(n) = qr + s, \qquad 0 \le s &lt; r \tag{6}
+\]</span> (Euclidean division). Then <span class="math display">\[
+a^{\varphi(n)} = (a^r)^q \cdot a^s \equiv 1^q \cdot a^s = a^s \pmod n. \tag{7}
+\]</span> Combining with <span class="math inline">\(a^{\varphi(n)} \equiv 1\)</span>: <span class="math display">\[
+a^s \equiv 1 \pmod n. \tag{8}
+\]</span> But <span class="math inline">\(0\le s &lt; r\)</span> and <span class="math inline">\(r\)</span> is the <em>smallest</em> positive exponent with <span class="math inline">\(a^r\equiv 1\)</span>. The only consistent value is <span class="math inline">\(s = 0\)</span>, hence <span class="math inline">\(r \mid \varphi(n)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Weakest step:</strong> the minimality of <span class="math inline">\(r\)</span> in the definition of order is doing the work in step (8). If <span class="math inline">\(r\)</span> were merely “an exponent that works” rather than the smallest, the conclusion would fail. This is why the proof is by contradiction on <span class="math inline">\(s\ne 0\)</span>.</p>
+</section>
+<section id="verification-on-n18" class="level3">
+<h3 class="anchored" data-anchor-id="verification-on-n18">2.3 Verification on <span class="math inline">\(n=18\)</span></h3>
+<p><span class="math inline">\(\varphi(18) = 18\cdot(1-\tfrac12)(1-\tfrac13) = 6\)</span>. Compute orders in <span class="math inline">\((\mathbb Z/18\mathbb Z)^\times = \{1,5,7,11,13,17\}\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(a\)</span></th>
+<th><span class="math inline">\(a^2\)</span></th>
+<th><span class="math inline">\(a^3\)</span></th>
+<th><span class="math inline">\(a^6\)</span></th>
+<th><span class="math inline">\(\text{ord}(a)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>7</td>
+<td>17</td>
+<td>1</td>
+<td><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>13</td>
+<td>1</td>
+<td>1</td>
+<td><strong>3</strong></td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>13</td>
+<td>17</td>
+<td>1</td>
+<td><strong>6</strong></td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td><strong>3</strong></td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>1</td>
+<td>17</td>
+<td>1</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>All orders <span class="math inline">\(\in \{1,2,3,6\}\)</span> = divisors of 6 = <span class="math inline">\(\varphi(18)\)</span>. ✓</p>
+<p><strong>Trick spotted in class:</strong> <span class="math inline">\(5\cdot 7 = 35 \equiv -1 \pmod{18}\)</span>. So <span class="math inline">\(5^3 = ?\)</span>: directly <span class="math inline">\(125 = 6\cdot 18 + 17 \equiv -1\)</span>, so <span class="math inline">\(5^6 \equiv 1\)</span> but <span class="math inline">\(5^3 \equiv -1 \ne 1\)</span>, confirming <span class="math inline">\(\text{ord}(5)=6\)</span>. And <span class="math inline">\(7^3 \equiv (5\cdot 7)^3 / 5^3 \equiv (-1)^3 / (-1) = 1\)</span>, confirming <span class="math inline">\(\text{ord}(7)=3\)</span>. ✓</p>
+<p><strong>Definition.</strong> <span class="math inline">\(a\)</span> is a <strong>primitive root mod <span class="math inline">\(n\)</span></strong> iff <span class="math inline">\(\text{ord}_n(a) = \varphi(n)\)</span> — i.e., it achieves the maximum cycle length. Above: <span class="math inline">\(5\)</span> and <span class="math inline">\(11\)</span> are primitive roots mod 18.</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-last-three-digits-of-72025-homework-warmup" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-last-three-digits-of-72025-homework-warmup">Part III — Last three digits of <span class="math inline">\(7^{2025}\)</span> (homework warmup)</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">3.1 Setup</h3>
+<p>Last three digits = mod 1000. <span class="math inline">\(\varphi(1000) = 1000\cdot(1-\tfrac12)(1-\tfrac15) = 400\)</span>. Since <span class="math inline">\(\gcd(7,1000)=1\)</span>, Euler: <span class="math inline">\(7^{400}\equiv 1\)</span>, so <span class="math inline">\(7^{2025} = 7^{5\cdot 400 + 25} \equiv 7^{25} \pmod{1000}\)</span>.</p>
+</section>
+<section id="derivation-a-binomial-50-112-in-mod-1000" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-binomial-50-112-in-mod-1000">3.2 Derivation A — Binomial <span class="math inline">\((50-1)^{12}\)</span> in mod 1000</h3>
+<p><span class="math inline">\(7^{25} = 7\cdot 49^{12} = 7\cdot(50-1)^{12}\)</span>. Expand keeping only <span class="math inline">\(50^0\)</span> and <span class="math inline">\(50^1\)</span> (since <span class="math inline">\(50^2 = 2500 \equiv 500\)</span>, which is <em>not</em> zero mod 1000 — and its coefficient <span class="math inline">\(\binom{12}{2}=66\)</span> is even, so <span class="math inline">\(66\cdot 500 = 33000 \equiv 0\)</span>, but <span class="math inline">\(50^3 = 125000 \equiv 0\)</span> for sure):</p>
+<p>Lower-order terms only: <span class="math display">\[
+(50-1)^{12} \equiv (-1)^{12} + \binom{12}{1}\cdot 50\cdot(-1)^{11} + \binom{12}{2}\cdot 50^2\cdot(-1)^{10} \pmod{1000}. \tag{9}
+\]</span> <span class="math display">\[
+\equiv 1 - 600 + 66\cdot 2500 = 1 - 600 + 165000 \equiv 1 - 600 + 0 = -599 \equiv 401 \pmod{1000}. \tag{10}
+\]</span> (Since <span class="math inline">\(66\cdot 2500 = 165000\)</span>, and <span class="math inline">\(165000 / 1000 = 165\)</span> exactly, so <span class="math inline">\(\equiv 0\)</span>.)</p>
+<p>Hence <span class="math inline">\(7^{25} \equiv 7\cdot 401 = 2807 \equiv 807 \pmod{1000}\)</span>.</p>
+</section>
+<section id="derivation-b-crt-into-mod-8-mod-125" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-crt-into-mod-8-mod-125">3.3 Derivation B — CRT into mod 8 + mod 125</h3>
+<p><span class="math inline">\(1000 = 8\cdot 125\)</span>, coprime.</p>
+<p><strong>Mod 8:</strong> <span class="math inline">\(7\equiv -1\)</span>, so <span class="math inline">\(7^{25} \equiv -1 \equiv 7 \pmod 8\)</span>.</p>
+<p><strong>Mod 125:</strong> <span class="math inline">\(\varphi(125) = 100\)</span>, so <span class="math inline">\(7^{100}\equiv 1\)</span> but 25 &lt; 100, no reduction. Use binomial: <span class="math inline">\(7^{25} = 7\cdot(50-1)^{12}\)</span> mod 125. Since <span class="math inline">\(50^2 = 2500 = 20\cdot 125\)</span>, <span class="math inline">\(50^2\equiv 0\pmod{125}\)</span>: <span class="math display">\[
+(50-1)^{12} \equiv 1 - 600 \equiv 1 - (4\cdot 125 + 100) \equiv -100 \equiv 25 \pmod{125}. \tag{11}
+\]</span> So <span class="math inline">\(7^{25} \equiv 7\cdot 25 = 175 \equiv 50 \pmod{125}\)</span>.</p>
+<p><strong>Wait</strong> — let me cross-check (11). <span class="math inline">\(-600 \pmod{125}\)</span>: <span class="math inline">\(600 = 4\cdot 125 + 100\)</span>, so <span class="math inline">\(-600 \equiv -100 \equiv 25 \pmod{125}\)</span>. Then <span class="math inline">\(1+25 = 26\)</span>, so <span class="math inline">\((50-1)^{12}\equiv 26\)</span>, and <span class="math inline">\(7\cdot 26 = 182 \equiv 57 \pmod{125}\)</span>.</p>
+<p><strong>(Transcript correction.)</strong> The in-class teacher computed <span class="math inline">\(7\cdot 26 = 182 \equiv 57 \pmod{125}\)</span> — which matches my recomputation. So <span class="math inline">\(7^{25} \equiv 57 \pmod{125}\)</span>, not 50.</p>
+<p><strong>CRT recombination.</strong> Find <span class="math inline">\(x\in\{0,\dots,999\}\)</span> with <span class="math inline">\(x\equiv 57\pmod{125}\)</span> and <span class="math inline">\(x\equiv 7\pmod 8\)</span>.</p>
+<p>Candidates <span class="math inline">\(\{57, 57+250, 57+500, 57+750\} = \{57, 307, 557, 807\}\)</span> (skipping 250 at a time to preserve oddness). Check mod 8: <span class="math inline">\(57\bmod 8 = 1\)</span>; <span class="math inline">\(307\bmod 8 = 3\)</span>; <span class="math inline">\(557\bmod 8 = 5\)</span>; <span class="math inline">\(807\bmod 8 = 7\)</span>. ✓ So <span class="math display">\[
+7^{2025} \equiv 807 \pmod{1000}. \tag{12}
+\]</span> Last three digits: <strong>807</strong>. Both A and B agree.</p>
+</section>
+<section id="sanity-by-direct-cycle" class="level3">
+<h3 class="anchored" data-anchor-id="sanity-by-direct-cycle">3.4 Sanity by direct cycle</h3>
+<p>From Sep 13 morning §3.4: <span class="math inline">\(7^4 \equiv 1\pmod{100}\)</span> (order 4 mod 100). What’s the order mod 1000? Compute: <span class="math inline">\(7^4 = 2401\)</span>; <span class="math inline">\(7^{20} = (2401)^5\)</span> — too tedious by hand. But from CRT: order mod 1000 = lcm(order mod 8, order mod 125). Order mod 8: <span class="math inline">\(7\equiv -1\)</span>, so order 2. Order mod 125: <span class="math inline">\(7\)</span> has order dividing <span class="math inline">\(\varphi(125)=100\)</span>; from <span class="math inline">\(7^{25}\equiv 57\not\equiv 1\)</span>, order doesn’t divide 25; checking, the order is 100. So lcm<span class="math inline">\((2,100)=100\)</span>. Thus <span class="math inline">\(7\)</span> has order <strong>100 mod 1000</strong>, and <span class="math inline">\(7^{2025} = 7^{20\cdot 100 + 25} \equiv 7^{25} \equiv 807 \pmod{1000}\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iv-counting-symmetries-of-square-and-cube" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-counting-symmetries-of-square-and-cube">Part IV — Counting symmetries of square and cube</h2>
+<section id="square-d_4-8" class="level3">
+<h3 class="anchored" data-anchor-id="square-d_4-8">4.1 Square: <span class="math inline">\(|D_4| = 8\)</span></h3>
+<p><strong>Definition.</strong> A <em>symmetry</em> of a labelled figure is a geometric operation (rotation, reflection, or composition) that preserves the adjacency relationship of vertices.</p>
+<p><strong>Direct enumeration.</strong> Rotations by <span class="math inline">\(0°, 90°, 180°, 270°\)</span> (= 4 rotations). Reflections across 4 axes (2 through opposite vertices, 2 through edge midpoints). Total: <strong>8</strong>. ✓</p>
+<p><strong>Combinatorial count.</strong> Place vertex labelled “1” in any of 4 corners (4 choices). Place “2” in either of the two neighbours of “1” (2 choices: clockwise or counterclockwise). Remaining vertices are then forced. Total: <span class="math inline">\(4\times 2 = 8\)</span>. ✓</p>
+</section>
+<section id="cube-48-symmetries" class="level3">
+<h3 class="anchored" data-anchor-id="cube-48-symmetries">4.2 Cube: 48 symmetries</h3>
+<p><strong>Combinatorial count.</strong> Place “1” at any of 8 vertices. Place “2” at any of its 3 neighbours. Place “5” (the vertex opposite to one of the <em>remaining</em> two neighbours of vertex 1, chosen as anchor) — 2 choices. Remaining 4 vertices forced. Total: <span class="math inline">\(8\times 3\times 2 = 48\)</span>. ✓</p>
+<p><strong>Why direct enumeration is hard.</strong> The teacher reports counting <span class="math inline">\(36\)</span> or <span class="math inline">\(42\)</span> on first attempts; the missing symmetries are the <strong>turn-flips</strong> (improper rotations: composition of a rotation with a reflection through the cube’s centre). These are not easily visualised — Wikipedia’s animation is recommended.</p>
+<p><strong>Group structure (forward pointer).</strong> The 48 symmetries form a group <span class="math inline">\(\cong S_4 \times \mathbb Z_2\)</span>: - <span class="math inline">\(S_4\)</span> (<span class="math inline">\(|S_4|=24\)</span>) acts as the rotation group of the cube (= permutation group on the 4 long diagonals). - <span class="math inline">\(\mathbb Z_2\)</span> is the central inversion (point reflection through centre). - <span class="math inline">\(24\times 2 = 48\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-v-connection-between-modular-and-geometric-symmetry" class="level2">
+<h2 class="anchored" data-anchor-id="part-v-connection-between-modular-and-geometric-symmetry">Part V — Connection between modular and geometric symmetry</h2>
+<p>The three threads of this lesson are <em>one structure</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symmetry source</th>
+<th>Operation</th>
+<th>Invariance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((\mathbb Z/n\mathbb Z)^\times\)</span>, multiplication by <span class="math inline">\(a\)</span></td>
+<td>permutes the unit set</td>
+<td><span class="math inline">\(\prod x_i\)</span> is invariant (Fermat/Euler)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(n\)</span>-th roots of unity, multiplication by <span class="math inline">\(\omega\)</span></td>
+<td>rotation, permutes the vector set</td>
+<td><span class="math inline">\(\sum \omega^k\)</span> is invariant ⇒ <span class="math inline">\(=0\)</span></td>
+</tr>
+<tr class="odd">
+<td>Square/cube, geometric operations</td>
+<td>permute the vertex set</td>
+<td>the figure is invariant</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Connection arrow.</strong> Derivation B of (1) is the <em>exact</em> geometric analogue of Derivation A of Fermat (Sep 13 morning, eq (2)–(4)). Both invoke: “multiplication by an element permutes a finite set; therefore the sum/product is fixed.” This is the start of the <em>representation theory of finite groups</em> — the unifying language for symmetry in algebra and geometry.</p>
+<hr>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[\boxed{\text{Finite group } G \xrightarrow{\text{acts on itself}} \text{ permutation } \xrightarrow{\text{sum / product invariant}} \text{numerical identity}}\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Realisation</th>
+<th><span class="math inline">\(G\)</span></th>
+<th>Identity proved</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Multiplication mod <span class="math inline">\(p\)</span></td>
+<td><span class="math inline">\((\mathbb Z/p\mathbb Z)^\times\)</span></td>
+<td><span class="math inline">\(a^{p-1}\equiv 1\)</span> (Fermat)</td>
+</tr>
+<tr class="even">
+<td>Multiplication mod <span class="math inline">\(n\)</span></td>
+<td><span class="math inline">\((\mathbb Z/n\mathbb Z)^\times\)</span></td>
+<td><span class="math inline">\(a^{\varphi(n)}\equiv 1\)</span> (Euler)</td>
+</tr>
+<tr class="odd">
+<td>Rotation of <span class="math inline">\(\mathbb C\)</span></td>
+<td><span class="math inline">\(\langle\omega\rangle = \mathbb Z/n\mathbb Z\)</span></td>
+<td><span class="math inline">\(\sum\omega^k = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>Symmetries of <span class="math inline">\(n\)</span>-gon</td>
+<td><span class="math inline">\(D_n\)</span></td>
+<td><span class="math inline">\(|D_n| = 2n\)</span></td>
+</tr>
+<tr class="odd">
+<td>Symmetries of cube</td>
+<td><span class="math inline">\(S_4\times\mathbb Z_2\)</span></td>
+<td><span class="math inline">\(|G|=48\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary; <span class="math inline">\(D_n, S_n\)</span> added for Part IV. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(12), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Angles counterclockwise (declared in Primitive notions); <span class="math inline">\(-1\)</span> used for <span class="math inline">\(7\bmod 8\)</span> is the “free substitution” convention. ✓</li>
+<li><strong>Every implication follows?</strong> Index shift in (3) → (4): explicit. Cancellation in (4) requires <span class="math inline">\(\omega\ne 1\)</span>: stated. CRT recombination in (12): enumeration shown. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Euler’s formula imported (proven Sep 20); geometric series identity imported (one-line algebra); Euler theorem imported (Sep 13 AM). ✓</li>
+<li><strong>Counterexample / source correction.</strong> Transcript’s claim “<span class="math inline">\(7\cdot 25 = 175 \equiv 50 \pmod{125}\)</span>” recomputed and corrected to <span class="math inline">\(7\cdot 26 = 182 \equiv 57 \pmod{125}\)</span> in §3.3 — the coefficient was off by one because <span class="math inline">\((50-1)^{12} \equiv 1 - 600 \equiv 26\)</span>, not 25. Final answer 807 is unchanged because the CRT step is robust. ✓ (Diagnostic: arithmetic slip in the middle, not a conceptual error.)</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(n\in\{3,4,5,19\}\)</span> for (1); <span class="math inline">\(n=18\)</span> for order divisibility (full table); square (<span class="math inline">\(|D_4|=8\)</span>) and cube (<span class="math inline">\(48\)</span>) for symmetry counts. ✓</li>
+<li><strong>Weakest step named?</strong> Done after each of Derivations A, B, C in Part I; after derivation in Part II. ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Eq (3) index shift “is just <span class="math inline">\(R\)</span>”</td>
+<td>Relies on <span class="math inline">\(\omega\)</span> permuting the index set</td>
+<td>Permutation explicit: <span class="math inline">\(\omega \cdot \omega^k = \omega^{k+1}\)</span>, with <span class="math inline">\(\omega^n = 1\)</span> wrapping around</td>
+</tr>
+<tr class="even">
+<td>Holmes’s pair-conjugates first attempt</td>
+<td>Only proves <span class="math inline">\(\Im(R)=0\)</span>, not <span class="math inline">\(\Re(R)=0\)</span></td>
+<td>Use Derivation B for full result; pair-up works only when <span class="math inline">\(n\)</span> even or for the real-part argument alone</td>
+</tr>
+<tr class="odd">
+<td>Transcript <span class="math inline">\(7\cdot 25 = 175\)</span></td>
+<td>Off-by-one in coefficient (should be 26)</td>
+<td>Recompute: <span class="math inline">\(1 - 600 \equiv 26 \pmod{125}\)</span>, so <span class="math inline">\(7\cdot 26 = 182 \equiv 57\)</span>. Final answer (807) unaffected</td>
+</tr>
+<tr class="even">
+<td>Cube count by direct enumeration</td>
+<td>Easy to miss turn-flips</td>
+<td>Use combinatorial count <span class="math inline">\(8\cdot 3\cdot 2 = 48\)</span> instead</td>
+</tr>
+<tr class="odd">
+<td>Derivation C polygon closure</td>
+<td>Visual; relies on uniform sides + uniform turning angle</td>
+<td>Both conditions hold (<span class="math inline">\(\lvert\omega^k\rvert=1\)</span>, turning by <span class="math inline">\(2\pi/n\)</span>); rigorous but visual</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><span class="math inline">\(n=4\)</span>: roots <span class="math inline">\(1, i, -1, -i\)</span>; sum <span class="math inline">\(= 0\)</span> ✓.</li>
-<li><span class="math inline">\(z^3 - 1 = (z-1)(z^2 + z + 1)\)</span>, so <span class="math inline">\(\Phi_3 = z^2 + z + 1\)</span> with roots <span class="math inline">\(\omega, \omega^2 = e^{\pm 2\pi i/3}\)</span>.</li>
-<li><span class="math inline">\(|z|^n = 1 \Rightarrow |z| = 1\)</span> ✓ (real-positive cube root).</li>
+<li><strong>Next brick (Sep 20):</strong> prove <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span> rigorously — Euler’s formula, used as imported here. The connection <span class="math inline">\(\omega = e^{2\pi i/n}\)</span> becomes a <em>theorem</em>, not a definition.</li>
+<li><strong>Forward (Sep 27):</strong> solve <span class="math inline">\(\cos\theta = a\)</span> for arbitrary (even complex) <span class="math inline">\(a\)</span> via <span class="math inline">\(z + z^{-1} = 2a\)</span> — uses the same algebraic toolbox developed here.</li>
+<li><strong>Deferred from class (homework):</strong> (i) prove <span class="math inline">\(\sum\omega^k = 0\)</span> in your favourite style — the “one-line proof” challenge is Derivation A. (ii) Read AoPS Precalculus Ch 7 (Unit-roots filter) for the application to combinatorial identities, e.g.&nbsp;<span class="math inline">\(\sum_{k\equiv 0 \pmod n}\binom{N}{k}\)</span>.</li>
+<li><strong>Group-theoretic frame (not in class):</strong> the result <em>order divides <span class="math inline">\(\varphi(n)\)</span></em> is <strong>Lagrange’s theorem</strong> restricted to the cyclic subgroup <span class="math inline">\(\langle a\rangle \subset (\mathbb Z/n\mathbb Z)^\times\)</span>. The general statement: in any finite group <span class="math inline">\(G\)</span>, the order of every element divides <span class="math inline">\(|G|\)</span>.</li>
+<li><strong>Competition note (teacher’s aside).</strong> Teacher explicitly <em>deprioritises</em> AMC/MathCount training: “rigged, time-consuming, doesn’t pay off for college.” Direction is conceptual math, not contest tricks.</li>
+<li><strong>Open question for later:</strong> when is <span class="math inline">\((\mathbb Z/n\mathbb Z)^\times\)</span> cyclic? Answer (not derived in class): exactly when <span class="math inline">\(n \in \{1, 2, 4, p^k, 2p^k\}\)</span> for odd prime <span class="math inline">\(p\)</span>. The non-cyclic cases are exactly where primitive roots fail to exist — e.g.&nbsp;mod 8.</li>
 </ul>
 </section>
 <section id="lecture-video" class="level2">
@@ -254,8 +654,12 @@ window.Quarto = {
 <video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-13-afternoon.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1RCl4pmjHLFB4rrRz_oFt89i_7kx771ho/view">Drive</a></p>
 </section>
-<section id="related-sep-13-morning-sep-20-morning" class="level2">
-<h2 class="anchored" data-anchor-id="related-sep-13-morning-sep-20-morning">Related: <a href="2025-09-13-morning.html">Sep 13 morning</a>, <a href="2025-09-20-morning.html">Sep 20 morning</a></h2>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-09-13-morning.html">Sep 13 morning</a> — Fermat/Euler theorems by multiplication-permutation argument (the algebraic shadow of today’s geometric symmetry).</li>
+<li><strong>Forward:</strong> <a href="2025-09-20-morning.html">Sep 20 morning</a> — proof of Euler’s formula <span class="math inline">\(e^{i\theta}=\cos\theta+i\sin\theta\)</span>.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-20">
 
-<title>Proof of Euler’s Formula via Additive and Multiplicative Functional Equations – Linear Algebra Notes</title>
+<title>Proof of Euler’s Formula via Additive Functional Equation and the Logarithm Bridge – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,11 +184,35 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-additive-functions-are-linear" id="toc-part-i-additive-functions-are-linear" class="nav-link" data-scroll-target="#part-i-additive-functions-are-linear">Part I — Additive functions are linear</a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#derivation-six-step-climb-integers-rationals-reals" id="toc-derivation-six-step-climb-integers-rationals-reals" class="nav-link" data-scroll-target="#derivation-six-step-climb-integers-rationals-reals">1.2 Derivation — Six-step climb (integers → rationals → reals)</a></li>
+  <li><a href="#alternative-derivation-b-constant-difference-argument-tobys-initial-attempt" id="toc-alternative-derivation-b-constant-difference-argument-tobys-initial-attempt" class="nav-link" data-scroll-target="#alternative-derivation-b-constant-difference-argument-tobys-initial-attempt">1.3 Alternative Derivation B — Constant-difference argument (Toby’s initial attempt)</a></li>
+  </ul></li>
+  <li><a href="#part-ii-from-multiplicative-ztheta-to-additive-log-ztheta" id="toc-part-ii-from-multiplicative-ztheta-to-additive-log-ztheta" class="nav-link" data-scroll-target="#part-ii-from-multiplicative-ztheta-to-additive-log-ztheta">Part II — From multiplicative <span class="math inline">\(z(\theta)\)</span> to additive <span class="math inline">\(\log z(\theta)\)</span></a>
+  <ul class="collapse">
+  <li><a href="#the-multiplicative-property" id="toc-the-multiplicative-property" class="nav-link" data-scroll-target="#the-multiplicative-property">2.1 The multiplicative property</a></li>
+  <li><a href="#logarithm-bridge" id="toc-logarithm-bridge" class="nav-link" data-scroll-target="#logarithm-bridge">2.2 Logarithm bridge</a></li>
+  <li><a href="#verification-of-16-at-theta0" id="toc-verification-of-16-at-theta0" class="nav-link" data-scroll-target="#verification-of-16-at-theta0">2.3 Verification of (16) at <span class="math inline">\(\theta=0\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-iii-determining-k-i-via-infinitesimal-expansion" id="toc-part-iii-determining-k-i-via-infinitesimal-expansion" class="nav-link" data-scroll-target="#part-iii-determining-k-i-via-infinitesimal-expansion">Part III — Determining <span class="math inline">\(k = i\)</span> via infinitesimal expansion</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">3.1 Setup</a></li>
+  <li><a href="#geometric-expansion-of-zdtheta" id="toc-geometric-expansion-of-zdtheta" class="nav-link" data-scroll-target="#geometric-expansion-of-zdtheta">3.2 Geometric expansion of <span class="math inline">\(z(d\theta)\)</span></a></li>
+  <li><a href="#equate-18-and-19" id="toc-equate-18-and-19" class="nav-link" data-scroll-target="#equate-18-and-19">3.3 Equate (18) and (19)</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">3.4 Conclusion</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">3.5 Verification</a></li>
+  </ul></li>
+  <li><a href="#part-iv-alternative-proof-via-ode-forward-pointer-not-used-in-class" id="toc-part-iv-alternative-proof-via-ode-forward-pointer-not-used-in-class" class="nav-link" data-scroll-target="#part-iv-alternative-proof-via-ode-forward-pointer-not-used-in-class">Part IV — Alternative proof via ODE (forward pointer, not used in class)</a></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
-  <li><a href="#related-sep-27-morning" id="toc-related-sep-27-morning" class="nav-link" data-scroll-target="#related-sep-27-morning">Related: Sep 27 morning</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -198,7 +222,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Proof of Euler’s Formula via Additive and Multiplicative Functional Equations</h1>
+<h1 class="title">Proof of Euler’s Formula via Additive Functional Equation and the Logarithm Bridge</h1>
 </div>
 
 
@@ -223,31 +247,294 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Proves <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span> by showing both sides satisfy the same functional equation <span class="math inline">\(f(\alpha+\beta) = f(\alpha)f(\beta)\)</span> with <span class="math inline">\(f(0)=1\)</span> and <span class="math inline">\(f'(0) = i\)</span>, then invoking uniqueness.</p>
+<p>Proves <span class="math inline">\(e^{i\theta} = \cos\theta + i\sin\theta\)</span> from first principles by: (i) deriving that every continuous additive function <span class="math inline">\(L: \mathbb R\to\mathbb R\)</span> has the form <span class="math inline">\(L(\theta)=k\theta\)</span>; (ii) recasting <span class="math inline">\(z(\theta) := \cos\theta + i\sin\theta\)</span> as multiplicative (<span class="math inline">\(z(\theta+\phi)=z(\theta)z(\phi)\)</span>) using trig angle-addition; (iii) bridging multiplicative to additive via natural log; (iv) pinning down the constant <span class="math inline">\(k=i\)</span> via infinitesimal expansion at <span class="math inline">\(\theta=0\)</span>.</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\theta, \phi\)</span></td>
+<td>real angles (radians)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(z(\theta)\)</span></td>
+<td>unit complex number with angle <span class="math inline">\(\theta\)</span>: <span class="math inline">\(\cos\theta + i\sin\theta\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(L(\theta)\)</span></td>
+<td>a generic additive real-valued function <span class="math inline">\(\mathbb R \to \mathbb R\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f(\theta) := \log z(\theta)\)</span></td>
+<td>composite of natural log with <span class="math inline">\(z\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\ln, \log\)</span></td>
+<td>natural logarithm (base <span class="math inline">\(e\)</span>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(C(\mathbb R)\)</span></td>
+<td>space of continuous functions on <span class="math inline">\(\mathbb R\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(k\)</span></td>
+<td>scalar constant in <span class="math inline">\(L(\theta)=k\theta\)</span> and <span class="math inline">\(z(\theta)=e^{k\theta}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d\theta\)</span></td>
+<td>infinitesimal angle increment (heuristic)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work over the real line <span class="math inline">\(\mathbb R\)</span> and the complex plane <span class="math inline">\(\mathbb C\)</span>. <strong>Convention:</strong> angles are in radians, measured counterclockwise from the positive real axis. <strong>Definitions:</strong> <span class="math inline">\(\cos\theta, \sin\theta\)</span> are defined <em>geometrically</em> as the <span class="math inline">\(x,y\)</span>-coordinates of the point on the unit circle at angle <span class="math inline">\(\theta\)</span>. The exponential <span class="math inline">\(e^x\)</span> is taken as defined via the limit <span class="math inline">\(e^x = \lim_{n\to\infty}(1+x/n)^n\)</span> (continuous compounding) or equivalently the power series <span class="math inline">\(\sum x^n/n!\)</span>. <strong>Not yet assumed:</strong> that <span class="math inline">\(e^{i\theta}\)</span> has <em>any</em> meaning when the exponent is imaginary — proving that is the whole point.</p>
+<p><strong>Imported lemmas:</strong> 1. <strong>Trig angle-addition formulas:</strong> <span class="math display">\[
+\cos(\theta+\phi) = \cos\theta\cos\phi - \sin\theta\sin\phi,\qquad \sin(\theta+\phi)=\sin\theta\cos\phi+\cos\theta\sin\phi. \tag{1}
+\]</span> Proven geometrically by dropping an altitude in a triangle with two given angles on the unit circle (homework). Imported here. 2. <strong>Rationals are dense in <span class="math inline">\(\mathbb R\)</span>:</strong> every real number is the limit of a Cauchy sequence of rationals (decimal expansion). 3. <strong>Logarithm functional equation:</strong> <span class="math inline">\(\log(ab) = \log a + \log b\)</span>, proven by setting <span class="math inline">\(a=e^x\)</span>, <span class="math inline">\(b=e^y\)</span> and computing <span class="math inline">\(ab = e^{x+y}\)</span> (single-page derivation).</p>
+<hr>
+</section>
+<section id="part-i-additive-functions-are-linear" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-additive-functions-are-linear">Part I — Additive functions are linear</h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Euler’s formula).</strong> For <span class="math inline">\(\theta \in \mathbb R\)</span>: <span class="math display">\[
-e^{i\theta} = \cos\theta + i\sin\theta. \tag{98}
+<p><strong>(Cauchy’s functional equation, continuous case).</strong> If <span class="math inline">\(L:\mathbb R\to\mathbb R\)</span> satisfies <span class="math display">\[
+L(\theta+\phi) = L(\theta) + L(\phi) \quad\text{for all }\theta,\phi\in\mathbb R \tag{2}
+\]</span> and <span class="math inline">\(L \in C(\mathbb R)\)</span>, then there exists <span class="math inline">\(k\in\mathbb R\)</span> such that <span class="math display">\[
+L(\theta) = k\theta. \tag{3}
 \]</span></p>
 </div>
-<div class="theorem">
-<p><strong>(De Moivre).</strong> <span class="math inline">\((\cos\theta + i\sin\theta)^n = \cos n\theta + i\sin n\theta\)</span>, immediate from (98).</p>
-</div>
 </section>
-<section id="derivation" class="level2">
-<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
-<p>Let <span class="math inline">\(f(\theta) = \cos\theta + i\sin\theta\)</span>. Trig sum formulas give <span class="math inline">\(f(\alpha+\beta) = f(\alpha)f(\beta)\)</span>: <span class="math display">\[
-(\cos\alpha + i\sin\alpha)(\cos\beta + i\sin\beta) = \cos(\alpha+\beta) + i\sin(\alpha+\beta). \tag{99}
-\]</span> And <span class="math inline">\(f(0) = 1\)</span>, <span class="math inline">\(f'(0) = -\sin 0 + i\cos 0 = i\)</span>. The unique solution of <span class="math inline">\(g'(\theta) = ig(\theta)\)</span>, <span class="math inline">\(g(0)=1\)</span>, is <span class="math inline">\(g(\theta) = e^{i\theta}\)</span>. So <span class="math inline">\(f = g\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-six-step-climb-integers-rationals-reals" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-six-step-climb-integers-rationals-reals">1.2 Derivation — Six-step climb (integers → rationals → reals)</h3>
+<p><strong>Step 1 — <span class="math inline">\(L(0) = 0\)</span>.</strong> Set <span class="math inline">\(\theta=\phi=0\)</span> in (2): <span class="math inline">\(L(0)+L(0)=L(0)\)</span>, so <span class="math inline">\(L(0)=0\)</span>. <span class="math inline">\(\tag{4}\)</span></p>
+<p><strong>Step 2 — <span class="math inline">\(L\)</span> is odd.</strong> Set <span class="math inline">\(\phi = -\theta\)</span> in (2): <span class="math inline">\(L(\theta)+L(-\theta)=L(0)=0\)</span>, so <span class="math inline">\(L(-\theta)=-L(\theta)\)</span>. <span class="math inline">\(\tag{5}\)</span></p>
+<p><strong>Step 3 — Integer multiples.</strong> Iterating (2): <span class="math inline">\(L(2\theta) = L(\theta)+L(\theta)=2L(\theta)\)</span>, and inductively <span class="math display">\[
+L(n\theta) = n L(\theta) \qquad \text{for } n \in \mathbb Z_{\ge 0}. \tag{6}
+\]</span> By (5), this extends to all <span class="math inline">\(n \in \mathbb Z\)</span>.</p>
+<p><strong>Step 4 — Rational multiples.</strong> Set <span class="math inline">\(\theta^\star = n\theta\)</span> in (6), so <span class="math inline">\(\theta = \theta^\star/n\)</span>. Then <span class="math inline">\(L(\theta^\star) = n L(\theta^\star/n)\)</span>, i.e. <span class="math display">\[
+L(\theta^\star/n) = \frac{1}{n} L(\theta^\star). \tag{7}
+\]</span> Combining (6) and (7) with <span class="math inline">\(\theta^\star\)</span> arbitrary: for any rational <span class="math inline">\(q = m/n\)</span> and any <span class="math inline">\(\theta\)</span>, <span class="math display">\[
+L(q\theta) = q L(\theta). \tag{8}
+\]</span></p>
+<p><strong>Step 5 — Define <span class="math inline">\(k\)</span>.</strong> Setting <span class="math inline">\(\theta=1\)</span> in (8): <span class="math inline">\(L(q) = q L(1)\)</span>. Define <span class="math inline">\(k := L(1)\)</span>. Then <span class="math display">\[
+L(q) = kq \qquad \text{for all }q\in\mathbb Q. \tag{9}
+\]</span></p>
+<p><strong>Step 6 — Pass to the reals via continuity (Lucas’s argument).</strong> For any <span class="math inline">\(x\in\mathbb R\)</span>, pick a sequence of rationals <span class="math inline">\(q_n \to x\)</span> (e.g.&nbsp;truncated decimal expansion: <span class="math inline">\(\pi \approx 3, 3.1, 3.14, 3.141, \dots\)</span>). Then by continuity of <span class="math inline">\(L\)</span>: <span class="math display">\[
+L(x) = \lim_{n\to\infty} L(q_n) = \lim_{n\to\infty} k q_n = k \lim_{n\to\infty} q_n = kx. \quad\blacksquare \tag{10}
+\]</span></p>
+<p><strong>Weakest step:</strong> Step 6 is the only one that uses continuity. <em>Without</em> the continuity assumption, the theorem is false — there exist (using the Axiom of Choice) wild solutions to (2) whose graph is dense in <span class="math inline">\(\mathbb R^2\)</span>. The continuity hypothesis is <em>load-bearing</em>, not cosmetic.</p>
+</section>
+<section id="alternative-derivation-b-constant-difference-argument-tobys-initial-attempt" class="level3">
+<h3 class="anchored" data-anchor-id="alternative-derivation-b-constant-difference-argument-tobys-initial-attempt">1.3 Alternative Derivation B — Constant-difference argument (Toby’s initial attempt)</h3>
+<p>Define <span class="math inline">\(\Delta(\phi) := L(\theta+\phi) - L(\theta)\)</span>. From (2): <span class="math inline">\(\Delta(\phi) = L(\phi)\)</span>, independent of <span class="math inline">\(\theta\)</span>. Hence <span class="math inline">\(L\)</span> has constant “first difference” — but this only shows the <em>integer</em> version. Toby’s argument got stuck at Step 3 (integers); the rational/real extension still requires Steps 4–6. The teacher’s six-step climb (Derivation A) is more systematic.</p>
+<p><strong>Comparison.</strong> A is the textbook proof; clean, complete. B is the intuition-first approach (Toby’s instinct: “constant rate of change”), which is correct but doesn’t finish the proof — it shows linearity on a <em>lattice</em>, not on <span class="math inline">\(\mathbb R\)</span>. The continuity step is missing.</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-from-multiplicative-ztheta-to-additive-log-ztheta" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-from-multiplicative-ztheta-to-additive-log-ztheta">Part II — From multiplicative <span class="math inline">\(z(\theta)\)</span> to additive <span class="math inline">\(\log z(\theta)\)</span></h2>
+<section id="the-multiplicative-property" class="level3">
+<h3 class="anchored" data-anchor-id="the-multiplicative-property">2.1 The multiplicative property</h3>
+<div class="theorem">
+<p><strong>(Multiplicativity of unit complex numbers).</strong> With <span class="math inline">\(z(\theta) := \cos\theta + i\sin\theta\)</span>, <span class="math display">\[
+z(\theta+\phi) = z(\theta)\,z(\phi). \tag{11}
+\]</span></p>
+</div>
+<p><em>Proof.</em> Multiply directly: <span class="math display">\[
+z(\theta)z(\phi) = (\cos\theta + i\sin\theta)(\cos\phi+i\sin\phi). \tag{12}
+\]</span> <span class="math display">\[
+= (\cos\theta\cos\phi - \sin\theta\sin\phi) + i(\sin\theta\cos\phi + \cos\theta\sin\phi). \tag{13}
+\]</span> Apply trig angle-addition (1): <span class="math inline">\(= \cos(\theta+\phi) + i\sin(\theta+\phi) = z(\theta+\phi)\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="logarithm-bridge" class="level3">
+<h3 class="anchored" data-anchor-id="logarithm-bridge">2.2 Logarithm bridge</h3>
+<p>Define <span class="math inline">\(f(\theta) := \log z(\theta)\)</span> (provisional — we choose a branch where <span class="math inline">\(z(0)=1\)</span> gives <span class="math inline">\(f(0)=0\)</span>). Apply <span class="math inline">\(\log\)</span> to (11): <span class="math display">\[
+\log z(\theta+\phi) = \log[z(\theta)z(\phi)] = \log z(\theta) + \log z(\phi). \tag{14}
+\]</span> I.e. <span class="math display">\[
+f(\theta+\phi) = f(\theta) + f(\phi). \tag{15}
+\]</span> <span class="math inline">\(f\)</span> is additive; continuous (composition of continuous <span class="math inline">\(\log\)</span> with continuous <span class="math inline">\(z\)</span>). By Theorem in §1.1, <span class="math inline">\(f(\theta) = k\theta\)</span> for some <span class="math inline">\(k\)</span>, i.e. <span class="math display">\[
+\log z(\theta) = k\theta \quad\Longleftrightarrow\quad z(\theta) = e^{k\theta}. \tag{16}
+\]</span></p>
+<p><strong>Weakest step:</strong> the use of <span class="math inline">\(\log\)</span> on a complex-valued <span class="math inline">\(z\)</span> implicitly assumes a branch choice. For unit complex numbers with continuous variation of <span class="math inline">\(\theta\)</span>, this is unambiguous if we take <span class="math inline">\(\log z(0)=0\)</span> and follow <span class="math inline">\(\theta\)</span> continuously. Branch consistency is a subtle point glossed over in class but technically required.</p>
+</section>
+<section id="verification-of-16-at-theta0" class="level3">
+<h3 class="anchored" data-anchor-id="verification-of-16-at-theta0">2.3 Verification of (16) at <span class="math inline">\(\theta=0\)</span></h3>
+<p><span class="math inline">\(z(0) = \cos 0 + i\sin 0 = 1\)</span>. RHS: <span class="math inline">\(e^{k\cdot 0} = e^0 = 1\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-determining-k-i-via-infinitesimal-expansion" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-determining-k-i-via-infinitesimal-expansion">Part III — Determining <span class="math inline">\(k = i\)</span> via infinitesimal expansion</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">3.1 Setup</h3>
+<p>Expand both sides of <span class="math inline">\(z(\theta) = e^{k\theta}\)</span> near <span class="math inline">\(\theta = 0\)</span> using a small increment <span class="math inline">\(d\theta\)</span>: <span class="math display">\[
+e^{k\,d\theta} = 1 + k\,d\theta + \frac{(k\,d\theta)^2}{2!} + \cdots \tag{17}
+\]</span> Keep only first-order terms in <span class="math inline">\(d\theta\)</span> (higher orders are negligible as <span class="math inline">\(d\theta\to 0\)</span>): <span class="math display">\[
+e^{k\,d\theta} \approx 1 + k\,d\theta. \tag{18}
+\]</span></p>
+</section>
+<section id="geometric-expansion-of-zdtheta" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-expansion-of-zdtheta">3.2 Geometric expansion of <span class="math inline">\(z(d\theta)\)</span></h3>
+<p>On the unit circle: <span class="math inline">\(z(d\theta)\)</span> is the unit vector at angle <span class="math inline">\(d\theta\)</span> from <span class="math inline">\(z(0)=1\)</span>. As <span class="math inline">\(d\theta\to 0\)</span>: - Magnitude of <span class="math inline">\(z(d\theta) - z(0)\)</span> equals the chord, which <span class="math inline">\(\to\)</span> the arc length <span class="math inline">\(= d\theta\)</span> (radian). - Direction is <strong>perpendicular</strong> to <span class="math inline">\(z(0)\)</span> on the unit circle — i.e., straight up the imaginary axis.</p>
+<p>Hence <span class="math display">\[
+z(d\theta) \approx 1 + i\,d\theta. \tag{19}
+\]</span></p>
+</section>
+<section id="equate-18-and-19" class="level3">
+<h3 class="anchored" data-anchor-id="equate-18-and-19">3.3 Equate (18) and (19)</h3>
+<p>From <span class="math inline">\(z(d\theta) = e^{k\,d\theta}\)</span>: <span class="math display">\[
+1 + k\,d\theta = 1 + i\,d\theta. \tag{20}
+\]</span> Cancel the <span class="math inline">\(1\)</span>, divide by <span class="math inline">\(d\theta\)</span> (nonzero): <span class="math display">\[
+k = i. \quad\blacksquare \tag{21}
+\]</span></p>
+<p><strong>Weakest step:</strong> The geometric claim in §3.2 that “the chord length <span class="math inline">\(\approx\)</span> arc length for small <span class="math inline">\(d\theta\)</span>” is the small-angle limit, valid up to error <span class="math inline">\(O(d\theta^3)\)</span>. The “direction perpendicular to <span class="math inline">\(z(0)\)</span>” relies on the radius-perpendicular-to-tangent property of the circle (Euclidean geometry).</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">3.4 Conclusion</h3>
+<div class="theorem">
+<p><strong>(Euler’s formula).</strong> For all <span class="math inline">\(\theta \in \mathbb R\)</span>: <span class="math display">\[
+e^{i\theta} = \cos\theta + i\sin\theta. \tag{22}
+\]</span></p>
+</div>
+<p>Substituting <span class="math inline">\(k=i\)</span> into (16). <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">3.5 Verification</h3>
+<ul>
+<li><span class="math inline">\(\theta = 0\)</span>: <span class="math inline">\(e^{0} = 1 = \cos 0 + i\sin 0\)</span>. ✓</li>
+<li><span class="math inline">\(\theta = \pi/2\)</span>: <span class="math inline">\(e^{i\pi/2} = ?\)</span> Should equal <span class="math inline">\(\cos(\pi/2)+i\sin(\pi/2) = i\)</span>. From the multiplicative property: <span class="math inline">\((e^{i\pi/2})^2 = e^{i\pi} = -1\)</span> (Euler’s identity), so <span class="math inline">\(e^{i\pi/2}\)</span> is a square root of <span class="math inline">\(-1\)</span> on the unit circle — i.e., <span class="math inline">\(\pm i\)</span>. Continuous variation from <span class="math inline">\(\theta=0\)</span> (<span class="math inline">\(z=1\)</span>) through <span class="math inline">\(\theta=\pi/2\)</span> traverses the upper half, so <span class="math inline">\(e^{i\pi/2} = +i\)</span>. ✓</li>
+<li><span class="math inline">\(\theta = \pi\)</span>: <span class="math inline">\(e^{i\pi} = \cos\pi + i\sin\pi = -1\)</span>. ✓ — <strong>Euler’s identity</strong> <span class="math inline">\(e^{i\pi} + 1 = 0\)</span>.</li>
+<li><span class="math inline">\(\theta = 2\pi\)</span>: <span class="math inline">\(e^{2\pi i} = 1\)</span>. ✓ — periodicity matches geometric “full turn.”</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-iv-alternative-proof-via-ode-forward-pointer-not-used-in-class" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-alternative-proof-via-ode-forward-pointer-not-used-in-class">Part IV — Alternative proof via ODE (forward pointer, not used in class)</h2>
+<p>The condition <span class="math inline">\(z'(\theta) = iz(\theta)\)</span> with <span class="math inline">\(z(0)=1\)</span> has a unique solution <span class="math inline">\(z(\theta) = e^{i\theta}\)</span> (standard ODE theory). Differentiate <span class="math inline">\(z(\theta) = \cos\theta + i\sin\theta\)</span>: <span class="math display">\[
+z'(\theta) = -\sin\theta + i\cos\theta = i(\cos\theta + i\sin\theta) = i\,z(\theta). \tag{23}
+\]</span> And <span class="math inline">\(z(0)=1\)</span>. By uniqueness, <span class="math inline">\(\cos\theta + i\sin\theta = e^{i\theta}\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Comparison with Part III’s proof.</strong> The ODE proof is one line if you know ODE uniqueness; the functional-equation proof of Parts I–III is conceptually richer (it reveals <em>why</em> additive structure forces linearity, and how continuity bridges rationals to reals). The class chose the latter for pedagogical depth.</p>
+<hr>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function class</th>
+<th>Defining equation</th>
+<th>Forced form (continuous case)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Additive <span class="math inline">\(L:\mathbb R\to\mathbb R\)</span></td>
+<td><span class="math inline">\(L(x+y)=L(x)+L(y)\)</span></td>
+<td><span class="math inline">\(L(x)=kx\)</span></td>
+</tr>
+<tr class="even">
+<td>Multiplicative <span class="math inline">\(M:\mathbb R\to\mathbb R_{&gt;0}\)</span></td>
+<td><span class="math inline">\(M(x+y)=M(x)M(y)\)</span></td>
+<td><span class="math inline">\(M(x)=e^{kx}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Unit complex <span class="math inline">\(z:\mathbb R\to S^1\)</span></td>
+<td><span class="math inline">\(z(\theta+\phi)=z(\theta)z(\phi)\)</span>, <span class="math inline">\(|z|=1\)</span></td>
+<td><span class="math inline">\(z(\theta)=e^{i\theta}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The logarithm is the <strong>dictionary</strong> between additive and multiplicative. Once you know this, every multiplicative functional equation reduces to additivity, which by continuity reduces to linearity.</p>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary, including <span class="math inline">\(f, L, k, C(\mathbb R)\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(23), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Counterclockwise angle convention declared in Primitive notions; the sign of <span class="math inline">\(i\,d\theta\)</span> in (19) follows from “upper half of unit circle” — verified at <span class="math inline">\(\theta=\pi/2\)</span> giving <span class="math inline">\(+i\)</span>, not <span class="math inline">\(-i\)</span>. ✓</li>
+<li><strong>Every implication follows?</strong> Cauchy’s functional eq → linear: six explicit steps. Multiplicative → additive: via <span class="math inline">\(\log\)</span>, one line. Determining <span class="math inline">\(k\)</span>: equate two expansions. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Trig angle-addition imported (proven in homework); rationals dense in reals (standard); log functional eq (one-page derivation, imported). All flagged. ✓</li>
+<li><strong>Counterexample minimal?</strong> Wild additive functions (without continuity) exist — flagged in §1.2 weakest step. Shows continuity is genuinely load-bearing. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(\theta\in\{0,\pi/2,\pi,2\pi\}\)</span> all verified. ✓</li>
+<li><strong>Weakest step named?</strong> Done after Theorem 1.1 derivation, after §2.2 (branch choice), after §3.2 (chord-arc approximation). ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Step 6 in (10): rationals → reals via continuity</td>
+<td>Without continuity hypothesis, theorem is false (wild Cauchy solutions exist)</td>
+<td>Continuity is a load-bearing axiom; explicitly required, not optional</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\log z(\theta)\)</span> in (14)</td>
+<td>Complex log is multi-valued</td>
+<td>Branch chosen by <span class="math inline">\(\log z(0)=0\)</span> + continuous variation; consistent on a simply-connected angle range</td>
+</tr>
+<tr class="odd">
+<td>Chord ≈ arc in §3.2</td>
+<td>True only as <span class="math inline">\(d\theta\to 0\)</span></td>
+<td>Higher-order terms in (17) drop out <em>because</em> of small-<span class="math inline">\(d\theta\)</span> limit; the approximation is the limit itself</td>
+</tr>
+<tr class="even">
+<td>Direction of <span class="math inline">\(z(d\theta)-1\)</span> is <span class="math inline">\(+i\)</span> not <span class="math inline">\(-i\)</span></td>
+<td>Sign convention dependent</td>
+<td>Counterclockwise convention (declared up front) gives <span class="math inline">\(+i\)</span>; verified at <span class="math inline">\(\theta=\pi/2\)</span> where <span class="math inline">\(e^{i\pi/2}=+i\)</span></td>
+</tr>
+<tr class="odd">
+<td>Toby’s “binomial expansion” phrasing</td>
+<td>Slightly imprecise; meant “power-series expansion of <span class="math inline">\(e^x\)</span>”</td>
+<td>Same content, correctly named</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><span class="math inline">\(\theta = \pi\)</span>: <span class="math inline">\(e^{i\pi} = -1 + 0i = -1\)</span> ✓ (Euler’s identity).</li>
-<li><span class="math inline">\(\theta = \pi/2\)</span>: <span class="math inline">\(e^{i\pi/2} = i\)</span> ✓.</li>
-<li>Multiplication of magnitudes: <span class="math inline">\(|e^{i\alpha}| \cdot |e^{i\beta}| = 1 \cdot 1 = 1 = |e^{i(\alpha+\beta)}|\)</span> ✓.</li>
+<li><strong>Next brick (Sep 27):</strong> apply Euler’s formula to solve <span class="math inline">\(\cos\theta = a\)</span> (and even <span class="math inline">\(\cos\theta = 2\)</span>, complex case) by setting <span class="math inline">\(z = e^{i\theta}\)</span> and reducing to a quadratic in <span class="math inline">\(z\)</span>.</li>
+<li><strong>Homework deferred:</strong> (i) complete the proof by writing out the determination of <span class="math inline">\(k=i\)</span> on paper; (ii) prove the trig angle-addition formulas (1) geometrically via altitude-drop on the unit circle.</li>
+<li><strong>Forward pointer:</strong> all linear recursions (Jan 2026 arc) will use <span class="math inline">\(e^{i\theta}\)</span> as the eigenfunction of the shift operator, via <span class="math inline">\(\lambda^n\)</span> with complex <span class="math inline">\(\lambda\)</span>. Eigenvalue theory (Feb 2026) inherits this complex-rotation language.</li>
+<li><strong>Open question (not in class):</strong> the functional-equation proof here generalises to Banach-space valued <span class="math inline">\(z\)</span> — the same Cauchy + log + linearise argument gives the matrix exponential <span class="math inline">\(e^{tA}\)</span> for any square matrix <span class="math inline">\(A\)</span>. This is the bridge to the <em>one-parameter group</em> perspective, central to Lie theory.</li>
+<li><strong>Pedagogical thread:</strong> the teacher emphasised “use what you’ve already proved.” Don’t re-derive <span class="math inline">\(e^x = \sum x^n/n!\)</span> from scratch every time. Mathematics is cumulative — secure a brick, then build on it.</li>
+<li><strong>Continuity at the boundary:</strong> the proof of Cauchy’s functional equation used continuity on <em>one point</em> (any point suffices, since shifts preserve additivity). This is the <em>weakest</em> hypothesis that makes the theorem work — measurability is enough; pointwise continuity at the origin is enough.</li>
 </ul>
 </section>
 <section id="lecture-video" class="level2">
@@ -255,8 +542,12 @@ e^{i\theta} = \cos\theta + i\sin\theta. \tag{98}
 <video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v2.0/2025-09-20-morning.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1MS1Kqww2l-C0s71phnbO6WjsITVfSQI5/view">Drive</a></p>
 </section>
-<section id="related-sep-27-morning" class="level2">
-<h2 class="anchored" data-anchor-id="related-sep-27-morning">Related: <a href="2025-09-27-morning.html">Sep 27 morning</a></h2>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-09-13-afternoon.html">Sep 13 afternoon</a> — used <span class="math inline">\(e^{i\theta}\)</span> as the definition of <span class="math inline">\(\omega\)</span>; this session <em>proves</em> that definition is justified.</li>
+<li><strong>Forward:</strong> <a href="2025-09-27-morning.html">Sep 27 morning</a> — applications of Euler’s formula to trigonometric equations.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

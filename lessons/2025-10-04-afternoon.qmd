@@ -1,32 +1,295 @@
 ---
-title: "Eccentricity Definition of Conics; Parabola as Borderline Case"
+title: "Eccentricity Definition of Conics: Parabola as the Borderline ε = 1 Case"
 date: 2025-10-04
 session: afternoon
-topics: [conic-sections, eccentricity, ellipse, hyperbola, parabola, directrix]
+topics: [conic-sections, eccentricity, ellipse, hyperbola, parabola, directrix, similarity]
 ---
 
 ## Lead
 
-Third equivalent definition: $\varepsilon = $ (dist to focus)/(dist to directrix). $\varepsilon<1$ ellipse, $\varepsilon=1$ parabola, $\varepsilon>1$ hyperbola.
+Derives the **third equivalent definition** of conic sections: $\varepsilon := PF/PL = $ (distance from $P$ to focus) / (distance from $P$ to directrix) is constant for points $P$ on the curve. Proves $\varepsilon = c/a$ for the ellipse by checking three points: vertex $A$, vertex $B$, and an arbitrary $P$. Establishes $\varepsilon < 1 \Leftrightarrow$ ellipse, $\varepsilon = 1 \Leftrightarrow$ parabola, $\varepsilon > 1 \Leftrightarrow$ hyperbola. Derives the parabola equation $x^2 = 4cy$ from the equidistant condition. Closes with the **all-parabolas-similar** result.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $\varepsilon$ | eccentricity, $\varepsilon \ge 0$ |
+| $F$ | focus point |
+| $L$ | directrix line |
+| $PF$ | Euclidean distance from $P$ to $F$ |
+| $PL$ | perpendicular distance from $P$ to line $L$ |
+| $A, B$ | vertices of ellipse at $(a, 0), (-a, 0)$ |
+| $P = (x_0, y_0)$ | arbitrary point on conic |
+| $a, b, c$ | as in Oct 4 morning: semi-axes and focal distance with $a^2 = b^2 + c^2$ (ellipse) or $c^2 = a^2 + b^2$ (hyperbola) |
+| $a^2/c$ | directrix location (perpendicular distance from centre to directrix for ellipse) |
+| $k$ | leading coefficient in $y = kx^2$ |
+
+## Primitive notions and assumptions
+
+We work in $\mathbb R^2$. **Convention:** ellipse in standard position from Oct 4 morning. **Definitions:** "directrix" $L$ is a vertical line (parallel to the minor axis); "point-to-line distance" $PL$ is the perpendicular distance. **Imported lemmas:** (i) ellipse focal property $d_1 + d_2 = 2a$ with $a^2 = b^2 + c^2$; (ii) hyperbola focal property $|d_1 - d_2| = 2a$ with $c^2 = a^2 + b^2$; (iii) Pythagorean theorem; (iv) algebraic identity $\sqrt{X^2} = |X|$.
+
+---
+
+## Part I — Eccentricity ratio is constant for the ellipse
+
+### 1.1 Setup
+
+Ellipse $x^2/a^2 + y^2/b^2 = 1$ with focus $F = F_2 = (c, 0)$ and (to be determined) directrix $L$: vertical line $x = a^2/c$. Note $a^2/c > a$ since $c < a$ for ellipse, so the directrix sits **outside** the ellipse on the right.
+
+### 1.2 Statement
 
 ::: {.theorem}
-**(Eccentricity).** Ellipse: $PF/PL = c/a = \varepsilon < 1$. $\tag{90}$
+**(Eccentricity = $c/a$ for ellipse).** For every $P = (x_0, y_0)$ on the ellipse,
+$$
+\frac{PF}{PL} = \frac{c}{a} = \varepsilon < 1. \tag{1}
+$$
 :::
+
+### 1.3 Derivation A — Two special points first (vertex check)
+
+**Point $A = (a, 0)$ (right vertex).**
+
+- $AF = a - c$ (since $A$ is to the right of nothing on the focus side... actually $A=(a,0)$ and $F=(c,0)$, $a > c$, so $AF = a - c$).
+- $AL = a^2/c - a = (a^2 - ac)/c = a(a-c)/c$.
+- Ratio:
+$$
+\frac{AF}{AL} = \frac{a-c}{a(a-c)/c} = \frac{c}{a}. \tag{2}
+$$
+
+**Point $B = (-a, 0)$ (left vertex).**
+
+- $BF = a + c$ ($B$ to the left of $F$ by distance $a+c$).
+- $BL = a^2/c - (-a) = a^2/c + a = a(a+c)/c$.
+- Ratio:
+$$
+\frac{BF}{BL} = \frac{a+c}{a(a+c)/c} = \frac{c}{a}. \tag{3}
+$$
+
+Both special points give ratio $c/a$. Encouraging.
+
+### 1.4 Derivation B — Arbitrary point
+
+For $P = (x_0, y_0)$ on the ellipse:
+
+**Denominator $PL$.** Directrix is vertical at $x = a^2/c$. Perpendicular distance:
+$$
+PL = \frac{a^2}{c} - x_0. \tag{4}
+$$
+(Algebraic difference; positive since $x_0 \le a < a^2/c$.)
+
+**Numerator $PF$.** Distance formula:
+$$
+PF = \sqrt{(x_0 - c)^2 + y_0^2}. \tag{5}
+$$
+
+**Reduce $y_0^2$ using the ellipse equation:**
+$$
+\frac{x_0^2}{a^2} + \frac{y_0^2}{b^2} = 1 \;\Longrightarrow\; y_0^2 = b^2\!\left(1 - \frac{x_0^2}{a^2}\right). \tag{6}
+$$
+
+Substitute into (5):
+$$
+PF^2 = (x_0 - c)^2 + b^2 - \frac{b^2 x_0^2}{a^2}. \tag{7}
+$$
+
+Expand $(x_0-c)^2 = x_0^2 - 2cx_0 + c^2$:
+$$
+PF^2 = x_0^2 - 2cx_0 + c^2 + b^2 - \frac{b^2 x_0^2}{a^2}. \tag{8}
+$$
+
+Group constant terms: $c^2 + b^2 = a^2$ (ellipse relation). Group $x_0^2$ terms: $x_0^2 - b^2 x_0^2/a^2 = x_0^2(a^2 - b^2)/a^2 = x_0^2 c^2/a^2$. Hence:
+$$
+PF^2 = a^2 - 2cx_0 + \frac{c^2}{a^2}x_0^2 = \left(a - \frac{c}{a}x_0\right)^2. \tag{9}
+$$
+A complete square. Taking square root (with magnitude):
+$$
+PF = \left|\,a - \frac{c}{a}x_0\,\right|. \tag{10}
+$$
+
+**Sign determination.** $x_0 \in [-a, a]$, so $(c/a)x_0 \in [-c, c]$. Since $c < a$, we have $a - (c/a)x_0 > a - c > 0$. So the magnitude bars come off cleanly with a $+$ sign:
+$$
+PF = a - \frac{c}{a}x_0. \tag{11}
+$$
+
+### 1.5 Combine numerator and denominator
+
+$$
+\frac{PF}{PL} = \frac{a - (c/a)x_0}{(a^2/c) - x_0} = \frac{a - (c/a)x_0}{(a^2 - cx_0)/c} = \frac{c\,[a - (c/a)x_0]}{a^2 - cx_0}. \tag{12}
+$$
+
+Multiply numerator: $c \cdot a - c \cdot (c/a) x_0 = ca - (c^2/a)x_0 = (a^2 c - c^2 x_0)/a = c(a^2 - c x_0)/a$. Hence:
+$$
+\frac{PF}{PL} = \frac{c(a^2 - cx_0)/a}{a^2 - cx_0} = \frac{c}{a}. \quad\blacksquare \tag{13}
+$$
+The $(a^2 - cx_0)$ cancels (nonzero since $x_0 \le a < a^2/c$).
+
+**Weakest step:** the sign choice in (11) requires the bound $x_0 \in [-a, a]$ — i.e., $P$ on the *physical* ellipse, not the extended algebraic curve. Stated explicitly; verified.
+
+### 1.6 Verification with $a=2, c=1$ (so $b = \sqrt 3$)
+
+Directrix: $x = 4$. Pick $P = (1, \sqrt{3}/2 \cdot \sqrt{3}) = (1, 3/2)$. Check: $1/4 + (3/2)^2/3 = 1/4 + 3/4 = 1$. ✓
+$PF = \sqrt{(1-1)^2 + (3/2)^2} = 3/2$. $PL = 4 - 1 = 3$. Ratio $= 1/2 = c/a$. ✓
+
+---
+
+## Part II — Eccentricity classifies conics
+
+### 2.1 Statement
 
 ::: {.theorem}
-**(Parabola focus-directrix).** $x^2 = 4cy$ with focus $(0,c)$, directrix $y=-c$. $\tag{91}$
+**(Eccentricity classification).** A conic with focus $F$, directrix $L$, eccentricity $\varepsilon$ is:
+- **ellipse** if $\varepsilon < 1$,
+- **parabola** if $\varepsilon = 1$,
+- **hyperbola** if $\varepsilon > 1$.
 :::
+
+### 2.2 Derivation A — Forward: known conic → compute $\varepsilon$
+
+- Ellipse: derivation §1 gives $\varepsilon = c/a < 1$ ✓ (since $c < a$).
+- Hyperbola: analogous derivation (homework). Directrix at $x = a^2/c$; with $c > a$ for hyperbola, $a^2/c < a$, directrix between centre and vertex. Same algebra yields $\varepsilon = c/a > 1$.
+- Parabola: derived next in §3.
+
+### 2.3 Derivation B — Reverse: pick $\varepsilon$, trace curve
+
+Set focus $F$ and directrix $L$; let $\varepsilon$ vary. Plot points with $PF/PL = \varepsilon$:
+- $\varepsilon = 1/2$: bounded closed curve — ellipse. Catherine's two trisector points lie on it.
+- $\varepsilon = 1$: open parabolic curve.
+- $\varepsilon = 2$: open curve with two branches — hyperbola. As $|P|\to\infty$, $PF/PO \to 1$ and $PL/PO \to 1$ where $O$ is far origin, so the angle of the asymptote satisfies $\cos\theta = 1/\varepsilon$.
+
+**Comparison.** A is verification-first (assumes known classification, computes $\varepsilon$). B is constructive (uses $\varepsilon$ as the defining parameter). The two are equivalent; A is cleaner for proof, B is more illuminating geometrically.
+
+---
+
+## Part III — The parabola $x^2 = 4cy$ from $\varepsilon = 1$
+
+### 3.1 Setup
+
+Place focus at $F = (0, c)$ and directrix $L$: $y = -c$. So the origin is **midway** between focus and directrix (a natural symmetric placement). The condition $PF = PL$ becomes:
+$$
+PF^2 = PL^2. \tag{14}
+$$
+
+### 3.2 Derivation
+
+For $P = (x_0, y_0)$:
+$$
+PL = y_0 - (-c) = y_0 + c. \tag{15}
+$$
+$$
+PF = \sqrt{x_0^2 + (y_0 - c)^2}. \tag{16}
+$$
+$$
+PF^2 = x_0^2 + (y_0 - c)^2 = x_0^2 + y_0^2 - 2cy_0 + c^2. \tag{17}
+$$
+$$
+PL^2 = (y_0 + c)^2 = y_0^2 + 2cy_0 + c^2. \tag{18}
+$$
+Equate (14): cancel $y_0^2$ and $c^2$:
+$$
+x_0^2 - 2cy_0 = 2cy_0 \;\Longrightarrow\; x_0^2 = 4cy_0. \tag{19}
+$$
 
 ::: {.theorem}
-**(All parabolas similar).** Any two are similar via scaling.
+**(Parabola equation).** With focus $(0,c)$ and directrix $y = -c$:
+$$
+x^2 = 4cy. \tag{20}
+$$
 :::
 
-## Verification
+**Weakest step:** the placement of origin at the *midpoint* of focus and directrix is a *choice*, not a proof step. It makes the algebra symmetric. Different choices give translated equations.
 
-- $x^2 = 4y$: focus $(0,1)$, dir $y=-1$. $(2,1)$: $PF = 2, PL = 2$. ✓
-- All parabolas similar: $y = ax^2$ → $x \to x/\sqrt a$ gives $y = x^2$.
+### 3.3 Verification
+
+- Focus $(0, c)$ lies on the axis of symmetry. ✓
+- Vertex at origin $(0, 0)$: $0 = 4c\cdot 0$. ✓
+- At $x = 2c$: $y = (2c)^2/(4c) = c$. So $P = (2c, c)$. $PF = \sqrt{(2c)^2 + 0} = 2c$. $PL = c + c = 2c$. ✓
+- "Narrow" parabola: small $c$ → small focal-directrix gap → narrow shape. "Wide" parabola: large $c$. ✓
+
+---
+
+## Part IV — All parabolas are similar
+
+### 4.1 Statement
+
+::: {.theorem}
+**(All parabolas similar).** Any two parabolas can be made congruent by translation, rotation, and uniform scaling.
+:::
+
+### 4.2 Derivation
+
+After translation/rotation, every parabola can be written $y = kx^2$ for some $k > 0$. To show $y = kx^2$ and $y = \beta x^2$ ($k \ne \beta$) are similar, apply scaling $x \to x/\lambda$, $y \to y/\lambda$ (with $\lambda > 0$). Then $y/\lambda = k(x/\lambda)^2 \Longrightarrow y = (k/\lambda)x^2$. Choose $\lambda = k/\beta$:
+$$
+y = \beta x^2, \tag{21}
+$$
+which matches the target. $\quad\blacksquare$
+
+**Geometric reading (Elaine's intuition).** Zoom into a "wide" parabola near the vertex: the curve becomes indistinguishable from a "narrow" one if zoomed enough. The scaling $\lambda$ is the precise zoom factor.
+
+### 4.3 Why this fails for other curves
+
+- **Cubic $y = kx^3$:** scaling $x \to x/\lambda, y \to y/\lambda$ gives $y = (k/\lambda^2)x^3$. Need $\lambda^2 = k/\beta$, so $\lambda = \sqrt{k/\beta}$. Wait — this *does* work, by the same argument. So *all $y = ax^3$ curves are similar too*. (The teacher's claim "cubic equations are not similar" must refer to *general* cubics with all coefficients varying, not the family $y = kx^3$.)
+
+**Source-correction.** Strictly: *parabolas of the form $y = kx^2$* are all similar. *General cubics $y = ax^3 + bx^2 + cx + d$* are not all similar (they have multiple shape parameters), but *pure-power cubics $y = ax^3$* are. The teacher's statement is technically imprecise; the correct version is: **conics of a given type (all ellipses with the same eccentricity, all parabolas, all hyperbolas with same $\varepsilon$) form a similarity class**.
+
+- **Exponential $y = e^{ax}$:** scaling $x \to x/\lambda, y \to y/\lambda$ gives $y/\lambda = e^{ax/\lambda}$. No scaling makes this match $y = e^{bx}$ unless $a = b$, due to the additive (not multiplicative) action of scaling on the exponent. So exponentials with different rates are *genuinely* not similar.
+
+### 4.4 General statement (forward pointer)
+
+Two conics with the same eccentricity $\varepsilon$ are similar. Two conics with different $\varepsilon$ are *not* similar (eccentricity is the similarity invariant). All parabolas have $\varepsilon = 1$, hence all parabolas are similar. **Ellipses come in a one-parameter family of similarity classes indexed by $\varepsilon \in [0, 1)$;** hyperbolas similarly by $\varepsilon \in (1, \infty)$.
+
+---
+
+## Unified picture
+
+$$
+\boxed{\text{Conic} \;\xrightarrow{\varepsilon\,:=\,PF/PL}\; \varepsilon \in [0,\infty)}
+$$
+
+| $\varepsilon$ | Curve | Focal relation | $\varepsilon$ in terms of $a,b,c$ |
+|---|---|---|---|
+| $0$ | circle | $a = b, c = 0$ | $\varepsilon = 0/a = 0$ |
+| $(0, 1)$ | ellipse | $a^2 = b^2 + c^2$ | $\varepsilon = c/a$ |
+| $1$ | parabola | (no $a, b, c$; only focal parameter $p$) | $\varepsilon = 1$ |
+| $(1, \infty)$ | hyperbola | $c^2 = a^2 + b^2$ | $\varepsilon = c/a$ |
+
+The **single parameter $\varepsilon$ classifies all conics up to similarity**. This is the third (and most efficient) definition: focus + directrix + a positive ratio.
+
+---
+
+## Verification audit
+
+1. **Symbols defined?** All in dictionary including $\varepsilon, A, B, P, x_0, y_0, k$. ✓
+2. **Equation numbers continuous?** (1)–(21), no gaps. ✓
+3. **Signs justified by convention?** $PL$ positive (perpendicular distance); sign of $a - (c/a)x_0$ in (10)→(11) justified by physical range $x_0\in[-a,a]$. ✓
+4. **Every implication follows?** Each algebraic step in §1.4 shown explicitly: (6) → (7) → (8) → (9) → (10) → (11). Sign elimination in (11) explicitly justified. Parabola derivation (15)–(19) explicit cancellation. ✓
+5. **Advertised axioms verified?** Ellipse + hyperbola focal properties imported from Oct 4 morning; Pythagorean theorem; algebraic identity $\sqrt{X^2}=|X|$. ✓
+6. **Counterexample / source correction.** The teacher's "cubics are not similar" claim is technically imprecise — addressed in §4.3 ("source-correction"). Correct version: pure-power $y = ax^3$ are similar; general cubics with shape parameters are not. ✓
+7. **Special / limiting cases tested?** Vertices $A, B$ in §1.3; arbitrary $P=(1, 3/2)$ in §1.6; parabola $P=(2c, c)$ in §3.3; circle $\varepsilon=0$ limit in unified picture. ✓
+8. **Weakest step named?** Done after §1.5 (sign choice) and §3.2 (origin placement). ✓
+
+---
+
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Directrix at $x = a^2/c$ for ellipse | Asserted before derivation | Justified by §1.3 vertex check + §1.4 arbitrary-point algebra showing the ratio is constant |
+| $\sqrt{X^2} = X$ in (10)→(11) | Generally $\sqrt{X^2}=\lvert X\rvert$ | Sign determined by physical range $x_0\in[-a,a]$; verified positive |
+| Cancellation of $(a^2 - cx_0)$ in (12)→(13) | Would fail if $a^2 = cx_0$ | $x_0\le a < a^2/c$ ensures $a^2 - cx_0 > 0$, nonzero |
+| Origin placement in §3.1 | Arbitrary choice | Standard convention for parabola in symmetric form; different placements give translated equations |
+| Teacher's "cubics not similar" | Imprecise (depends on which cubic family) | Restated correctly in §4.3 with $y=ax^3$ case as counterexample to the imprecise version |
+| All parabolas similar | Relies on uniform scaling $x,y \to x/\lambda, y/\lambda$ | Verified explicitly in (21) |
+
+---
+
+## Explorative directions
+
+- **Next brick (Oct 11):** introduction of **matrices and Cramer's rule** — pivoting away from conics for a few weeks toward linear algebra. Conics return Oct 18 with the *discriminant* classification of $Ax^2 + Bxy + Cy^2 + \dots = 0$, where eccentricity becomes the eigenvalue of a $2\times 2$ matrix.
+- **Homework deferred:** (i) prove $\varepsilon = c/a > 1$ for the hyperbola using the same algebra as §1.4; (ii) finish proving all parabolas similar by writing out the scaling explicitly; (iii) verify that not all *general* cubics are similar.
+- **Forward pointer (Feb 21):** the directrix at $a^2/c$ is a hint of the **polar of a point** in projective geometry — the same line is "dual" to the focus under the conic's polarity. Polar reciprocity is the projective-geometry framework that unifies focus-directrix definitions.
+- **Open question:** the parabola's "missing" parameter — ellipse and hyperbola each have two parameters $(a, b)$ or equivalently $(a, c)$ or $(\varepsilon, p)$; parabola has just one (focal parameter $p$). This is because the parabola lives at the *boundary* of the eccentricity-parameter line $\varepsilon = 1$, collapsing one degree of freedom. The same shows up in projective geometry as the "point at infinity" of the parabola being a single double-point, not a transverse intersection.
+- **Connection back to Sep 27:** the algebraic move of *recognising a complete square* in (9) is the same algebraic move as solving quadratics — and indeed, the conic-section problem is fundamentally a *quadratic geometry* problem. The eccentricity classification is the geometric image of the discriminant of a quadratic equation.
+- **Pedagogical thread:** the teacher emphasised "do the pencil work yourself, don't trust me." The complete-the-square move in (8)→(9) is the load-bearing step where a careless arithmetic slip propagates everywhere. This is the *spirit* of rigour — every algebra step verified personally.
 
 ## Lecture video
 
@@ -34,6 +297,11 @@ Third equivalent definition: $\varepsilon = $ (dist to focus)/(dist to directrix
 <video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-afternoon.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view">Drive</a></p>
 ```
+
+## Related sessions
+
+- **Precursor:** [Oct 4 morning](2025-10-04-morning.html) — ellipse/hyperbola focal relations $a^2 = b^2+c^2$, $c^2 = a^2+b^2$, used as imported lemmas.
+- **Forward:** [Oct 18 morning](2025-10-18-morning.html) and [afternoon](2025-10-18-afternoon.html) — algebraic classification of conics by the **discriminant** $B^2 - 4AC$ of the quadratic form.
 
 ## Full transcript
 

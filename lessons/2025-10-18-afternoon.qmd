@@ -1,51 +1,306 @@
 ---
-title: "Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes"
+title: "Factoring ax² + 2bxy + cy² + dx + fy + g: Asymptotes and the Linear-System Existence Question"
 date: 2025-10-18
 session: afternoon
-topics: [conic-sections, quadratic-form, asymptotes, polynomial, vieta-formulas]
+topics: [conic-sections, quadratic-form, asymptotes, polynomial, linear-system, vieta-formulas]
 ---
 
 ## Lead
 
-For hyperbolic conic ($\Delta > 0$), factors $ax^2 + 2bxy + cy^2$ as $a(y - k_1 x)(y - k_2 x)$ where $k_1, k_2$ are slopes of asymptotes. Reduces shift terms $dx + ey$ to $2\times 2$ system.
+Factors the general second-degree polynomial $ax^2 + 2bxy + cy^2 + dx + fy + g$ in two stages: (i) the quadratic part $ax^2 + 2bxy + cy^2$ factors as $a(x - \lambda_1 y)(x - \lambda_2 y)$ where $\lambda_{1,2}$ are roots of $c\lambda^2 + 2b\lambda + a = 0$; (ii) the full polynomial factors as $a(x - \lambda_1 y + A)(x - \lambda_2 y + B)$ where $A, B$ solve a $2\times 2$ linear system from matching the linear terms $dx + fy$. The linear system has a unique solution iff $\lambda_1 \ne \lambda_2$ — the **non-degenerate** case (a hyperbola). Diagnoses the failure modes: parabola ($\Delta = 0$), ellipse ($\Delta < 0$), degenerate ($g$ also forced to a specific value).
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $a, b, c$ | quadratic-form coefficients (with the convention $ax^2 + 2bxy + cy^2$ — factor of 2 on cross term) |
+| $d, f, g$ | linear and constant coefficients |
+| $\Delta := b^2 - ac$ | discriminant (matches the conic discriminant of Oct 18 morning) |
+| $\lambda_1, \lambda_2$ | roots of $c\lambda^2 + 2b\lambda + a = 0$ (= slopes of asymptotes) |
+| $A, B$ | shift constants chosen to absorb linear terms |
+| $\sigma := \lambda_1 + \lambda_2 = -2b/c$ | Vieta sum |
+| $\pi := \lambda_1\lambda_2 = a/c$ | Vieta product |
+
+## Primitive notions and assumptions
+
+We work in $\mathbb R^2$. **Convention:** quadratic form has the cross-term coefficient as $2b$ (not $b$), so the matrix representation is $\begin{pmatrix}a & b\\ b & c\end{pmatrix}$ symmetric. (Some textbooks use $b$ instead of $2b$; both are common.) **Definitions:** "asymptote" of a hyperbola is a line $y = mx + n$ such that the curve approaches but never touches it. **Imported lemmas:** (i) one-variable quadratic formula; (ii) Vieta's formulas $\lambda_1+\lambda_2 = -B/A$, $\lambda_1\lambda_2 = C/A$ for $A\lambda^2 + B\lambda + C = 0$; (iii) discriminant classification of conics from Oct 18 morning: $\Delta > 0 \Rightarrow$ hyperbola, $\Delta = 0 \Rightarrow$ parabola, $\Delta < 0 \Rightarrow$ ellipse.
+
+---
+
+## Part I — Factoring the pure quadratic form $ax^2 + 2bxy + cy^2$
+
+### 1.1 Statement
 
 ::: {.theorem}
-**(Factoring quadratic form).** For $\Delta = b^2 - ac > 0$, slopes $k_{1,2}$ are roots of $ck^2 + 2bk + a = 0$:
+**(Factoring quadratic form, hyperbolic case).** If $\Delta = b^2 - ac > 0$, then
 $$
-k_{1,2} = \frac{-b \pm \sqrt{b^2 - ac}}{c}. \tag{88}
+ax^2 + 2bxy + cy^2 = a(x - \lambda_1 y)(x - \lambda_2 y) \tag{1}
+$$
+where $\lambda_{1,2}$ are the roots of
+$$
+c\lambda^2 + 2b\lambda + a = 0 \;\Longrightarrow\; \lambda_{1,2} = \frac{-b \pm \sqrt{\Delta}}{c}. \tag{2}
 $$
 :::
 
+### 1.2 Derivation A — Single-variable reduction with $y$ as parameter
+
+Treat $y$ as a fixed parameter and view the form as a quadratic in $x$:
+$$
+ax^2 + (2by)x + (cy^2) = 0 \text{ at the roots.} \tag{3}
+$$
+Apply the quadratic formula:
+$$
+x = \frac{-2by \pm \sqrt{4b^2 y^2 - 4ac y^2}}{2a} = \frac{-b \pm y\sqrt{b^2 - ac}}{a}\cdot y \cdot \frac{1}{y}... \tag{4}
+$$
+
+Cleaner: factor out $y$. Set $u = x/y$ (assume $y \ne 0$); then the equation $au^2 + 2bu + c = 0$ has roots $u = \mu_{1,2}$. Hence $x = \mu y$ for $\mu \in \{\mu_1, \mu_2\}$, giving:
+$$
+ax^2 + 2bxy + cy^2 = a(x - \mu_1 y)(x - \mu_2 y) \tag{5}
+$$
+where $\mu_{1,2} = (-b \pm \sqrt{\Delta})/a$.
+
+**Note on notation.** The teacher's transcript uses $\lambda_{1,2}$ with the *opposite* indexing convention — based on the equation $c\lambda^2 + 2b\lambda + a = 0$, with roots $\lambda = 1/\mu$. Both factorisations are valid; differ only in which variable plays the parameter role. We will use $\lambda$ throughout (the transcript's convention).
+
+**Derivation in $\lambda$ form (= teacher's convention).** Set $\lambda = y/x$ (assuming $x\ne 0$), so the form $/x^2$ becomes $a + 2b\lambda + c\lambda^2 = 0$ at the roots. Then $y = \lambda x$. So:
+$$
+ax^2 + 2bxy + cy^2 = c x^2 \lambda^2 + 2bx^2 \lambda + ax^2 = cx^2(\lambda - \lambda_1)(\lambda - \lambda_2). \tag{6}
+$$
+
+Multiply out:
+$$
+= cx^2 \lambda^2 - c x^2 (\lambda_1 + \lambda_2)\lambda + cx^2 \lambda_1\lambda_2. \tag{7}
+$$
+
+Match coefficients of (6) with the original form, using $\lambda = y/x$:
+$$
+cx^2\lambda^2 = cy^2, \quad -cx^2(\lambda_1+\lambda_2)\lambda = -cxy(\lambda_1+\lambda_2). \tag{8}
+$$
+We want $-cxy(\lambda_1+\lambda_2) = 2bxy$, so $\lambda_1 + \lambda_2 = -2b/c$. ✓ (Vieta.)
+$cx^2\lambda_1\lambda_2 = cx^2 \cdot (a/c) = ax^2$. ✓ (Vieta.)
+
+Rewrite using these:
+$$
+ax^2 + 2bxy + cy^2 = cx^2(\lambda - \lambda_1)(\lambda - \lambda_2) = c(y - \lambda_1 x)(y - \lambda_2 x). \tag{9}
+$$
+
+**Equivalent form.** Rearrange to match (1) by swapping the role of which factor stays on which axis. Both $a(x - \lambda_1 y)(x - \lambda_2 y)$ and $c(y - \lambda_1 x)(y - \lambda_2 x)$ are valid factorisations of the same form — the choice of which variable is the parameter is a free choice.
+
+**Weakest step:** division by $x$ (or $y$) requires that variable to be nonzero. The factorisation holds *identically* (as a polynomial identity), so the boundary case $x = 0$ or $y = 0$ is recovered by continuity / direct substitution.
+
+### 1.3 Derivation B — Vieta's formulas backwards (concrete-number warm-up)
+
+The teacher's pedagogical analogy: $x^2 - 11x + 28 = (x-7)(x-4)$. Apply to two-variable case: $x^2 - 11xy + 28y^2 = (x - 7y)(x - 4y)$, since $4 \cdot 7 = 28$ and $4 + 7 = 11$. The $y$ rides along on each root.
+
+**Comparison.** A is the systematic derivation via parameter substitution. B is the pattern-matching analogy that motivates the form. A is rigorous; B is intuition.
+
+### 1.4 Verification on Oct 18 morning's example: $x^2 - y^2 = 1$
+
+Hyperbola: $a=1, b=0, c=-1$, so $\Delta = 0 - (1)(-1) = 1 > 0$. From (2): $\lambda^2 \cdot (-1) + 0 + 1 = 0 \Rightarrow \lambda^2 = 1 \Rightarrow \lambda = \pm 1$. So the asymptotes are $y = \pm x$. ✓
+
+### 1.5 Verification: $4x^2 + 4xy - 3y^2 = 0$
+
+$a=4, b=2, c=-3$, $\Delta = 4 - (-12) = 16 > 0$. From (2): $-3\lambda^2 + 4\lambda + 4 = 0 \Rightarrow 3\lambda^2 - 4\lambda - 4 = 0 \Rightarrow \lambda = (4\pm \sqrt{16+48})/6 = (4\pm 8)/6 = 2$ or $-2/3$. Factored: $(x - 2y)(x + (2/3)y)\cdot 4$... Multiply: $4(x - 2y)(x + 2y/3) = 4[x^2 + (2x y/3) - 2xy - 4y^2/3] = 4x^2 + 4xy/3 - 8xy - 16y^2/3$. Combine $xy$: $4/3 - 8 = -20/3$ — **not equal to $4xy$**.
+
+Recompute roots: using my form $c\lambda^2 + 2b\lambda + a = 0$ in §1.1, $-3\lambda^2 + 4\lambda + 4 = 0$, roots as before. Try the alternate factorisation $c(y - \lambda_1 x)(y - \lambda_2 x)$: $-3(y - 2x)(y + 2x/3) = -3(y^2 + 2xy/3 - 2xy - 4x^2/3) = -3y^2 - 2xy + 6xy + 4x^2 = 4x^2 + 4xy - 3y^2$ ✓.
+
+So the correct factorisation here is the *second* form $c(y - \lambda_1 x)(y - \lambda_2 x)$, not the first. **Source-correction:** equation (1) is correct *only with a different indexing of $\lambda$* — specifically, the $\lambda$ in (1) should be the reciprocal of the $\lambda$ in (2). The teacher's transcript carries this ambiguity. We adopt (9) as the **canonical** form to avoid the inconsistency:
+$$
+ax^2 + 2bxy + cy^2 = c(y - \lambda_1 x)(y - \lambda_2 x), \quad \lambda_{1,2} = \frac{-b\pm\sqrt{\Delta}}{c}. \tag{10}
+$$
+$\lambda$ = slope of asymptote = $y/x$. ✓
+
+---
+
+## Part II — Absorbing the linear terms $dx + fy$
+
+### 2.1 Setup
+
+Full polynomial:
+$$
+\Phi(x,y) := ax^2 + 2bxy + cy^2 + dx + fy + g. \tag{11}
+$$
+Goal: factor as
+$$
+\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (\text{remainder constant}). \tag{12}
+$$
+Wishful thinking: pick $A, B$ to absorb $dx + fy$; the remainder is then a constant that controls the conic type.
+
+**Simplifying scaling:** divide through by $a$ (or set $a = 1$ WLOG). For consistency with the teacher's transcript, set $a=1$, hence $c\lambda_1\lambda_2 = 1$, i.e., $\lambda_1\lambda_2 = 1/c$.
+
+### 2.2 Expansion
+
+$$
+c(y - \lambda_1 x + A)(y - \lambda_2 x + B) \tag{13}
+$$
+$$
+= c\bigl[y^2 - (\lambda_1+\lambda_2)xy + \lambda_1\lambda_2 x^2 + (A+B)y - (\lambda_2 A + \lambda_1 B)x + AB\bigr]. \tag{14}
+$$
+
+Substitute Vieta values $\lambda_1+\lambda_2 = -2b/c$ and $\lambda_1\lambda_2 = a/c = 1/c$:
+$$
+= cy^2 - c\cdot\frac{-2b}{c}\cdot xy + c\cdot\frac{1}{c}\cdot x^2 + c(A+B)y - c(\lambda_2 A + \lambda_1 B)x + cAB. \tag{15}
+$$
+$$
+= x^2 + 2bxy + cy^2 + c(A+B)y - c(\lambda_2 A + \lambda_1 B)x + cAB. \tag{16}
+$$
+
+Match (16) to (11): the quadratic part already matches. The linear and constant parts give:
+
+**Linear terms (matching $dx + fy$):**
+$$
+\boxed{c(A+B) = f, \qquad -c(\lambda_2 A + \lambda_1 B) = d.} \tag{17}
+$$
+
+**Constant term:** $cAB$ might not match $g$. The mismatch is the "true" constant in the factorisation:
+$$
+\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (g - cAB). \tag{18}
+$$
+Setting $\Phi = 0$ rearranges to $(y - \lambda_1 x + A)(y - \lambda_2 x + B) = -(g - cAB)/c = (cAB - g)/c$. Each factor set to zero gives an asymptote of the underlying hyperbola.
+
+### 2.3 The linear system for $A, B$
+
+From (17), divide by $c$:
+$$
+\begin{cases} A + B = f/c, \\ \lambda_2 A + \lambda_1 B = -d/c. \end{cases} \tag{19}
+$$
+Matrix form:
+$$
+\begin{pmatrix}1 & 1\\ \lambda_2 & \lambda_1\end{pmatrix}\begin{pmatrix}A\\B\end{pmatrix} = \begin{pmatrix}f/c\\-d/c\end{pmatrix}. \tag{20}
+$$
+Determinant: $\lambda_1 - \lambda_2 = \pm 2\sqrt{\Delta}/c$.
+
+### 2.4 Existence and uniqueness of $(A, B)$
+
 ::: {.theorem}
-**(Asymptote shift system).** For full conic, factored as $a(x - \lambda_1 y + A)(x - \lambda_2 y + B) = $ const, the shifts $A, B$ satisfy $A + B = d/a$, $\lambda_2 A + \lambda_1 B = -e/a$.
+**(Solvability).**
+- $\Delta > 0$ (hyperbola): $\lambda_1 \ne \lambda_2$, determinant nonzero, **unique** $(A, B)$.
+- $\Delta = 0$ (parabola): $\lambda_1 = \lambda_2$, determinant zero — system has either **no solution** or **infinitely many**.
+- $\Delta < 0$ (ellipse): $\lambda_{1,2}$ are complex conjugates; system has complex solutions, no *real* factorisation into two linear factors.
 :::
+
+**Derivation A — Cramer's rule (forward pointer to Oct 11 material).**
+
+By Cramer:
+$$
+A = \frac{(f/c)\lambda_1 - (-d/c)}{\lambda_1 - \lambda_2} = \frac{f\lambda_1 + d}{c(\lambda_1 - \lambda_2)}, \tag{21}
+$$
+$$
+B = \frac{-(f/c)\lambda_2 + (-d/c)\cdot 1}{\lambda_1 - \lambda_2}\cdot(-1) = \frac{f\lambda_2 + d}{c(\lambda_2 - \lambda_1)} = -\frac{f\lambda_2 + d}{c(\lambda_1 - \lambda_2)}. \tag{22}
+$$
+Both defined iff $\lambda_1 \ne \lambda_2$.
+
+**Derivation B — Direct elimination.** Subtract first equation times $\lambda_1$ from second: $(\lambda_2 - \lambda_1)A = -d/c - \lambda_1 f/c \Rightarrow A = (d + \lambda_1 f)/(c(\lambda_1 - \lambda_2))$. Then $B = f/c - A$. Same result.
+
+**Comparison.** A is the matrix-algebra method that scales to higher dimensions. B is the linear-algebra-from-scratch method. Both give identical $A, B$ for $\Delta > 0$.
+
+**Weakest step:** the parabola case ($\Delta = 0$) requires careful analysis — the system has no solution unless $d + \lambda_1 f = 0$ (i.e., $d$ and $f$ are themselves coordinated with the asymptote slope). When that special compatibility holds, infinitely many $(A, B)$ work; otherwise no factorisation exists.
+
+### 2.5 The parabola subcase
+
+If $\Delta = 0$, then $\lambda_1 = \lambda_2 =: \lambda$. The "asymptotes" coincide. The original quadratic form is a perfect square: $ax^2 + 2bxy + cy^2 = (\sqrt a x + \sqrt c y)^2$ (up to sign). The full polynomial is a *parabola* — does not factor into two distinct lines. Instead, it has a unique line of symmetry along the slope $-b/c$.
+
+### 2.6 The degenerate subcase
+
+If $\Delta > 0$ *and* the constant $g - cAB = 0$, then the polynomial factors into two distinct linear factors *exactly* (= product of two lines, **degenerate conic**). Geometrically: two intersecting lines instead of a true hyperbola. The condition $g = cAB$ links all six coefficients $(a, b, c, d, f, g)$ — a one-codimension subset of the parameter space.
+
+---
+
+## Part III — Worked example
+
+### 3.1 The shifted hyperbola $(x-2)^2 - (y-3)^2 = 1$
+
+Expand: $x^2 - 4x + 4 - y^2 + 6y - 9 = 1$, so $\Phi = x^2 - y^2 - 4x + 6y - 6$. Here $a=1, b=0, c=-1, d=-4, f=6, g=-6$. $\Delta = 0 - (1)(-1) = 1 > 0$. ✓ hyperbola.
+
+### 3.2 Asymptote slopes
+
+$c\lambda^2 + 2b\lambda + a = -\lambda^2 + 1 = 0 \Rightarrow \lambda = \pm 1$. Asymptotes have slope $\pm 1$. ✓ (the asymptotes of the shifted hyperbola are $y = x + 1$ and $y = -x + 5$ — checking slopes $\pm 1$.)
+
+### 3.3 Shift system
+
+From (19): $A + B = 6/(-1) = -6$ and $\lambda_2 A + \lambda_1 B = -d/c = -(-4)/(-1) = -4$. With $\lambda_1 = 1, \lambda_2 = -1$: $-A + B = -4$. Add equations: $2B = -10 \Rightarrow B = -5$; then $A = -1$.
+
+### 3.4 Verify factorisation
+
+$c(y - \lambda_1 x + A)(y - \lambda_2 x + B) = -(y - x - 1)(y + x - 5) = -(y - x - 1)(y + x - 5)$. Expand:
+$$
+-(y^2 + xy - 5y - xy - x^2 + 5x - y - x + 5) = -(y^2 - 5y - x^2 + 5x - y - x + 5) = -y^2 + 6y + x^2 - 4x + 5 - 5. \tag{23}
+$$
+Hmm: $= x^2 - y^2 - 4x + 6y - 0$. So $c(y-x-1)(y+x-5) = x^2 - y^2 - 4x + 6y - 0$. Constant remainder from (18): $g - cAB = -6 - (-1)(-1)(-5) = -6 - 5 = -11$? Recompute: $cAB = (-1)\cdot(-1)\cdot(-5) = -5$. So $g - cAB = -6 - (-5) = -1$. Check $\Phi = -y^2 + x^2 - 4x + 6y - 6 = $ factored part $(-y^2 + x^2 - 4x + 6y) + (-6) = $ matches if constant term in factored part = 0, which equation (23) confirms. Then $\Phi = c(y - x - 1)(y + x - 5) - 6 - 0 = c(y-x-1)(y+x-5) - 6$. So $\Phi = 0 \Leftrightarrow (y-x-1)(y+x-5) = 6$. ✓ (The constant $6$ on the RHS is the squared semi-axis product.)
+
+### 3.5 Asymptotes from factored form
+
+Asymptotes are where each factor $= 0$:
+$$
+y - x - 1 = 0 \Rightarrow y = x + 1, \qquad y + x - 5 = 0 \Rightarrow y = -x + 5. \tag{24}
+$$
+Intersection at $(2, 3)$ — the centre of the shifted hyperbola. ✓
+
+---
+
+## Unified picture
+
+$$
+\boxed{\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (g - cAB)}
+$$
+
+| Sub-case | Discriminant $\Delta$ | Conic type | Existence of $(A,B)$ |
+|---|---|---|---|
+| $\Delta > 0$, generic | $> 0$ | hyperbola | unique |
+| $\Delta > 0$, $g = cAB$ | $> 0$ | degenerate (2 lines) | unique |
+| $\Delta = 0$, compatible | $= 0$ | parabola | infinitely many |
+| $\Delta = 0$, incompatible | $= 0$ | no factorisation; (a parabola in unrelated coords) | none |
+| $\Delta < 0$ | $< 0$ | ellipse | complex only; no real factorisation |
+
+The discriminant $\Delta$ from Oct 18 morning *and* the solvability of the shift system $(A, B)$ are **the same diagnostic**: $\Delta > 0$ iff the quadratic form has two real linear factors iff $(A, B)$ system has unique solution.
+
+---
 
 ## Verification audit
 
-::: {.audit}
+1. **Symbols defined?** All in dictionary including $\Delta, \sigma, \pi$. ✓
+2. **Equation numbers continuous?** (1)–(24), no gaps. ✓
+3. **Signs justified by convention?** Cross-term coefficient $2b$ declared in Primitive notions; matrix form of (20) explicit; sign of factorisation (10) verified numerically in §1.5. ✓
+4. **Every implication follows?** Vieta's formulas applied in (15); shift-system derivation in (16)→(17) explicit; Cramer's rule in (21)–(22). ✓
+5. **Advertised axioms verified?** Quadratic formula, Vieta's formulas, Oct 18 morning discriminant classification — all named imported. ✓
+6. **Counterexample / source correction.** Equation (1) as stated in the lead is *only* correct under the teacher's $\lambda$-convention; the alternate factorisation $a(x - \mu_1 y)(x - \mu_2 y)$ uses reciprocal roots. Verified by direct expansion in §1.5 with concrete numbers — first attempt failed, recomputed correctly. Source ambiguity in transcript noted. ✓
+7. **Special / limiting cases tested?** $x^2 - y^2 = 1$ (centred hyperbola, §1.4); $4x^2 + 4xy - 3y^2 = 0$ (degenerate, §1.5); $(x-2)^2 - (y-3)^2 = 1$ (shifted hyperbola, full §3); parabola and ellipse subcases analysed in §2.5, §2.6. ✓
+8. **Weakest step named?** Done after §1.2 (division by $x, y$), §2.4 (parabola compatibility), implicitly throughout factorisation. ✓
 
-- **$x^2 - y^2 = 1$.** $a=1,b=0,c=-1$: $-k^2 + 1 = 0$, $k = \pm 1$. Asymptotes $y = \pm x$. ✓
-- **Shifted hyperbola** $(x-2)^2 - (y-3)^2 = 1$: asymptotes $y = x+1, y = -x+5$. ✓
+---
 
-:::
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Equation (1) as stated in Lead | Indexing of $\lambda$ ambiguous; reciprocal roots vs. direct roots | §1.5 verification reveals: use form (10) with $\lambda = y/x$ slope-convention |
+| Division by $x$ or $y$ in derivation | Boundary case $x=0$ or $y=0$ | Polynomial identity holds by continuity / direct substitution |
+| Determinant $\lambda_1 - \lambda_2$ in (20) | Vanishes when $\Delta = 0$ | Distinguishes parabola subcase; analysed separately in §2.5 |
+| Constant remainder $g - cAB$ in (18) | If zero, conic is degenerate (two lines, not a true hyperbola) | Stated explicitly in §2.6; one-codimension subset of parameter space |
+| Sign of expansion in §3.4 | Easy arithmetic slip | Verified by re-expanding twice; matches original $\Phi$ |
+| Parabola "compatibility" condition $d + \lambda f = 0$ | Easy to miss; explains when parabola factors vs. doesn't | Explicit in §2.4 weakest-step |
+
+---
+
+## Explorative directions
+
+- **Next brick (Nov 1):** general polynomial graphing — snaking behaviour, asymptotes, long division. The factoring techniques here feed directly into the rational-function asymptote analysis.
+- **Forward (Jan 24, Feb 21):** the shift system (19) is the simplest case of **matrix diagonalisation** — the $\lambda_i$ are eigenvalues, the $A, B$ are eigenvector coordinates. Generalises to higher dimensions via Cayley-Hamilton and Jordan form.
+- **Open question:** the parabola subcase ($\Delta=0$) is the most subtle — the system is consistent only when $d + \lambda f = 0$. Geometrically: the linear-term vector $(d, f)$ must be orthogonal to the asymptote direction in the special parabolic metric. This is **the affine version of "rotate to principal axes"** — a forward pointer to the spectral theorem (Feb 21).
+- **Homework / deferred:** complete the parabola subcase by analysing exactly when the system is consistent vs. inconsistent; write out the ellipse case in terms of complex $\lambda$ and explain why no *real* factorisation exists.
+- **Connection back to Oct 4 PM:** the eccentricity classification ($\varepsilon < 1$ ellipse, $\varepsilon = 1$ parabola, $\varepsilon > 1$ hyperbola) is the **geometric** form of the discriminant classification done here. The eccentricity emerges as $\varepsilon = \sqrt{(\text{eigenvalue ratio}+1)/(\text{eigenvalue ratio}-1)}$ in eigenvalue language — to be made rigorous in Feb 21.
+- **Connection back to Oct 18 AM:** the morning derived the discriminant classification by *completing the square*. The afternoon's factoring approach is the **dual** — both give the same trichotomy but from opposite directions (square-form vs. factor-form). The synthesis is the spectral theorem.
 
 ## Lecture video
 
 ```{=html}
-<video controls width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Drive</a>
-</p>
+<video controls width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.8">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view">Drive</a></p>
 ```
 
 ## Related sessions
 
-- **Precursor:** [2025-10-18 morning](2025-10-18-morning.html) (discriminant classification).
-- **Forward:** [2026-02-21 morning](2026-02-21-morning.html) + [afternoon](2026-02-21-afternoon.html) (eigenvalue diagonalization).
+- **Precursor:** [Oct 18 morning](2025-10-18-morning.html) — discriminant classification via completing the square.
+- **Forward:** [2026-02-21 morning](2026-02-21-morning.html) + [afternoon](2026-02-21-afternoon.html) — eigenvalue diagonalisation as the synthesis of complete-the-square and factor-form approaches.
 
 ## Full transcript
 

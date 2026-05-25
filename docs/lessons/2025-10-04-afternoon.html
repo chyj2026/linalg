@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-04">
 
-<title>Eccentricity Definition of Conics; Parabola as Borderline Case – Linear Algebra Notes</title>
+<title>Eccentricity Definition of Conics: Parabola as the Borderline ε = 1 Case – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,9 +184,42 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-eccentricity-ratio-is-constant-for-the-ellipse" id="toc-part-i-eccentricity-ratio-is-constant-for-the-ellipse" class="nav-link" data-scroll-target="#part-i-eccentricity-ratio-is-constant-for-the-ellipse">Part I — Eccentricity ratio is constant for the ellipse</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">1.1 Setup</a></li>
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.2 Statement</a></li>
+  <li><a href="#derivation-a-two-special-points-first-vertex-check" id="toc-derivation-a-two-special-points-first-vertex-check" class="nav-link" data-scroll-target="#derivation-a-two-special-points-first-vertex-check">1.3 Derivation A — Two special points first (vertex check)</a></li>
+  <li><a href="#derivation-b-arbitrary-point" id="toc-derivation-b-arbitrary-point" class="nav-link" data-scroll-target="#derivation-b-arbitrary-point">1.4 Derivation B — Arbitrary point</a></li>
+  <li><a href="#combine-numerator-and-denominator" id="toc-combine-numerator-and-denominator" class="nav-link" data-scroll-target="#combine-numerator-and-denominator">1.5 Combine numerator and denominator</a></li>
+  <li><a href="#verification-with-a2-c1-so-b-sqrt-3" id="toc-verification-with-a2-c1-so-b-sqrt-3" class="nav-link" data-scroll-target="#verification-with-a2-c1-so-b-sqrt-3">1.6 Verification with <span class="math inline">\(a=2, c=1\)</span> (so <span class="math inline">\(b = \sqrt 3\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#part-ii-eccentricity-classifies-conics" id="toc-part-ii-eccentricity-classifies-conics" class="nav-link" data-scroll-target="#part-ii-eccentricity-classifies-conics">Part II — Eccentricity classifies conics</a>
+  <ul class="collapse">
+  <li><a href="#statement-1" id="toc-statement-1" class="nav-link" data-scroll-target="#statement-1">2.1 Statement</a></li>
+  <li><a href="#derivation-a-forward-known-conic-compute-varepsilon" id="toc-derivation-a-forward-known-conic-compute-varepsilon" class="nav-link" data-scroll-target="#derivation-a-forward-known-conic-compute-varepsilon">2.2 Derivation A — Forward: known conic → compute <span class="math inline">\(\varepsilon\)</span></a></li>
+  <li><a href="#derivation-b-reverse-pick-varepsilon-trace-curve" id="toc-derivation-b-reverse-pick-varepsilon-trace-curve" class="nav-link" data-scroll-target="#derivation-b-reverse-pick-varepsilon-trace-curve">2.3 Derivation B — Reverse: pick <span class="math inline">\(\varepsilon\)</span>, trace curve</a></li>
+  </ul></li>
+  <li><a href="#part-iii-the-parabola-x2-4cy-from-varepsilon-1" id="toc-part-iii-the-parabola-x2-4cy-from-varepsilon-1" class="nav-link" data-scroll-target="#part-iii-the-parabola-x2-4cy-from-varepsilon-1">Part III — The parabola <span class="math inline">\(x^2 = 4cy\)</span> from <span class="math inline">\(\varepsilon = 1\)</span></a>
+  <ul class="collapse">
+  <li><a href="#setup-1" id="toc-setup-1" class="nav-link" data-scroll-target="#setup-1">3.1 Setup</a></li>
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">3.2 Derivation</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">3.3 Verification</a></li>
+  </ul></li>
+  <li><a href="#part-iv-all-parabolas-are-similar" id="toc-part-iv-all-parabolas-are-similar" class="nav-link" data-scroll-target="#part-iv-all-parabolas-are-similar">Part IV — All parabolas are similar</a>
+  <ul class="collapse">
+  <li><a href="#statement-2" id="toc-statement-2" class="nav-link" data-scroll-target="#statement-2">4.1 Statement</a></li>
+  <li><a href="#derivation-1" id="toc-derivation-1" class="nav-link" data-scroll-target="#derivation-1">4.2 Derivation</a></li>
+  <li><a href="#why-this-fails-for-other-curves" id="toc-why-this-fails-for-other-curves" class="nav-link" data-scroll-target="#why-this-fails-for-other-curves">4.3 Why this fails for other curves</a></li>
+  <li><a href="#general-statement-forward-pointer" id="toc-general-statement-forward-pointer" class="nav-link" data-scroll-target="#general-statement-forward-pointer">4.4 General statement (forward pointer)</a></li>
+  </ul></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
+  <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -196,7 +229,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Eccentricity Definition of Conics; Parabola as Borderline Case</h1>
+<h1 class="title">Eccentricity Definition of Conics: Parabola as the Borderline ε = 1 Case</h1>
 </div>
 
 
@@ -221,31 +254,376 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Third equivalent definition: $= $ (dist to focus)/(dist to directrix). <span class="math inline">\(\varepsilon&lt;1\)</span> ellipse, <span class="math inline">\(\varepsilon=1\)</span> parabola, <span class="math inline">\(\varepsilon&gt;1\)</span> hyperbola.</p>
+<p>Derives the <strong>third equivalent definition</strong> of conic sections: $:= PF/PL = $ (distance from <span class="math inline">\(P\)</span> to focus) / (distance from <span class="math inline">\(P\)</span> to directrix) is constant for points <span class="math inline">\(P\)</span> on the curve. Proves <span class="math inline">\(\varepsilon = c/a\)</span> for the ellipse by checking three points: vertex <span class="math inline">\(A\)</span>, vertex <span class="math inline">\(B\)</span>, and an arbitrary <span class="math inline">\(P\)</span>. Establishes <span class="math inline">\(\varepsilon &lt; 1 \Leftrightarrow\)</span> ellipse, <span class="math inline">\(\varepsilon = 1 \Leftrightarrow\)</span> parabola, <span class="math inline">\(\varepsilon &gt; 1 \Leftrightarrow\)</span> hyperbola. Derives the parabola equation <span class="math inline">\(x^2 = 4cy\)</span> from the equidistant condition. Closes with the <strong>all-parabolas-similar</strong> result.</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\varepsilon\)</span></td>
+<td>eccentricity, <span class="math inline">\(\varepsilon \ge 0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F\)</span></td>
+<td>focus point</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(L\)</span></td>
+<td>directrix line</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(PF\)</span></td>
+<td>Euclidean distance from <span class="math inline">\(P\)</span> to <span class="math inline">\(F\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(PL\)</span></td>
+<td>perpendicular distance from <span class="math inline">\(P\)</span> to line <span class="math inline">\(L\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(A, B\)</span></td>
+<td>vertices of ellipse at <span class="math inline">\((a, 0), (-a, 0)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P = (x_0, y_0)\)</span></td>
+<td>arbitrary point on conic</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a, b, c\)</span></td>
+<td>as in Oct 4 morning: semi-axes and focal distance with <span class="math inline">\(a^2 = b^2 + c^2\)</span> (ellipse) or <span class="math inline">\(c^2 = a^2 + b^2\)</span> (hyperbola)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a^2/c\)</span></td>
+<td>directrix location (perpendicular distance from centre to directrix for ellipse)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span></td>
+<td>leading coefficient in <span class="math inline">\(y = kx^2\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in <span class="math inline">\(\mathbb R^2\)</span>. <strong>Convention:</strong> ellipse in standard position from Oct 4 morning. <strong>Definitions:</strong> “directrix” <span class="math inline">\(L\)</span> is a vertical line (parallel to the minor axis); “point-to-line distance” <span class="math inline">\(PL\)</span> is the perpendicular distance. <strong>Imported lemmas:</strong> (i) ellipse focal property <span class="math inline">\(d_1 + d_2 = 2a\)</span> with <span class="math inline">\(a^2 = b^2 + c^2\)</span>; (ii) hyperbola focal property <span class="math inline">\(|d_1 - d_2| = 2a\)</span> with <span class="math inline">\(c^2 = a^2 + b^2\)</span>; (iii) Pythagorean theorem; (iv) algebraic identity <span class="math inline">\(\sqrt{X^2} = |X|\)</span>.</p>
+<hr>
+</section>
+<section id="part-i-eccentricity-ratio-is-constant-for-the-ellipse" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-eccentricity-ratio-is-constant-for-the-ellipse">Part I — Eccentricity ratio is constant for the ellipse</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">1.1 Setup</h3>
+<p>Ellipse <span class="math inline">\(x^2/a^2 + y^2/b^2 = 1\)</span> with focus <span class="math inline">\(F = F_2 = (c, 0)\)</span> and (to be determined) directrix <span class="math inline">\(L\)</span>: vertical line <span class="math inline">\(x = a^2/c\)</span>. Note <span class="math inline">\(a^2/c &gt; a\)</span> since <span class="math inline">\(c &lt; a\)</span> for ellipse, so the directrix sits <strong>outside</strong> the ellipse on the right.</p>
+</section>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.2 Statement</h3>
 <div class="theorem">
-<p><strong>(Eccentricity).</strong> Ellipse: <span class="math inline">\(PF/PL = c/a = \varepsilon &lt; 1\)</span>. <span class="math inline">\(\tag{90}\)</span></p>
-</div>
-<div class="theorem">
-<p><strong>(Parabola focus-directrix).</strong> <span class="math inline">\(x^2 = 4cy\)</span> with focus <span class="math inline">\((0,c)\)</span>, directrix <span class="math inline">\(y=-c\)</span>. <span class="math inline">\(\tag{91}\)</span></p>
-</div>
-<div class="theorem">
-<p><strong>(All parabolas similar).</strong> Any two are similar via scaling.</p>
+<p><strong>(Eccentricity = <span class="math inline">\(c/a\)</span> for ellipse).</strong> For every <span class="math inline">\(P = (x_0, y_0)\)</span> on the ellipse, <span class="math display">\[
+\frac{PF}{PL} = \frac{c}{a} = \varepsilon &lt; 1. \tag{1}
+\]</span></p>
 </div>
 </section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
+<section id="derivation-a-two-special-points-first-vertex-check" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-two-special-points-first-vertex-check">1.3 Derivation A — Two special points first (vertex check)</h3>
+<p><strong>Point <span class="math inline">\(A = (a, 0)\)</span> (right vertex).</strong></p>
 <ul>
-<li><span class="math inline">\(x^2 = 4y\)</span>: focus <span class="math inline">\((0,1)\)</span>, dir <span class="math inline">\(y=-1\)</span>. <span class="math inline">\((2,1)\)</span>: <span class="math inline">\(PF = 2, PL = 2\)</span>. ✓</li>
-<li>All parabolas similar: <span class="math inline">\(y = ax^2\)</span> → <span class="math inline">\(x \to x/\sqrt a\)</span> gives <span class="math inline">\(y = x^2\)</span>.</li>
+<li><span class="math inline">\(AF = a - c\)</span> (since <span class="math inline">\(A\)</span> is to the right of nothing on the focus side… actually <span class="math inline">\(A=(a,0)\)</span> and <span class="math inline">\(F=(c,0)\)</span>, <span class="math inline">\(a &gt; c\)</span>, so <span class="math inline">\(AF = a - c\)</span>).</li>
+<li><span class="math inline">\(AL = a^2/c - a = (a^2 - ac)/c = a(a-c)/c\)</span>.</li>
+<li>Ratio: <span class="math display">\[
+\frac{AF}{AL} = \frac{a-c}{a(a-c)/c} = \frac{c}{a}. \tag{2}
+\]</span></li>
+</ul>
+<p><strong>Point <span class="math inline">\(B = (-a, 0)\)</span> (left vertex).</strong></p>
+<ul>
+<li><span class="math inline">\(BF = a + c\)</span> (<span class="math inline">\(B\)</span> to the left of <span class="math inline">\(F\)</span> by distance <span class="math inline">\(a+c\)</span>).</li>
+<li><span class="math inline">\(BL = a^2/c - (-a) = a^2/c + a = a(a+c)/c\)</span>.</li>
+<li>Ratio: <span class="math display">\[
+\frac{BF}{BL} = \frac{a+c}{a(a+c)/c} = \frac{c}{a}. \tag{3}
+\]</span></li>
+</ul>
+<p>Both special points give ratio <span class="math inline">\(c/a\)</span>. Encouraging.</p>
+</section>
+<section id="derivation-b-arbitrary-point" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-arbitrary-point">1.4 Derivation B — Arbitrary point</h3>
+<p>For <span class="math inline">\(P = (x_0, y_0)\)</span> on the ellipse:</p>
+<p><strong>Denominator <span class="math inline">\(PL\)</span>.</strong> Directrix is vertical at <span class="math inline">\(x = a^2/c\)</span>. Perpendicular distance: <span class="math display">\[
+PL = \frac{a^2}{c} - x_0. \tag{4}
+\]</span> (Algebraic difference; positive since <span class="math inline">\(x_0 \le a &lt; a^2/c\)</span>.)</p>
+<p><strong>Numerator <span class="math inline">\(PF\)</span>.</strong> Distance formula: <span class="math display">\[
+PF = \sqrt{(x_0 - c)^2 + y_0^2}. \tag{5}
+\]</span></p>
+<p><strong>Reduce <span class="math inline">\(y_0^2\)</span> using the ellipse equation:</strong> <span class="math display">\[
+\frac{x_0^2}{a^2} + \frac{y_0^2}{b^2} = 1 \;\Longrightarrow\; y_0^2 = b^2\!\left(1 - \frac{x_0^2}{a^2}\right). \tag{6}
+\]</span></p>
+<p>Substitute into (5): <span class="math display">\[
+PF^2 = (x_0 - c)^2 + b^2 - \frac{b^2 x_0^2}{a^2}. \tag{7}
+\]</span></p>
+<p>Expand <span class="math inline">\((x_0-c)^2 = x_0^2 - 2cx_0 + c^2\)</span>: <span class="math display">\[
+PF^2 = x_0^2 - 2cx_0 + c^2 + b^2 - \frac{b^2 x_0^2}{a^2}. \tag{8}
+\]</span></p>
+<p>Group constant terms: <span class="math inline">\(c^2 + b^2 = a^2\)</span> (ellipse relation). Group <span class="math inline">\(x_0^2\)</span> terms: <span class="math inline">\(x_0^2 - b^2 x_0^2/a^2 = x_0^2(a^2 - b^2)/a^2 = x_0^2 c^2/a^2\)</span>. Hence: <span class="math display">\[
+PF^2 = a^2 - 2cx_0 + \frac{c^2}{a^2}x_0^2 = \left(a - \frac{c}{a}x_0\right)^2. \tag{9}
+\]</span> A complete square. Taking square root (with magnitude): <span class="math display">\[
+PF = \left|\,a - \frac{c}{a}x_0\,\right|. \tag{10}
+\]</span></p>
+<p><strong>Sign determination.</strong> <span class="math inline">\(x_0 \in [-a, a]\)</span>, so <span class="math inline">\((c/a)x_0 \in [-c, c]\)</span>. Since <span class="math inline">\(c &lt; a\)</span>, we have <span class="math inline">\(a - (c/a)x_0 &gt; a - c &gt; 0\)</span>. So the magnitude bars come off cleanly with a <span class="math inline">\(+\)</span> sign: <span class="math display">\[
+PF = a - \frac{c}{a}x_0. \tag{11}
+\]</span></p>
+</section>
+<section id="combine-numerator-and-denominator" class="level3">
+<h3 class="anchored" data-anchor-id="combine-numerator-and-denominator">1.5 Combine numerator and denominator</h3>
+<p><span class="math display">\[
+\frac{PF}{PL} = \frac{a - (c/a)x_0}{(a^2/c) - x_0} = \frac{a - (c/a)x_0}{(a^2 - cx_0)/c} = \frac{c\,[a - (c/a)x_0]}{a^2 - cx_0}. \tag{12}
+\]</span></p>
+<p>Multiply numerator: <span class="math inline">\(c \cdot a - c \cdot (c/a) x_0 = ca - (c^2/a)x_0 = (a^2 c - c^2 x_0)/a = c(a^2 - c x_0)/a\)</span>. Hence: <span class="math display">\[
+\frac{PF}{PL} = \frac{c(a^2 - cx_0)/a}{a^2 - cx_0} = \frac{c}{a}. \quad\blacksquare \tag{13}
+\]</span> The <span class="math inline">\((a^2 - cx_0)\)</span> cancels (nonzero since <span class="math inline">\(x_0 \le a &lt; a^2/c\)</span>).</p>
+<p><strong>Weakest step:</strong> the sign choice in (11) requires the bound <span class="math inline">\(x_0 \in [-a, a]\)</span> — i.e., <span class="math inline">\(P\)</span> on the <em>physical</em> ellipse, not the extended algebraic curve. Stated explicitly; verified.</p>
+</section>
+<section id="verification-with-a2-c1-so-b-sqrt-3" class="level3">
+<h3 class="anchored" data-anchor-id="verification-with-a2-c1-so-b-sqrt-3">1.6 Verification with <span class="math inline">\(a=2, c=1\)</span> (so <span class="math inline">\(b = \sqrt 3\)</span>)</h3>
+<p>Directrix: <span class="math inline">\(x = 4\)</span>. Pick <span class="math inline">\(P = (1, \sqrt{3}/2 \cdot \sqrt{3}) = (1, 3/2)\)</span>. Check: <span class="math inline">\(1/4 + (3/2)^2/3 = 1/4 + 3/4 = 1\)</span>. ✓ <span class="math inline">\(PF = \sqrt{(1-1)^2 + (3/2)^2} = 3/2\)</span>. <span class="math inline">\(PL = 4 - 1 = 3\)</span>. Ratio <span class="math inline">\(= 1/2 = c/a\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-eccentricity-classifies-conics" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-eccentricity-classifies-conics">Part II — Eccentricity classifies conics</h2>
+<section id="statement-1" class="level3">
+<h3 class="anchored" data-anchor-id="statement-1">2.1 Statement</h3>
+<div class="theorem">
+<p><strong>(Eccentricity classification).</strong> A conic with focus <span class="math inline">\(F\)</span>, directrix <span class="math inline">\(L\)</span>, eccentricity <span class="math inline">\(\varepsilon\)</span> is: - <strong>ellipse</strong> if <span class="math inline">\(\varepsilon &lt; 1\)</span>, - <strong>parabola</strong> if <span class="math inline">\(\varepsilon = 1\)</span>, - <strong>hyperbola</strong> if <span class="math inline">\(\varepsilon &gt; 1\)</span>.</p>
+</div>
+</section>
+<section id="derivation-a-forward-known-conic-compute-varepsilon" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-forward-known-conic-compute-varepsilon">2.2 Derivation A — Forward: known conic → compute <span class="math inline">\(\varepsilon\)</span></h3>
+<ul>
+<li>Ellipse: derivation §1 gives <span class="math inline">\(\varepsilon = c/a &lt; 1\)</span> ✓ (since <span class="math inline">\(c &lt; a\)</span>).</li>
+<li>Hyperbola: analogous derivation (homework). Directrix at <span class="math inline">\(x = a^2/c\)</span>; with <span class="math inline">\(c &gt; a\)</span> for hyperbola, <span class="math inline">\(a^2/c &lt; a\)</span>, directrix between centre and vertex. Same algebra yields <span class="math inline">\(\varepsilon = c/a &gt; 1\)</span>.</li>
+<li>Parabola: derived next in §3.</li>
+</ul>
+</section>
+<section id="derivation-b-reverse-pick-varepsilon-trace-curve" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-reverse-pick-varepsilon-trace-curve">2.3 Derivation B — Reverse: pick <span class="math inline">\(\varepsilon\)</span>, trace curve</h3>
+<p>Set focus <span class="math inline">\(F\)</span> and directrix <span class="math inline">\(L\)</span>; let <span class="math inline">\(\varepsilon\)</span> vary. Plot points with <span class="math inline">\(PF/PL = \varepsilon\)</span>: - <span class="math inline">\(\varepsilon = 1/2\)</span>: bounded closed curve — ellipse. Catherine’s two trisector points lie on it. - <span class="math inline">\(\varepsilon = 1\)</span>: open parabolic curve. - <span class="math inline">\(\varepsilon = 2\)</span>: open curve with two branches — hyperbola. As <span class="math inline">\(|P|\to\infty\)</span>, <span class="math inline">\(PF/PO \to 1\)</span> and <span class="math inline">\(PL/PO \to 1\)</span> where <span class="math inline">\(O\)</span> is far origin, so the angle of the asymptote satisfies <span class="math inline">\(\cos\theta = 1/\varepsilon\)</span>.</p>
+<p><strong>Comparison.</strong> A is verification-first (assumes known classification, computes <span class="math inline">\(\varepsilon\)</span>). B is constructive (uses <span class="math inline">\(\varepsilon\)</span> as the defining parameter). The two are equivalent; A is cleaner for proof, B is more illuminating geometrically.</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-the-parabola-x2-4cy-from-varepsilon-1" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-the-parabola-x2-4cy-from-varepsilon-1">Part III — The parabola <span class="math inline">\(x^2 = 4cy\)</span> from <span class="math inline">\(\varepsilon = 1\)</span></h2>
+<section id="setup-1" class="level3">
+<h3 class="anchored" data-anchor-id="setup-1">3.1 Setup</h3>
+<p>Place focus at <span class="math inline">\(F = (0, c)\)</span> and directrix <span class="math inline">\(L\)</span>: <span class="math inline">\(y = -c\)</span>. So the origin is <strong>midway</strong> between focus and directrix (a natural symmetric placement). The condition <span class="math inline">\(PF = PL\)</span> becomes: <span class="math display">\[
+PF^2 = PL^2. \tag{14}
+\]</span></p>
+</section>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">3.2 Derivation</h3>
+<p>For <span class="math inline">\(P = (x_0, y_0)\)</span>: <span class="math display">\[
+PL = y_0 - (-c) = y_0 + c. \tag{15}
+\]</span> <span class="math display">\[
+PF = \sqrt{x_0^2 + (y_0 - c)^2}. \tag{16}
+\]</span> <span class="math display">\[
+PF^2 = x_0^2 + (y_0 - c)^2 = x_0^2 + y_0^2 - 2cy_0 + c^2. \tag{17}
+\]</span> <span class="math display">\[
+PL^2 = (y_0 + c)^2 = y_0^2 + 2cy_0 + c^2. \tag{18}
+\]</span> Equate (14): cancel <span class="math inline">\(y_0^2\)</span> and <span class="math inline">\(c^2\)</span>: <span class="math display">\[
+x_0^2 - 2cy_0 = 2cy_0 \;\Longrightarrow\; x_0^2 = 4cy_0. \tag{19}
+\]</span></p>
+<div class="theorem">
+<p><strong>(Parabola equation).</strong> With focus <span class="math inline">\((0,c)\)</span> and directrix <span class="math inline">\(y = -c\)</span>: <span class="math display">\[
+x^2 = 4cy. \tag{20}
+\]</span></p>
+</div>
+<p><strong>Weakest step:</strong> the placement of origin at the <em>midpoint</em> of focus and directrix is a <em>choice</em>, not a proof step. It makes the algebra symmetric. Different choices give translated equations.</p>
+</section>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">3.3 Verification</h3>
+<ul>
+<li>Focus <span class="math inline">\((0, c)\)</span> lies on the axis of symmetry. ✓</li>
+<li>Vertex at origin <span class="math inline">\((0, 0)\)</span>: <span class="math inline">\(0 = 4c\cdot 0\)</span>. ✓</li>
+<li>At <span class="math inline">\(x = 2c\)</span>: <span class="math inline">\(y = (2c)^2/(4c) = c\)</span>. So <span class="math inline">\(P = (2c, c)\)</span>. <span class="math inline">\(PF = \sqrt{(2c)^2 + 0} = 2c\)</span>. <span class="math inline">\(PL = c + c = 2c\)</span>. ✓</li>
+<li>“Narrow” parabola: small <span class="math inline">\(c\)</span> → small focal-directrix gap → narrow shape. “Wide” parabola: large <span class="math inline">\(c\)</span>. ✓</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-iv-all-parabolas-are-similar" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-all-parabolas-are-similar">Part IV — All parabolas are similar</h2>
+<section id="statement-2" class="level3">
+<h3 class="anchored" data-anchor-id="statement-2">4.1 Statement</h3>
+<div class="theorem">
+<p><strong>(All parabolas similar).</strong> Any two parabolas can be made congruent by translation, rotation, and uniform scaling.</p>
+</div>
+</section>
+<section id="derivation-1" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-1">4.2 Derivation</h3>
+<p>After translation/rotation, every parabola can be written <span class="math inline">\(y = kx^2\)</span> for some <span class="math inline">\(k &gt; 0\)</span>. To show <span class="math inline">\(y = kx^2\)</span> and <span class="math inline">\(y = \beta x^2\)</span> (<span class="math inline">\(k \ne \beta\)</span>) are similar, apply scaling <span class="math inline">\(x \to x/\lambda\)</span>, <span class="math inline">\(y \to y/\lambda\)</span> (with <span class="math inline">\(\lambda &gt; 0\)</span>). Then <span class="math inline">\(y/\lambda = k(x/\lambda)^2 \Longrightarrow y = (k/\lambda)x^2\)</span>. Choose <span class="math inline">\(\lambda = k/\beta\)</span>: <span class="math display">\[
+y = \beta x^2, \tag{21}
+\]</span> which matches the target. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Geometric reading (Elaine’s intuition).</strong> Zoom into a “wide” parabola near the vertex: the curve becomes indistinguishable from a “narrow” one if zoomed enough. The scaling <span class="math inline">\(\lambda\)</span> is the precise zoom factor.</p>
+</section>
+<section id="why-this-fails-for-other-curves" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-fails-for-other-curves">4.3 Why this fails for other curves</h3>
+<ul>
+<li><strong>Cubic <span class="math inline">\(y = kx^3\)</span>:</strong> scaling <span class="math inline">\(x \to x/\lambda, y \to y/\lambda\)</span> gives <span class="math inline">\(y = (k/\lambda^2)x^3\)</span>. Need <span class="math inline">\(\lambda^2 = k/\beta\)</span>, so <span class="math inline">\(\lambda = \sqrt{k/\beta}\)</span>. Wait — this <em>does</em> work, by the same argument. So <em>all <span class="math inline">\(y = ax^3\)</span> curves are similar too</em>. (The teacher’s claim “cubic equations are not similar” must refer to <em>general</em> cubics with all coefficients varying, not the family <span class="math inline">\(y = kx^3\)</span>.)</li>
+</ul>
+<p><strong>Source-correction.</strong> Strictly: <em>parabolas of the form <span class="math inline">\(y = kx^2\)</span></em> are all similar. <em>General cubics <span class="math inline">\(y = ax^3 + bx^2 + cx + d\)</span></em> are not all similar (they have multiple shape parameters), but <em>pure-power cubics <span class="math inline">\(y = ax^3\)</span></em> are. The teacher’s statement is technically imprecise; the correct version is: <strong>conics of a given type (all ellipses with the same eccentricity, all parabolas, all hyperbolas with same <span class="math inline">\(\varepsilon\)</span>) form a similarity class</strong>.</p>
+<ul>
+<li><strong>Exponential <span class="math inline">\(y = e^{ax}\)</span>:</strong> scaling <span class="math inline">\(x \to x/\lambda, y \to y/\lambda\)</span> gives <span class="math inline">\(y/\lambda = e^{ax/\lambda}\)</span>. No scaling makes this match <span class="math inline">\(y = e^{bx}\)</span> unless <span class="math inline">\(a = b\)</span>, due to the additive (not multiplicative) action of scaling on the exponent. So exponentials with different rates are <em>genuinely</em> not similar.</li>
+</ul>
+</section>
+<section id="general-statement-forward-pointer" class="level3">
+<h3 class="anchored" data-anchor-id="general-statement-forward-pointer">4.4 General statement (forward pointer)</h3>
+<p>Two conics with the same eccentricity <span class="math inline">\(\varepsilon\)</span> are similar. Two conics with different <span class="math inline">\(\varepsilon\)</span> are <em>not</em> similar (eccentricity is the similarity invariant). All parabolas have <span class="math inline">\(\varepsilon = 1\)</span>, hence all parabolas are similar. <strong>Ellipses come in a one-parameter family of similarity classes indexed by <span class="math inline">\(\varepsilon \in [0, 1)\)</span>;</strong> hyperbolas similarly by <span class="math inline">\(\varepsilon \in (1, \infty)\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{\text{Conic} \;\xrightarrow{\varepsilon\,:=\,PF/PL}\; \varepsilon \in [0,\infty)}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\varepsilon\)</span></th>
+<th>Curve</th>
+<th>Focal relation</th>
+<th><span class="math inline">\(\varepsilon\)</span> in terms of <span class="math inline">\(a,b,c\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(0\)</span></td>
+<td>circle</td>
+<td><span class="math inline">\(a = b, c = 0\)</span></td>
+<td><span class="math inline">\(\varepsilon = 0/a = 0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((0, 1)\)</span></td>
+<td>ellipse</td>
+<td><span class="math inline">\(a^2 = b^2 + c^2\)</span></td>
+<td><span class="math inline">\(\varepsilon = c/a\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1\)</span></td>
+<td>parabola</td>
+<td>(no <span class="math inline">\(a, b, c\)</span>; only focal parameter <span class="math inline">\(p\)</span>)</td>
+<td><span class="math inline">\(\varepsilon = 1\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((1, \infty)\)</span></td>
+<td>hyperbola</td>
+<td><span class="math inline">\(c^2 = a^2 + b^2\)</span></td>
+<td><span class="math inline">\(\varepsilon = c/a\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>single parameter <span class="math inline">\(\varepsilon\)</span> classifies all conics up to similarity</strong>. This is the third (and most efficient) definition: focus + directrix + a positive ratio.</p>
+<hr>
+</section>
+<section id="verification-audit" class="level2">
+<h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\varepsilon, A, B, P, x_0, y_0, k\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(21), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> <span class="math inline">\(PL\)</span> positive (perpendicular distance); sign of <span class="math inline">\(a - (c/a)x_0\)</span> in (10)→(11) justified by physical range <span class="math inline">\(x_0\in[-a,a]\)</span>. ✓</li>
+<li><strong>Every implication follows?</strong> Each algebraic step in §1.4 shown explicitly: (6) → (7) → (8) → (9) → (10) → (11). Sign elimination in (11) explicitly justified. Parabola derivation (15)–(19) explicit cancellation. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Ellipse + hyperbola focal properties imported from Oct 4 morning; Pythagorean theorem; algebraic identity <span class="math inline">\(\sqrt{X^2}=|X|\)</span>. ✓</li>
+<li><strong>Counterexample / source correction.</strong> The teacher’s “cubics are not similar” claim is technically imprecise — addressed in §4.3 (“source-correction”). Correct version: pure-power <span class="math inline">\(y = ax^3\)</span> are similar; general cubics with shape parameters are not. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> Vertices <span class="math inline">\(A, B\)</span> in §1.3; arbitrary <span class="math inline">\(P=(1, 3/2)\)</span> in §1.6; parabola <span class="math inline">\(P=(2c, c)\)</span> in §3.3; circle <span class="math inline">\(\varepsilon=0\)</span> limit in unified picture. ✓</li>
+<li><strong>Weakest step named?</strong> Done after §1.5 (sign choice) and §3.2 (origin placement). ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Directrix at <span class="math inline">\(x = a^2/c\)</span> for ellipse</td>
+<td>Asserted before derivation</td>
+<td>Justified by §1.3 vertex check + §1.4 arbitrary-point algebra showing the ratio is constant</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sqrt{X^2} = X\)</span> in (10)→(11)</td>
+<td>Generally <span class="math inline">\(\sqrt{X^2}=\lvert X\rvert\)</span></td>
+<td>Sign determined by physical range <span class="math inline">\(x_0\in[-a,a]\)</span>; verified positive</td>
+</tr>
+<tr class="odd">
+<td>Cancellation of <span class="math inline">\((a^2 - cx_0)\)</span> in (12)→(13)</td>
+<td>Would fail if <span class="math inline">\(a^2 = cx_0\)</span></td>
+<td><span class="math inline">\(x_0\le a &lt; a^2/c\)</span> ensures <span class="math inline">\(a^2 - cx_0 &gt; 0\)</span>, nonzero</td>
+</tr>
+<tr class="even">
+<td>Origin placement in §3.1</td>
+<td>Arbitrary choice</td>
+<td>Standard convention for parabola in symmetric form; different placements give translated equations</td>
+</tr>
+<tr class="odd">
+<td>Teacher’s “cubics not similar”</td>
+<td>Imprecise (depends on which cubic family)</td>
+<td>Restated correctly in §4.3 with <span class="math inline">\(y=ax^3\)</span> case as counterexample to the imprecise version</td>
+</tr>
+<tr class="even">
+<td>All parabolas similar</td>
+<td>Relies on uniform scaling <span class="math inline">\(x,y \to x/\lambda, y/\lambda\)</span></td>
+<td>Verified explicitly in (21)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
+<ul>
+<li><strong>Next brick (Oct 11):</strong> introduction of <strong>matrices and Cramer’s rule</strong> — pivoting away from conics for a few weeks toward linear algebra. Conics return Oct 18 with the <em>discriminant</em> classification of <span class="math inline">\(Ax^2 + Bxy + Cy^2 + \dots = 0\)</span>, where eccentricity becomes the eigenvalue of a <span class="math inline">\(2\times 2\)</span> matrix.</li>
+<li><strong>Homework deferred:</strong> (i) prove <span class="math inline">\(\varepsilon = c/a &gt; 1\)</span> for the hyperbola using the same algebra as §1.4; (ii) finish proving all parabolas similar by writing out the scaling explicitly; (iii) verify that not all <em>general</em> cubics are similar.</li>
+<li><strong>Forward pointer (Feb 21):</strong> the directrix at <span class="math inline">\(a^2/c\)</span> is a hint of the <strong>polar of a point</strong> in projective geometry — the same line is “dual” to the focus under the conic’s polarity. Polar reciprocity is the projective-geometry framework that unifies focus-directrix definitions.</li>
+<li><strong>Open question:</strong> the parabola’s “missing” parameter — ellipse and hyperbola each have two parameters <span class="math inline">\((a, b)\)</span> or equivalently <span class="math inline">\((a, c)\)</span> or <span class="math inline">\((\varepsilon, p)\)</span>; parabola has just one (focal parameter <span class="math inline">\(p\)</span>). This is because the parabola lives at the <em>boundary</em> of the eccentricity-parameter line <span class="math inline">\(\varepsilon = 1\)</span>, collapsing one degree of freedom. The same shows up in projective geometry as the “point at infinity” of the parabola being a single double-point, not a transverse intersection.</li>
+<li><strong>Connection back to Sep 27:</strong> the algebraic move of <em>recognising a complete square</em> in (9) is the same algebraic move as solving quadratics — and indeed, the conic-section problem is fundamentally a <em>quadratic geometry</em> problem. The eccentricity classification is the geometric image of the discriminant of a quadratic equation.</li>
+<li><strong>Pedagogical thread:</strong> the teacher emphasised “do the pencil work yourself, don’t trust me.” The complete-the-square move in (8)→(9) is the load-bearing step where a careless arithmetic slip propagates everywhere. This is the <em>spirit</em> of rigour — every algebra step verified personally.</li>
 </ul>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
 <video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-afternoon.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1qggK2dHulTcoD10ioYp7ZN-dg9wa6Lud/view">Drive</a></p>
+</section>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Precursor:</strong> <a href="2025-10-04-morning.html">Oct 4 morning</a> — ellipse/hyperbola focal relations <span class="math inline">\(a^2 = b^2+c^2\)</span>, <span class="math inline">\(c^2 = a^2+b^2\)</span>, used as imported lemmas.</li>
+<li><strong>Forward:</strong> <a href="2025-10-18-morning.html">Oct 18 morning</a> and <a href="2025-10-18-afternoon.html">afternoon</a> — algebraic classification of conics by the <strong>discriminant</strong> <span class="math inline">\(B^2 - 4AC\)</span> of the quadratic form.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

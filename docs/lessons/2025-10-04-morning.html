@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-04">
 
-<title>Hyperbola Geometry: Foci, Asymptotes, and c² = a² + b² – Linear Algebra Notes</title>
+<title>Hyperbola Geometry: Four Independent Proofs that c² = a² + b²; Latus Rectum; Asymptote Distance – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,11 +184,35 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-the-asymptotes-from-algebra" id="toc-part-i-the-asymptotes-from-algebra" class="nav-link" data-scroll-target="#part-i-the-asymptotes-from-algebra">Part I — The asymptotes from algebra</a>
+  <ul class="collapse">
+  <li><a href="#factoring-the-lhs-of-1" id="toc-factoring-the-lhs-of-1" class="nav-link" data-scroll-target="#factoring-the-lhs-of-1">1.1 Factoring the LHS of (1)</a></li>
+  <li><a href="#verification-with-a1-b2" id="toc-verification-with-a1-b2" class="nav-link" data-scroll-target="#verification-with-a1-b2">1.2 Verification with <span class="math inline">\(a=1, b=2\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-ii-four-independent-derivations-of-c2-a2-b2" id="toc-part-ii-four-independent-derivations-of-c2-a2-b2" class="nav-link" data-scroll-target="#part-ii-four-independent-derivations-of-c2-a2-b2">Part II — Four independent derivations of <span class="math inline">\(c^2 = a^2 + b^2\)</span></a>
+  <ul class="collapse">
+  <li><a href="#derivation-a-latus-rectum-focal-property" id="toc-derivation-a-latus-rectum-focal-property" class="nav-link" data-scroll-target="#derivation-a-latus-rectum-focal-property">2.1 Derivation A — Latus rectum + focal property</a></li>
+  <li><a href="#derivation-b-asymptotic-limit-triangle-at-infinity-tobylucass-method" id="toc-derivation-b-asymptotic-limit-triangle-at-infinity-tobylucass-method" class="nav-link" data-scroll-target="#derivation-b-asymptotic-limit-triangle-at-infinity-tobylucass-method">2.2 Derivation B — Asymptotic-limit triangle at infinity (Toby/Lucas’s method)</a></li>
+  <li><a href="#derivation-c-tobys-complex-substitution-b-to-ib" id="toc-derivation-c-tobys-complex-substitution-b-to-ib" class="nav-link" data-scroll-target="#derivation-c-tobys-complex-substitution-b-to-ib">2.3 Derivation C — Toby’s complex substitution <span class="math inline">\(b \to ib\)</span></a></li>
+  <li><a href="#derivation-d-direct-algebra-from-focal-property-textbook-brute-force" id="toc-derivation-d-direct-algebra-from-focal-property-textbook-brute-force" class="nav-link" data-scroll-target="#derivation-d-direct-algebra-from-focal-property-textbook-brute-force">2.4 Derivation D — Direct algebra from focal property (textbook brute force)</a></li>
+  <li><a href="#verification-with-a1-b2-1" id="toc-verification-with-a1-b2-1" class="nav-link" data-scroll-target="#verification-with-a1-b2-1">2.5 Verification with <span class="math inline">\(a=1, b=2\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-iii-distance-from-focus-to-asymptote" id="toc-part-iii-distance-from-focus-to-asymptote" class="nav-link" data-scroll-target="#part-iii-distance-from-focus-to-asymptote">Part III — Distance from focus to asymptote</a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">3.1 Statement</a></li>
+  <li><a href="#derivation-a-similar-triangles-from-2.2-picture" id="toc-derivation-a-similar-triangles-from-2.2-picture" class="nav-link" data-scroll-target="#derivation-a-similar-triangles-from-2.2-picture">3.2 Derivation A — Similar triangles (from §2.2 picture)</a></li>
+  <li><a href="#derivation-b-direct-distance-formula" id="toc-derivation-b-direct-distance-formula" class="nav-link" data-scroll-target="#derivation-b-direct-distance-formula">3.3 Derivation B — Direct distance formula</a></li>
+  <li><a href="#numerical-check-a1-b2" id="toc-numerical-check-a1-b2" class="nav-link" data-scroll-target="#numerical-check-a1-b2">3.4 Numerical check <span class="math inline">\(a=1, b=2\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-iv-parallel-between-ellipse-and-hyperbola" id="toc-part-iv-parallel-between-ellipse-and-hyperbola" class="nav-link" data-scroll-target="#part-iv-parallel-between-ellipse-and-hyperbola">Part IV — Parallel between ellipse and hyperbola</a></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
-  <li><a href="#related-oct-4-afternoon-oct-18-morning" id="toc-related-oct-4-afternoon-oct-18-morning" class="nav-link" data-scroll-target="#related-oct-4-afternoon-oct-18-morning">Related: Oct 4 afternoon, Oct 18 morning</a></li>
+  <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
   </ul>
 </nav>
@@ -198,7 +222,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hyperbola Geometry: Foci, Asymptotes, and c² = a² + b²</h1>
+<h1 class="title">Hyperbola Geometry: Four Independent Proofs that c² = a² + b²; Latus Rectum; Asymptote Distance</h1>
 </div>
 
 
@@ -223,26 +247,371 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>Derives focal relation <span class="math inline">\(c^2 = a^2 + b^2\)</span> for hyperbola by multiple methods.</p>
+<p>Derives the hyperbola focal relation <span class="math inline">\(c^2 = a^2 + b^2\)</span> four independent ways: (i) latus-rectum plug-in via the focal property; (ii) asymptotic-limit triangle at infinity (Toby/Lucas); (iii) Toby’s complex-substitution wishful thinking <span class="math inline">\(b\to ib\)</span>; (iv) brute-force algebra from the focal definition. Establishes asymptotes <span class="math inline">\(y = \pm(b/a)x\)</span>, focal-distance-to-asymptote <span class="math inline">\(= b\)</span>, latus rectum <span class="math inline">\(= b^2/a\)</span>. Forecasts the parabola as the borderline case (afternoon session).</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a, b\)</span></td>
+<td>semi-axes of the hyperbola, <span class="math inline">\(a\)</span> along <span class="math inline">\(x\)</span>-axis, <span class="math inline">\(b\)</span> controls asymptote slope</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(c\)</span></td>
+<td>focal distance, distance from centre to focus</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(F_1, F_2\)</span></td>
+<td>foci at <span class="math inline">\((\pm c, 0)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d_1, d_2\)</span></td>
+<td>distances from a point <span class="math inline">\(P\)</span> on the curve to <span class="math inline">\(F_1, F_2\)</span> respectively</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P\)</span></td>
+<td>arbitrary point on the hyperbola</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y_\ell\)</span></td>
+<td>half-length of latus rectum <span class="math inline">\(= b^2/a\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>angle between asymptote and the <span class="math inline">\(x\)</span>-axis: <span class="math inline">\(\tan\theta = b/a\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(i\)</span></td>
+<td>imaginary unit (used for <span class="math inline">\(b\to ib\)</span> substitution)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in the real Euclidean plane <span class="math inline">\(\mathbb R^2\)</span> with standard Cartesian coordinates. <strong>Convention:</strong> the hyperbola is in <em>standard position</em> — centred at origin, foci on the <span class="math inline">\(x\)</span>-axis. <strong>Definition (focal property):</strong> a hyperbola is the locus of points <span class="math inline">\(P\)</span> such that <span class="math inline">\(|d_1 - d_2| = 2a\)</span> for fixed <span class="math inline">\(a &gt; 0\)</span>. <strong>Definition (Cartesian):</strong> in standard position, <span class="math display">\[
+\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1. \tag{1}
+\]</span> These two definitions are equivalent — provable by the derivation method used for the ellipse (homework). <strong>Not yet assumed:</strong> that <span class="math inline">\(c^2 = a^2 + b^2\)</span>; this is what we prove.</p>
+<p><strong>Imported lemmas:</strong> (i) <strong>Pythagorean theorem</strong> (Euclidean geometry); (ii) <strong>distance formula</strong> <span class="math inline">\(|PQ| = \sqrt{(x_P-x_Q)^2 + (y_P-y_Q)^2}\)</span>; (iii) for the ellipse, <span class="math inline">\(a^2 = b^2 + c^2\)</span> — proven last week via the isoceles-triangle vertex argument.</p>
+<hr>
+</section>
+<section id="part-i-the-asymptotes-from-algebra" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-the-asymptotes-from-algebra">Part I — The asymptotes from algebra</h2>
+<section id="factoring-the-lhs-of-1" class="level3">
+<h3 class="anchored" data-anchor-id="factoring-the-lhs-of-1">1.1 Factoring the LHS of (1)</h3>
 <div class="theorem">
-<p><strong>(Hyperbola).</strong> <span class="math inline">\(x^2/a^2 - y^2/b^2 = 1\)</span>, foci <span class="math inline">\((\pm c, 0)\)</span>: <span class="math inline">\(||PF_1| - |PF_2|| = 2a\)</span>, <span class="math inline">\(c^2 = a^2 + b^2\)</span>. <span class="math inline">\(\tag{89}\)</span></p>
+<p><strong>(Asymptotes of hyperbola).</strong> The hyperbola (1) has two asymptotes: <span class="math display">\[
+y = \pm \frac{b}{a} x. \tag{2}
+\]</span></p>
 </div>
+<p><em>Derivation.</em> Rewrite (1) as <span class="math display">\[
+\left(\frac{x}{a} + \frac{y}{b}\right)\left(\frac{x}{a} - \frac{y}{b}\right) = 1. \tag{3}
+\]</span> On the curve, the product of the two factors is <span class="math inline">\(1\)</span> — neither factor can be zero. The two lines <span class="math inline">\(\frac{x}{a} + \frac{y}{b} = 0\)</span> and <span class="math inline">\(\frac{x}{a} - \frac{y}{b} = 0\)</span> — i.e.&nbsp;<span class="math inline">\(y = -bx/a\)</span> and <span class="math inline">\(y = bx/a\)</span> — are the <strong>untouchable lines</strong> (asymptotes). As <span class="math inline">\(|x|\to\infty\)</span>, one factor blows up while the other shrinks, but their product stays at <span class="math inline">\(1\)</span> — meaning the curve hugs the asymptote arbitrarily closely. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Weakest step:</strong> “hugs the asymptote arbitrarily closely” is a limit argument; rigorously, for large <span class="math inline">\(x\)</span>, <span class="math inline">\(y^2/b^2 = x^2/a^2 - 1 \approx x^2/a^2\)</span>, so <span class="math inline">\(y/x \to \pm b/a\)</span>.</p>
+</section>
+<section id="verification-with-a1-b2" class="level3">
+<h3 class="anchored" data-anchor-id="verification-with-a1-b2">1.2 Verification with <span class="math inline">\(a=1, b=2\)</span></h3>
+<p>Asymptotes: <span class="math inline">\(y = \pm 2x\)</span>. At <span class="math inline">\(x = 10\)</span>: predicted <span class="math inline">\(y = \pm 20\)</span>; actual from (1): <span class="math inline">\(y^2 = 4(100 - 1) = 396\)</span>, <span class="math inline">\(y = \pm 19.90\)</span>. Error: <span class="math inline">\(0.5\%\)</span>. ✓ (Convergence is <span class="math inline">\(O(1/x)\)</span>.)</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-four-independent-derivations-of-c2-a2-b2" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-four-independent-derivations-of-c2-a2-b2">Part II — Four independent derivations of <span class="math inline">\(c^2 = a^2 + b^2\)</span></h2>
+<section id="derivation-a-latus-rectum-focal-property" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-latus-rectum-focal-property">2.1 Derivation A — Latus rectum + focal property</h3>
+<p><strong>Step A.1.</strong> Compute the latus rectum <span class="math inline">\(y_\ell\)</span> at <span class="math inline">\(x = c\)</span> on the curve: <span class="math display">\[
+\frac{c^2}{a^2} - \frac{y_\ell^2}{b^2} = 1, \quad\Longrightarrow\quad \frac{y_\ell^2}{b^2} = \frac{c^2}{a^2} - 1. \tag{4}
+\]</span></p>
+<p><strong>Step A.2.</strong> Set <span class="math inline">\(P = (c, y_\ell)\)</span>. Then <span class="math inline">\(d_2 = |PF_2| = y_\ell\)</span> (since <span class="math inline">\(P, F_2\)</span> share <span class="math inline">\(x = c\)</span>) and <span class="math display">\[
+d_1 = |PF_1| = \sqrt{(2c)^2 + y_\ell^2} = \sqrt{4c^2 + y_\ell^2}. \tag{5}
+\]</span></p>
+<p><strong>Step A.3.</strong> By focal property <span class="math inline">\(|d_1 - d_2| = 2a\)</span>: <span class="math display">\[
+\sqrt{4c^2 + y_\ell^2} - y_\ell = 2a. \tag{6}
+\]</span> Move <span class="math inline">\(y_\ell\)</span> to RHS and square: <span class="math display">\[
+4c^2 + y_\ell^2 = (2a + y_\ell)^2 = 4a^2 + 4a y_\ell + y_\ell^2. \tag{7}
+\]</span> Cancel <span class="math inline">\(y_\ell^2\)</span> and divide by 4: <span class="math display">\[
+c^2 = a^2 + a y_\ell \;\Longleftrightarrow\; y_\ell = \frac{c^2 - a^2}{a}. \tag{8}
+\]</span></p>
+<p><strong>Step A.4.</strong> From (4): <span class="math inline">\(y_\ell^2 = b^2 (c^2 - a^2)/a^2\)</span>. Substituting (8): <span class="math display">\[
+\left(\frac{c^2-a^2}{a}\right)^2 = \frac{b^2(c^2-a^2)}{a^2}, \quad\Longrightarrow\quad c^2-a^2 = b^2. \tag{9}
+\]</span> Hence <span class="math display">\[
+\boxed{c^2 = a^2 + b^2.} \tag{10}
+\]</span> And <span class="math inline">\(y_\ell = b^2/a\)</span> from substituting back. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Weakest step:</strong> dividing in (9) requires <span class="math inline">\(c\ne a\)</span>; for a non-degenerate hyperbola, foci are <em>outside</em> vertices so <span class="math inline">\(c &gt; a\)</span>, satisfied.</p>
+</section>
+<section id="derivation-b-asymptotic-limit-triangle-at-infinity-tobylucass-method" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-asymptotic-limit-triangle-at-infinity-tobylucass-method">2.2 Derivation B — Asymptotic-limit triangle at infinity (Toby/Lucas’s method)</h3>
+<p>At a point <span class="math inline">\(P\)</span> very far along the hyperbola, <span class="math inline">\(P\)</span> sits essentially on the asymptote. The two focal rays <span class="math inline">\(PF_1, PF_2\)</span> become almost parallel (both approximately along the asymptote direction). The <em>difference</em> <span class="math inline">\(|d_1 - d_2| = 2a\)</span> persists into the limit because it is intrinsic to the curve.</p>
+<p>Construct a right triangle with: - horizontal leg of length <span class="math inline">\(2a\)</span> (the focal-difference, asymptotic projection on the asymptote), - vertical leg of length <span class="math inline">\(2b\)</span> (orthogonal to the asymptote, scaled by <span class="math inline">\(\tan\theta = b/a\)</span>), - hypotenuse <span class="math inline">\(2c\)</span> (the focal separation <span class="math inline">\(|F_1 F_2|\)</span>).</p>
+<p>By Pythagorean theorem on this triangle: <span class="math display">\[
+(2c)^2 = (2a)^2 + (2b)^2 \;\Longrightarrow\; c^2 = a^2 + b^2. \quad\blacksquare \tag{11}
+\]</span></p>
+<p><strong>Weakest step:</strong> the “<span class="math inline">\(PF_1 \parallel PF_2\)</span> at infinity” approximation is a limit argument. Rigorous if interpreted as <span class="math inline">\(\lim_{|P|\to\infty}\)</span>; finite differences (<span class="math inline">\(2a\)</span>) survive into the limit because they are intrinsic to the curve. The legs <span class="math inline">\(2a\)</span> and <span class="math inline">\(2b\)</span> each come from the slope <span class="math inline">\(b/a\)</span> analysis in Part I.</p>
+</section>
+<section id="derivation-c-tobys-complex-substitution-b-to-ib" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-c-tobys-complex-substitution-b-to-ib">2.3 Derivation C — Toby’s complex substitution <span class="math inline">\(b \to ib\)</span></h3>
+<p>Start from the <strong>ellipse</strong> equation <span class="math inline">\(x^2/a^2 + y^2/b^2 = 1\)</span> and its known relation <span class="math inline">\(a^2 = b^2 + c^2\)</span>. Substitute <span class="math inline">\(b \to ib\)</span> (purely formal): <span class="math display">\[
+\frac{x^2}{a^2} + \frac{y^2}{(ib)^2} = \frac{x^2}{a^2} - \frac{y^2}{b^2} = 1. \tag{12}
+\]</span> Hyperbola! And the relation becomes <span class="math display">\[
+a^2 = (ib)^2 + c^2 = -b^2 + c^2 \;\Longrightarrow\; c^2 = a^2 + b^2. \quad\blacksquare \tag{13}
+\]</span></p>
+<p><strong>Weakest step (and the magic):</strong> this is <em>purely formal manipulation</em>. It works only because the algebraic structure of conic equations is symmetric under <span class="math inline">\(b\leftrightarrow ib\)</span>. Rigorously, the algebraic identity <span class="math inline">\(a^2 = b^2 + c^2\)</span> holds as a polynomial identity in <span class="math inline">\(\mathbb R[a,b,c]\)</span>, hence remains valid in <span class="math inline">\(\mathbb C[a,b,c]\)</span>; substituting <span class="math inline">\(ib\)</span> for <span class="math inline">\(b\)</span> is a legal automorphism of the ring. Forward-pointing to Feb 21, where this same substitution rotates hyperbolic asymptotes into ellipse skew axes.</p>
+</section>
+<section id="derivation-d-direct-algebra-from-focal-property-textbook-brute-force" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-d-direct-algebra-from-focal-property-textbook-brute-force">2.4 Derivation D — Direct algebra from focal property (textbook brute force)</h3>
+<p>Take <span class="math inline">\(P = (x,y)\)</span> with <span class="math inline">\(|d_1 - d_2| = 2a\)</span>. Square both sides of <span class="math inline">\(\sqrt{(x+c)^2+y^2} - \sqrt{(x-c)^2+y^2} = \pm 2a\)</span>, isolate one radical, square again. After two rounds of squaring and simplification, the radicals vanish and the result reduces to (1) provided <span class="math inline">\(c^2 = a^2 + b^2\)</span>. Tedious but airtight. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<p><strong>Comparison of the four derivations:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Style</th>
+<th>Length</th>
+<th>Insight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Latus rectum substitution</td>
+<td>Medium</td>
+<td>Concrete, formula-driven</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Asymptotic limit triangle</td>
+<td>Short</td>
+<td>Reveals geometric meaning of <span class="math inline">\(b\)</span></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>Complex substitution <span class="math inline">\(b\to ib\)</span></td>
+<td>One line</td>
+<td>Magic; forward to Feb 21</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>Brute-force algebra</td>
+<td>Longest</td>
+<td>Most rigorous; least illuminating</td>
+</tr>
+</tbody>
+</table>
+<p><strong>C is the most elegant</strong>, <strong>B is the most geometrically illuminating</strong>, <strong>A is the most concrete</strong>, <strong>D is the most pedantic.</strong></p>
+</section>
+<section id="verification-with-a1-b2-1" class="level3">
+<h3 class="anchored" data-anchor-id="verification-with-a1-b2-1">2.5 Verification with <span class="math inline">\(a=1, b=2\)</span></h3>
+<p><span class="math inline">\(c^2 = 1 + 4 = 5\)</span>, so <span class="math inline">\(c = \sqrt 5 \approx 2.236\)</span>. Foci at <span class="math inline">\((\pm\sqrt 5, 0)\)</span>.</p>
+<p>Latus rectum: <span class="math inline">\(y_\ell = b^2/a = 4\)</span>. Check <span class="math inline">\(P = (\sqrt 5, 4)\)</span> on hyperbola: <span class="math inline">\(5/1 - 16/4 = 5 - 4 = 1\)</span>. ✓</p>
+<p>Focal distances: <span class="math inline">\(d_1 = \sqrt{(\sqrt 5 + \sqrt 5)^2 + 16} = \sqrt{20 + 16} = \sqrt{36} = 6\)</span>. <span class="math inline">\(d_2 = \sqrt{0 + 16} = 4\)</span>. <span class="math inline">\(|d_1 - d_2| = 2 = 2a\)</span> with <span class="math inline">\(a=1\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-distance-from-focus-to-asymptote" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-distance-from-focus-to-asymptote">Part III — Distance from focus to asymptote</h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">3.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Asymptotes).</strong> <span class="math inline">\(y = \pm (b/a)x\)</span>. <strong>(Latus rectum).</strong> <span class="math inline">\(y = b^2/a\)</span>.</p>
+<p><strong>(Focus-to-asymptote distance).</strong> For the hyperbola (1), the perpendicular distance from focus <span class="math inline">\(F_2 = (c, 0)\)</span> to the asymptote <span class="math inline">\(y = (b/a)x\)</span> equals <strong><span class="math inline">\(b\)</span></strong>.</p>
 </div>
 </section>
-<section id="derivation" class="level2">
-<h2 class="anchored" data-anchor-id="derivation">Derivation</h2>
-<p><span class="math inline">\(x^2/a^2 - y^2/b^2 = 1\)</span>; <span class="math inline">\(|x|\to\infty\)</span>: <span class="math inline">\(y \approx \pm(b/a)x\)</span>. Focal property: <span class="math inline">\(|F_1V - F_2V| = 2a\)</span> giving <span class="math inline">\(c^2 = a^2+b^2\)</span> via asymptote triangle. <span class="math inline">\(\quad\blacksquare\)</span></p>
+<section id="derivation-a-similar-triangles-from-2.2-picture" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-similar-triangles-from-2.2-picture">3.2 Derivation A — Similar triangles (from §2.2 picture)</h3>
+<p>From Derivation B’s asymptotic triangle (legs <span class="math inline">\(2a, 2b\)</span>, hypotenuse <span class="math inline">\(2c\)</span>), scale by <span class="math inline">\(1/2\)</span>: a smaller similar triangle attached to the focus has legs <span class="math inline">\(a\)</span> (horizontal from origin to vertex), <span class="math inline">\(b\)</span> (perpendicular distance from focus to asymptote — what we want), hypotenuse <span class="math inline">\(c\)</span>. The angle <span class="math inline">\(\theta\)</span> is the same; the similar-triangle ratio gives perpendicular distance <span class="math inline">\(= b\)</span>. <span class="math inline">\(\quad\blacksquare\)</span></p>
+</section>
+<section id="derivation-b-direct-distance-formula" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-direct-distance-formula">3.3 Derivation B — Direct distance formula</h3>
+<p>Line <span class="math inline">\(y = (b/a)x\)</span> in standard form: <span class="math inline">\(bx - ay = 0\)</span>. Distance from <span class="math inline">\((c, 0)\)</span>: <span class="math display">\[
+d = \frac{|bc - 0|}{\sqrt{b^2 + a^2}} = \frac{bc}{\sqrt{a^2+b^2}} = \frac{bc}{c} = b. \quad\blacksquare \tag{14}
+\]</span> (Using <span class="math inline">\(c = \sqrt{a^2+b^2}\)</span> from (10).)</p>
+<p><strong>Comparison.</strong> 3.2 (similar triangles) and 3.3 (distance formula) confirm each other. 3.2 is more illuminating; 3.3 is one line of algebra.</p>
+</section>
+<section id="numerical-check-a1-b2" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-check-a1-b2">3.4 Numerical check <span class="math inline">\(a=1, b=2\)</span></h3>
+<p>From (14): <span class="math inline">\(d = 2 \cdot \sqrt 5 / \sqrt 5 = 2 = b\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-iv-parallel-between-ellipse-and-hyperbola" class="level2">
+<h2 class="anchored" data-anchor-id="part-iv-parallel-between-ellipse-and-hyperbola">Part IV — Parallel between ellipse and hyperbola</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Ellipse</th>
+<th>Hyperbola</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cartesian</td>
+<td><span class="math inline">\(x^2/a^2 + y^2/b^2 = 1\)</span></td>
+<td><span class="math inline">\(x^2/a^2 - y^2/b^2 = 1\)</span></td>
+</tr>
+<tr class="even">
+<td>Focal</td>
+<td><span class="math inline">\(d_1 + d_2 = 2a\)</span></td>
+<td><span class="math inline">\(\lvert d_1-d_2\rvert = 2a\)</span></td>
+</tr>
+<tr class="odd">
+<td>Focal relation</td>
+<td><span class="math inline">\(a^2 = b^2 + c^2\)</span></td>
+<td><span class="math inline">\(c^2 = a^2 + b^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Foci location</td>
+<td><span class="math inline">\((\pm c, 0)\)</span>, <span class="math inline">\(c &lt; a\)</span></td>
+<td><span class="math inline">\((\pm c, 0)\)</span>, <span class="math inline">\(c &gt; a\)</span></td>
+</tr>
+<tr class="odd">
+<td>Asymptotes</td>
+<td>none</td>
+<td><span class="math inline">\(y = \pm(b/a)x\)</span></td>
+</tr>
+<tr class="even">
+<td>Closed?</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr class="odd">
+<td>Latus rectum <span class="math inline">\(y_\ell\)</span></td>
+<td><span class="math inline">\(b^2/a\)</span></td>
+<td><span class="math inline">\(b^2/a\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The substitution <span class="math inline">\(b \to ib\)</span> converts each row of the ellipse column into the corresponding hyperbola row.</strong> This is Derivation C made manifest.</p>
+<hr>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{\text{Conic} \xrightarrow{\text{focal def}} \text{Cartesian eq} \xrightarrow{\text{key triangle}} \text{relation among } a,b,c}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Conic</th>
+<th>Defining triangle</th>
+<th>Relation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ellipse</td>
+<td><span class="math inline">\(a\)</span> = hyp, <span class="math inline">\(b\)</span> = vert leg, <span class="math inline">\(c\)</span> = horiz leg</td>
+<td><span class="math inline">\(a^2 = b^2 + c^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Hyperbola</td>
+<td><span class="math inline">\(c\)</span> = hyp, <span class="math inline">\(a\)</span> = horiz leg, <span class="math inline">\(b\)</span> = vert leg</td>
+<td><span class="math inline">\(c^2 = a^2 + b^2\)</span></td>
+</tr>
+<tr class="odd">
+<td>Circle</td>
+<td><span class="math inline">\(a = b\)</span>, <span class="math inline">\(c = 0\)</span></td>
+<td>trivial</td>
+</tr>
+<tr class="even">
+<td>Parabola</td>
+<td>borderline: <span class="math inline">\(c \to \infty\)</span> AND <span class="math inline">\(a \to \infty\)</span> with <span class="math inline">\(c-a\)</span> finite</td>
+<td>(Oct 4 PM)</td>
+</tr>
+</tbody>
+</table>
+<p>The parabola is the <em>limiting case</em> between ellipse and hyperbola — a forward pointer to the afternoon session.</p>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\theta, y_\ell, i\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(14), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Standard position declared; <span class="math inline">\(|d_1-d_2|\)</span> uses absolute value (the difference can be <span class="math inline">\(\pm 2a\)</span> depending on which branch); <span class="math inline">\(c &gt; 0\)</span> chosen positive. ✓</li>
+<li><strong>Every implication follows?</strong> Squaring in (7): legal because both sides nonneg (<span class="math inline">\(d_1 &gt; d_2\)</span> on right branch). Division in (9): <span class="math inline">\(c\ne a\)</span> for hyperbola. ✓</li>
+<li><strong>Advertised axioms verified?</strong> Pythagorean theorem, distance formula, ellipse relation — all named imported. ✓</li>
+<li><strong>Counterexample / source correction.</strong> The transcript records a momentary confusion (<span class="math inline">\(y\)</span>-intercept exists at <span class="math inline">\(\pm bi\)</span>, not on the real <span class="math inline">\(y\)</span>-axis); resolved in §1.1 by noting the equation has no <em>real</em> <span class="math inline">\(y\)</span>-intercept. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(a=1, b=2\)</span> throughout, with explicit numerical checks. ✓</li>
+<li><strong>Weakest step named?</strong> Done after each of Derivations A, B, C, and 3.2/3.3. ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dividing by <span class="math inline">\((c^2-a^2)\)</span> in (9)</td>
+<td>Would fail if <span class="math inline">\(c = a\)</span></td>
+<td>For non-degenerate hyperbola, <span class="math inline">\(c &gt; a\)</span> (foci outside vertices)</td>
+</tr>
+<tr class="even">
+<td>“PF₁ ∥ PF₂ at infinity” in Derivation B</td>
+<td>Limit argument, not strict equality</td>
+<td>Interpret as <span class="math inline">\(\lim\)</span>; the <em>finite</em> differences <span class="math inline">\(2a\)</span> are intrinsic and survive the limit</td>
+</tr>
+<tr class="odd">
+<td>Complex substitution <span class="math inline">\(b\to ib\)</span> in Derivation C</td>
+<td>Manipulates <span class="math inline">\(\sqrt{-1}\)</span> in a “real geometry” formula</td>
+<td>Algebraic identity holds over <span class="math inline">\(\mathbb C\)</span>; substitution is valid ring automorphism</td>
+</tr>
+<tr class="even">
+<td>Squaring twice in Derivation D</td>
+<td>Can introduce extraneous solutions</td>
+<td>All original solutions preserved; extraneous excluded by sign of <span class="math inline">\(d_1 - d_2\)</span></td>
+</tr>
+<tr class="odd">
+<td>Triangle legs <span class="math inline">\(2a, 2b\)</span> in (11)</td>
+<td>Both legs derived from slope <span class="math inline">\(b/a\)</span> via two similar triangles</td>
+<td>Verified numerically with <span class="math inline">\(a=1, b=2, c=\sqrt 5\)</span>: <span class="math inline">\((2)^2+(4)^2=20=(2\sqrt 5)^2\)</span> ✓</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><strong><span class="math inline">\(a=b=1\)</span>.</strong> <span class="math inline">\(c=\sqrt 2\)</span>, asymptotes <span class="math inline">\(y=\pm x\)</span>. ✓</li>
-<li><strong>Toby’s <span class="math inline">\(b\to ib\)</span> converts hyperbola to ellipse.</strong> Anticipates <a href="2026-02-21-afternoon.html">Feb 21 afternoon</a>.</li>
+<li><strong>Next brick (Oct 4 afternoon):</strong> the <strong>eccentricity</strong> definition <span class="math inline">\(\varepsilon = d_F / d_L\)</span>. <span class="math inline">\(\varepsilon &lt; 1\)</span> for ellipse, <span class="math inline">\(&gt; 1\)</span> for hyperbola, <span class="math inline">\(= 1\)</span> for parabola. The unifying third definition of conics.</li>
+<li><strong>Homework deferred:</strong> prove the parabola as locus of points equidistant from a focal point and a directrix line — derive <span class="math inline">\(x^2 = 4cy\)</span>.</li>
+<li><strong>Forward pointer (Feb 21):</strong> Toby’s <span class="math inline">\(b\to ib\)</span> substitution (Derivation C) reappears as <span class="math inline">\(y \to iy\)</span> for rotating hyperbola asymptotes into ellipse skew axes — same algebraic trick at higher level.</li>
+<li><strong>Open question:</strong> the parabola is the <em>limit</em> of both ellipse and hyperbola as <span class="math inline">\(a, c \to \infty\)</span> with the focal parameter <span class="math inline">\(p = b^2/a\)</span> (latus rectum half) held finite. <em>The same parameter <span class="math inline">\(p\)</span> appears for both ellipse and hyperbola at the latus rectum</em> — flagged for later study of conic invariants.</li>
+<li><strong>Connection back to Sep 27:</strong> Toby’s <span class="math inline">\(\cos\theta &gt; 1\)</span> insight relied on substituting <em>imaginary angles</em>; his <span class="math inline">\(b \to ib\)</span> insight here is the same move at a different level — algebraic substitution preserving form while changing geometry. The spirit of <em>analytic continuation</em>.</li>
+<li><strong>Pedagogical thread:</strong> “use what you’ve already proved.” Derivations A, B, C each reuse prior work; D ignores prior work and is therefore the worst even though technically valid.</li>
 </ul>
 </section>
 <section id="lecture-video" class="level2">
@@ -250,8 +619,12 @@ window.Quarto = {
 <video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.9/2025-10-04-morning.mp4" type="video/mp4"></video>
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.9">v1.9</a> · <a href="https://drive.google.com/file/d/1bR5ju7GUaUP95a-gUrgXA05AD8LkN8o9/view">Drive</a></p>
 </section>
-<section id="related-oct-4-afternoon-oct-18-morning" class="level2">
-<h2 class="anchored" data-anchor-id="related-oct-4-afternoon-oct-18-morning">Related: <a href="2025-10-04-afternoon.html">Oct 4 afternoon</a>, <a href="2025-10-18-morning.html">Oct 18 morning</a></h2>
+<section id="related-sessions" class="level2">
+<h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
+<ul>
+<li><strong>Forward:</strong> <a href="2025-10-04-afternoon.html">Oct 4 afternoon</a> — third equivalent definition via eccentricity; parabola as borderline case.</li>
+<li><strong>Forward (Feb 21):</strong> <a href="2026-02-21-afternoon.html">skew-axis ellipse via <span class="math inline">\(y\to iy\)</span></a> — same complex-substitution trick at higher level.</li>
+</ul>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full transcript</h2>

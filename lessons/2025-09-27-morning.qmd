@@ -1,36 +1,325 @@
 ---
-title: "Solving cos θ = a and sin θ = a via Complex Exponentials"
+title: "Solving cos θ = a and sin θ = a for Real and Complex a via Complex Exponentials"
 date: 2025-09-27
 session: morning
-topics: [complex-numbers, trig-equations, euler-formula, quadratic]
+topics: [complex-numbers, euler-formula, trig-equations, quadratic, logarithm, branch]
 ---
 
 ## Lead
 
-Sets $z = e^{i\theta}$, rewrites $\cos\theta = (z + z^{-1})/2$, reducing $\cos\theta = a$ to a quadratic in $z$. Solves $z^2 - 2az + 1 = 0$, giving $\theta = \pm\arccos a + 2\pi k$. Generalizes to multiple-angle equations.
+Reduces $\cos\theta = a$ to a quadratic in $z = e^{i\theta}$ via $\cos\theta = (z + z^{-1})/2$. Solves the case $a=2$ (yielding $\theta = \pm i\ln(2+\sqrt{3})$, purely imaginary) and the case $a=1+i$ (yielding $\theta$ a mixed complex number). Repeats for $\sin\theta = 7$. Builds the general formula $e^{i\theta} = a \pm \sqrt{a^2-1}$ valid for any complex $a$. Explains why $\cos(5\theta)=1/2$ has **ten** distinct solutions on the unit circle, not two, by tracing the $+2k\pi$ multiplicity.
 
-## Theorems
+## Symbol dictionary
+
+| Symbol | Meaning |
+|---|---|
+| $\theta$ | the unknown — generally complex, allowed to be non-real |
+| $z$ | shorthand for $e^{i\theta}$ |
+| $a$ | the right-hand-side, can be real or complex |
+| $u, v$ | placeholder variables for $z, z^2$, etc. |
+| $\ln, \log$ | natural log; multivalued on $\mathbb C\setminus\{0\}$ |
+| $\arg(w)$ | argument of $w\in\mathbb C$, modulo $2\pi$ |
+| $|w|$ | modulus of complex number $w$ |
+| $k$ | integer index for periodicity $+2k\pi$ |
+
+## Primitive notions and assumptions
+
+We work in $\mathbb C$, allowing $\theta$ to be any complex number. **Convention:** for real $\theta$, $\cos\theta$ and $\sin\theta$ have the geometric meaning (coordinates on the unit circle). For complex $\theta$, we **define** $\cos\theta := (e^{i\theta}+e^{-i\theta})/2$ and $\sin\theta := (e^{i\theta}-e^{-i\theta})/(2i)$ — these formulas extend the real definitions analytically. **Branch convention:** $\ln w = \ln|w| + i\arg(w)$ with $\arg\in(-\pi,\pi]$ as principal branch; full multivaluedness recovered by $+2k\pi i$ shifts.
+
+**Imported lemmas:**
+1. **Euler's formula** (Sep 20): $e^{i\theta} = \cos\theta + i\sin\theta$ for real $\theta$ — used to *define* the complex extension above.
+2. **Algebra of complex numbers:** $\overline{e^{i\theta}} = e^{-i\theta}$ for real $\theta$; quadratic formula.
+3. **Logarithm of a product:** $\ln(wz) = \ln w + \ln z$ (modulo $2\pi i$).
+
+---
+
+## Part I — Cosine and sine as complex exponentials
+
+### 1.1 The two key identities
 
 ::: {.theorem}
-**(Cosine via exponentials).**
+**(Exponential form of cos and sin).** For all $\theta\in\mathbb C$,
 $$
-\cos\theta = \tfrac{1}{2}\!\left(e^{i\theta} + e^{-i\theta}\right), \quad \sin\theta = \tfrac{1}{2i}\!\left(e^{i\theta} - e^{-i\theta}\right). \tag{100}
+\cos\theta = \frac{e^{i\theta}+e^{-i\theta}}{2}, \qquad \sin\theta = \frac{e^{i\theta}-e^{-i\theta}}{2i}. \tag{1}
 $$
 :::
 
+### 1.2 Derivation A — Algebra on Euler's formula (real case)
+
+From Euler's formula:
+$$
+e^{i\theta} = \cos\theta + i\sin\theta, \qquad e^{-i\theta} = \cos\theta - i\sin\theta. \tag{2}
+$$
+Add the two equations to isolate $\cos\theta$:
+$$
+e^{i\theta} + e^{-i\theta} = 2\cos\theta. \tag{3}
+$$
+Subtract to isolate $\sin\theta$:
+$$
+e^{i\theta} - e^{-i\theta} = 2i\sin\theta. \tag{4}
+$$
+Divide by 2 and $2i$ respectively to get (1). $\quad\blacksquare$
+
+### 1.3 Derivation B — Geometric (real case)
+
+On the unit circle, $e^{i\theta}$ is the point $(\cos\theta, \sin\theta)$ and $e^{-i\theta}$ is its complex conjugate $(\cos\theta, -\sin\theta)$. Their vector sum lies on the real axis with $x$-component $2\cos\theta$ — averaging gives $\cos\theta$. Their difference is purely imaginary with $y$-component $2i\sin\theta$ — dividing by $2i$ gives $\sin\theta$. $\quad\blacksquare$
+
+**Comparison.** A is one-line algebra. B is one-line geometry. Both are valid for *real* $\theta$. The *extension to complex $\theta$* is by **fiat** — we declare (1) as the definition. The justification is analyticity: (1) is the unique analytic continuation of the real-defined $\cos,\sin$ to $\mathbb C$.
+
+**Weakest step:** the analytic-continuation justification for extending (1) from real to complex $\theta$ requires complex analysis (uniqueness of analytic continuation). Not derived here; flagged as imported.
+
+---
+
+## Part II — Solving $\cos\theta = a$ via quadratic in $z$
+
+### 2.1 General reduction
+
+Let $z := e^{i\theta}$. Then $e^{-i\theta} = 1/z$, and (1) gives:
+$$
+\cos\theta = a \;\Longleftrightarrow\; \frac{z + z^{-1}}{2} = a \;\Longleftrightarrow\; z + \frac{1}{z} = 2a. \tag{5}
+$$
+Multiply by $z$ (legal since $e^{i\theta}\ne 0$ always):
+$$
+z^2 - 2a z + 1 = 0. \tag{6}
+$$
+Quadratic formula:
+$$
+z = \frac{2a \pm \sqrt{4a^2 - 4}}{2} = a \pm \sqrt{a^2 - 1}. \tag{7}
+$$
+
 ::: {.theorem}
-**(Roots of $\cos\theta=a$).** Setting $z = e^{i\theta}$, $\cos\theta = a$ becomes $z^2 - 2az + 1 = 0$, with $z = a \pm i\sqrt{1-a^2}$ for $|a| \le 1$. $\tag{101}$
+**(Master formula).** For any $a\in\mathbb C$,
+$$
+\cos\theta = a \;\Longleftrightarrow\; e^{i\theta} = a \pm \sqrt{a^2 - 1}. \tag{8}
+$$
 :::
 
-## Derivation
+**Sanity:** the two roots $z_\pm = a \pm \sqrt{a^2-1}$ are reciprocals: $z_+ z_- = a^2 - (a^2-1) = 1$. ✓ This matches $e^{i\theta}\cdot e^{-i\theta} = 1$.
 
-From Euler's formula: $\cos\theta = a \Leftrightarrow (z + z^{-1})/2 = a \Leftrightarrow z^2 - 2az + 1 = 0$. Discriminant $4a^2 - 4 = -4(1-a^2)$. For $|a|<1$: $z = a \pm i\sqrt{1-a^2}$, which sits on $|z|=1$ ($a^2 + (1-a^2) = 1$). So $\theta = \pm\arccos a + 2\pi k$. $\quad\blacksquare$
+### 2.2 Recovery of $\theta$
+
+Take logs:
+$$
+\theta = -i \ln z = -i \ln\!\left(a \pm \sqrt{a^2-1}\right) + 2k\pi, \quad k\in\mathbb Z. \tag{9}
+$$
+The $+2k\pi$ encodes the periodicity of $e^{i\theta}$.
+
+### 2.3 Verification: classical case $a = 1/2$
+
+$a^2 - 1 = -3/4$, so $\sqrt{a^2-1} = i\sqrt{3}/2$. Then
+$$
+z_\pm = \tfrac{1}{2} \pm i\,\tfrac{\sqrt 3}{2} = e^{\pm i\pi/3}. \tag{10}
+$$
+So $\theta = \pm\pi/3 + 2k\pi$. Matches the unit-circle picture: cosine = $1/2$ at $\pm 60°$. ✓
+
+---
+
+## Part III — The case $a = 2$ (no real solution)
+
+### 3.1 Why no real $\theta$ works
+
+For real $\theta$, $|\cos\theta| \le 1$, so $\cos\theta = 2$ has no real solution. Toby's insight in class: $\theta$ must be **complex** (or purely imaginary).
+
+### 3.2 Apply (8)
+
+$a^2-1 = 3$, $\sqrt{a^2-1} = \sqrt 3$:
+$$
+z_\pm = 2 \pm \sqrt 3. \tag{11}
+$$
+Both roots are real and **positive** (since $\sqrt 3 < 2$). They are reciprocals: $(2+\sqrt 3)(2-\sqrt 3) = 4-3 = 1$. ✓
+
+### 3.3 Solve $e^{i\theta} = 2+\sqrt 3$
+
+Take real natural log (legitimate since $2+\sqrt 3 > 0$):
+$$
+i\theta = \ln(2+\sqrt 3) \;\Longrightarrow\; \theta = -i\ln(2+\sqrt 3). \tag{12}
+$$
+For the other root: $\theta = -i\ln(2-\sqrt 3) = -i\cdot[-\ln(2+\sqrt 3)] = +i\ln(2+\sqrt 3)$, since $(2-\sqrt 3) = 1/(2+\sqrt 3)$, so $\ln(2-\sqrt 3) = -\ln(2+\sqrt 3)$. Combined:
+$$
+\theta = \pm i \ln(2+\sqrt 3) + 2k\pi, \quad k\in\mathbb Z. \tag{13}
+$$
+**$\theta$ is purely imaginary** (up to integer-multiple-of-$2\pi$ real shift). ✓ Confirms Toby/Eddie's intuition.
+
+### 3.4 Numerical sanity
+
+$2+\sqrt 3 \approx 3.732$. $\ln 3.732 \approx 1.317$. So $\theta \approx \pm 1.317\,i$. Check:
+$$
+\cos(1.317 i) = \tfrac{1}{2}(e^{-1.317}+e^{1.317}) = \tfrac{1}{2}(0.268 + 3.732) = \tfrac{1}{2}\cdot 4 = 2. \tag{14}
+$$
+✓ (Used $\cos(ix)=\cosh x$ implicitly.)
+
+---
+
+## Part IV — The case $a = 1+i$ (complex right-hand side)
+
+### 4.1 Apply (8) with $a = 1+i$
+
+$a^2 = (1+i)^2 = 2i$, so $a^2 - 1 = 2i - 1 = -1 + 2i$.
+$$
+z_\pm = (1+i) \pm \sqrt{-1+2i}. \tag{15}
+$$
+
+### 4.2 Computing $\sqrt{-1+2i}$
+
+Write $-1+2i$ in polar form: $|-1+2i| = \sqrt{5}$, $\arg = \pi - \arctan(2) \approx 2.034$ rad. So
+$$
+\sqrt{-1+2i} = 5^{1/4}\, e^{i\arg/2} \approx 5^{1/4}\,e^{i\cdot 1.017} \approx 1.272\cdot(0.526 + 0.851 i) \approx 0.670 + 1.083 i. \tag{16}
+$$
+Sanity: $(0.670 + 1.083 i)^2 = 0.449 - 1.173 + 2\cdot 0.670\cdot 1.083 i = -0.724 + 1.451 i$. **Off** by a factor — recomputing the angle: $\arg(-1+2i) = \pi - \arctan 2 = 180° - 63.43° = 116.57°$, half is $58.28°$. $5^{1/4}\approx 1.495$. $1.495\cdot(\cos 58.28° + i\sin 58.28°) = 1.495\cdot(0.526 + 0.851 i) \approx 0.787 + 1.272 i$. Square: $(0.787)^2 - (1.272)^2 + 2\cdot 0.787\cdot 1.272 i = 0.619 - 1.618 + 2.002 i = -0.999 + 2.002 i \approx -1 + 2i$. ✓
+
+Cleaned-up: $\sqrt{-1+2i} \approx 0.787 + 1.272\,i$.
+
+### 4.3 Recover $\theta$
+
+$z_+ = (1+i) + (0.787 + 1.272 i) \approx 1.787 + 2.272 i$. Magnitude: $\sqrt{1.787^2 + 2.272^2} = \sqrt{3.193 + 5.162} = \sqrt{8.355} \approx 2.890$. Argument: $\arctan(2.272/1.787) \approx \arctan(1.272) \approx 0.904$ rad. Then
+$$
+\theta = -i \ln z_+ = -i(\ln 2.890 + i\cdot 0.904) = 0.904 - i\cdot 1.061 + 2k\pi. \tag{17}
+$$
+$\theta$ has **both real and imaginary parts** — a genuine complex angle, not purely real or purely imaginary.
+
+**Weakest step:** the numerical evaluation of $\sqrt{-1+2i}$ requires picking a branch (here the principal one). The other branch gives the second root $z_-$, which corresponds to the $\pm$ in (8). Branch consistency is essential when the inside of the square root is complex.
+
+---
+
+## Part V — Solving $\sin\theta = a$
+
+### 5.1 Derivation A — Independent quadratic
+
+From (1): $\sin\theta = a \;\Leftrightarrow\; (z - z^{-1})/(2i) = a \;\Leftrightarrow\; z - 1/z = 2ia$. Multiply by $z$:
+$$
+z^2 - 2ia\,z - 1 = 0. \tag{18}
+$$
+Quadratic formula:
+$$
+z = \frac{2ia \pm \sqrt{-4a^2 + 4}}{2} = ia \pm \sqrt{1 - a^2}. \tag{19}
+$$
+
+::: {.theorem}
+**(Master formula for sine).** For any $a\in\mathbb C$,
+$$
+\sin\theta = a \;\Longleftrightarrow\; e^{i\theta} = ia \pm \sqrt{1 - a^2}. \tag{20}
+$$
+:::
+
+### 5.2 Derivation B — Use cosine formula via shift
+
+$\sin\theta = \cos(\pi/2 - \theta) = a$. Apply (8) with $\theta \to \pi/2 - \theta$ and the corresponding $z' = e^{i(\pi/2 - \theta)} = i/z$:
+$$
+\frac{i}{z} = a \pm \sqrt{a^2 - 1}. \tag{21}
+$$
+Solve for $z$: $z = i/(a \pm \sqrt{a^2-1})$. Rationalise using $z_+ z_- = 1$ for the cosine equation (i.e. $1/(a\pm\sqrt{a^2-1}) = a\mp\sqrt{a^2-1}$):
+$$
+z = i\cdot(a \mp \sqrt{a^2-1}) = ia \mp i\sqrt{a^2-1}. \tag{22}
+$$
+Note $i\sqrt{a^2-1} = \sqrt{-(a^2-1)} = \sqrt{1-a^2}$ (with consistent branch choice). So $z = ia \mp \sqrt{1-a^2}$, matching (20) up to sign labelling. ✓
+
+**Comparison.** A is direct, two lines of algebra. B reuses the cosine formula — illustrates "use what you've already proved." Both give the same answer. A is more transparent.
+
+### 5.3 Worked example $a = 7$
+
+From (20): $z = 7i \pm \sqrt{1-49} = 7i \pm \sqrt{-48} = 7i \pm 4i\sqrt 3 = i(7 \pm 4\sqrt 3)$.
+
+So $z = i(7+4\sqrt 3)$ or $z = i(7-4\sqrt 3)$. Both are purely imaginary positive multiples of $i$. Magnitudes: $7+4\sqrt 3 \approx 13.93$; $7-4\sqrt 3 \approx 0.072$. Reciprocals: $(7+4\sqrt 3)(7-4\sqrt 3) = 49 - 48 = 1$. ✓
+
+Take logs (write as $|z|\cdot e^{i\pi/2}$):
+$$
+\ln z = \ln(7+4\sqrt 3) + i\pi/2. \tag{23}
+$$
+$$
+\theta = -i\ln z = \frac{\pi}{2} - i\ln(7+4\sqrt 3) + 2k\pi. \tag{24}
+$$
+$\theta$ has real part $\pi/2$ and imaginary part $-\ln(7+4\sqrt 3) \approx -2.634$.
+
+---
+
+## Part VI — Multiplicity of solutions in $\cos(5\theta) = 1/2$
+
+### 6.1 Naïve count
+
+From (10), $5\theta = \pm\pi/3 + 2k\pi$, so $\theta = \pm\pi/15 + 2k\pi/5$. The periodicity is now $2\pi/5$, **not** $2\pi$.
+
+### 6.2 How many distinct solutions on the unit circle?
+
+For $k=0,1,2,3,4$: $\theta = \pi/15 + 2k\pi/5$ gives **5 distinct values** (a regular pentagon, rotated by $\pi/15$ from canonical orientation). Similarly $\theta = -\pi/15 + 2k\pi/5$ gives **5 more distinct values**. Total: **10 distinct angles**.
+
+**Two regular pentagons** of solutions on the unit circle, rotated $\pm\pi/15$ from the natural pentagon orientation.
+
+### 6.3 Why this matters (Toby's contribution)
+
+Without including the $+2k\pi$ when solving $5\theta = \pm\pi/3 + 2k\pi$, dividing by 5 would collapse the period to $2\pi$ and you'd miss 8 out of 10 solutions. **Always write the full $+2k\pi$ before dividing by a coefficient on $\theta$.** This is a common error.
+
+### 6.4 Generalisation
+
+For $\cos(n\theta) = a$ with $|a| < 1$: $2n$ distinct real solutions on $[0, 2\pi)$, forming two regular $n$-gons rotated $\pm\theta_0/n$ from the canonical orientation, where $\theta_0 = \arccos a$.
+
+---
+
+## Part VII — A subtle point: $\ln$ of a complex number
+
+### 7.1 The recipe (teacher's punchline)
+
+To take $\ln$ of a complex number $w = re^{i\phi}$ (with $r > 0$):
+$$
+\ln w = \ln r + i\phi + 2k\pi i, \quad k\in\mathbb Z. \tag{25}
+$$
+**Separate magnitude and angle.** Apply $\ln$ to the magnitude (a positive real, so real log applies). Add $i$ times the angle. Multiplicity from $+2k\pi i$.
+
+### 7.2 Specific: $\ln i = i\pi/2 + 2k\pi i$
+
+$i = 1\cdot e^{i\pi/2}$, so $\ln i = \ln 1 + i\pi/2 = i\pi/2$ (principal branch). ✓
+
+### 7.3 Why pulling $\pm$ out of $\ln(\pm w)$ is wrong in general
+
+If $\ln(7 + 4\sqrt 3) = c$ and $\ln(7 - 4\sqrt 3) = -c$ (since they are reciprocals), then *for these specific real positive numbers*, the $\pm$ propagates through. But for $\ln(7 \pm 4\sqrt 3 \cdot i)$ (with an $i$), the $\pm$ propagates only on the **real part** (magnitude), not the **angle**. The angle is the same for both choices (purely imaginary positive = upward direction). Sign-pull-through-log is a trap.
+
+---
+
+## Unified picture
+
+| Equation | Substitution | Quadratic | Roots (general $a$) | Reciprocal pair? |
+|---|---|---|---|---|
+| $\cos\theta=a$ | $z=e^{i\theta}$ | $z^2 - 2a z + 1 = 0$ | $a\pm\sqrt{a^2-1}$ | yes (product $= 1$) |
+| $\sin\theta=a$ | $z=e^{i\theta}$ | $z^2 - 2ia z - 1 = 0$ | $ia\pm\sqrt{1-a^2}$ | no (product $= -1$) |
+| $\tan\theta=a$ | $z=e^{i\theta}$ | $z^2(1+ia) - (1-ia) = 0$ | $\pm\sqrt{(1-ia)/(1+ia)}$ | yes (product $= 1$ if both signs) |
+| $\cos(n\theta)=a$ | $w = e^{in\theta}$ | $w^2 - 2aw + 1 = 0$ | as above, then $z = w^{1/n}$ | $n$-fold multiplicity per root |
+
+The **whole arc of this lesson** is: convert trig equation $\to$ rational equation in $z = e^{i\theta}$ $\to$ quadratic $\to$ logarithm. Every trig equation has a complex solution; whether real, purely imaginary, or mixed depends on $a$.
+
+---
 
 ## Verification audit
 
-- $a = 1/2$: $z = 1/2 \pm i\sqrt{3}/2 = e^{\pm i\pi/3}$, so $\theta = \pm\pi/3 + 2\pi k$ ✓.
-- $a = 0$: $z = \pm i = e^{\pm i\pi/2}$, $\theta = \pm\pi/2 + 2\pi k$ ✓.
-- $|a| > 1$: discriminant positive, $z$ real positive distinct, $z \ne 1/z$ unless $z = \pm 1$; no solution with $|z|=1$ — matches $\cos\theta \in [-1,1]$ ✓.
+1. **Symbols defined?** All in dictionary including $\arg, |\cdot|$, principal-branch convention for $\ln$. ✓
+2. **Equation numbers continuous?** (1)–(25), no gaps. ✓
+3. **Signs justified?** Counterclockwise angle convention from Sep 20; principal branch of $\ln$ declared in Primitive notions. Reciprocal-pair claim verified algebraically: $z_+ z_- = a^2 - (a^2-1) = 1$. ✓
+4. **Every implication follows?** $\cos\theta = a \Rightarrow z + 1/z = 2a \Rightarrow z^2 - 2az + 1 = 0$ — full chain in (5)–(6). Quadratic formula application explicit in (7). ✓
+5. **Advertised axioms verified?** Euler's formula imported (proven Sep 20); quadratic formula imported; complex log branch convention declared. ✓
+6. **Counterexample / source correction.** In §4.2, my **first computation** of $\sqrt{-1+2i}$ was wrong (got 0.670+1.083i, squared to wrong value); recomputed in-place to $0.787+1.272i$. Documented as a worked recomputation, not hidden. ✓ Also: §7.3 corrects the common error of pulling $\pm$ through $\ln$ of a complex number — the *angle* doesn't have a $\pm$. ✓
+7. **Special / limiting cases tested?** $a=1/2$ (real, in unit interval, real solutions); $a=2$ (real, outside unit interval, imaginary solutions); $a=1+i$ (complex, mixed solutions); $a=7$ for sine (real, outside unit interval, imaginary part of $\theta$). Numerical sanity check $\cos(1.317i)=2$ confirmed. ✓
+8. **Weakest step named?** Done after §1.3 (analytic continuation), §4.3 (branch consistency for $\sqrt{}$ of complex). ✓
+
+---
+
+## Fragility summary
+
+| Claim | Risk | Fix |
+|---|---|---|
+| Extension of (1) to complex $\theta$ | "Analytic continuation" is imported (not proven here) | Flag as imported; uniqueness theorem of complex analysis guarantees the extension |
+| Branch choice for $\sqrt{a^2-1}$ in (8) when $a$ is complex | Two branches give the two roots; pick consistently | The $\pm$ in (8) explicitly tracks both branches; one matches each root |
+| Branch choice for $\ln$ in (9) | $+2k\pi$ recovers all values | Periodicity $+2k\pi$ explicit |
+| First computation of $\sqrt{-1+2i}$ in §4.2 | Arithmetic slip ($5^{1/4}\ne 1.272$) | Recomputed; correct value $\approx 0.787 + 1.272 i$, verified by squaring |
+| Pull $\pm$ through $\ln$ | Only valid for *real* reciprocal pairs; fails when angle differs | §7.3 explicit |
+| Forgetting $+2k\pi$ before dividing by $n$ in $\cos(n\theta)=a$ | Loses $2n-2$ out of $2n$ solutions | §6.3 explicit warning |
+
+---
+
+## Explorative directions
+
+- **Next brick (Oct 4):** conic sections — hyperbola geometry, foci, asymptotes. The complex-quadratic toolbox developed here will reappear in Oct 18 (factoring quadratic forms via complex slopes) and Feb 21 (skew-axis ellipse via $y \to iy$ substitution).
+- **Homework deferred:** (i) write the general formulas for $\sin\theta = a$ and $\cos\theta = a$ for arbitrary complex $a$; (ii) finish simplifying $\cos\theta = 1+i$, listing all infinitely many solutions and locating them in the complex $\theta$-plane.
+- **Open / forward-pointing:** the trick $\cos\theta = (z+z^{-1})/2$ generalises to $\cosh x = (e^x + e^{-x})/2$ — the **hyperbolic cosine**, which equals $\cos(ix)$. The numerical sanity check (14) tacitly used $\cos(it) = \cosh t$. This is the bridge to hyperbolic trig and the unified treatment of $\sin/\cos$ on the *whole* complex plane.
+- **Connection arrow back to Sep 13 PM:** the *multiplicity* phenomenon in §6.2 (ten solutions to $\cos(5\theta)=1/2$ from two regular pentagons) is the same geometric structure as $n$-th roots of unity. Specifically: solving $w^n = e^{i\theta_0}$ gives $n$ solutions $w_k = e^{i(\theta_0 + 2k\pi)/n}$ forming a regular $n$-gon. Here it appears twice — once for each branch of $\cos$.
+- **Pedagogical thread:** the teacher's "corrupt verbal habits" interlude (in the transcript) is off-topic mathematically but documents a recurring concern with student honesty — saying "I sort of know it" instead of asking. Rigor in mathematics requires honesty about what you do and don't understand. The mathematical content here is in the *demand for clean answers* — no hedging.
 
 ## Lecture video
 
@@ -39,7 +328,10 @@ From Euler's formula: $\cos\theta = a \Leftrightarrow (z + z^{-1})/2 = a \Leftri
 <p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v2.0">v2.0</a> · <a href="https://drive.google.com/file/d/1N1x3O-FyMzJS78-hWbjlPP5x95BniUnT/view">Drive</a></p>
 ```
 
-## Related: [Sep 20 morning](2025-09-20-morning.html)
+## Related sessions
+
+- **Precursor:** [Sep 20 morning](2025-09-20-morning.html) — proof of Euler's formula $e^{i\theta}=\cos\theta+i\sin\theta$, the lemma this lesson rests on.
+- **Forward:** [Feb 21 afternoon](2026-02-21-afternoon.html) — substitution $y \to iy$ to rotate hyperbola asymptotes to ellipse skew axes; same algebraic toolbox.
 
 ## Full transcript
 

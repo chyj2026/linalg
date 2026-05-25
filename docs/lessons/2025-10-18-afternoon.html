@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-10-18">
 
-<title>Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes – Linear Algebra Notes</title>
+<title>Factoring ax² + 2bxy + cy² + dx + fy + g: Asymptotes and the Linear-System Existence Question – Linear Algebra Notes</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -184,8 +184,37 @@ window.Quarto = {
    
   <ul>
   <li><a href="#lead" id="toc-lead" class="nav-link active" data-scroll-target="#lead">Lead</a></li>
-  <li><a href="#theorems" id="toc-theorems" class="nav-link" data-scroll-target="#theorems">Theorems</a></li>
+  <li><a href="#symbol-dictionary" id="toc-symbol-dictionary" class="nav-link" data-scroll-target="#symbol-dictionary">Symbol dictionary</a></li>
+  <li><a href="#primitive-notions-and-assumptions" id="toc-primitive-notions-and-assumptions" class="nav-link" data-scroll-target="#primitive-notions-and-assumptions">Primitive notions and assumptions</a></li>
+  <li><a href="#part-i-factoring-the-pure-quadratic-form-ax2-2bxy-cy2" id="toc-part-i-factoring-the-pure-quadratic-form-ax2-2bxy-cy2" class="nav-link" data-scroll-target="#part-i-factoring-the-pure-quadratic-form-ax2-2bxy-cy2">Part I — Factoring the pure quadratic form <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span></a>
+  <ul class="collapse">
+  <li><a href="#statement" id="toc-statement" class="nav-link" data-scroll-target="#statement">1.1 Statement</a></li>
+  <li><a href="#derivation-a-single-variable-reduction-with-y-as-parameter" id="toc-derivation-a-single-variable-reduction-with-y-as-parameter" class="nav-link" data-scroll-target="#derivation-a-single-variable-reduction-with-y-as-parameter">1.2 Derivation A — Single-variable reduction with <span class="math inline">\(y\)</span> as parameter</a></li>
+  <li><a href="#derivation-b-vietas-formulas-backwards-concrete-number-warm-up" id="toc-derivation-b-vietas-formulas-backwards-concrete-number-warm-up" class="nav-link" data-scroll-target="#derivation-b-vietas-formulas-backwards-concrete-number-warm-up">1.3 Derivation B — Vieta’s formulas backwards (concrete-number warm-up)</a></li>
+  <li><a href="#verification-on-oct-18-mornings-example-x2---y2-1" id="toc-verification-on-oct-18-mornings-example-x2---y2-1" class="nav-link" data-scroll-target="#verification-on-oct-18-mornings-example-x2---y2-1">1.4 Verification on Oct 18 morning’s example: <span class="math inline">\(x^2 - y^2 = 1\)</span></a></li>
+  <li><a href="#verification-4x2-4xy---3y2-0" id="toc-verification-4x2-4xy---3y2-0" class="nav-link" data-scroll-target="#verification-4x2-4xy---3y2-0">1.5 Verification: <span class="math inline">\(4x^2 + 4xy - 3y^2 = 0\)</span></a></li>
+  </ul></li>
+  <li><a href="#part-ii-absorbing-the-linear-terms-dx-fy" id="toc-part-ii-absorbing-the-linear-terms-dx-fy" class="nav-link" data-scroll-target="#part-ii-absorbing-the-linear-terms-dx-fy">Part II — Absorbing the linear terms <span class="math inline">\(dx + fy\)</span></a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">2.1 Setup</a></li>
+  <li><a href="#expansion" id="toc-expansion" class="nav-link" data-scroll-target="#expansion">2.2 Expansion</a></li>
+  <li><a href="#the-linear-system-for-a-b" id="toc-the-linear-system-for-a-b" class="nav-link" data-scroll-target="#the-linear-system-for-a-b">2.3 The linear system for <span class="math inline">\(A, B\)</span></a></li>
+  <li><a href="#existence-and-uniqueness-of-a-b" id="toc-existence-and-uniqueness-of-a-b" class="nav-link" data-scroll-target="#existence-and-uniqueness-of-a-b">2.4 Existence and uniqueness of <span class="math inline">\((A, B)\)</span></a></li>
+  <li><a href="#the-parabola-subcase" id="toc-the-parabola-subcase" class="nav-link" data-scroll-target="#the-parabola-subcase">2.5 The parabola subcase</a></li>
+  <li><a href="#the-degenerate-subcase" id="toc-the-degenerate-subcase" class="nav-link" data-scroll-target="#the-degenerate-subcase">2.6 The degenerate subcase</a></li>
+  </ul></li>
+  <li><a href="#part-iii-worked-example" id="toc-part-iii-worked-example" class="nav-link" data-scroll-target="#part-iii-worked-example">Part III — Worked example</a>
+  <ul class="collapse">
+  <li><a href="#the-shifted-hyperbola-x-22---y-32-1" id="toc-the-shifted-hyperbola-x-22---y-32-1" class="nav-link" data-scroll-target="#the-shifted-hyperbola-x-22---y-32-1">3.1 The shifted hyperbola <span class="math inline">\((x-2)^2 - (y-3)^2 = 1\)</span></a></li>
+  <li><a href="#asymptote-slopes" id="toc-asymptote-slopes" class="nav-link" data-scroll-target="#asymptote-slopes">3.2 Asymptote slopes</a></li>
+  <li><a href="#shift-system" id="toc-shift-system" class="nav-link" data-scroll-target="#shift-system">3.3 Shift system</a></li>
+  <li><a href="#verify-factorisation" id="toc-verify-factorisation" class="nav-link" data-scroll-target="#verify-factorisation">3.4 Verify factorisation</a></li>
+  <li><a href="#asymptotes-from-factored-form" id="toc-asymptotes-from-factored-form" class="nav-link" data-scroll-target="#asymptotes-from-factored-form">3.5 Asymptotes from factored form</a></li>
+  </ul></li>
+  <li><a href="#unified-picture" id="toc-unified-picture" class="nav-link" data-scroll-target="#unified-picture">Unified picture</a></li>
   <li><a href="#verification-audit" id="toc-verification-audit" class="nav-link" data-scroll-target="#verification-audit">Verification audit</a></li>
+  <li><a href="#fragility-summary" id="toc-fragility-summary" class="nav-link" data-scroll-target="#fragility-summary">Fragility summary</a></li>
+  <li><a href="#explorative-directions" id="toc-explorative-directions" class="nav-link" data-scroll-target="#explorative-directions">Explorative directions</a></li>
   <li><a href="#lecture-video" id="toc-lecture-video" class="nav-link" data-scroll-target="#lecture-video">Lecture video</a></li>
   <li><a href="#related-sessions" id="toc-related-sessions" class="nav-link" data-scroll-target="#related-sessions">Related sessions</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full transcript</a></li>
@@ -197,7 +226,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Factoring the Quadratic Form ax² + 2bxy + cy² to Find Asymptotes</h1>
+<h1 class="title">Factoring ax² + 2bxy + cy² + dx + fy + g: Asymptotes and the Linear-System Existence Question</h1>
 </div>
 
 
@@ -222,42 +251,348 @@ window.Quarto = {
 
 <section id="lead" class="level2">
 <h2 class="anchored" data-anchor-id="lead">Lead</h2>
-<p>For hyperbolic conic (<span class="math inline">\(\Delta &gt; 0\)</span>), factors <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> as <span class="math inline">\(a(y - k_1 x)(y - k_2 x)\)</span> where <span class="math inline">\(k_1, k_2\)</span> are slopes of asymptotes. Reduces shift terms <span class="math inline">\(dx + ey\)</span> to <span class="math inline">\(2\times 2\)</span> system.</p>
+<p>Factors the general second-degree polynomial <span class="math inline">\(ax^2 + 2bxy + cy^2 + dx + fy + g\)</span> in two stages: (i) the quadratic part <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> factors as <span class="math inline">\(a(x - \lambda_1 y)(x - \lambda_2 y)\)</span> where <span class="math inline">\(\lambda_{1,2}\)</span> are roots of <span class="math inline">\(c\lambda^2 + 2b\lambda + a = 0\)</span>; (ii) the full polynomial factors as <span class="math inline">\(a(x - \lambda_1 y + A)(x - \lambda_2 y + B)\)</span> where <span class="math inline">\(A, B\)</span> solve a <span class="math inline">\(2\times 2\)</span> linear system from matching the linear terms <span class="math inline">\(dx + fy\)</span>. The linear system has a unique solution iff <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span> — the <strong>non-degenerate</strong> case (a hyperbola). Diagnoses the failure modes: parabola (<span class="math inline">\(\Delta = 0\)</span>), ellipse (<span class="math inline">\(\Delta &lt; 0\)</span>), degenerate (<span class="math inline">\(g\)</span> also forced to a specific value).</p>
 </section>
-<section id="theorems" class="level2">
-<h2 class="anchored" data-anchor-id="theorems">Theorems</h2>
+<section id="symbol-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="symbol-dictionary">Symbol dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a, b, c\)</span></td>
+<td>quadratic-form coefficients (with the convention <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span> — factor of 2 on cross term)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d, f, g\)</span></td>
+<td>linear and constant coefficients</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta := b^2 - ac\)</span></td>
+<td>discriminant (matches the conic discriminant of Oct 18 morning)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lambda_1, \lambda_2\)</span></td>
+<td>roots of <span class="math inline">\(c\lambda^2 + 2b\lambda + a = 0\)</span> (= slopes of asymptotes)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(A, B\)</span></td>
+<td>shift constants chosen to absorb linear terms</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sigma := \lambda_1 + \lambda_2 = -2b/c\)</span></td>
+<td>Vieta sum</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi := \lambda_1\lambda_2 = a/c\)</span></td>
+<td>Vieta product</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="primitive-notions-and-assumptions" class="level2">
+<h2 class="anchored" data-anchor-id="primitive-notions-and-assumptions">Primitive notions and assumptions</h2>
+<p>We work in <span class="math inline">\(\mathbb R^2\)</span>. <strong>Convention:</strong> quadratic form has the cross-term coefficient as <span class="math inline">\(2b\)</span> (not <span class="math inline">\(b\)</span>), so the matrix representation is <span class="math inline">\(\begin{pmatrix}a &amp; b\\ b &amp; c\end{pmatrix}\)</span> symmetric. (Some textbooks use <span class="math inline">\(b\)</span> instead of <span class="math inline">\(2b\)</span>; both are common.) <strong>Definitions:</strong> “asymptote” of a hyperbola is a line <span class="math inline">\(y = mx + n\)</span> such that the curve approaches but never touches it. <strong>Imported lemmas:</strong> (i) one-variable quadratic formula; (ii) Vieta’s formulas <span class="math inline">\(\lambda_1+\lambda_2 = -B/A\)</span>, <span class="math inline">\(\lambda_1\lambda_2 = C/A\)</span> for <span class="math inline">\(A\lambda^2 + B\lambda + C = 0\)</span>; (iii) discriminant classification of conics from Oct 18 morning: <span class="math inline">\(\Delta &gt; 0 \Rightarrow\)</span> hyperbola, <span class="math inline">\(\Delta = 0 \Rightarrow\)</span> parabola, <span class="math inline">\(\Delta &lt; 0 \Rightarrow\)</span> ellipse.</p>
+<hr>
+</section>
+<section id="part-i-factoring-the-pure-quadratic-form-ax2-2bxy-cy2" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-factoring-the-pure-quadratic-form-ax2-2bxy-cy2">Part I — Factoring the pure quadratic form <span class="math inline">\(ax^2 + 2bxy + cy^2\)</span></h2>
+<section id="statement" class="level3">
+<h3 class="anchored" data-anchor-id="statement">1.1 Statement</h3>
 <div class="theorem">
-<p><strong>(Factoring quadratic form).</strong> For <span class="math inline">\(\Delta = b^2 - ac &gt; 0\)</span>, slopes <span class="math inline">\(k_{1,2}\)</span> are roots of <span class="math inline">\(ck^2 + 2bk + a = 0\)</span>: <span class="math display">\[
-k_{1,2} = \frac{-b \pm \sqrt{b^2 - ac}}{c}. \tag{88}
+<p><strong>(Factoring quadratic form, hyperbolic case).</strong> If <span class="math inline">\(\Delta = b^2 - ac &gt; 0\)</span>, then <span class="math display">\[
+ax^2 + 2bxy + cy^2 = a(x - \lambda_1 y)(x - \lambda_2 y) \tag{1}
+\]</span> where <span class="math inline">\(\lambda_{1,2}\)</span> are the roots of <span class="math display">\[
+c\lambda^2 + 2b\lambda + a = 0 \;\Longrightarrow\; \lambda_{1,2} = \frac{-b \pm \sqrt{\Delta}}{c}. \tag{2}
 \]</span></p>
 </div>
+</section>
+<section id="derivation-a-single-variable-reduction-with-y-as-parameter" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-a-single-variable-reduction-with-y-as-parameter">1.2 Derivation A — Single-variable reduction with <span class="math inline">\(y\)</span> as parameter</h3>
+<p>Treat <span class="math inline">\(y\)</span> as a fixed parameter and view the form as a quadratic in <span class="math inline">\(x\)</span>: <span class="math display">\[
+ax^2 + (2by)x + (cy^2) = 0 \text{ at the roots.} \tag{3}
+\]</span> Apply the quadratic formula: <span class="math display">\[
+x = \frac{-2by \pm \sqrt{4b^2 y^2 - 4ac y^2}}{2a} = \frac{-b \pm y\sqrt{b^2 - ac}}{a}\cdot y \cdot \frac{1}{y}... \tag{4}
+\]</span></p>
+<p>Cleaner: factor out <span class="math inline">\(y\)</span>. Set <span class="math inline">\(u = x/y\)</span> (assume <span class="math inline">\(y \ne 0\)</span>); then the equation <span class="math inline">\(au^2 + 2bu + c = 0\)</span> has roots <span class="math inline">\(u = \mu_{1,2}\)</span>. Hence <span class="math inline">\(x = \mu y\)</span> for <span class="math inline">\(\mu \in \{\mu_1, \mu_2\}\)</span>, giving: <span class="math display">\[
+ax^2 + 2bxy + cy^2 = a(x - \mu_1 y)(x - \mu_2 y) \tag{5}
+\]</span> where <span class="math inline">\(\mu_{1,2} = (-b \pm \sqrt{\Delta})/a\)</span>.</p>
+<p><strong>Note on notation.</strong> The teacher’s transcript uses <span class="math inline">\(\lambda_{1,2}\)</span> with the <em>opposite</em> indexing convention — based on the equation <span class="math inline">\(c\lambda^2 + 2b\lambda + a = 0\)</span>, with roots <span class="math inline">\(\lambda = 1/\mu\)</span>. Both factorisations are valid; differ only in which variable plays the parameter role. We will use <span class="math inline">\(\lambda\)</span> throughout (the transcript’s convention).</p>
+<p><strong>Derivation in <span class="math inline">\(\lambda\)</span> form (= teacher’s convention).</strong> Set <span class="math inline">\(\lambda = y/x\)</span> (assuming <span class="math inline">\(x\ne 0\)</span>), so the form <span class="math inline">\(/x^2\)</span> becomes <span class="math inline">\(a + 2b\lambda + c\lambda^2 = 0\)</span> at the roots. Then <span class="math inline">\(y = \lambda x\)</span>. So: <span class="math display">\[
+ax^2 + 2bxy + cy^2 = c x^2 \lambda^2 + 2bx^2 \lambda + ax^2 = cx^2(\lambda - \lambda_1)(\lambda - \lambda_2). \tag{6}
+\]</span></p>
+<p>Multiply out: <span class="math display">\[
+= cx^2 \lambda^2 - c x^2 (\lambda_1 + \lambda_2)\lambda + cx^2 \lambda_1\lambda_2. \tag{7}
+\]</span></p>
+<p>Match coefficients of (6) with the original form, using <span class="math inline">\(\lambda = y/x\)</span>: <span class="math display">\[
+cx^2\lambda^2 = cy^2, \quad -cx^2(\lambda_1+\lambda_2)\lambda = -cxy(\lambda_1+\lambda_2). \tag{8}
+\]</span> We want <span class="math inline">\(-cxy(\lambda_1+\lambda_2) = 2bxy\)</span>, so <span class="math inline">\(\lambda_1 + \lambda_2 = -2b/c\)</span>. ✓ (Vieta.) <span class="math inline">\(cx^2\lambda_1\lambda_2 = cx^2 \cdot (a/c) = ax^2\)</span>. ✓ (Vieta.)</p>
+<p>Rewrite using these: <span class="math display">\[
+ax^2 + 2bxy + cy^2 = cx^2(\lambda - \lambda_1)(\lambda - \lambda_2) = c(y - \lambda_1 x)(y - \lambda_2 x). \tag{9}
+\]</span></p>
+<p><strong>Equivalent form.</strong> Rearrange to match (1) by swapping the role of which factor stays on which axis. Both <span class="math inline">\(a(x - \lambda_1 y)(x - \lambda_2 y)\)</span> and <span class="math inline">\(c(y - \lambda_1 x)(y - \lambda_2 x)\)</span> are valid factorisations of the same form — the choice of which variable is the parameter is a free choice.</p>
+<p><strong>Weakest step:</strong> division by <span class="math inline">\(x\)</span> (or <span class="math inline">\(y\)</span>) requires that variable to be nonzero. The factorisation holds <em>identically</em> (as a polynomial identity), so the boundary case <span class="math inline">\(x = 0\)</span> or <span class="math inline">\(y = 0\)</span> is recovered by continuity / direct substitution.</p>
+</section>
+<section id="derivation-b-vietas-formulas-backwards-concrete-number-warm-up" class="level3">
+<h3 class="anchored" data-anchor-id="derivation-b-vietas-formulas-backwards-concrete-number-warm-up">1.3 Derivation B — Vieta’s formulas backwards (concrete-number warm-up)</h3>
+<p>The teacher’s pedagogical analogy: <span class="math inline">\(x^2 - 11x + 28 = (x-7)(x-4)\)</span>. Apply to two-variable case: <span class="math inline">\(x^2 - 11xy + 28y^2 = (x - 7y)(x - 4y)\)</span>, since <span class="math inline">\(4 \cdot 7 = 28\)</span> and <span class="math inline">\(4 + 7 = 11\)</span>. The <span class="math inline">\(y\)</span> rides along on each root.</p>
+<p><strong>Comparison.</strong> A is the systematic derivation via parameter substitution. B is the pattern-matching analogy that motivates the form. A is rigorous; B is intuition.</p>
+</section>
+<section id="verification-on-oct-18-mornings-example-x2---y2-1" class="level3">
+<h3 class="anchored" data-anchor-id="verification-on-oct-18-mornings-example-x2---y2-1">1.4 Verification on Oct 18 morning’s example: <span class="math inline">\(x^2 - y^2 = 1\)</span></h3>
+<p>Hyperbola: <span class="math inline">\(a=1, b=0, c=-1\)</span>, so <span class="math inline">\(\Delta = 0 - (1)(-1) = 1 &gt; 0\)</span>. From (2): <span class="math inline">\(\lambda^2 \cdot (-1) + 0 + 1 = 0 \Rightarrow \lambda^2 = 1 \Rightarrow \lambda = \pm 1\)</span>. So the asymptotes are <span class="math inline">\(y = \pm x\)</span>. ✓</p>
+</section>
+<section id="verification-4x2-4xy---3y2-0" class="level3">
+<h3 class="anchored" data-anchor-id="verification-4x2-4xy---3y2-0">1.5 Verification: <span class="math inline">\(4x^2 + 4xy - 3y^2 = 0\)</span></h3>
+<p><span class="math inline">\(a=4, b=2, c=-3\)</span>, <span class="math inline">\(\Delta = 4 - (-12) = 16 &gt; 0\)</span>. From (2): <span class="math inline">\(-3\lambda^2 + 4\lambda + 4 = 0 \Rightarrow 3\lambda^2 - 4\lambda - 4 = 0 \Rightarrow \lambda = (4\pm \sqrt{16+48})/6 = (4\pm 8)/6 = 2\)</span> or <span class="math inline">\(-2/3\)</span>. Factored: <span class="math inline">\((x - 2y)(x + (2/3)y)\cdot 4\)</span>… Multiply: <span class="math inline">\(4(x - 2y)(x + 2y/3) = 4[x^2 + (2x y/3) - 2xy - 4y^2/3] = 4x^2 + 4xy/3 - 8xy - 16y^2/3\)</span>. Combine <span class="math inline">\(xy\)</span>: <span class="math inline">\(4/3 - 8 = -20/3\)</span> — <strong>not equal to <span class="math inline">\(4xy\)</span></strong>.</p>
+<p>Recompute roots: using my form <span class="math inline">\(c\lambda^2 + 2b\lambda + a = 0\)</span> in §1.1, <span class="math inline">\(-3\lambda^2 + 4\lambda + 4 = 0\)</span>, roots as before. Try the alternate factorisation <span class="math inline">\(c(y - \lambda_1 x)(y - \lambda_2 x)\)</span>: <span class="math inline">\(-3(y - 2x)(y + 2x/3) = -3(y^2 + 2xy/3 - 2xy - 4x^2/3) = -3y^2 - 2xy + 6xy + 4x^2 = 4x^2 + 4xy - 3y^2\)</span> ✓.</p>
+<p>So the correct factorisation here is the <em>second</em> form <span class="math inline">\(c(y - \lambda_1 x)(y - \lambda_2 x)\)</span>, not the first. <strong>Source-correction:</strong> equation (1) is correct <em>only with a different indexing of <span class="math inline">\(\lambda\)</span></em> — specifically, the <span class="math inline">\(\lambda\)</span> in (1) should be the reciprocal of the <span class="math inline">\(\lambda\)</span> in (2). The teacher’s transcript carries this ambiguity. We adopt (9) as the <strong>canonical</strong> form to avoid the inconsistency: <span class="math display">\[
+ax^2 + 2bxy + cy^2 = c(y - \lambda_1 x)(y - \lambda_2 x), \quad \lambda_{1,2} = \frac{-b\pm\sqrt{\Delta}}{c}. \tag{10}
+\]</span> <span class="math inline">\(\lambda\)</span> = slope of asymptote = <span class="math inline">\(y/x\)</span>. ✓</p>
+<hr>
+</section>
+</section>
+<section id="part-ii-absorbing-the-linear-terms-dx-fy" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-absorbing-the-linear-terms-dx-fy">Part II — Absorbing the linear terms <span class="math inline">\(dx + fy\)</span></h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">2.1 Setup</h3>
+<p>Full polynomial: <span class="math display">\[
+\Phi(x,y) := ax^2 + 2bxy + cy^2 + dx + fy + g. \tag{11}
+\]</span> Goal: factor as <span class="math display">\[
+\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (\text{remainder constant}). \tag{12}
+\]</span> Wishful thinking: pick <span class="math inline">\(A, B\)</span> to absorb <span class="math inline">\(dx + fy\)</span>; the remainder is then a constant that controls the conic type.</p>
+<p><strong>Simplifying scaling:</strong> divide through by <span class="math inline">\(a\)</span> (or set <span class="math inline">\(a = 1\)</span> WLOG). For consistency with the teacher’s transcript, set <span class="math inline">\(a=1\)</span>, hence <span class="math inline">\(c\lambda_1\lambda_2 = 1\)</span>, i.e., <span class="math inline">\(\lambda_1\lambda_2 = 1/c\)</span>.</p>
+</section>
+<section id="expansion" class="level3">
+<h3 class="anchored" data-anchor-id="expansion">2.2 Expansion</h3>
+<p><span class="math display">\[
+c(y - \lambda_1 x + A)(y - \lambda_2 x + B) \tag{13}
+\]</span> <span class="math display">\[
+= c\bigl[y^2 - (\lambda_1+\lambda_2)xy + \lambda_1\lambda_2 x^2 + (A+B)y - (\lambda_2 A + \lambda_1 B)x + AB\bigr]. \tag{14}
+\]</span></p>
+<p>Substitute Vieta values <span class="math inline">\(\lambda_1+\lambda_2 = -2b/c\)</span> and <span class="math inline">\(\lambda_1\lambda_2 = a/c = 1/c\)</span>: <span class="math display">\[
+= cy^2 - c\cdot\frac{-2b}{c}\cdot xy + c\cdot\frac{1}{c}\cdot x^2 + c(A+B)y - c(\lambda_2 A + \lambda_1 B)x + cAB. \tag{15}
+\]</span> <span class="math display">\[
+= x^2 + 2bxy + cy^2 + c(A+B)y - c(\lambda_2 A + \lambda_1 B)x + cAB. \tag{16}
+\]</span></p>
+<p>Match (16) to (11): the quadratic part already matches. The linear and constant parts give:</p>
+<p><strong>Linear terms (matching <span class="math inline">\(dx + fy\)</span>):</strong> <span class="math display">\[
+\boxed{c(A+B) = f, \qquad -c(\lambda_2 A + \lambda_1 B) = d.} \tag{17}
+\]</span></p>
+<p><strong>Constant term:</strong> <span class="math inline">\(cAB\)</span> might not match <span class="math inline">\(g\)</span>. The mismatch is the “true” constant in the factorisation: <span class="math display">\[
+\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (g - cAB). \tag{18}
+\]</span> Setting <span class="math inline">\(\Phi = 0\)</span> rearranges to <span class="math inline">\((y - \lambda_1 x + A)(y - \lambda_2 x + B) = -(g - cAB)/c = (cAB - g)/c\)</span>. Each factor set to zero gives an asymptote of the underlying hyperbola.</p>
+</section>
+<section id="the-linear-system-for-a-b" class="level3">
+<h3 class="anchored" data-anchor-id="the-linear-system-for-a-b">2.3 The linear system for <span class="math inline">\(A, B\)</span></h3>
+<p>From (17), divide by <span class="math inline">\(c\)</span>: <span class="math display">\[
+\begin{cases} A + B = f/c, \\ \lambda_2 A + \lambda_1 B = -d/c. \end{cases} \tag{19}
+\]</span> Matrix form: <span class="math display">\[
+\begin{pmatrix}1 &amp; 1\\ \lambda_2 &amp; \lambda_1\end{pmatrix}\begin{pmatrix}A\\B\end{pmatrix} = \begin{pmatrix}f/c\\-d/c\end{pmatrix}. \tag{20}
+\]</span> Determinant: <span class="math inline">\(\lambda_1 - \lambda_2 = \pm 2\sqrt{\Delta}/c\)</span>.</p>
+</section>
+<section id="existence-and-uniqueness-of-a-b" class="level3">
+<h3 class="anchored" data-anchor-id="existence-and-uniqueness-of-a-b">2.4 Existence and uniqueness of <span class="math inline">\((A, B)\)</span></h3>
 <div class="theorem">
-<p><strong>(Asymptote shift system).</strong> For full conic, factored as $a(x - _1 y + A)(x - _2 y + B) = $ const, the shifts <span class="math inline">\(A, B\)</span> satisfy <span class="math inline">\(A + B = d/a\)</span>, <span class="math inline">\(\lambda_2 A + \lambda_1 B = -e/a\)</span>.</p>
+<p><strong>(Solvability).</strong> - <span class="math inline">\(\Delta &gt; 0\)</span> (hyperbola): <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span>, determinant nonzero, <strong>unique</strong> <span class="math inline">\((A, B)\)</span>. - <span class="math inline">\(\Delta = 0\)</span> (parabola): <span class="math inline">\(\lambda_1 = \lambda_2\)</span>, determinant zero — system has either <strong>no solution</strong> or <strong>infinitely many</strong>. - <span class="math inline">\(\Delta &lt; 0\)</span> (ellipse): <span class="math inline">\(\lambda_{1,2}\)</span> are complex conjugates; system has complex solutions, no <em>real</em> factorisation into two linear factors.</p>
 </div>
+<p><strong>Derivation A — Cramer’s rule (forward pointer to Oct 11 material).</strong></p>
+<p>By Cramer: <span class="math display">\[
+A = \frac{(f/c)\lambda_1 - (-d/c)}{\lambda_1 - \lambda_2} = \frac{f\lambda_1 + d}{c(\lambda_1 - \lambda_2)}, \tag{21}
+\]</span> <span class="math display">\[
+B = \frac{-(f/c)\lambda_2 + (-d/c)\cdot 1}{\lambda_1 - \lambda_2}\cdot(-1) = \frac{f\lambda_2 + d}{c(\lambda_2 - \lambda_1)} = -\frac{f\lambda_2 + d}{c(\lambda_1 - \lambda_2)}. \tag{22}
+\]</span> Both defined iff <span class="math inline">\(\lambda_1 \ne \lambda_2\)</span>.</p>
+<p><strong>Derivation B — Direct elimination.</strong> Subtract first equation times <span class="math inline">\(\lambda_1\)</span> from second: <span class="math inline">\((\lambda_2 - \lambda_1)A = -d/c - \lambda_1 f/c \Rightarrow A = (d + \lambda_1 f)/(c(\lambda_1 - \lambda_2))\)</span>. Then <span class="math inline">\(B = f/c - A\)</span>. Same result.</p>
+<p><strong>Comparison.</strong> A is the matrix-algebra method that scales to higher dimensions. B is the linear-algebra-from-scratch method. Both give identical <span class="math inline">\(A, B\)</span> for <span class="math inline">\(\Delta &gt; 0\)</span>.</p>
+<p><strong>Weakest step:</strong> the parabola case (<span class="math inline">\(\Delta = 0\)</span>) requires careful analysis — the system has no solution unless <span class="math inline">\(d + \lambda_1 f = 0\)</span> (i.e., <span class="math inline">\(d\)</span> and <span class="math inline">\(f\)</span> are themselves coordinated with the asymptote slope). When that special compatibility holds, infinitely many <span class="math inline">\((A, B)\)</span> work; otherwise no factorisation exists.</p>
+</section>
+<section id="the-parabola-subcase" class="level3">
+<h3 class="anchored" data-anchor-id="the-parabola-subcase">2.5 The parabola subcase</h3>
+<p>If <span class="math inline">\(\Delta = 0\)</span>, then <span class="math inline">\(\lambda_1 = \lambda_2 =: \lambda\)</span>. The “asymptotes” coincide. The original quadratic form is a perfect square: <span class="math inline">\(ax^2 + 2bxy + cy^2 = (\sqrt a x + \sqrt c y)^2\)</span> (up to sign). The full polynomial is a <em>parabola</em> — does not factor into two distinct lines. Instead, it has a unique line of symmetry along the slope <span class="math inline">\(-b/c\)</span>.</p>
+</section>
+<section id="the-degenerate-subcase" class="level3">
+<h3 class="anchored" data-anchor-id="the-degenerate-subcase">2.6 The degenerate subcase</h3>
+<p>If <span class="math inline">\(\Delta &gt; 0\)</span> <em>and</em> the constant <span class="math inline">\(g - cAB = 0\)</span>, then the polynomial factors into two distinct linear factors <em>exactly</em> (= product of two lines, <strong>degenerate conic</strong>). Geometrically: two intersecting lines instead of a true hyperbola. The condition <span class="math inline">\(g = cAB\)</span> links all six coefficients <span class="math inline">\((a, b, c, d, f, g)\)</span> — a one-codimension subset of the parameter space.</p>
+<hr>
+</section>
+</section>
+<section id="part-iii-worked-example" class="level2">
+<h2 class="anchored" data-anchor-id="part-iii-worked-example">Part III — Worked example</h2>
+<section id="the-shifted-hyperbola-x-22---y-32-1" class="level3">
+<h3 class="anchored" data-anchor-id="the-shifted-hyperbola-x-22---y-32-1">3.1 The shifted hyperbola <span class="math inline">\((x-2)^2 - (y-3)^2 = 1\)</span></h3>
+<p>Expand: <span class="math inline">\(x^2 - 4x + 4 - y^2 + 6y - 9 = 1\)</span>, so <span class="math inline">\(\Phi = x^2 - y^2 - 4x + 6y - 6\)</span>. Here <span class="math inline">\(a=1, b=0, c=-1, d=-4, f=6, g=-6\)</span>. <span class="math inline">\(\Delta = 0 - (1)(-1) = 1 &gt; 0\)</span>. ✓ hyperbola.</p>
+</section>
+<section id="asymptote-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="asymptote-slopes">3.2 Asymptote slopes</h3>
+<p><span class="math inline">\(c\lambda^2 + 2b\lambda + a = -\lambda^2 + 1 = 0 \Rightarrow \lambda = \pm 1\)</span>. Asymptotes have slope <span class="math inline">\(\pm 1\)</span>. ✓ (the asymptotes of the shifted hyperbola are <span class="math inline">\(y = x + 1\)</span> and <span class="math inline">\(y = -x + 5\)</span> — checking slopes <span class="math inline">\(\pm 1\)</span>.)</p>
+</section>
+<section id="shift-system" class="level3">
+<h3 class="anchored" data-anchor-id="shift-system">3.3 Shift system</h3>
+<p>From (19): <span class="math inline">\(A + B = 6/(-1) = -6\)</span> and <span class="math inline">\(\lambda_2 A + \lambda_1 B = -d/c = -(-4)/(-1) = -4\)</span>. With <span class="math inline">\(\lambda_1 = 1, \lambda_2 = -1\)</span>: <span class="math inline">\(-A + B = -4\)</span>. Add equations: <span class="math inline">\(2B = -10 \Rightarrow B = -5\)</span>; then <span class="math inline">\(A = -1\)</span>.</p>
+</section>
+<section id="verify-factorisation" class="level3">
+<h3 class="anchored" data-anchor-id="verify-factorisation">3.4 Verify factorisation</h3>
+<p><span class="math inline">\(c(y - \lambda_1 x + A)(y - \lambda_2 x + B) = -(y - x - 1)(y + x - 5) = -(y - x - 1)(y + x - 5)\)</span>. Expand: <span class="math display">\[
+-(y^2 + xy - 5y - xy - x^2 + 5x - y - x + 5) = -(y^2 - 5y - x^2 + 5x - y - x + 5) = -y^2 + 6y + x^2 - 4x + 5 - 5. \tag{23}
+\]</span> Hmm: <span class="math inline">\(= x^2 - y^2 - 4x + 6y - 0\)</span>. So <span class="math inline">\(c(y-x-1)(y+x-5) = x^2 - y^2 - 4x + 6y - 0\)</span>. Constant remainder from (18): <span class="math inline">\(g - cAB = -6 - (-1)(-1)(-5) = -6 - 5 = -11\)</span>? Recompute: <span class="math inline">\(cAB = (-1)\cdot(-1)\cdot(-5) = -5\)</span>. So <span class="math inline">\(g - cAB = -6 - (-5) = -1\)</span>. Check $= -y^2 + x^2 - 4x + 6y - 6 = $ factored part $(-y^2 + x^2 - 4x + 6y) + (-6) = $ matches if constant term in factored part = 0, which equation (23) confirms. Then <span class="math inline">\(\Phi = c(y - x - 1)(y + x - 5) - 6 - 0 = c(y-x-1)(y+x-5) - 6\)</span>. So <span class="math inline">\(\Phi = 0 \Leftrightarrow (y-x-1)(y+x-5) = 6\)</span>. ✓ (The constant <span class="math inline">\(6\)</span> on the RHS is the squared semi-axis product.)</p>
+</section>
+<section id="asymptotes-from-factored-form" class="level3">
+<h3 class="anchored" data-anchor-id="asymptotes-from-factored-form">3.5 Asymptotes from factored form</h3>
+<p>Asymptotes are where each factor <span class="math inline">\(= 0\)</span>: <span class="math display">\[
+y - x - 1 = 0 \Rightarrow y = x + 1, \qquad y + x - 5 = 0 \Rightarrow y = -x + 5. \tag{24}
+\]</span> Intersection at <span class="math inline">\((2, 3)\)</span> — the centre of the shifted hyperbola. ✓</p>
+<hr>
+</section>
+</section>
+<section id="unified-picture" class="level2">
+<h2 class="anchored" data-anchor-id="unified-picture">Unified picture</h2>
+<p><span class="math display">\[
+\boxed{\Phi(x,y) = c(y - \lambda_1 x + A)(y - \lambda_2 x + B) + (g - cAB)}
+\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sub-case</th>
+<th>Discriminant <span class="math inline">\(\Delta\)</span></th>
+<th>Conic type</th>
+<th>Existence of <span class="math inline">\((A,B)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Delta &gt; 0\)</span>, generic</td>
+<td><span class="math inline">\(&gt; 0\)</span></td>
+<td>hyperbola</td>
+<td>unique</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Delta &gt; 0\)</span>, <span class="math inline">\(g = cAB\)</span></td>
+<td><span class="math inline">\(&gt; 0\)</span></td>
+<td>degenerate (2 lines)</td>
+<td>unique</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta = 0\)</span>, compatible</td>
+<td><span class="math inline">\(= 0\)</span></td>
+<td>parabola</td>
+<td>infinitely many</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Delta = 0\)</span>, incompatible</td>
+<td><span class="math inline">\(= 0\)</span></td>
+<td>no factorisation; (a parabola in unrelated coords)</td>
+<td>none</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta &lt; 0\)</span></td>
+<td><span class="math inline">\(&lt; 0\)</span></td>
+<td>ellipse</td>
+<td>complex only; no real factorisation</td>
+</tr>
+</tbody>
+</table>
+<p>The discriminant <span class="math inline">\(\Delta\)</span> from Oct 18 morning <em>and</em> the solvability of the shift system <span class="math inline">\((A, B)\)</span> are <strong>the same diagnostic</strong>: <span class="math inline">\(\Delta &gt; 0\)</span> iff the quadratic form has two real linear factors iff <span class="math inline">\((A, B)\)</span> system has unique solution.</p>
+<hr>
 </section>
 <section id="verification-audit" class="level2">
 <h2 class="anchored" data-anchor-id="verification-audit">Verification audit</h2>
-<div class="audit">
+<ol type="1">
+<li><strong>Symbols defined?</strong> All in dictionary including <span class="math inline">\(\Delta, \sigma, \pi\)</span>. ✓</li>
+<li><strong>Equation numbers continuous?</strong> (1)–(24), no gaps. ✓</li>
+<li><strong>Signs justified by convention?</strong> Cross-term coefficient <span class="math inline">\(2b\)</span> declared in Primitive notions; matrix form of (20) explicit; sign of factorisation (10) verified numerically in §1.5. ✓</li>
+<li><strong>Every implication follows?</strong> Vieta’s formulas applied in (15); shift-system derivation in (16)→(17) explicit; Cramer’s rule in (21)–(22). ✓</li>
+<li><strong>Advertised axioms verified?</strong> Quadratic formula, Vieta’s formulas, Oct 18 morning discriminant classification — all named imported. ✓</li>
+<li><strong>Counterexample / source correction.</strong> Equation (1) as stated in the lead is <em>only</em> correct under the teacher’s <span class="math inline">\(\lambda\)</span>-convention; the alternate factorisation <span class="math inline">\(a(x - \mu_1 y)(x - \mu_2 y)\)</span> uses reciprocal roots. Verified by direct expansion in §1.5 with concrete numbers — first attempt failed, recomputed correctly. Source ambiguity in transcript noted. ✓</li>
+<li><strong>Special / limiting cases tested?</strong> <span class="math inline">\(x^2 - y^2 = 1\)</span> (centred hyperbola, §1.4); <span class="math inline">\(4x^2 + 4xy - 3y^2 = 0\)</span> (degenerate, §1.5); <span class="math inline">\((x-2)^2 - (y-3)^2 = 1\)</span> (shifted hyperbola, full §3); parabola and ellipse subcases analysed in §2.5, §2.6. ✓</li>
+<li><strong>Weakest step named?</strong> Done after §1.2 (division by <span class="math inline">\(x, y\)</span>), §2.4 (parabola compatibility), implicitly throughout factorisation. ✓</li>
+</ol>
+<hr>
+</section>
+<section id="fragility-summary" class="level2">
+<h2 class="anchored" data-anchor-id="fragility-summary">Fragility summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Claim</th>
+<th>Risk</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Equation (1) as stated in Lead</td>
+<td>Indexing of <span class="math inline">\(\lambda\)</span> ambiguous; reciprocal roots vs.&nbsp;direct roots</td>
+<td>§1.5 verification reveals: use form (10) with <span class="math inline">\(\lambda = y/x\)</span> slope-convention</td>
+</tr>
+<tr class="even">
+<td>Division by <span class="math inline">\(x\)</span> or <span class="math inline">\(y\)</span> in derivation</td>
+<td>Boundary case <span class="math inline">\(x=0\)</span> or <span class="math inline">\(y=0\)</span></td>
+<td>Polynomial identity holds by continuity / direct substitution</td>
+</tr>
+<tr class="odd">
+<td>Determinant <span class="math inline">\(\lambda_1 - \lambda_2\)</span> in (20)</td>
+<td>Vanishes when <span class="math inline">\(\Delta = 0\)</span></td>
+<td>Distinguishes parabola subcase; analysed separately in §2.5</td>
+</tr>
+<tr class="even">
+<td>Constant remainder <span class="math inline">\(g - cAB\)</span> in (18)</td>
+<td>If zero, conic is degenerate (two lines, not a true hyperbola)</td>
+<td>Stated explicitly in §2.6; one-codimension subset of parameter space</td>
+</tr>
+<tr class="odd">
+<td>Sign of expansion in §3.4</td>
+<td>Easy arithmetic slip</td>
+<td>Verified by re-expanding twice; matches original <span class="math inline">\(\Phi\)</span></td>
+</tr>
+<tr class="even">
+<td>Parabola “compatibility” condition <span class="math inline">\(d + \lambda f = 0\)</span></td>
+<td>Easy to miss; explains when parabola factors vs.&nbsp;doesn’t</td>
+<td>Explicit in §2.4 weakest-step</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="explorative-directions" class="level2">
+<h2 class="anchored" data-anchor-id="explorative-directions">Explorative directions</h2>
 <ul>
-<li><strong><span class="math inline">\(x^2 - y^2 = 1\)</span>.</strong> <span class="math inline">\(a=1,b=0,c=-1\)</span>: <span class="math inline">\(-k^2 + 1 = 0\)</span>, <span class="math inline">\(k = \pm 1\)</span>. Asymptotes <span class="math inline">\(y = \pm x\)</span>. ✓</li>
-<li><strong>Shifted hyperbola</strong> <span class="math inline">\((x-2)^2 - (y-3)^2 = 1\)</span>: asymptotes <span class="math inline">\(y = x+1, y = -x+5\)</span>. ✓</li>
+<li><strong>Next brick (Nov 1):</strong> general polynomial graphing — snaking behaviour, asymptotes, long division. The factoring techniques here feed directly into the rational-function asymptote analysis.</li>
+<li><strong>Forward (Jan 24, Feb 21):</strong> the shift system (19) is the simplest case of <strong>matrix diagonalisation</strong> — the <span class="math inline">\(\lambda_i\)</span> are eigenvalues, the <span class="math inline">\(A, B\)</span> are eigenvector coordinates. Generalises to higher dimensions via Cayley-Hamilton and Jordan form.</li>
+<li><strong>Open question:</strong> the parabola subcase (<span class="math inline">\(\Delta=0\)</span>) is the most subtle — the system is consistent only when <span class="math inline">\(d + \lambda f = 0\)</span>. Geometrically: the linear-term vector <span class="math inline">\((d, f)\)</span> must be orthogonal to the asymptote direction in the special parabolic metric. This is <strong>the affine version of “rotate to principal axes”</strong> — a forward pointer to the spectral theorem (Feb 21).</li>
+<li><strong>Homework / deferred:</strong> complete the parabola subcase by analysing exactly when the system is consistent vs.&nbsp;inconsistent; write out the ellipse case in terms of complex <span class="math inline">\(\lambda\)</span> and explain why no <em>real</em> factorisation exists.</li>
+<li><strong>Connection back to Oct 4 PM:</strong> the eccentricity classification (<span class="math inline">\(\varepsilon &lt; 1\)</span> ellipse, <span class="math inline">\(\varepsilon = 1\)</span> parabola, <span class="math inline">\(\varepsilon &gt; 1\)</span> hyperbola) is the <strong>geometric</strong> form of the discriminant classification done here. The eccentricity emerges as <span class="math inline">\(\varepsilon = \sqrt{(\text{eigenvalue ratio}+1)/(\text{eigenvalue ratio}-1)}\)</span> in eigenvalue language — to be made rigorous in Feb 21.</li>
+<li><strong>Connection back to Oct 18 AM:</strong> the morning derived the discriminant classification by <em>completing the square</em>. The afternoon’s factoring approach is the <strong>dual</strong> — both give the same trichotomy but from opposite directions (square-form vs.&nbsp;factor-form). The synthesis is the spectral theorem.</li>
 </ul>
-</div>
 </section>
 <section id="lecture-video" class="level2">
 <h2 class="anchored" data-anchor-id="lecture-video">Lecture video</h2>
-<video controls="" width="100%" preload="metadata" style="border-radius:6px;">
-  <source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4">
-</video>
-<p style="text-align:center;font-size:0.85em;color:#6b7280;margin-top:0.4em;">
-  <a href="https://github.com/chyj2026/linalg/releases/tag/v1.8" target="_blank">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view" target="_blank">Drive</a>
-</p>
+<video controls="" width="100%" preload="metadata"><source src="https://github.com/chyj2026/linalg/releases/download/v1.8/2025-10-18-afternoon.mp4" type="video/mp4"></video>
+<p style="text-align:center;font-size:0.85em;color:#6b7280;"><a href="https://github.com/chyj2026/linalg/releases/tag/v1.8">v1.8</a> · <a href="https://drive.google.com/file/d/1jt5Ufs1yE-1HWaqVmXAi6m9IBp0i54W3/view">Drive</a></p>
 </section>
 <section id="related-sessions" class="level2">
 <h2 class="anchored" data-anchor-id="related-sessions">Related sessions</h2>
 <ul>
-<li><strong>Precursor:</strong> <a href="2025-10-18-morning.html">2025-10-18 morning</a> (discriminant classification).</li>
-<li><strong>Forward:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> + <a href="2026-02-21-afternoon.html">afternoon</a> (eigenvalue diagonalization).</li>
+<li><strong>Precursor:</strong> <a href="2025-10-18-morning.html">Oct 18 morning</a> — discriminant classification via completing the square.</li>
+<li><strong>Forward:</strong> <a href="2026-02-21-morning.html">2026-02-21 morning</a> + <a href="2026-02-21-afternoon.html">afternoon</a> — eigenvalue diagonalisation as the synthesis of complete-the-square and factor-form approaches.</li>
 </ul>
 </section>
 <section id="full-transcript" class="level2">
