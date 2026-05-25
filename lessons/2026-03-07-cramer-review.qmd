@@ -232,7 +232,7 @@ flowchart TB
 ## Related sessions
 
 - **Companion lesson same day:** [Cramer's Rule, Two-Sided Inverse, and Linear Vector Spaces](2026-03-07-LVS.html) — that session *imports* the cofactor inverse formula; this session proves it.
-- **First introduction of Cramer's rule:** 2025-10-11 morning/afternoon (draft) — three-points-through-a-parabola motivation.
+- **First introduction of Cramer's rule:** [2025-10-11 morning](2025-10-11-morning.html) and [afternoon](2025-10-11-afternoon.html) — three-points-through-a-parabola motivation.
 - **Next session topic preview:** rows of $M$ as normal vectors of hyperplanes; geometric proof of the singular dichotomy from intersection-of-planes pictures.
 
 ## Full transcript
